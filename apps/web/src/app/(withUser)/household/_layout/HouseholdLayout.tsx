@@ -26,6 +26,10 @@ const householdMenu: Navi[] = [
     url: paths.household.dashboard,
   },
   {
+    label: "収支予測",
+    url: paths.household.forecast,
+  },
+  {
     label: "残高チャート",
     url: paths.household.balanceChart,
   },

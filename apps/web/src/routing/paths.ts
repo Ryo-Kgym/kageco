@@ -6,6 +6,7 @@ export const paths = {
     dashboard: "/household/dashboard",
     balanceChart: "/household/chart",
     categoryChart: "/household/chart?type=category",
+    forecast: "/household/forecast",
     search: "/household/search",
     account: "/household/account",
     creditCard: "/household/creditCard",
