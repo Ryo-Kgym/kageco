@@ -24,7 +24,30 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
       />
     </head>
     <body>
-      <ClerkProvider>
+      <ClerkProvider
+        publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+        signUpUrl=""
+        appearance={{
+          elements: {
+            formButtonPrimary: "bg-indigo-600 hover:bg-indigo-700",
+            footerActionLink: "text-indigo-600 hover:text-indigo-700",
+            emailAddressInput: "hidden",
+            formFieldInput: "hidden",
+            formFieldLabel: "hidden",
+            formFieldAction: "hidden",
+            formButtonReset: "hidden",
+            dividerLine: "hidden",
+            dividerText: "hidden",
+            formFieldRow: "hidden",
+            identityPreview: "hidden",
+            footerAction: "hidden",
+          },
+          layout: {
+            socialButtonsVariant: "iconButton",
+            socialButtonsPlacement: "top",
+          },
+        }}
+      >
         <ClientsProviders>{children}</ClientsProviders>
       </ClerkProvider>
     </body>

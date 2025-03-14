@@ -1,6 +1,6 @@
-import { LoginContainer } from "../components/organisms/login/LoginContainer";
+import { EnhancedLoginContainer } from "../components/organisms/login/EnhancedLoginContainer";
 
 const TopPage = () => {
-  return <LoginContainer />;
+  return <EnhancedLoginContainer />;
 };
 export default TopPage;
