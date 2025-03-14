@@ -6,6 +6,7 @@
 
 import { SignInButton } from "@clerk/nextjs";
 import { useEffect } from "react";
+
 import { useAuth } from "../../../hooks/authentication/useAuth";
 
 export const EnhancedLoginContainer = () => {
@@ -28,15 +29,18 @@ export const EnhancedLoginContainer = () => {
 
       <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">
+          <h2 className="mb-4 text-2xl font-bold text-gray-800">
             アカウントにログイン
           </h2>
-          <p className="text-gray-600 mb-6">
+          <p className="mb-6 text-gray-600">
             サービスを利用するにはログインが必要です
           </p>
 
           <SignInButton mode="modal">
-            <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200">
+            <button
+              type="button"
+              className="w-full rounded-lg bg-indigo-600 px-4 py-3 font-bold text-white transition duration-200 hover:bg-indigo-700"
+            >
               ログイン
             </button>
           </SignInButton>
