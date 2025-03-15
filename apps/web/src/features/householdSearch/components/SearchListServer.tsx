@@ -13,14 +13,20 @@ type Props = {
   fromDate: YYYY_MM_DD;
   toDate: YYYY_MM_DD;
   tagIds: string[];
+  categoryIdsFromUrl?: string[];
 };
 
 export const SearchListServer: FC<Props> = async ({
   fromDate,
   toDate,
   tagIds,
+  categoryIdsFromUrl = [],
 }) => {
-  const categoryIds = await findCategoryIds();
+  // URLのクエリパラメータにcategoryIdsが存在する場合はそれを優先して使用
+  const categoryIds =
+    categoryIdsFromUrl.length > 0
+      ? categoryIdsFromUrl
+      : await findCategoryIds();
   const accountIds = await findAccountIds();
 
   const { records } = await fetchDetails({

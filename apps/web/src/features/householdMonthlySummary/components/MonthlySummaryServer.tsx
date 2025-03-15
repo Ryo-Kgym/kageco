@@ -33,7 +33,13 @@ export const MonthlySummaryServer = async ({
         categoryIds={categoryIds}
         accountIds={accountIds}
       />
-      <MonthlySummaryTable columns={columns} records={details} totals={total} />
+      <MonthlySummaryTable
+        columns={columns}
+        records={details}
+        totals={total}
+        fromDate={fromDate?.toString()}
+        toDate={toDate?.toString()}
+      />
     </div>
   );
 };

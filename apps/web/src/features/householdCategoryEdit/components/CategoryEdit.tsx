@@ -1,11 +1,12 @@
 "use client";
 
-import {
-  useGetCategoryByIdQuery,
-  useUpdateCategoryByIdMutation,
-} from "@v3/graphql/household";
 import { GenreSelect } from "components/ui/select/GenreSelect";
+import { useRouter } from "next/navigation";
 import { type ReactNode, useEffect, useState } from "react";
+
+import type { CategoryData } from "../useServer/getCategoryById";
+import { getCategoryById } from "../useServer/getCategoryById";
+import { updateCategoryById } from "../useServer/updateCategoryById";
 
 import { GenreNameTextInput } from "../../../components/molecules/CustomTextInput";
 import { Button } from "../../../components/ui/button/v5";
@@ -16,6 +17,9 @@ import { IocomeType } from "../../../domain/model/household/IocomeType";
 import { errorPopup, successPopup } from "../../../function/successPopup";
 
 export const CategoryEdit = ({ categoryId }: { categoryId: string }) => {
+  const router = useRouter();
+  const [categoryData, setCategoryData] = useState<CategoryData | null>(null);
+  const [loading, setLoading] = useState(true);
   const [inputCategoryName, setInputCategoryName] = useState<string>("");
   const [inputIocomeType, setInputIocomeType] = useState<IocomeType>(
     IocomeType.Income,
@@ -24,28 +28,34 @@ export const CategoryEdit = ({ categoryId }: { categoryId: string }) => {
   const [inputIsValid, setInputIsValid] = useState<boolean>(true);
   const [inputDisplayOrder, setInputDisplayOrder] = useState<number | "">(0);
 
-  const [{ data, fetching }] = useGetCategoryByIdQuery({
-    variables: {
-      categoryId,
-    },
-  });
-  const {
-    categoryName,
-    displayOrder,
-    validFlag,
-    genre: { genreId, iocomeType },
-  } = data?.category ?? {
-    categoryName: "",
-    displayOrder: 0,
-    validFlag: true,
-    genre: { genreId: "", iocomeType: IocomeType.Income },
-  };
+  // カテゴリデータの取得
+  useEffect(() => {
+    const fetchCategoryData = async () => {
+      try {
+        setLoading(true);
+        const data = await getCategoryById({ categoryId });
+        setCategoryData(data);
 
-  const [, mutation] = useUpdateCategoryByIdMutation();
+        // 取得したデータで状態を初期化
+        setInputCategoryName(data.categoryName);
+        setInputIocomeType(data.genre.iocomeType);
+        setInputGenreId(data.genre.genreId);
+        setInputIsValid(data.validFlag);
+        setInputDisplayOrder(data.displayOrder);
+      } catch (e) {
+        console.error(e);
+        errorPopup("カテゴリの取得に失敗しました");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategoryData();
+  }, [categoryId]);
 
   const updateHandler = async () => {
     try {
-      await mutation({
+      await updateCategoryById({
         categoryId,
         categoryName: inputCategoryName,
         genreId: inputGenreId as string,
@@ -53,39 +63,24 @@ export const CategoryEdit = ({ categoryId }: { categoryId: string }) => {
         displayOrder: Number(inputDisplayOrder),
       });
       successPopup("更新しました");
+
+      // カテゴリ一覧ページに戻り、一覧を更新する
+      router.push("/household/setting/category");
+      router.refresh(); // ページをリフレッシュして一覧を更新
     } catch (e) {
       errorPopup("更新に失敗しました");
       console.error(e);
     }
   };
 
+  // 収支区分が変更された場合、ジャンルをリセット
   useEffect(() => {
-    setInputCategoryName(categoryName);
-  }, [categoryName]);
+    if (categoryData && inputIocomeType !== categoryData.genre.iocomeType) {
+      setInputGenreId(null);
+    }
+  }, [inputIocomeType, categoryData]);
 
-  useEffect(() => {
-    setInputIocomeType(iocomeType as IocomeType);
-  }, [iocomeType]);
-
-  useEffect(() => {
-    setInputGenreId(
-      inputIocomeType !== (iocomeType as IocomeType) ? null : genreId,
-    );
-  }, [inputIocomeType, genreId, iocomeType]);
-
-  useEffect(() => {
-    setInputGenreId(genreId);
-  }, [genreId]);
-
-  useEffect(() => {
-    setInputIsValid(validFlag ?? true);
-  }, [validFlag]);
-
-  useEffect(() => {
-    setInputDisplayOrder(displayOrder);
-  }, [displayOrder]);
-
-  if (fetching) return <div>Loading....</div>;
+  if (loading) return <div>Loading....</div>;
 
   return (
     <div className={"w-full p-2"}>

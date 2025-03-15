@@ -89,8 +89,10 @@ const TagInputCheckbox: FC<{
   checked: boolean;
   onChange: () => void;
 }> = ({ id, label, checked, onChange }) => (
-  <div>
+  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
     <input type="checkbox" id={id} checked={checked} onChange={onChange} />
-    <label htmlFor={id}>{label}</label>
+    <label htmlFor={id} style={{ whiteSpace: "nowrap" }}>
+      {label}
+    </label>
   </div>
 );
