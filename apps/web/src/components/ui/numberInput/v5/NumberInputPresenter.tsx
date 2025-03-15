@@ -31,6 +31,7 @@ export const NumberInputPresenter = ({
       withAsterisk={withAsterisk}
       hideControls
       disabled={disabled}
+      type="tel"
     />
   </>
 );
