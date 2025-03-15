@@ -1,5 +1,6 @@
 "use client";
 
+import type { YYYYmmDD } from "@/type/date/date";
 import { useRouter } from "next/navigation";
 import type { FC } from "react";
 
@@ -23,12 +24,16 @@ type Props = {
   columns: Record<string, ColumnAttribute>;
   records: RowAttribute[];
   totals: RowAttribute[];
+  fromDate?: string;
+  toDate?: string;
 };
 
 export const MonthlySummaryTable: FC<Props> = ({
   columns,
   records,
   totals: [incomeTotal, outcomeTotal],
+  fromDate,
+  toDate,
 }) => {
   const router = useRouter();
 
@@ -36,8 +41,21 @@ export const MonthlySummaryTable: FC<Props> = ({
     // 合計行はクリックしても遷移しない
     if (record.id === "total") return;
 
+    // クエリパラメータを構築
+    const params = new URLSearchParams();
+    params.append("categoryIds", record.id);
+
+    // fromDateとtoDateが存在する場合、クエリパラメータに追加
+    if (fromDate) {
+      params.append("fromDate", fromDate);
+    }
+
+    if (toDate) {
+      params.append("toDate", toDate);
+    }
+
     // 検索ページに遷移
-    router.push(`${paths.household.search}?categoryIds=${record.id}`);
+    router.push(`${paths.household.search}?${params.toString()}`);
   };
   return (
     <DataTable<(typeof records)[number]>

@@ -54,7 +54,7 @@ export const SearchFormClient: FC<Props> = ({
     <div className="flex items-center gap-2">
       <Button label={"絞り込み"} onClick={() => setIsOpen(true)} type={"add"} />
       <Link
-        href={`${paths.household.monthlySummary.root()}${form.fromDate || form.toDate ? `?from=${form.fromDate ? convertToYmd(form.fromDate) : ""}&to=${form.toDate ? convertToYmd(form.toDate) : ""}` : ""}`}
+        href={`${paths.household.monthlySummary.root()}${form.fromDate || form.toDate ? `?fromDate=${form.fromDate ? convertToYmd(form.fromDate) : ""}&toDate=${form.toDate ? convertToYmd(form.toDate) : ""}` : ""}`}
         className="text-blue-600 hover:underline"
       >
         月次サマリーに戻る
