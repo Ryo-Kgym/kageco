@@ -1,10 +1,12 @@
 "use client";
 
 import type { FC } from "react";
+import { useRouter } from "next/navigation";
 
 import { FormatPrice } from "../../../components/molecules/FormatPrice";
 import { DataTable } from "../../../components/ui/v4/table";
 import { IocomeType } from "../../../domain/model/household/IocomeType";
+import { paths } from "../../../routing/paths";
 
 type ColumnAttribute = {
   title: string;
@@ -28,8 +30,18 @@ export const MonthlySummaryTable: FC<Props> = ({
   records,
   totals: [incomeTotal, outcomeTotal],
 }) => {
+  const router = useRouter();
+
+  const handleRowClick = (record: RowAttribute) => {
+    // 合計行はクリックしても遷移しない
+    if (record.id === "total") return;
+    
+    // 検索ページに遷移
+    router.push(`${paths.household.search}?categoryIds=${record.id}`);
+  };
   return (
     <DataTable<(typeof records)[number]>
+      onRowClick={handleRowClick}
       columns={[
         {
           accessor: "id",

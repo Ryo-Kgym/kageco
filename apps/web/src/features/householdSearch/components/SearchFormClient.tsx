@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import type { FC } from "react";
 import { useState } from "react";
 
@@ -13,6 +14,7 @@ import { convertToYmd } from "../../../function/date/convertToYmd";
 import { saveAccountIds } from "../../../persistence/browser/client/saveAccountIds";
 import { saveCategoryIds } from "../../../persistence/browser/client/saveCategoryIds";
 import { useRouter } from "../../../routing/client/useRouter";
+import { paths } from "../../../routing/paths";
 import type { YYYY_MM_DD } from "../../../types/yyyyMMdd";
 
 type Props = {
@@ -49,8 +51,14 @@ export const SearchFormClient: FC<Props> = ({
   const { push } = useRouter();
 
   return (
-    <div>
+    <div className="flex items-center gap-2">
       <Button label={"絞り込み"} onClick={() => setIsOpen(true)} type={"add"} />
+      <Link
+        href={`${paths.household.monthlySummary.root()}${form.fromDate || form.toDate ? `?from=${form.fromDate ? convertToYmd(form.fromDate) : ""}&to=${form.toDate ? convertToYmd(form.toDate) : ""}` : ""}`}
+        className="text-blue-600 hover:underline"
+      >
+        月次サマリーに戻る
+      </Link>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <DateInput
           label={"From"}
