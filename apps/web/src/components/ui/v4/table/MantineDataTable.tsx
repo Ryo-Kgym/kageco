@@ -2,10 +2,12 @@
 
 import { DataTable } from "mantine-datatable";
 import { type ReactNode, useEffect, useState } from "react";
+import { TableHeader } from "./components/TableHeader";
+import { useTableFilter } from "./hooks/useTableFilter";
 
-type DataTableRowType<R extends object> = { id: string } & R;
+export type DataTableRowType<R extends object> = { id: string } & R;
 
-type ColumnProps<R extends object> = {
+export type ColumnProps<R extends object> = {
   accessor: keyof R;
   title?: string;
   width?: number | string;
@@ -13,9 +15,10 @@ type ColumnProps<R extends object> = {
   render?: (record: R) => ReactNode;
   hidden?: boolean;
   footer?: ReactNode;
+  filterable?: boolean;
 };
 
-type DataTableProps<R extends object> = {
+export type DataTableProps<R extends object> = {
   columns: ColumnProps<R>[];
   records: DataTableRowType<R>[];
   onRowClick?: (record: DataTableRowType<R>) => void;
@@ -31,16 +34,52 @@ export const MantineDataTable = <R extends object>({
   recordsPerPage = 30,
 }: DataTableProps<R>) => {
   const [page, setPage] = useState(1);
+  const {
+    filteredRecords: filteredDefaultRecords,
+    filterValues,
+    updateFilter,
+    clearFilter,
+  } = useTableFilter<R>(defaultRecords);
+
   const [records, setRecords] = useState(
-    defaultRecords?.slice(0, recordsPerPage),
+    filteredDefaultRecords?.slice(0, recordsPerPage),
   );
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  // ページが変更されたとき、またはフィルターが変更されたときにレコードを更新
   useEffect(() => {
     const from = (page - 1) * recordsPerPage;
     const to = from + recordsPerPage;
-    setRecords(defaultRecords?.slice(from, to));
-  }, [defaultRecords, page]);
+    setRecords(filteredDefaultRecords?.slice(from, to));
+  }, [filteredDefaultRecords, page, recordsPerPage]);
+
+  // フィルターが変更されたときにページを1に戻す
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    setPage(1);
+  }, [filterValues]);
+
+  // カラムにヘッダーコンポーネントを追加
+  const enhancedColumns = columns.map((column) => {
+    // filterable が明示的に false でない限り、フィルター可能とする
+    const isFilterable = column.filterable !== false;
+
+    if (isFilterable) {
+      return {
+        ...column,
+        title: (
+          <TableHeader
+            title={column.title || String(column.accessor)}
+            accessor={String(column.accessor)}
+            filterValues={filterValues}
+            onFilterChange={updateFilter}
+            onClearFilter={clearFilter}
+          />
+        ),
+      };
+    }
+
+    return column;
+  });
 
   return (
     <DataTable
@@ -49,20 +88,24 @@ export const MantineDataTable = <R extends object>({
       withColumnBorders
       striped
       records={records}
-      columns={columns}
-      totalRecords={defaultRecords?.length ?? 0}
+      columns={enhancedColumns}
+      totalRecords={filteredDefaultRecords?.length ?? 0}
       recordsPerPage={recordsPerPage}
       page={page}
       onPageChange={(p) => setPage(p)}
       paginationSize="md"
-      loadingText="Loading..."
-      noRecordsText="No records found"
+      loadingText="読み込み中..."
+      noRecordsText="データがありません"
       paginationText={({ from, to, totalRecords }) =>
-        `Records ${from} - ${to} of ${totalRecords}`
+        `${totalRecords}件中 ${from}〜${to}件を表示`
       }
       paginationActiveBackgroundColor="green"
       paginationActiveTextColor="#e6e348"
-      onRowClick={(record) => onRowClick?.(record.record)}
+      onRowClick={
+        onRowClick
+          ? (record) => onRowClick(record as unknown as DataTableRowType<R>)
+          : undefined
+      }
     />
   );
 };

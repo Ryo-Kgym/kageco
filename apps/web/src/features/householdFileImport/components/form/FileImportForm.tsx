@@ -12,6 +12,8 @@ import { useBuildTable } from "../../client/useBuildTable";
 import { useImportFileRowAware } from "../../client/useImportFileRowAware";
 import { useLoadFile } from "../../client/useLoadFile";
 import { useMessage } from "../../client/useMessage";
+import { useProcessQuotedCsv } from "../../client/useProcessQuotedCsv";
+import { useRemoveColumn } from "../../client/useRemoveColumn";
 import type { ImportFileType } from "../../types/importFileType";
 import { registerImported } from "../../useServer/registerImported";
 import { LoadFileInputTable } from "./LoadFileInputTable";
@@ -27,6 +29,10 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
   const { uploadFile, onChange, loadFile, setLoadFile } = useLoadFile();
   const { buildable, header, body } = useBuildTable(loadFile);
   const { message } = useMessage(loadFile);
+  const { processCsv, isProcessing } = useProcessQuotedCsv();
+  const { removeColumnFromCsv, isProcessing: isRemovingColumn } =
+    useRemoveColumn();
+  const [columnToRemove, setColumnToRemove] = useState<string>("");
   const { importFileRowAware, clearImportFileRowAware } =
     useImportFileRowAware();
 
@@ -96,13 +102,70 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
         />
         <FileInput onChange={onChange} />
       </div>
-      <textarea
-        className={"h-96 w-full border-2 border-solid p-2"}
-        value={loadFile}
-        onChange={(e) => {
-          setLoadFile(e.target.value);
-        }}
-      />
+      <div className="space-y-2">
+        <div className="flex justify-between">
+          <Button
+            label="テキストをクリア"
+            onClick={() => {
+              setLoadFile("");
+              clearImportFileRowAware();
+            }}
+            disabled={!loadFile}
+            type="reset"
+          />
+          <div className="flex space-x-2">
+            <div className="flex items-center space-x-2">
+              <input
+                type="number"
+                min="1"
+                placeholder="列番号"
+                value={columnToRemove}
+                onChange={(e) => setColumnToRemove(e.target.value)}
+                className="w-20 p-2 border border-gray-300 rounded"
+              />
+              <Button
+                label="列を削除"
+                onClick={() => {
+                  if (loadFile && columnToRemove !== "") {
+                    const columnIndex = Number.parseInt(columnToRemove, 10);
+                    if (!Number.isNaN(columnIndex) && columnIndex >= 1) {
+                      // 1始まりの列番号を0始まりのインデックスに変換
+                      const processed = removeColumnFromCsv(
+                        loadFile,
+                        columnIndex - 1,
+                      );
+                      setLoadFile(processed);
+                      setColumnToRemove("");
+                    }
+                  }
+                }}
+                disabled={
+                  isRemovingColumn || !loadFile || columnToRemove === ""
+                }
+                type="dangerous"
+              />
+            </div>
+            <Button
+              label="引用符内のカンマを処理"
+              onClick={() => {
+                if (loadFile) {
+                  const processed = processCsv(loadFile);
+                  setLoadFile(processed);
+                }
+              }}
+              disabled={isProcessing || !loadFile}
+              type="modify"
+            />
+          </div>
+        </div>
+        <textarea
+          className={"h-96 w-full border-2 border-solid p-2"}
+          value={loadFile}
+          onChange={(e) => {
+            setLoadFile(e.target.value);
+          }}
+        />
+      </div>
       <div className={"text-red-500"}>
         {message.map((m, i) => (
           // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
