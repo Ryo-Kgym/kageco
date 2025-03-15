@@ -12,6 +12,7 @@ import { useBuildTable } from "../../client/useBuildTable";
 import { useImportFileRowAware } from "../../client/useImportFileRowAware";
 import { useLoadFile } from "../../client/useLoadFile";
 import { useMessage } from "../../client/useMessage";
+import { useProcessQuotedCsv } from "../../client/useProcessQuotedCsv";
 import type { ImportFileType } from "../../types/importFileType";
 import { registerImported } from "../../useServer/registerImported";
 import { LoadFileInputTable } from "./LoadFileInputTable";
@@ -27,6 +28,7 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
   const { uploadFile, onChange, loadFile, setLoadFile } = useLoadFile();
   const { buildable, header, body } = useBuildTable(loadFile);
   const { message } = useMessage(loadFile);
+  const { processCsv, isProcessing } = useProcessQuotedCsv();
   const { importFileRowAware, clearImportFileRowAware } =
     useImportFileRowAware();
 
@@ -96,13 +98,28 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
         />
         <FileInput onChange={onChange} />
       </div>
-      <textarea
-        className={"h-96 w-full border-2 border-solid p-2"}
-        value={loadFile}
-        onChange={(e) => {
-          setLoadFile(e.target.value);
-        }}
-      />
+      <div className="space-y-2">
+        <div className="flex justify-end">
+          <Button
+            label="引用符内のカンマを処理"
+            onClick={() => {
+              if (loadFile) {
+                const processed = processCsv(loadFile);
+                setLoadFile(processed);
+              }
+            }}
+            disabled={isProcessing || !loadFile}
+            type="modify"
+          />
+        </div>
+        <textarea
+          className={"h-96 w-full border-2 border-solid p-2"}
+          value={loadFile}
+          onChange={(e) => {
+            setLoadFile(e.target.value);
+          }}
+        />
+      </div>
       <div className={"text-red-500"}>
         {message.map((m, i) => (
           // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
