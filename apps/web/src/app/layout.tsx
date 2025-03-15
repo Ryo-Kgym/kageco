@@ -34,8 +34,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
         signUpUrl=""
         appearance={{
           elements: {
-            formButtonPrimary: "bg-indigo-600 hover:bg-indigo-700",
-            footerActionLink: "text-indigo-600 hover:text-indigo-700",
+            formButtonPrimary: "bg-sky-500 hover:bg-sky-600",
+            footerActionLink: "text-sky-500 hover:text-sky-600",
             emailAddressInput: "hidden",
             formFieldInput: "hidden",
             formFieldLabel: "hidden",
