@@ -103,7 +103,17 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
         <FileInput onChange={onChange} />
       </div>
       <div className="space-y-2">
-        <div className="flex justify-end space-x-2">
+        <div className="flex justify-between">
+          <Button
+            label="テキストをクリア"
+            onClick={() => {
+              setLoadFile("");
+              clearImportFileRowAware();
+            }}
+            disabled={!loadFile}
+            type="reset"
+          />
+          <div className="flex space-x-2">
           <div className="flex items-center space-x-2">
             <input
               type="number"
@@ -144,6 +154,7 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
             disabled={isProcessing || !loadFile}
             type="modify"
           />
+          </div>
         </div>
         <textarea
           className={"h-96 w-full border-2 border-solid p-2"}
