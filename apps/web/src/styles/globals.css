@@ -397,5 +397,27 @@ Ensure the default browser behavior of the `hidden` attribute.
 [hidden] {
     display: none;
 }
+/* モバイルデバイスでの自動ズームを防止するスタイル */
+input,
+select,
+textarea,
+.mantine-NumberInput-input,
+.mantine-TextInput-input,
+.mantine-Select-input,
+.mantine-Textarea-input {
+  font-size: 16px !important; /* 16px以上のフォントサイズを設定 */
+  transform: scale(0.875); /* 見た目のサイズを小さくする（16px * 0.875 = 14px相当） */
+  transform-origin: left top;
+  width: 114%; /* スケール変換による幅の調整（1/0.875 ≈ 1.14） */
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  touch-action: manipulation;
+}
+
+/* モバイルデバイスでのタッチ操作を最適化 */
+* {
+  touch-action: manipulation;
+}
+
 @tailwind components;
 @tailwind utilities;
