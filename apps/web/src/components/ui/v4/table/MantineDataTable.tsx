@@ -101,11 +101,7 @@ export const MantineDataTable = <R extends object>({
       }
       paginationActiveBackgroundColor="green"
       paginationActiveTextColor="#e6e348"
-      onRowClick={
-        onRowClick
-          ? (record) => onRowClick(record as unknown as DataTableRowType<R>)
-          : undefined
-      }
+      onRowClick={(record) => onRowClick?.(record.record)}
     />
   );
 };
