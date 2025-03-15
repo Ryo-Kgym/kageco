@@ -1,30 +1,68 @@
 "use client";
 
-import type { FC } from "react";
+import { type FC, useState, useTransition } from "react";
 import { Button } from "../../../../components/ui/button/v5";
+import { sortCategoriesByFrequencyAction } from "../../actions/sortCategoriesByFrequencyAction";
 
 export const SortFrequentlyUsedCategoriesButton: FC = () => {
+  const [isPending, startTransition] = useTransition();
+  const [progress, setProgress] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [message, setMessage] = useState<string | null>(null);
+
   const handleSortFrequentlyUsedCategories = async () => {
-    try {
-      // クライアントコンポーネントでfindUserを使用するには、クライアントサイドで実行可能なAPIを使用する必要があります
-      // 実際の実装では、APIルートを作成して呼び出すか、別の方法でグループIDを取得する必要があります
+    if (isPending) return;
 
-      // 例: const response = await fetch('/api/household/category/sort-by-frequency', { method: 'POST' });
+    setProgress(0);
+    setTotal(0);
+    setMessage(null);
 
-      // 現在はモックとしてアラートを表示
-      console.log("Sort frequently used categories");
-      alert("カテゴリを使用頻度順に並び替えました");
-    } catch (error) {
-      console.error("Error sorting categories:", error);
-      alert("カテゴリの並び替えに失敗しました");
-    }
+    // サーバーアクションを実行
+    startTransition(async () => {
+      try {
+        // 進捗コールバックは直接渡せないため、クライアント側で進捗を管理
+        const result = await sortCategoriesByFrequencyAction();
+
+        if (result.success) {
+          setMessage(`成功: ${result.message}`);
+        } else {
+          setMessage(`エラー: ${result.message}`);
+        }
+      } catch (error) {
+        console.error("Error sorting categories:", error);
+        setMessage("エラー: カテゴリの並び替えに失敗しました");
+      }
+    });
   };
 
   return (
-    <Button
-      onClick={handleSortFrequentlyUsedCategories}
-      type="modify"
-      label="よく使うカテゴリに並び替える"
-    />
+    <div>
+      <Button
+        onClick={handleSortFrequentlyUsedCategories}
+        type="modify"
+        label="よく使うカテゴリに並び替える"
+        disabled={isPending}
+      />
+
+      {isPending && message && (
+        <div className="mt-4 p-2 rounded bg-gray-100">
+          <p className="text-sm">{message}</p>
+        </div>
+      )}
+
+      {isPending && total > 0 && (
+        <div className="mt-4">
+          <div className="text-sm mb-1">
+            処理中... {progress}/{total}
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2.5">
+            <div
+              className="bg-blue-600 h-2.5 rounded-full"
+              style={{ width: `${Math.round((progress / total) * 100)}%` }}
+            />
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
