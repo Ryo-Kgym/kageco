@@ -10,7 +10,6 @@ import { IocomeTypeSegment } from "../../../components/ui/segment/IocomeTypeSegm
 import { AccountSelect } from "../../../components/ui/select/AccountSelect";
 import { CategorySelect } from "../../../components/ui/select/CategorySelect";
 import { GenreSelect } from "../../../components/ui/select/GenreSelect";
-import { TagInputWrapper } from "../../../components/ui/tag/TagInputWrapper";
 import { Loading } from "../../../components/ui/v5/loading/Loading";
 import { errorPopup, successPopup } from "../../../function/successPopup";
 import { useNavigation } from "../../../routing/client/useNavigation";
@@ -37,11 +36,11 @@ export const DuplicateDailyDetail = ({
       await duplicateDailyDetail({
         ...form,
       });
-      successPopup("登録しました");
+      successPopup("複製登録しました");
       refresh();
       onClose();
     } catch (e) {
-      errorPopup("登録に失敗しました");
+      errorPopup("複製登録に失敗しました");
     }
   };
 
@@ -111,12 +110,6 @@ export const DuplicateDailyDetail = ({
         <MemoTextArea
           memo={form.memo}
           setMemo={(value) => setForm({ ...form, memo: value })}
-        />
-      </Field>
-      <Field>
-        <TagInputWrapper
-          values={form.tags}
-          onChange={(values) => setForm({ ...form, tags: values })}
         />
       </Field>
       <div className={"flex justify-items-center"}>
