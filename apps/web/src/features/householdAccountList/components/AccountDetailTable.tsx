@@ -37,7 +37,7 @@ export const AccountDetailTable = ({
           { accessor: "genre", title: "ジャンル", width: "20%" },
           {
             accessor: "iocomeType",
-            title: "収支区",
+            title: "収支",
             hidden: true,
           },
           { accessor: "category", title: "カテゴリ", width: "10%" },
