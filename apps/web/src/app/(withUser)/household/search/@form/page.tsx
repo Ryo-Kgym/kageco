@@ -24,7 +24,7 @@ const Page = async ({
   };
 
   // URLのクエリパラメータにcategoryIdsが存在する場合はそれを優先して使用
-  const categoryIdsArray = categoryIds?.split(",") ?? await findCategoryIds();
+  const categoryIdsArray = categoryIds?.split(",") ?? (await findCategoryIds());
   const accountIds = await findAccountIds();
 
   return (

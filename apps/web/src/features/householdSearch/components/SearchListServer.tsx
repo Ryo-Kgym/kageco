@@ -23,9 +23,10 @@ export const SearchListServer: FC<Props> = async ({
   categoryIdsFromUrl = [],
 }) => {
   // URLのクエリパラメータにcategoryIdsが存在する場合はそれを優先して使用
-  const categoryIds = categoryIdsFromUrl.length > 0
-    ? categoryIdsFromUrl
-    : await findCategoryIds();
+  const categoryIds =
+    categoryIdsFromUrl.length > 0
+      ? categoryIdsFromUrl
+      : await findCategoryIds();
   const accountIds = await findAccountIds();
 
   const { records } = await fetchDetails({

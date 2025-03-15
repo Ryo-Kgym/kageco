@@ -101,7 +101,12 @@ export const MantineDataTable = <R extends object>({
       }
       paginationActiveBackgroundColor="green"
       paginationActiveTextColor="#e6e348"
-      onRowClick={(record) => onRowClick?.(record.record)}
+      onRowClick={
+        onRowClick ? (record) => onRowClick(record.record) : undefined
+      }
+      rowClassName={
+        onRowClick ? "cursor-pointer hover:bg-gray-100" : "hover:bg-gray-100"
+      }
     />
   );
 };
