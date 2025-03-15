@@ -114,46 +114,48 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
             type="reset"
           />
           <div className="flex space-x-2">
-          <div className="flex items-center space-x-2">
-            <input
-              type="number"
-              min="1"
-              placeholder="列番号"
-              value={columnToRemove}
-              onChange={(e) => setColumnToRemove(e.target.value)}
-              className="w-20 p-2 border border-gray-300 rounded"
-            />
-            <Button
-              label="列を削除"
-              onClick={() => {
-                if (loadFile && columnToRemove !== "") {
-                  const columnIndex = Number.parseInt(columnToRemove, 10);
-                  if (!Number.isNaN(columnIndex) && columnIndex >= 1) {
-                    // 1始まりの列番号を0始まりのインデックスに変換
-                    const processed = removeColumnFromCsv(
-                      loadFile,
-                      columnIndex - 1,
-                    );
-                    setLoadFile(processed);
-                    setColumnToRemove("");
+            <div className="flex items-center space-x-2">
+              <input
+                type="number"
+                min="1"
+                placeholder="列番号"
+                value={columnToRemove}
+                onChange={(e) => setColumnToRemove(e.target.value)}
+                className="w-20 p-2 border border-gray-300 rounded"
+              />
+              <Button
+                label="列を削除"
+                onClick={() => {
+                  if (loadFile && columnToRemove !== "") {
+                    const columnIndex = Number.parseInt(columnToRemove, 10);
+                    if (!Number.isNaN(columnIndex) && columnIndex >= 1) {
+                      // 1始まりの列番号を0始まりのインデックスに変換
+                      const processed = removeColumnFromCsv(
+                        loadFile,
+                        columnIndex - 1,
+                      );
+                      setLoadFile(processed);
+                      setColumnToRemove("");
+                    }
                   }
+                }}
+                disabled={
+                  isRemovingColumn || !loadFile || columnToRemove === ""
+                }
+                type="dangerous"
+              />
+            </div>
+            <Button
+              label="引用符内のカンマを処理"
+              onClick={() => {
+                if (loadFile) {
+                  const processed = processCsv(loadFile);
+                  setLoadFile(processed);
                 }
               }}
-              disabled={isRemovingColumn || !loadFile || columnToRemove === ""}
-              type="dangerous"
+              disabled={isProcessing || !loadFile}
+              type="modify"
             />
-          </div>
-          <Button
-            label="引用符内のカンマを処理"
-            onClick={() => {
-              if (loadFile) {
-                const processed = processCsv(loadFile);
-                setLoadFile(processed);
-              }
-            }}
-            disabled={isProcessing || !loadFile}
-            type="modify"
-          />
           </div>
         </div>
         <textarea
