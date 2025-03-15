@@ -2,9 +2,8 @@
  * Copyright (c) 2023 Ryo-Kgym.
  */
 
-import { useUpdateDailyDetailByIdMutation } from "@v3/graphql/household";
-
 import type { IocomeType } from "../../../domain/model/household/IocomeType";
+import { updateDailyDetailBySerialNo } from "./useServer/updateDailyDetailBySerialNo";
 
 type useUpdateDailyDetailBySerialNoArgs = {
   id: string;
@@ -26,10 +25,8 @@ export const useUpdateDailyDetailBySerialNo = ({
   amount,
   memo,
 }: useUpdateDailyDetailBySerialNoArgs) => {
-  const [, updateMutation] = useUpdateDailyDetailByIdMutation();
-
   const updateHandler = async () =>
-    await updateMutation({
+    await updateDailyDetailBySerialNo({
       id,
       date,
       genreId,
@@ -38,7 +35,6 @@ export const useUpdateDailyDetailBySerialNo = ({
       accountId,
       amount,
       memo,
-      tagDetails: [], // FIXME 未実装
     });
 
   return {

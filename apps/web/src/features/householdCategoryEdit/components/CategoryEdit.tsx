@@ -1,6 +1,7 @@
 "use client";
 
 import { GenreSelect } from "components/ui/select/GenreSelect";
+import { useRouter } from "next/navigation";
 import { type ReactNode, useEffect, useState } from "react";
 
 import type { CategoryData } from "../useServer/getCategoryById";
@@ -16,6 +17,7 @@ import { IocomeType } from "../../../domain/model/household/IocomeType";
 import { errorPopup, successPopup } from "../../../function/successPopup";
 
 export const CategoryEdit = ({ categoryId }: { categoryId: string }) => {
+  const router = useRouter();
   const [categoryData, setCategoryData] = useState<CategoryData | null>(null);
   const [loading, setLoading] = useState(true);
   const [inputCategoryName, setInputCategoryName] = useState<string>("");
@@ -61,6 +63,10 @@ export const CategoryEdit = ({ categoryId }: { categoryId: string }) => {
         displayOrder: Number(inputDisplayOrder),
       });
       successPopup("更新しました");
+
+      // カテゴリ一覧ページに戻り、一覧を更新する
+      router.push("/household/setting/category");
+      router.refresh(); // ページをリフレッシュして一覧を更新
     } catch (e) {
       errorPopup("更新に失敗しました");
       console.error(e);
