@@ -21,6 +21,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
         name="viewport"
         content="width=device-width, initial-scale=1.0, viewport-fit=cover"
       />
+      <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       {/* eslint-disable-next-line @next/next/no-sync-scripts */}
       <script
         type="text/javascript"
