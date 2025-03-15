@@ -1,7 +1,7 @@
 import type { ExpoConfig } from "@expo/config";
 
 const defineConfig = (): ExpoConfig => ({
-  name: "Home-Helper",
+  name: "Home Helper",
   slug: "home-helper",
   scheme: "home-helper",
   version: "0.1.0",

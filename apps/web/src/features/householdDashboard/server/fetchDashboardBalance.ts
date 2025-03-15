@@ -1,5 +1,10 @@
 "use server";
 
+import { GetDashboardBalanceDocument } from "@v3/graphql/household/schema/query/v5/getDashboardBalance.generated";
+
+import { findUser } from "../../../persistence/browser/server/find-user";
+import { execQuery } from "../../../persistence/database/server/execQuery";
+
 type Results = {
   cash: number;
   investment: number;
@@ -13,11 +18,23 @@ export const fetchDashboardBalance = async ({
   favoriteFilterId: string;
 }): Promise<Results> => {
   favoriteFilterId;
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  const { group } = await findUser();
+
+  const { data } = await execQuery(GetDashboardBalanceDocument, {
+    groupId: group.id,
+  });
+
+  const accounts = data.account;
+  const cash = accounts.reduce((acc, account) => {
+    const amount =
+      account.allDetailViewsAggregate.aggregate?.sum?.signedAmount ?? 0;
+    return acc + amount;
+  }, 0);
+
   return {
-    cash: 100000,
-    investment: 1000000,
-    total: 1100000,
-    currentDatetime: new Date("2024-01-01T00:00:00Z"),
+    cash,
+    investment: 0,
+    total: cash,
+    currentDatetime: new Date(),
   };
 };

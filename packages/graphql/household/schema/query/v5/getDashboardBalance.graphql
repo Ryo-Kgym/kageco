@@ -1,0 +1,17 @@
+query getDashboardBalance($groupId: String!) {
+  account: householdAccount(
+    where: { groupId: { _eq: $groupId } }
+    orderBy: { displayOrder: ASC }
+  ) {
+    __typename
+    id
+    accountName: name
+    allDetailViewsAggregate {
+      aggregate {
+        sum {
+          signedAmount
+        }
+      }
+    }
+  }
+}
