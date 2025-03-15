@@ -10,14 +10,17 @@ import type { Metadata } from "next";
 import { ClientsProviders } from "./_provider/ClientsProviders";
 
 export const metadata: Metadata = {
-  title: "我が家の家計簿",
+  title: "Home Helper",
   appleWebApp: true,
 };
 
 const Layout = ({ children }: { children: React.ReactNode }) => (
   <html lang={"ja"}>
     <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+      />
       {/* eslint-disable-next-line @next/next/no-sync-scripts */}
       <script
         type="text/javascript"
@@ -43,7 +46,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
             identityPreview: "hidden",
             footerAction: "hidden",
             card: "rounded-xl shadow-lg p-6 sm:p-8 md:p-10 bg-white",
-            headerTitle: "text-xl sm:text-2xl md:text-3xl font-bold text-gray-800",
+            headerTitle:
+              "text-xl sm:text-2xl md:text-3xl font-bold text-gray-800",
             headerSubtitle: "text-sm sm:text-base md:text-lg text-gray-600",
             socialButtonsBlockButton: "py-3 md:py-4 text-base md:text-lg",
             main: "mx-auto w-full max-w-sm sm:max-w-md md:max-w-lg",

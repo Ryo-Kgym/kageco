@@ -20,7 +20,7 @@ export const EnhancedLoginContainer = () => {
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-indigo-100 px-4 py-6 sm:py-2 md:py-8 lg:py-10">
       <div className="mb-6 sm:mb-8 md:mb-10 text-center">
         <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-indigo-600">
-          One for All
+          Home Helper
         </h1>
         <p className="mt-2 text-base sm:text-lg md:text-xl text-gray-600 px-2 sm:px-0 max-w-2xl mx-auto">
           家計簿・タスク管理・スケジュール管理を一つのアプリで

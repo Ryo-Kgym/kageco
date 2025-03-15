@@ -21,7 +21,7 @@ export const LoginPresenter = ({
 );
 
 const Title = () => (
-  <h1 className="font-serif text-6xl font-bold text-yellow-400">One for All</h1>
+  <h1 className="font-serif text-6xl font-bold text-yellow-400">Home Helper</h1>
 );
 
 const ButtonArea = ({ children }: { children: ReactNode }) => (
