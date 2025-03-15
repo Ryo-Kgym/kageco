@@ -1,0 +1,7 @@
+query GetAllCategories($groupId: String!) {
+  householdCategory(where: { groupId: { _eq: $groupId } }) {
+    id
+    name
+    displayOrder
+  }
+}

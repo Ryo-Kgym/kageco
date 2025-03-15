@@ -1,0 +1,9 @@
+mutation UpdateCategoryDisplayOrder($categoryId: String!, $displayOrder: Int!) {
+  updateHouseholdCategoryByPk(
+    pkColumns: { id: $categoryId }
+    _set: { displayOrder: $displayOrder }
+  ) {
+    id
+    displayOrder
+  }
+}

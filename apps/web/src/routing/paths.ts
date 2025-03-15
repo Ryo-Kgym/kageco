@@ -16,6 +16,7 @@ export const paths = {
       category: "/household/setting/category",
       categoryAdd: "/household/setting/category/add",
       tag: "/household/setting/tag",
+      batch: "/household/setting/batch",
     },
     creditDetail: {
       edit: ({

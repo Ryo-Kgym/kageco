@@ -25,6 +25,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
         label: "タグ",
         url: paths.household.setting.tag,
       },
+      {
+        value: "batch",
+        label: "バッチ",
+        url: paths.household.setting.batch,
+      },
     ]}
   >
     {children}
