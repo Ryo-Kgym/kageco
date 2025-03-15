@@ -110,11 +110,14 @@ export const SearchFormClient: FC<Props> = ({
             const tagIdsQuery =
               form.tags.length &&
               `tag=${form.tags.map((tag) => `${tag}`).join(",")}`;
+            const categoryIdsQuery =
+              form.categoryIds.length &&
+              `categoryIds=${form.categoryIds.join(",")}`;
             await saveCategoryIds(form.categoryIds);
             await saveAccountIds(form.accountIds);
 
             push(
-              `?${[fromDateQuery, toDateQuery, tagIdsQuery].filter((noop) => noop).join("&")}`,
+              `?${[fromDateQuery, toDateQuery, tagIdsQuery, categoryIdsQuery].filter((noop) => noop).join("&")}`,
             );
           }}
           type={"save"}
