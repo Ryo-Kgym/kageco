@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 export type FilterState = Record<string, string>;
 
@@ -36,10 +36,10 @@ export function useTableFilter<R extends object>(
     return records.filter((record) => {
       return Object.entries(filterValues).every(([key, filterValue]) => {
         if (!filterValue) return true;
-        
+
         const recordValue = record[key as keyof R];
         if (recordValue === undefined || recordValue === null) return false;
-        
+
         const stringValue = String(recordValue).toLowerCase();
         return stringValue.includes(filterValue.toLowerCase());
       });

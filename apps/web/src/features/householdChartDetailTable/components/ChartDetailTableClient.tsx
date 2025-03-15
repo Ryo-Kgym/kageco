@@ -84,18 +84,18 @@ export const ChartDetailTableClient = ({
         records={records}
         height="45vh"
         recordsPerPage={200}
-        onRowClick={(detail) => {
-          if (detail.type === "credit_card") {
+        onRowClick={(record) => {
+          if (record.type === "credit_card") {
             setDetail({
               type: "credit",
-              id: detail.id,
+              id: record.id,
             });
             return;
           }
 
           setDetail({
             type: "daily",
-            id: detail.id,
+            id: record.id,
           });
         }}
       />
