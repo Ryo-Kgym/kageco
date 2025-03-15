@@ -1,5 +1,5 @@
 import { NumberInput } from "@mantine/core";
-import { CSSProperties } from "react";
+import type { CSSProperties } from "react";
 
 // iOSでの自動ズームを防止するスタイル
 const preventZoomStyle: CSSProperties = {
