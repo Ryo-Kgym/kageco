@@ -23,14 +23,12 @@ export const DashboardBalanceClient: DashboardFC = ({ dashboardSettingId }) => {
           <span>投資</span>
           <span>{data.investment.toLocaleString()}</span>
         </div>
-        <div />
         <div className={styles.detail}>
           <span>合計</span>
           <span>{data.total.toLocaleString()}</span>
         </div>
-        <div />
         <div className={styles.detail}>
-          <span> {data.currentDatetime.toLocaleString("ja-JP")} </span>
+          <span>{data.currentDatetime.toLocaleString("ja-JP")}</span>
           <span>現在</span>
         </div>
       </div>
