@@ -21,6 +21,7 @@ type Props = {
       iocomeType: IocomeType;
       genreId: string;
       categoryId: string;
+      accountId: string;
       amount: number;
       memo: string | null;
     }

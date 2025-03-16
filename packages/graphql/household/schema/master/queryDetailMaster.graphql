@@ -37,6 +37,7 @@ query getDetailMaster($groupId: String!) {
       iocomeType
       genreId
       categoryId
+      accountId
       amount
       memo
     }

@@ -24,9 +24,6 @@ export const TemplateSelect = ({
 }: TemplateSelectProps) => {
   const { getTemplates, getAccounts } = useGetDetailMaster();
   const templates = getTemplates();
-  const accounts = getAccounts();
-  const defaultAccountId =
-    accounts.length > 0 ? (accounts[0]?.value ?? "") : "";
 
   const handleChange = (selectedValue: string) => {
     setValue(selectedValue);
@@ -39,7 +36,7 @@ export const TemplateSelect = ({
           iocomeType: selectedTemplate.iocomeType,
           genreId: selectedTemplate.genreId,
           categoryId: selectedTemplate.categoryId,
-          accountId: defaultAccountId,
+          accountId: selectedTemplate.accountId,
           amount: selectedTemplate.amount,
           memo: selectedTemplate.memo || "",
         });

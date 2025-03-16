@@ -4436,6 +4436,7 @@ export type GetDetailMasterQuery = {
       iocomeType: string;
       genreId: string;
       categoryId: string;
+      accountId: string;
       amount: number;
       memo: string | null;
     }>;
@@ -4837,6 +4838,10 @@ export const GetDetailMasterDocument = {
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "categoryId" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "accountId" },
                       },
                       {
                         kind: "Field",
