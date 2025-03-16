@@ -284,6 +284,21 @@ GROUP BY d.date, g.iocome_type, d.group_id;
 alter table daily_total_view
     owner to "Ryo-Kgym";
 
+create table household.template (
+    id          varchar(26) not null primary key,
+    name        varchar(50) not null,
+    account_id  varchar(26) not null,
+    genre_id    varchar(26) not null,
+    iocome_type varchar(8)  not null,
+    category_id varchar(26) not null,
+    amount      integer     not null,
+    memo        varchar(100),
+    group_id    varchar(26) not null references public."group"
+);
+
+alter table household.template
+    owner to "Ryo-Kgym";
+
 create view credit_card_summary_total_by_account_view(date, account_id, name, display_order, iocome_type, total, group_id) as
 SELECT d.withdrawal_date AS date,
        d.account_id,
@@ -366,4 +381,3 @@ ORDER BY u.yyyy_mm, u.category_id;
 
 alter table total_by_category_view
     owner to "Ryo-Kgym";
-
