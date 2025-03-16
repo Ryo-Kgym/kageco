@@ -1,4 +1,4 @@
-import { GetDetailMasterDocument } from "@v3/graphql/household/schema/query/v5/queryDetailMaster.generated";
+import { GetDetailMasterDocument } from "@v3/graphql/household/schema/master/queryDetailMaster.generated";
 import { IocomeType } from "domain/model/household/IocomeType";
 
 import type { SelectProps } from "../../../components/ui/select/v4";
@@ -55,12 +55,29 @@ export const RegisterDailyButtonServer = async () => {
     colorCode: tag.colorCode,
   }));
 
+  const templateData = Object.fromEntries(
+    data.group.templates.map((template) => [
+      template.id,
+      {
+        id: template.id,
+        name: template.name,
+        iocomeType: template.iocomeType as IocomeType,
+        genreId: template.genreId,
+        categoryId: template.categoryId,
+        accountId: template.accountId,
+        amount: template.amount,
+        memo: template.memo,
+      },
+    ]),
+  );
+
   return (
     <RegisterDailyButtonClient
       accountData={accountData}
       genreData={genreData}
       categoryData={categoryData}
       tagData={tagData}
+      templateData={templateData}
     />
   );
 };

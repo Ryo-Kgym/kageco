@@ -1,7 +1,7 @@
 import { YYYY_MM_DD, YYYY_MM_DD_HH_MM_SS } from "@/type/date/date";
 import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
 
-import * as Types from "../../../generated/typed";
+import * as Types from "../../generated/typed";
 
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -744,6 +744,7 @@ export type GroupBoolExp = {
   importFileHistoriesAggregate: InputMaybe<HouseholdImportFileHistoryAggregateBoolExp>;
   name: InputMaybe<StringComparisonExp>;
   tags: InputMaybe<HouseholdTagBoolExp>;
+  templates: InputMaybe<HouseholdTemplateBoolExp>;
   transferCategory: InputMaybe<HouseholdTransferCategoryBoolExp>;
 };
 
@@ -768,6 +769,7 @@ export type GroupOrderBy = {
   importFileHistoriesAggregate: InputMaybe<HouseholdImportFileHistoryAggregateOrderBy>;
   name: InputMaybe<OrderBy>;
   tagsAggregate: InputMaybe<HouseholdTagAggregateOrderBy>;
+  templatesAggregate: InputMaybe<HouseholdTemplateAggregateOrderBy>;
   transferCategory: InputMaybe<HouseholdTransferCategoryOrderBy>;
 };
 
@@ -3633,6 +3635,238 @@ export type HouseholdTagVarianceOrderBy = {
   displayOrder: InputMaybe<OrderBy>;
 };
 
+/** order by aggregate values of table "household.template" */
+export type HouseholdTemplateAggregateOrderBy = {
+  avg: InputMaybe<HouseholdTemplateAvgOrderBy>;
+  count: InputMaybe<OrderBy>;
+  max: InputMaybe<HouseholdTemplateMaxOrderBy>;
+  min: InputMaybe<HouseholdTemplateMinOrderBy>;
+  stddev: InputMaybe<HouseholdTemplateStddevOrderBy>;
+  stddevPop: InputMaybe<HouseholdTemplateStddevPopOrderBy>;
+  stddevSamp: InputMaybe<HouseholdTemplateStddevSampOrderBy>;
+  sum: InputMaybe<HouseholdTemplateSumOrderBy>;
+  varPop: InputMaybe<HouseholdTemplateVarPopOrderBy>;
+  varSamp: InputMaybe<HouseholdTemplateVarSampOrderBy>;
+  variance: InputMaybe<HouseholdTemplateVarianceOrderBy>;
+};
+
+/** order by avg() on columns of table "household.template" */
+export type HouseholdTemplateAvgOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
+/** Boolean expression to filter rows from the table "household.template". All fields are combined with a logical 'AND'. */
+export type HouseholdTemplateBoolExp = {
+  _and: InputMaybe<Array<HouseholdTemplateBoolExp>>;
+  _not: InputMaybe<HouseholdTemplateBoolExp>;
+  _or: InputMaybe<Array<HouseholdTemplateBoolExp>>;
+  accountId: InputMaybe<StringComparisonExp>;
+  amount: InputMaybe<IntComparisonExp>;
+  categoryId: InputMaybe<StringComparisonExp>;
+  genreId: InputMaybe<StringComparisonExp>;
+  group: InputMaybe<GroupBoolExp>;
+  groupId: InputMaybe<StringComparisonExp>;
+  id: InputMaybe<StringComparisonExp>;
+  iocomeType: InputMaybe<StringComparisonExp>;
+  memo: InputMaybe<StringComparisonExp>;
+  name: InputMaybe<StringComparisonExp>;
+};
+
+/** unique or primary key constraints on table "household.template" */
+export type HouseholdTemplateConstraint =
+  /** unique or primary key constraint on columns "id" */
+  "template_pkey";
+
+/** input type for incrementing numeric columns in table "household.template" */
+export type HouseholdTemplateIncInput = {
+  amount: InputMaybe<Scalars["Int"]>;
+};
+
+/** input type for inserting data into table "household.template" */
+export type HouseholdTemplateInsertInput = {
+  accountId: InputMaybe<Scalars["String"]>;
+  amount: InputMaybe<Scalars["Int"]>;
+  categoryId: InputMaybe<Scalars["String"]>;
+  genreId: InputMaybe<Scalars["String"]>;
+  groupId: InputMaybe<Scalars["String"]>;
+  id: InputMaybe<Scalars["String"]>;
+  iocomeType: InputMaybe<Scalars["String"]>;
+  memo: InputMaybe<Scalars["String"]>;
+  name: InputMaybe<Scalars["String"]>;
+};
+
+/** order by max() on columns of table "household.template" */
+export type HouseholdTemplateMaxOrderBy = {
+  accountId: InputMaybe<OrderBy>;
+  amount: InputMaybe<OrderBy>;
+  categoryId: InputMaybe<OrderBy>;
+  genreId: InputMaybe<OrderBy>;
+  groupId: InputMaybe<OrderBy>;
+  id: InputMaybe<OrderBy>;
+  iocomeType: InputMaybe<OrderBy>;
+  memo: InputMaybe<OrderBy>;
+  name: InputMaybe<OrderBy>;
+};
+
+/** order by min() on columns of table "household.template" */
+export type HouseholdTemplateMinOrderBy = {
+  accountId: InputMaybe<OrderBy>;
+  amount: InputMaybe<OrderBy>;
+  categoryId: InputMaybe<OrderBy>;
+  genreId: InputMaybe<OrderBy>;
+  groupId: InputMaybe<OrderBy>;
+  id: InputMaybe<OrderBy>;
+  iocomeType: InputMaybe<OrderBy>;
+  memo: InputMaybe<OrderBy>;
+  name: InputMaybe<OrderBy>;
+};
+
+/** on_conflict condition type for table "household.template" */
+export type HouseholdTemplateOnConflict = {
+  constraint: HouseholdTemplateConstraint;
+  updateColumns: Array<HouseholdTemplateUpdateColumn>;
+  where: InputMaybe<HouseholdTemplateBoolExp>;
+};
+
+/** Ordering options when selecting data from "household.template". */
+export type HouseholdTemplateOrderBy = {
+  accountId: InputMaybe<OrderBy>;
+  amount: InputMaybe<OrderBy>;
+  categoryId: InputMaybe<OrderBy>;
+  genreId: InputMaybe<OrderBy>;
+  group: InputMaybe<GroupOrderBy>;
+  groupId: InputMaybe<OrderBy>;
+  id: InputMaybe<OrderBy>;
+  iocomeType: InputMaybe<OrderBy>;
+  memo: InputMaybe<OrderBy>;
+  name: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: household.template */
+export type HouseholdTemplatePkColumnsInput = {
+  id: Scalars["String"];
+};
+
+/** select columns of table "household.template" */
+export type HouseholdTemplateSelectColumn =
+  /** column name */
+  | "accountId"
+  /** column name */
+  | "amount"
+  /** column name */
+  | "categoryId"
+  /** column name */
+  | "genreId"
+  /** column name */
+  | "groupId"
+  /** column name */
+  | "id"
+  /** column name */
+  | "iocomeType"
+  /** column name */
+  | "memo"
+  /** column name */
+  | "name";
+
+/** input type for updating data in table "household.template" */
+export type HouseholdTemplateSetInput = {
+  accountId: InputMaybe<Scalars["String"]>;
+  amount: InputMaybe<Scalars["Int"]>;
+  categoryId: InputMaybe<Scalars["String"]>;
+  genreId: InputMaybe<Scalars["String"]>;
+  groupId: InputMaybe<Scalars["String"]>;
+  id: InputMaybe<Scalars["String"]>;
+  iocomeType: InputMaybe<Scalars["String"]>;
+  memo: InputMaybe<Scalars["String"]>;
+  name: InputMaybe<Scalars["String"]>;
+};
+
+/** order by stddev() on columns of table "household.template" */
+export type HouseholdTemplateStddevOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
+/** order by stddevPop() on columns of table "household.template" */
+export type HouseholdTemplateStddevPopOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
+/** order by stddevSamp() on columns of table "household.template" */
+export type HouseholdTemplateStddevSampOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
+/** Streaming cursor of the table "household_template" */
+export type HouseholdTemplateStreamCursorInput = {
+  /** Stream column input with initial value */
+  initialValue: HouseholdTemplateStreamCursorValueInput;
+  /** cursor ordering */
+  ordering: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type HouseholdTemplateStreamCursorValueInput = {
+  accountId: InputMaybe<Scalars["String"]>;
+  amount: InputMaybe<Scalars["Int"]>;
+  categoryId: InputMaybe<Scalars["String"]>;
+  genreId: InputMaybe<Scalars["String"]>;
+  groupId: InputMaybe<Scalars["String"]>;
+  id: InputMaybe<Scalars["String"]>;
+  iocomeType: InputMaybe<Scalars["String"]>;
+  memo: InputMaybe<Scalars["String"]>;
+  name: InputMaybe<Scalars["String"]>;
+};
+
+/** order by sum() on columns of table "household.template" */
+export type HouseholdTemplateSumOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
+/** update columns of table "household.template" */
+export type HouseholdTemplateUpdateColumn =
+  /** column name */
+  | "accountId"
+  /** column name */
+  | "amount"
+  /** column name */
+  | "categoryId"
+  /** column name */
+  | "genreId"
+  /** column name */
+  | "groupId"
+  /** column name */
+  | "id"
+  /** column name */
+  | "iocomeType"
+  /** column name */
+  | "memo"
+  /** column name */
+  | "name";
+
+export type HouseholdTemplateUpdates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc: InputMaybe<HouseholdTemplateIncInput>;
+  /** sets the columns of the filtered rows to the given values */
+  _set: InputMaybe<HouseholdTemplateSetInput>;
+  /** filter the rows which have to be updated */
+  where: HouseholdTemplateBoolExp;
+};
+
+/** order by varPop() on columns of table "household.template" */
+export type HouseholdTemplateVarPopOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
+/** order by varSamp() on columns of table "household.template" */
+export type HouseholdTemplateVarSampOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
+/** order by variance() on columns of table "household.template" */
+export type HouseholdTemplateVarianceOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
 /** order by aggregate values of table "household.total_by_category_view" */
 export type HouseholdTotalByCategoryViewAggregateOrderBy = {
   avg: InputMaybe<HouseholdTotalByCategoryViewAvgOrderBy>;
@@ -4151,27 +4385,27 @@ export type HouseholdTransferCategoryAggregateBoolExpCount = {
   predicate: IntComparisonExp;
 };
 
-export type GetRecentDetailsQueryVariables = Types.Exact<{
+export type GetAllCategoriesQueryVariables = Types.Exact<{
   groupId: Types.Scalars["String"];
-  startDate: Types.Scalars["date"];
 }>;
 
-export type GetRecentDetailsQuery = {
+export type GetAllCategoriesQuery = {
   __typename?: "query_root";
-  householdAllDetailView: Array<{
-    __typename?: "HouseholdAllDetailView";
-    id: string | null;
-    categoryId: string | null;
+  householdCategory: Array<{
+    __typename?: "HouseholdCategory";
+    id: string;
+    name: string;
+    displayOrder: number;
   }>;
 };
 
-export const GetRecentDetailsDocument = {
+export const GetAllCategoriesDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "query",
-      name: { kind: "Name", value: "GetRecentDetails" },
+      name: { kind: "Name", value: "GetAllCategories" },
       variableDefinitions: [
         {
           kind: "VariableDefinition",
@@ -4187,24 +4421,13 @@ export const GetRecentDetailsDocument = {
             },
           },
         },
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "startDate" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "date" } },
-          },
-        },
       ],
       selectionSet: {
         kind: "SelectionSet",
         selections: [
           {
             kind: "Field",
-            name: { kind: "Name", value: "householdAllDetailView" },
+            name: { kind: "Name", value: "householdCategory" },
             arguments: [
               {
                 kind: "Argument",
@@ -4229,23 +4452,6 @@ export const GetRecentDetailsDocument = {
                         ],
                       },
                     },
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "date" },
-                      value: {
-                        kind: "ObjectValue",
-                        fields: [
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "_gte" },
-                            value: {
-                              kind: "Variable",
-                              name: { kind: "Name", value: "startDate" },
-                            },
-                          },
-                        ],
-                      },
-                    },
                   ],
                 },
               },
@@ -4254,7 +4460,11 @@ export const GetRecentDetailsDocument = {
               kind: "SelectionSet",
               selections: [
                 { kind: "Field", name: { kind: "Name", value: "id" } },
-                { kind: "Field", name: { kind: "Name", value: "categoryId" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "displayOrder" },
+                },
               ],
             },
           },
@@ -4263,6 +4473,6 @@ export const GetRecentDetailsDocument = {
     },
   ],
 } as unknown as DocumentNode<
-  GetRecentDetailsQuery,
-  GetRecentDetailsQueryVariables
+  GetAllCategoriesQuery,
+  GetAllCategoriesQueryVariables
 >;

@@ -1,0 +1,17 @@
+query getTemplateList($groupId: String!) {
+  group: groupByPk(id: $groupId) {
+    __typename
+    id
+    templates {
+      __typename
+      id
+      name
+      accountId
+      genreId
+      iocomeType
+      categoryId
+      amount
+      memo
+    }
+  }
+}

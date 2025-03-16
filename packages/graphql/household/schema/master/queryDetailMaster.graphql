@@ -31,6 +31,16 @@ query getDetailMaster($groupId: String!) {
       name
       colorCode
     }
+    templates {
+      id
+      name
+      iocomeType
+      genreId
+      categoryId
+      accountId
+      amount
+      memo
+    }
   }
 }
 

@@ -9,10 +9,14 @@ import { IocomeTypeSegment } from "../../ui/segment/IocomeTypeSegment";
 import { AccountSelect } from "../../ui/select/AccountSelect";
 import { CategorySelect } from "../../ui/select/CategorySelect";
 import { GenreSelect } from "../../ui/select/GenreSelect";
+import { TemplateSelect } from "../../ui/select/template-select";
 import type { DailyDetailForm } from "./dailyDetailForm";
 
 type Props = {
   form: DailyDetailForm;
+  templateId: string;
+  setTemplateId: (value: string) => void;
+  onTemplateSelect: (form: Partial<DailyDetailForm>) => void;
   setDate: (_: Date) => void;
   setIocomeType: (_: IocomeType) => void;
   setCategoryId: (_: string | null) => void;
@@ -27,6 +31,9 @@ type Props = {
 
 export const RegisterDailyDetailPresenter: FC<Props> = ({
   form,
+  templateId,
+  setTemplateId,
+  onTemplateSelect,
   setDate,
   setIocomeType,
   setCategoryId,
@@ -39,14 +46,26 @@ export const RegisterDailyDetailPresenter: FC<Props> = ({
   disabled,
 }) => (
   <div className={"grid w-full grid-cols-1"}>
-    <Field>
-      <DatePicker
-        value={form.date}
-        onChange={setDate}
-        required
-        defaultValue={form.date}
-      />
-    </Field>
+    <div className="flex items-center justify-between py-2 max-sm:py-1">
+      <div className="flex-grow">
+        <DatePicker
+          value={form.date}
+          onChange={setDate}
+          required
+          defaultValue={form.date}
+        />
+      </div>
+      <div className="ml-2 w-32">
+        <div className="text-xs text-gray-500">
+          <TemplateSelect
+            value={templateId}
+            setValue={setTemplateId}
+            onTemplateSelect={onTemplateSelect}
+            compact={true}
+          />
+        </div>
+      </div>
+    </div>
     <Field>
       <IocomeTypeSegment
         iocomeType={form.iocomeType}

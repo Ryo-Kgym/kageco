@@ -13,6 +13,19 @@ type Props = {
   genreData: Record<IocomeType, SelectProps<string>["data"]>;
   categoryData: Record<string, SelectProps<string>["data"]>;
   tagData: ComponentProps<typeof TagInput>["data"];
+  templateData: Record<
+    string,
+    {
+      id: string;
+      name: string;
+      iocomeType: IocomeType;
+      genreId: string;
+      categoryId: string;
+      accountId: string;
+      amount: number;
+      memo: string | null;
+    }
+  >;
 };
 
 export const RegisterDailyButtonClient: FC<Props> = ({
@@ -20,6 +33,7 @@ export const RegisterDailyButtonClient: FC<Props> = ({
   genreData,
   categoryData,
   tagData,
+  templateData,
 }) => {
   const set = useSetDetailMaster();
 
@@ -29,6 +43,7 @@ export const RegisterDailyButtonClient: FC<Props> = ({
     set.setGenreData(genreData);
     set.setCategoryData(categoryData);
     set.setTagData(tagData);
+    set.setTemplateData(Object.values(templateData));
   }, []);
 
   return <RegisterDailyButton />;

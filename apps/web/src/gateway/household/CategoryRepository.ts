@@ -1,7 +1,7 @@
 import type { YYYY_MM_DD } from "@/type/date/date";
-import { UpdateCategoryDisplayOrderDocument } from "@v3/graphql/household/schema/mutation/v5/UpdateCategoryDisplayOrder.generated";
-import { GetAllCategoriesDocument } from "@v3/graphql/household/schema/query/v5/GetAllCategories.generated";
-import { GetRecentDetailsDocument } from "@v3/graphql/household/schema/query/v5/GetRecentDetails.generated";
+import { GetAllCategoriesDocument } from "@v3/graphql/household/schema/batch-sort-category/getAllCategories.generated";
+import { GetRecentDetailsDocument } from "@v3/graphql/household/schema/batch-sort-category/getRecentDetails.generated";
+import { UpdateCategoryDisplayOrderDocument } from "@v3/graphql/household/schema/batch-sort-category/updateCategoryDisplayOrder.generated";
 import { findUser } from "../../persistence/browser/server/find-user";
 import { execMutation } from "../../persistence/database/server/execMutation";
 import { execQuery } from "../../persistence/database/server/execQuery";

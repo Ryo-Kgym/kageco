@@ -5,6 +5,7 @@ import { errorPopup, successPopup } from "../../../function/successPopup";
 import { useNavigation } from "../../../routing/client/useNavigation";
 import { registerDailyDetail } from "../../../useServer/household/daily_detail/registerDailyDetail";
 import { RegisterDailyDetailPresenter } from "./RegisterDailyDetailPresenter";
+import type { DailyDetailForm } from "./dailyDetailForm";
 import { useStateDailyForm } from "./useStateDailyForm";
 
 export const RegisterDailyDetailContainer = ({ date }: { date: Date }) => {
@@ -15,6 +16,7 @@ export const RegisterDailyDetailContainer = ({ date }: { date: Date }) => {
   const { refresh } = useNavigation();
 
   const [isPosting, setIsPosting] = useState(false);
+  const [templateId, setTemplateId] = useState("");
 
   const anyFieldIsInvalid = () => {
     const genreIdIsInvalid = !form.genreId;
@@ -52,9 +54,19 @@ export const RegisterDailyDetailContainer = ({ date }: { date: Date }) => {
     }
   };
 
+  const handleTemplateSelect = (templateForm: Partial<DailyDetailForm>) => {
+    setForm({
+      ...form,
+      ...templateForm,
+    });
+  };
+
   return (
     <RegisterDailyDetailPresenter
       form={form}
+      templateId={templateId}
+      setTemplateId={setTemplateId}
+      onTemplateSelect={handleTemplateSelect}
       setDate={(v) => setForm({ ...form, date: v })}
       setIocomeType={(v) =>
         setForm({
@@ -71,7 +83,10 @@ export const RegisterDailyDetailContainer = ({ date }: { date: Date }) => {
       setAccountId={(v) => setForm({ ...form, accountId: v ?? "" })}
       setAmount={(v) => setForm({ ...form, amount: v })}
       setMemo={(v) => setForm({ ...form, memo: v })}
-      clearClick={resetForm}
+      clearClick={() => {
+        resetForm();
+        setTemplateId("");
+      }}
       registerClick={registerClickHandler}
       disabled={isPosting}
     />

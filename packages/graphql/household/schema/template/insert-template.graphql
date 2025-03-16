@@ -1,0 +1,6 @@
+mutation insertTemplate($input: HouseholdTemplateInsertInput!) {
+  insertHouseholdTemplateOne(object: $input) {
+    __typename
+    id
+  }
+}
