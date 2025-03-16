@@ -9,10 +9,14 @@ import { IocomeTypeSegment } from "../../ui/segment/IocomeTypeSegment";
 import { AccountSelect } from "../../ui/select/AccountSelect";
 import { CategorySelect } from "../../ui/select/CategorySelect";
 import { GenreSelect } from "../../ui/select/GenreSelect";
+import { TemplateSelect } from "../../ui/select/template-select";
 import type { DailyDetailForm } from "./dailyDetailForm";
 
 type Props = {
   form: DailyDetailForm;
+  templateId: string;
+  setTemplateId: (value: string) => void;
+  onTemplateSelect: (form: Partial<DailyDetailForm>) => void;
   setDate: (_: Date) => void;
   setIocomeType: (_: IocomeType) => void;
   setCategoryId: (_: string | null) => void;
@@ -27,6 +31,9 @@ type Props = {
 
 export const RegisterDailyDetailPresenter: FC<Props> = ({
   form,
+  templateId,
+  setTemplateId,
+  onTemplateSelect,
   setDate,
   setIocomeType,
   setCategoryId,
@@ -39,6 +46,13 @@ export const RegisterDailyDetailPresenter: FC<Props> = ({
   disabled,
 }) => (
   <div className={"grid w-full grid-cols-1"}>
+    <Field>
+      <TemplateSelect
+        value={templateId}
+        setValue={setTemplateId}
+        onTemplateSelect={onTemplateSelect}
+      />
+    </Field>
     <Field>
       <DatePicker
         value={form.date}

@@ -18,7 +18,7 @@ type Props = {
     {
       id: string;
       name: string;
-      iocomeType: string;
+      iocomeType: IocomeType;
       genreId: string;
       categoryId: string;
       amount: number;

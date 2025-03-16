@@ -61,7 +61,7 @@ export const RegisterDailyButtonServer = async () => {
       {
         id: template.id,
         name: template.name,
-        iocomeType: template.iocomeType,
+        iocomeType: template.iocomeType as IocomeType,
         genreId: template.genreId,
         categoryId: template.categoryId,
         amount: template.amount,
