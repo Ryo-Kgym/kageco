@@ -1,7 +1,7 @@
 import { YYYY_MM_DD, YYYY_MM_DD_HH_MM_SS } from "@/type/date/date";
 import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
 
-import * as Types from "../../../generated/typed";
+import * as Types from "../../generated/typed";
 
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -3633,6 +3633,157 @@ export type HouseholdTagVarianceOrderBy = {
   displayOrder: InputMaybe<OrderBy>;
 };
 
+/** Boolean expression to filter rows from the table "household.template". All fields are combined with a logical 'AND'. */
+export type HouseholdTemplateBoolExp = {
+  _and: InputMaybe<Array<HouseholdTemplateBoolExp>>;
+  _not: InputMaybe<HouseholdTemplateBoolExp>;
+  _or: InputMaybe<Array<HouseholdTemplateBoolExp>>;
+  accountId: InputMaybe<StringComparisonExp>;
+  amount: InputMaybe<IntComparisonExp>;
+  categoryId: InputMaybe<StringComparisonExp>;
+  genreId: InputMaybe<StringComparisonExp>;
+  group: InputMaybe<GroupBoolExp>;
+  groupId: InputMaybe<StringComparisonExp>;
+  id: InputMaybe<StringComparisonExp>;
+  iocomeType: InputMaybe<StringComparisonExp>;
+  memo: InputMaybe<StringComparisonExp>;
+  name: InputMaybe<StringComparisonExp>;
+};
+
+/** unique or primary key constraints on table "household.template" */
+export type HouseholdTemplateConstraint =
+  /** unique or primary key constraint on columns "id" */
+  "template_pkey";
+
+/** input type for incrementing numeric columns in table "household.template" */
+export type HouseholdTemplateIncInput = {
+  amount: InputMaybe<Scalars["Int"]>;
+};
+
+/** input type for inserting data into table "household.template" */
+export type HouseholdTemplateInsertInput = {
+  accountId: InputMaybe<Scalars["String"]>;
+  amount: InputMaybe<Scalars["Int"]>;
+  categoryId: InputMaybe<Scalars["String"]>;
+  genreId: InputMaybe<Scalars["String"]>;
+  groupId: InputMaybe<Scalars["String"]>;
+  id: InputMaybe<Scalars["String"]>;
+  iocomeType: InputMaybe<Scalars["String"]>;
+  memo: InputMaybe<Scalars["String"]>;
+  name: InputMaybe<Scalars["String"]>;
+};
+
+/** on_conflict condition type for table "household.template" */
+export type HouseholdTemplateOnConflict = {
+  constraint: HouseholdTemplateConstraint;
+  updateColumns: Array<HouseholdTemplateUpdateColumn>;
+  where: InputMaybe<HouseholdTemplateBoolExp>;
+};
+
+/** Ordering options when selecting data from "household.template". */
+export type HouseholdTemplateOrderBy = {
+  accountId: InputMaybe<OrderBy>;
+  amount: InputMaybe<OrderBy>;
+  categoryId: InputMaybe<OrderBy>;
+  genreId: InputMaybe<OrderBy>;
+  group: InputMaybe<GroupOrderBy>;
+  groupId: InputMaybe<OrderBy>;
+  id: InputMaybe<OrderBy>;
+  iocomeType: InputMaybe<OrderBy>;
+  memo: InputMaybe<OrderBy>;
+  name: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: household.template */
+export type HouseholdTemplatePkColumnsInput = {
+  id: Scalars["String"];
+};
+
+/** select columns of table "household.template" */
+export type HouseholdTemplateSelectColumn =
+  /** column name */
+  | "accountId"
+  /** column name */
+  | "amount"
+  /** column name */
+  | "categoryId"
+  /** column name */
+  | "genreId"
+  /** column name */
+  | "groupId"
+  /** column name */
+  | "id"
+  /** column name */
+  | "iocomeType"
+  /** column name */
+  | "memo"
+  /** column name */
+  | "name";
+
+/** input type for updating data in table "household.template" */
+export type HouseholdTemplateSetInput = {
+  accountId: InputMaybe<Scalars["String"]>;
+  amount: InputMaybe<Scalars["Int"]>;
+  categoryId: InputMaybe<Scalars["String"]>;
+  genreId: InputMaybe<Scalars["String"]>;
+  groupId: InputMaybe<Scalars["String"]>;
+  id: InputMaybe<Scalars["String"]>;
+  iocomeType: InputMaybe<Scalars["String"]>;
+  memo: InputMaybe<Scalars["String"]>;
+  name: InputMaybe<Scalars["String"]>;
+};
+
+/** Streaming cursor of the table "household_template" */
+export type HouseholdTemplateStreamCursorInput = {
+  /** Stream column input with initial value */
+  initialValue: HouseholdTemplateStreamCursorValueInput;
+  /** cursor ordering */
+  ordering: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type HouseholdTemplateStreamCursorValueInput = {
+  accountId: InputMaybe<Scalars["String"]>;
+  amount: InputMaybe<Scalars["Int"]>;
+  categoryId: InputMaybe<Scalars["String"]>;
+  genreId: InputMaybe<Scalars["String"]>;
+  groupId: InputMaybe<Scalars["String"]>;
+  id: InputMaybe<Scalars["String"]>;
+  iocomeType: InputMaybe<Scalars["String"]>;
+  memo: InputMaybe<Scalars["String"]>;
+  name: InputMaybe<Scalars["String"]>;
+};
+
+/** update columns of table "household.template" */
+export type HouseholdTemplateUpdateColumn =
+  /** column name */
+  | "accountId"
+  /** column name */
+  | "amount"
+  /** column name */
+  | "categoryId"
+  /** column name */
+  | "genreId"
+  /** column name */
+  | "groupId"
+  /** column name */
+  | "id"
+  /** column name */
+  | "iocomeType"
+  /** column name */
+  | "memo"
+  /** column name */
+  | "name";
+
+export type HouseholdTemplateUpdates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc: InputMaybe<HouseholdTemplateIncInput>;
+  /** sets the columns of the filtered rows to the given values */
+  _set: InputMaybe<HouseholdTemplateSetInput>;
+  /** filter the rows which have to be updated */
+  where: HouseholdTemplateBoolExp;
+};
+
 /** order by aggregate values of table "household.total_by_category_view" */
 export type HouseholdTotalByCategoryViewAggregateOrderBy = {
   avg: InputMaybe<HouseholdTotalByCategoryViewAvgOrderBy>;
@@ -4151,33 +4302,33 @@ export type HouseholdTransferCategoryAggregateBoolExpCount = {
   predicate: IntComparisonExp;
 };
 
-export type GetAllCategoriesQueryVariables = Types.Exact<{
-  groupId: Types.Scalars["String"];
+export type UpdateCategoryDisplayOrderMutationVariables = Types.Exact<{
+  categoryId: Types.Scalars["String"];
+  displayOrder: Types.Scalars["Int"];
 }>;
 
-export type GetAllCategoriesQuery = {
-  __typename?: "query_root";
-  householdCategory: Array<{
+export type UpdateCategoryDisplayOrderMutation = {
+  __typename?: "mutation_root";
+  updateHouseholdCategoryByPk: {
     __typename?: "HouseholdCategory";
     id: string;
-    name: string;
     displayOrder: number;
-  }>;
+  } | null;
 };
 
-export const GetAllCategoriesDocument = {
+export const UpdateCategoryDisplayOrderDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "GetAllCategories" },
+      operation: "mutation",
+      name: { kind: "Name", value: "UpdateCategoryDisplayOrder" },
       variableDefinitions: [
         {
           kind: "VariableDefinition",
           variable: {
             kind: "Variable",
-            name: { kind: "Name", value: "groupId" },
+            name: { kind: "Name", value: "categoryId" },
           },
           type: {
             kind: "NonNullType",
@@ -4187,35 +4338,54 @@ export const GetAllCategoriesDocument = {
             },
           },
         },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "displayOrder" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          },
+        },
       ],
       selectionSet: {
         kind: "SelectionSet",
         selections: [
           {
             kind: "Field",
-            name: { kind: "Name", value: "householdCategory" },
+            name: { kind: "Name", value: "updateHouseholdCategoryByPk" },
             arguments: [
               {
                 kind: "Argument",
-                name: { kind: "Name", value: "where" },
+                name: { kind: "Name", value: "pkColumns" },
                 value: {
                   kind: "ObjectValue",
                   fields: [
                     {
                       kind: "ObjectField",
-                      name: { kind: "Name", value: "groupId" },
+                      name: { kind: "Name", value: "id" },
                       value: {
-                        kind: "ObjectValue",
-                        fields: [
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "_eq" },
-                            value: {
-                              kind: "Variable",
-                              name: { kind: "Name", value: "groupId" },
-                            },
-                          },
-                        ],
+                        kind: "Variable",
+                        name: { kind: "Name", value: "categoryId" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "_set" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "displayOrder" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "displayOrder" },
                       },
                     },
                   ],
@@ -4226,7 +4396,6 @@ export const GetAllCategoriesDocument = {
               kind: "SelectionSet",
               selections: [
                 { kind: "Field", name: { kind: "Name", value: "id" } },
-                { kind: "Field", name: { kind: "Name", value: "name" } },
                 {
                   kind: "Field",
                   name: { kind: "Name", value: "displayOrder" },
@@ -4239,6 +4408,6 @@ export const GetAllCategoriesDocument = {
     },
   ],
 } as unknown as DocumentNode<
-  GetAllCategoriesQuery,
-  GetAllCategoriesQueryVariables
+  UpdateCategoryDisplayOrderMutation,
+  UpdateCategoryDisplayOrderMutationVariables
 >;
