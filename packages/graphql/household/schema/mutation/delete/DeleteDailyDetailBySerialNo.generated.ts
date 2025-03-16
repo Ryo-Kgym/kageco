@@ -744,6 +744,7 @@ export type GroupBoolExp = {
   importFileHistoriesAggregate: InputMaybe<HouseholdImportFileHistoryAggregateBoolExp>;
   name: InputMaybe<StringComparisonExp>;
   tags: InputMaybe<HouseholdTagBoolExp>;
+  templates: InputMaybe<HouseholdTemplateBoolExp>;
   transferCategory: InputMaybe<HouseholdTransferCategoryBoolExp>;
 };
 
@@ -768,6 +769,7 @@ export type GroupOrderBy = {
   importFileHistoriesAggregate: InputMaybe<HouseholdImportFileHistoryAggregateOrderBy>;
   name: InputMaybe<OrderBy>;
   tagsAggregate: InputMaybe<HouseholdTagAggregateOrderBy>;
+  templatesAggregate: InputMaybe<HouseholdTemplateAggregateOrderBy>;
   transferCategory: InputMaybe<HouseholdTransferCategoryOrderBy>;
 };
 
@@ -3633,6 +3635,26 @@ export type HouseholdTagVarianceOrderBy = {
   displayOrder: InputMaybe<OrderBy>;
 };
 
+/** order by aggregate values of table "household.template" */
+export type HouseholdTemplateAggregateOrderBy = {
+  avg: InputMaybe<HouseholdTemplateAvgOrderBy>;
+  count: InputMaybe<OrderBy>;
+  max: InputMaybe<HouseholdTemplateMaxOrderBy>;
+  min: InputMaybe<HouseholdTemplateMinOrderBy>;
+  stddev: InputMaybe<HouseholdTemplateStddevOrderBy>;
+  stddevPop: InputMaybe<HouseholdTemplateStddevPopOrderBy>;
+  stddevSamp: InputMaybe<HouseholdTemplateStddevSampOrderBy>;
+  sum: InputMaybe<HouseholdTemplateSumOrderBy>;
+  varPop: InputMaybe<HouseholdTemplateVarPopOrderBy>;
+  varSamp: InputMaybe<HouseholdTemplateVarSampOrderBy>;
+  variance: InputMaybe<HouseholdTemplateVarianceOrderBy>;
+};
+
+/** order by avg() on columns of table "household.template" */
+export type HouseholdTemplateAvgOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
 /** Boolean expression to filter rows from the table "household.template". All fields are combined with a logical 'AND'. */
 export type HouseholdTemplateBoolExp = {
   _and: InputMaybe<Array<HouseholdTemplateBoolExp>>;
@@ -3671,6 +3693,32 @@ export type HouseholdTemplateInsertInput = {
   iocomeType: InputMaybe<Scalars["String"]>;
   memo: InputMaybe<Scalars["String"]>;
   name: InputMaybe<Scalars["String"]>;
+};
+
+/** order by max() on columns of table "household.template" */
+export type HouseholdTemplateMaxOrderBy = {
+  accountId: InputMaybe<OrderBy>;
+  amount: InputMaybe<OrderBy>;
+  categoryId: InputMaybe<OrderBy>;
+  genreId: InputMaybe<OrderBy>;
+  groupId: InputMaybe<OrderBy>;
+  id: InputMaybe<OrderBy>;
+  iocomeType: InputMaybe<OrderBy>;
+  memo: InputMaybe<OrderBy>;
+  name: InputMaybe<OrderBy>;
+};
+
+/** order by min() on columns of table "household.template" */
+export type HouseholdTemplateMinOrderBy = {
+  accountId: InputMaybe<OrderBy>;
+  amount: InputMaybe<OrderBy>;
+  categoryId: InputMaybe<OrderBy>;
+  genreId: InputMaybe<OrderBy>;
+  groupId: InputMaybe<OrderBy>;
+  id: InputMaybe<OrderBy>;
+  iocomeType: InputMaybe<OrderBy>;
+  memo: InputMaybe<OrderBy>;
+  name: InputMaybe<OrderBy>;
 };
 
 /** on_conflict condition type for table "household.template" */
@@ -3733,6 +3781,21 @@ export type HouseholdTemplateSetInput = {
   name: InputMaybe<Scalars["String"]>;
 };
 
+/** order by stddev() on columns of table "household.template" */
+export type HouseholdTemplateStddevOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
+/** order by stddevPop() on columns of table "household.template" */
+export type HouseholdTemplateStddevPopOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
+/** order by stddevSamp() on columns of table "household.template" */
+export type HouseholdTemplateStddevSampOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
 /** Streaming cursor of the table "household_template" */
 export type HouseholdTemplateStreamCursorInput = {
   /** Stream column input with initial value */
@@ -3752,6 +3815,11 @@ export type HouseholdTemplateStreamCursorValueInput = {
   iocomeType: InputMaybe<Scalars["String"]>;
   memo: InputMaybe<Scalars["String"]>;
   name: InputMaybe<Scalars["String"]>;
+};
+
+/** order by sum() on columns of table "household.template" */
+export type HouseholdTemplateSumOrderBy = {
+  amount: InputMaybe<OrderBy>;
 };
 
 /** update columns of table "household.template" */
@@ -3782,6 +3850,21 @@ export type HouseholdTemplateUpdates = {
   _set: InputMaybe<HouseholdTemplateSetInput>;
   /** filter the rows which have to be updated */
   where: HouseholdTemplateBoolExp;
+};
+
+/** order by varPop() on columns of table "household.template" */
+export type HouseholdTemplateVarPopOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
+/** order by varSamp() on columns of table "household.template" */
+export type HouseholdTemplateVarSampOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
+/** order by variance() on columns of table "household.template" */
+export type HouseholdTemplateVarianceOrderBy = {
+  amount: InputMaybe<OrderBy>;
 };
 
 /** order by aggregate values of table "household.total_by_category_view" */
