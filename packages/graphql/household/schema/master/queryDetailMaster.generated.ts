@@ -1,7 +1,7 @@
 import { YYYY_MM_DD, YYYY_MM_DD_HH_MM_SS } from "@/type/date/date";
 import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
 
-import * as Types from "../../../generated/typed";
+import * as Types from "../../generated/typed";
 
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -4429,6 +4429,16 @@ export type GetDetailMasterQuery = {
       name: string;
       colorCode: string;
     }>;
+    templates: Array<{
+      __typename?: "HouseholdTemplate";
+      id: string;
+      name: string;
+      iocomeType: string;
+      genreId: string;
+      categoryId: string;
+      amount: number;
+      memo: string | null;
+    }>;
   } | null;
 };
 
@@ -4805,6 +4815,34 @@ export const GetDetailMasterDocument = {
                         kind: "Field",
                         name: { kind: "Name", value: "colorCode" },
                       },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "templates" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "iocomeType" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "genreId" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "categoryId" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "amount" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "memo" } },
                     ],
                   },
                 },

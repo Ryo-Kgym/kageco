@@ -7,15 +7,49 @@ import type { TagInput } from "../../../components/ui/tag/TagInput";
 import { IocomeType } from "../../../domain/model/household/IocomeType";
 
 export const useSetDetailMaster = () => {
-  const { setAccountData, setGenreData, setCategoryData, setTagData } =
-    useDetailMasterZustand();
-  return { setAccountData, setGenreData, setCategoryData, setTagData };
+  const {
+    setAccountData,
+    setGenreData,
+    setCategoryData,
+    setTagData,
+    setTemplateData,
+  } = useDetailMasterZustand();
+  return {
+    setAccountData,
+    setGenreData,
+    setCategoryData,
+    setTagData,
+    setTemplateData,
+  };
 };
 
 export const useGetDetailMaster = () => {
-  const { getAccounts, getGenres, getCategories, getAllCategories, getTags } =
-    useDetailMasterZustand();
-  return { getAccounts, getGenres, getCategories, getAllCategories, getTags };
+  const {
+    getAccounts,
+    getGenres,
+    getCategories,
+    getAllCategories,
+    getTags,
+    getTemplates,
+  } = useDetailMasterZustand();
+  return {
+    getAccounts,
+    getGenres,
+    getCategories,
+    getAllCategories,
+    getTags,
+    getTemplates,
+  };
+};
+
+type TemplateData = {
+  id: string;
+  name: string;
+  iocomeType: string;
+  genreId: string;
+  categoryId: string;
+  amount: number;
+  memo: string | null;
 };
 
 type State = {
@@ -23,6 +57,7 @@ type State = {
   genreData: Record<IocomeType, SelectProps<string>["data"]>;
   categoryData: Record<string, SelectProps<string>["data"]>;
   tagData: ComponentProps<typeof TagInput>["data"];
+  templateData: Record<string, TemplateData>;
 };
 
 type Actions = {
@@ -30,6 +65,7 @@ type Actions = {
   setGenreData: (data: Record<IocomeType, SelectProps<string>["data"]>) => void;
   setCategoryData: (data: Record<string, SelectProps<string>["data"]>) => void;
   setTagData: (data: ComponentProps<typeof TagInput>["data"]) => void;
+  setTemplateData: (data: TemplateData[]) => void;
   getAccounts: () => SelectProps<string>["data"];
   getGenres: (type: IocomeType) => SelectProps<string>["data"];
   getCategories: (genreId: string) => SelectProps<string>["data"];
@@ -38,6 +74,7 @@ type Actions = {
     items: SelectProps<string>["data"];
   }[];
   getTags: () => ComponentProps<typeof TagInput>["data"];
+  getTemplates: () => TemplateData[];
 };
 
 const useDetailMasterZustand = create<State & Actions>()(
@@ -49,6 +86,7 @@ const useDetailMasterZustand = create<State & Actions>()(
     },
     categoryData: {},
     tagData: [],
+    templateData: {},
     setAccountData: (data) =>
       set((state) => {
         state.accountData = data;
@@ -64,6 +102,12 @@ const useDetailMasterZustand = create<State & Actions>()(
     setTagData: (data) =>
       set((state) => {
         state.tagData = data;
+      }),
+    setTemplateData: (data) =>
+      set((state) => {
+        state.templateData = Object.fromEntries(
+          data.map((template) => [template.id, template]),
+        );
       }),
     getAccounts: () => get().accountData,
     getGenres: (type) => get().genreData[type],
@@ -81,5 +125,6 @@ const useDetailMasterZustand = create<State & Actions>()(
       }));
     },
     getTags: () => get().tagData,
+    getTemplates: () => Object.values(get().templateData),
   })),
 );
