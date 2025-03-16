@@ -11,6 +11,7 @@ type TemplateSelectProps = {
   required?: boolean;
   placeholder?: string;
   disabled?: boolean;
+  compact?: boolean;
 };
 
 export const TemplateSelect = ({
@@ -21,8 +22,9 @@ export const TemplateSelect = ({
   required,
   placeholder = "テンプレートを選択",
   disabled,
+  compact = false,
 }: TemplateSelectProps) => {
-  const { getTemplates, getAccounts } = useGetDetailMaster();
+  const { getTemplates } = useGetDetailMaster();
   const templates = getTemplates();
 
   const handleChange = (selectedValue: string) => {
@@ -53,12 +55,12 @@ export const TemplateSelect = ({
 
   return (
     <Select
-      label={label}
+      label={compact ? "" : label}
       value={value}
       setValue={handleChange}
       data={templateData}
       required={required}
-      placeholder={placeholder}
+      placeholder={compact ? "テンプレート" : placeholder}
       disabled={disabled}
     />
   );

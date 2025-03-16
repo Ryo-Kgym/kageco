@@ -46,21 +46,26 @@ export const RegisterDailyDetailPresenter: FC<Props> = ({
   disabled,
 }) => (
   <div className={"grid w-full grid-cols-1"}>
-    <Field>
-      <TemplateSelect
-        value={templateId}
-        setValue={setTemplateId}
-        onTemplateSelect={onTemplateSelect}
-      />
-    </Field>
-    <Field>
-      <DatePicker
-        value={form.date}
-        onChange={setDate}
-        required
-        defaultValue={form.date}
-      />
-    </Field>
+    <div className="flex items-center justify-between py-2 max-sm:py-1">
+      <div className="flex-grow">
+        <DatePicker
+          value={form.date}
+          onChange={setDate}
+          required
+          defaultValue={form.date}
+        />
+      </div>
+      <div className="ml-2 w-32">
+        <div className="text-xs text-gray-500">
+          <TemplateSelect
+            value={templateId}
+            setValue={setTemplateId}
+            onTemplateSelect={onTemplateSelect}
+            compact={true}
+          />
+        </div>
+      </div>
+    </div>
     <Field>
       <IocomeTypeSegment
         iocomeType={form.iocomeType}
