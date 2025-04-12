@@ -39,7 +39,7 @@ export const BusinessTimeCardServer = async ({
       >
         <Tabs
           tabs={{
-            monthly: {
+            daily: {
               label: "日毎",
               Component: <DailyAttendanceTable days={days} />,
             },
@@ -48,7 +48,7 @@ export const BusinessTimeCardServer = async ({
               Component: <AttendanceLogTable logs={baseDateLogs} />,
             },
           }}
-          defaultTab={"monthly"}
+          defaultTab={"daily"}
         />
       </div>
     </div>
