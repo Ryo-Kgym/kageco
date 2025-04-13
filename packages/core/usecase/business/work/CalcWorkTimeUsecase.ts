@@ -2,7 +2,7 @@ import type { TZDateTime, YYYY_MM, YYYYmmDD } from "@/type/date/date";
 
 import type { AttendanceState } from "../../../domain/business/attend/AttendanceState";
 import { DayAttendance } from "../../../domain/business/attend/DayAttendance";
-import { MonthlyAchievement } from "../../../domain/business/work/MonthlyAcheivement";
+import { MonthlyAchievement } from "../../../domain/business/work/MonthlyAchievement";
 import { MonthlyPlan } from "../../../domain/business/work/MonthlyPlan";
 import { MonthlyRemaining } from "../../../domain/business/work/MonthlyRemaining";
 import { WorkTime } from "../../../domain/business/work/WorkTime";

@@ -1,4 +1,4 @@
-import type { MonthlyAchievement } from "./MonthlyAcheivement";
+import type { MonthlyAchievement } from "./MonthlyAchievement";
 import type { MonthlyPlan } from "./MonthlyPlan";
 
 export class MonthlyRemaining {
