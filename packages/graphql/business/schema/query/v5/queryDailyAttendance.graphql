@@ -12,6 +12,7 @@ query getAttendance($date: date!, $groupId: String!, $userId: String!) {
 query getAttendanceOfMonth(
   $fromDate: date!
   $toDate: date!
+  $yearMonth: bpchar!
   $groupId: String!
   $userId: String!
 ) {
@@ -22,6 +23,20 @@ query getAttendanceOfMonth(
     }
   ) {
     ...fragDailyAttendance
+  }
+  monthlyPlan: businessMonthlyPlan(
+    where: {
+      userId: { _eq: $userId }
+      _and: { yearMonth: { _eq: $yearMonth } }
+    }
+    , limit: 1
+  ) {
+    __typename
+    id
+    yearMonth
+    businessDays
+    plannedWorkingHoursLower
+    plannedWorkingHoursUpper
   }
 }
 

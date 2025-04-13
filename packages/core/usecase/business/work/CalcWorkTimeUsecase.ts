@@ -1,9 +1,12 @@
-import type { TZDateTime, YYYYmmDD } from "@/type/date/date";
+import type { TZDateTime, YYYY_MM, YYYYmmDD } from "@/type/date/date";
 
 import type { AttendanceState } from "../../../domain/business/attend/AttendanceState";
+import { DayAttendance } from "../../../domain/business/attend/DayAttendance";
+import { MonthlyAchievement } from "../../../domain/business/work/MonthlyAchievement";
+import { MonthlyPlan } from "../../../domain/business/work/MonthlyPlan";
+import { MonthlyRemaining } from "../../../domain/business/work/MonthlyRemaining";
 import { WorkTime } from "../../../domain/business/work/WorkTime";
 import { DayOfWeekFactory } from "../../../domain/date/DayOfWeekFactory";
-import type { DayOfWeek } from "../../../domain/date/dayOfWeek";
 import type { FindAttendanceGateway } from "../../../gateway/business/work/FindAttendanceGateway";
 import type { BusinessUsecase } from "../BusinessUsecase";
 import { makeDaysOfMonth } from "./makeDaysOfMonth";
@@ -20,7 +23,7 @@ export class CalcWorkTimeUsecase
   async handle(input: CalcWorkTimeInput) {
     const monthlyList = makeDaysOfMonth(input.baseDate);
 
-    const { days } = await this.findAttendanceGateway.findBy(
+    const { days, monthlyPlan } = await this.findAttendanceGateway.findBy(
       monthlyList[0] ?? input.baseDate,
       monthlyList.slice(-1)[0] ?? input.baseDate,
     );
@@ -29,17 +32,17 @@ export class CalcWorkTimeUsecase
       const matched = days.find((day) => day.date.equals(date));
 
       if (!matched) {
-        return {
+        return new DayAttendance({
           date,
           dayOfWeek: DayOfWeekFactory.of(date),
           startDatetime: undefined,
           endDatetime: undefined,
           breakSecond: undefined,
           workSecond: undefined,
-        };
+        });
       }
 
-      return {
+      return new DayAttendance({
         date,
         dayOfWeek: DayOfWeekFactory.of(date),
         startDatetime: matched.startDatetime,
@@ -49,7 +52,7 @@ export class CalcWorkTimeUsecase
           startDatetime: matched.startDatetime,
           endDatetime: matched.endDatetime,
         }).calcWorkSecond(matched.breakSecond),
-      };
+      });
     });
 
     const baseDateLogs: AttendanceLog[] =
@@ -68,11 +71,32 @@ export class CalcWorkTimeUsecase
       0,
     );
 
+    const plan = new MonthlyPlan({
+      businessDays: monthlyPlan?.businessDays ?? 0,
+      workHoursLower: monthlyPlan?.plannedWorkingHoursLower ?? 0,
+      workHoursUpper: monthlyPlan?.plannedWorkingHoursUpper ?? 0,
+    });
+    const achievement = MonthlyAchievement.of(mergedDailyList);
+    const remaining = MonthlyRemaining.of(plan, achievement);
+
     return {
+      yearMonth: input.baseDate.yyyy_mm,
       days: mergedDailyList,
       lastState,
       baseDateLogs,
       totalWorkSecond,
+      monthlyPlanned: {
+        businessDays: plan.businessDays,
+        workHoursLower: plan.workHoursLower,
+        workHoursUpper: plan.workHoursUpper,
+        workSecondLower: plan.workSecondLower,
+        workSecondUpper: plan.workSecondUpper,
+      },
+      remaining: {
+        businessDays: remaining.businessDays,
+        workSecondLower: remaining.workSecondsLower,
+        recommendedDailyWorkSecond: remaining.calcRecommendedDailyWorkSecond(),
+      },
     };
   }
 }
@@ -82,19 +106,23 @@ type CalcWorkTimeInput = {
 };
 
 type CalcWorkTimeOutput = {
+  yearMonth: YYYY_MM;
   days: DayAttendance[];
   lastState: AttendanceState;
   baseDateLogs: AttendanceLog[];
   totalWorkSecond: number;
-};
-
-type DayAttendance = {
-  date: YYYYmmDD;
-  dayOfWeek: DayOfWeek;
-  startDatetime: TZDateTime | undefined;
-  endDatetime: TZDateTime | undefined;
-  breakSecond: number | undefined;
-  workSecond: number | undefined;
+  monthlyPlanned: {
+    businessDays: number;
+    workHoursLower: number;
+    workHoursUpper: number;
+    workSecondLower: number;
+    workSecondUpper: number;
+  } | null;
+  remaining: {
+    businessDays: number;
+    workSecondLower: number;
+    recommendedDailyWorkSecond: number;
+  };
 };
 
 type AttendanceLog = {

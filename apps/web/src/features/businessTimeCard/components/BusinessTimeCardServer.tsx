@@ -6,6 +6,7 @@ import { AttendOrLeaveButton } from "./AttendOrLeaveButton";
 import { AttendanceLogTable } from "./AttendanceLogTable";
 import { DailyAttendanceTable } from "./DailyAttendanceTable";
 import { DateNavigator } from "./DateNavigator";
+import { MonthlyPlanSetting } from "./MonthlyPlanSetting";
 import { MonthlySummary } from "./MonthlySummary";
 
 export const BusinessTimeCardServer = async ({
@@ -13,8 +14,15 @@ export const BusinessTimeCardServer = async ({
 }: {
   baseDate: YYYY_MM_DD;
 }) => {
-  const { days, lastState, baseDateLogs, totalWorkSecond } =
-    await fetchDailyAttendance(baseDate);
+  const {
+    yearMonth,
+    days,
+    lastState,
+    baseDateLogs,
+    totalWorkSecond,
+    monthlyPlanned,
+    remaining,
+  } = await fetchDailyAttendance(baseDate);
 
   return (
     <div
@@ -29,7 +37,15 @@ export const BusinessTimeCardServer = async ({
     >
       <DateNavigator baseDate={baseDate} />
       <AttendOrLeaveButton lastState={lastState} />
-      <MonthlySummary totalWorkSecond={totalWorkSecond} />
+      <MonthlySummary
+        plannedBusinessDays={monthlyPlanned.businessDays}
+        plannedWorkingSecondLower={monthlyPlanned.workSecondLower}
+        plannedWorkingSecondUpper={monthlyPlanned.workSecondUpper}
+        totalWorkSecond={totalWorkSecond}
+        remainingBusinessDays={remaining.businessDays}
+        remainingWorkSecondLower={remaining.workSecondLower}
+        recommendedDailyWorkSecond={remaining.recommendedDailyWorkSecond}
+      />
       <div
         style={{
           display: "flex",
@@ -39,7 +55,7 @@ export const BusinessTimeCardServer = async ({
       >
         <Tabs
           tabs={{
-            monthly: {
+            daily: {
               label: "日毎",
               Component: <DailyAttendanceTable days={days} />,
             },
@@ -47,8 +63,21 @@ export const BusinessTimeCardServer = async ({
               label: "履歴",
               Component: <AttendanceLogTable logs={baseDateLogs} />,
             },
+            plan: {
+              label: "予定",
+              Component: (
+                <MonthlyPlanSetting
+                  initFormState={{
+                    yearMonth,
+                    businessDays: monthlyPlanned.businessDays,
+                    plannedWorkingHoursLower: monthlyPlanned.workHoursLower,
+                    plannedWorkingHoursUpper: monthlyPlanned.workHoursUpper,
+                  }}
+                />
+              ),
+            },
           }}
-          defaultTab={"monthly"}
+          defaultTab={"daily"}
         />
       </div>
     </div>

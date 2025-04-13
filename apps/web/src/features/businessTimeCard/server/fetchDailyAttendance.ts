@@ -13,6 +13,7 @@ export const fetchDailyAttendance = async (baseDate: YYYY_MM_DD) => {
       const { data } = await execQuery(GetAttendanceOfMonthDocument, {
         fromDate: fromDate.toString(),
         toDate: toDate.toString(),
+        yearMonth: fromDate.yyyy_mm,
         userId: id,
         groupId: group.id,
       });
@@ -33,6 +34,7 @@ export const fetchDailyAttendance = async (baseDate: YYYY_MM_DD) => {
                 memo: log.memo,
               })) ?? [],
           })) ?? [],
+        monthlyPlan: data.monthlyPlan?.[0] ?? null,
       };
     },
   });

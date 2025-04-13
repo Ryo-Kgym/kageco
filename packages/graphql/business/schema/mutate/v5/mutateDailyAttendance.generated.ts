@@ -23,6 +23,7 @@ export type Scalars = {
   Float: number;
   bpchar: string;
   date: YYYY_MM_DD;
+  json: unknown;
   numeric: number;
   timestamp: string;
   timestamptz: YYYY_MM_DD_HH_MM_SS;
@@ -297,6 +298,26 @@ export type BpcharComparisonExp = {
   _similar: InputMaybe<Scalars["bpchar"]>;
 };
 
+/** order by aggregate values of table "business.daily_attendance" */
+export type BusinessDailyAttendanceAggregateOrderBy = {
+  avg: InputMaybe<BusinessDailyAttendanceAvgOrderBy>;
+  count: InputMaybe<OrderBy>;
+  max: InputMaybe<BusinessDailyAttendanceMaxOrderBy>;
+  min: InputMaybe<BusinessDailyAttendanceMinOrderBy>;
+  stddev: InputMaybe<BusinessDailyAttendanceStddevOrderBy>;
+  stddevPop: InputMaybe<BusinessDailyAttendanceStddevPopOrderBy>;
+  stddevSamp: InputMaybe<BusinessDailyAttendanceStddevSampOrderBy>;
+  sum: InputMaybe<BusinessDailyAttendanceSumOrderBy>;
+  varPop: InputMaybe<BusinessDailyAttendanceVarPopOrderBy>;
+  varSamp: InputMaybe<BusinessDailyAttendanceVarSampOrderBy>;
+  variance: InputMaybe<BusinessDailyAttendanceVarianceOrderBy>;
+};
+
+/** order by avg() on columns of table "business.daily_attendance" */
+export type BusinessDailyAttendanceAvgOrderBy = {
+  breakSecond: InputMaybe<OrderBy>;
+};
+
 /** Boolean expression to filter rows from the table "business.daily_attendance". All fields are combined with a logical 'AND'. */
 export type BusinessDailyAttendanceBoolExp = {
   _and: InputMaybe<Array<BusinessDailyAttendanceBoolExp>>;
@@ -449,6 +470,28 @@ export type BusinessDailyAttendanceLogUpdateColumn =
   /** placeholder (do not use) */
   "_PLACEHOLDER";
 
+/** order by max() on columns of table "business.daily_attendance" */
+export type BusinessDailyAttendanceMaxOrderBy = {
+  breakSecond: InputMaybe<OrderBy>;
+  date: InputMaybe<OrderBy>;
+  endDatetime: InputMaybe<OrderBy>;
+  groupId: InputMaybe<OrderBy>;
+  id: InputMaybe<OrderBy>;
+  startDatetime: InputMaybe<OrderBy>;
+  userId: InputMaybe<OrderBy>;
+};
+
+/** order by min() on columns of table "business.daily_attendance" */
+export type BusinessDailyAttendanceMinOrderBy = {
+  breakSecond: InputMaybe<OrderBy>;
+  date: InputMaybe<OrderBy>;
+  endDatetime: InputMaybe<OrderBy>;
+  groupId: InputMaybe<OrderBy>;
+  id: InputMaybe<OrderBy>;
+  startDatetime: InputMaybe<OrderBy>;
+  userId: InputMaybe<OrderBy>;
+};
+
 /** input type for inserting object relation for remote table "business.daily_attendance" */
 export type BusinessDailyAttendanceObjRelInsertInput = {
   data: BusinessDailyAttendanceInsertInput;
@@ -506,6 +549,21 @@ export type BusinessDailyAttendanceSetInput = {
   startDatetime: InputMaybe<Scalars["timestamptz"]>;
 };
 
+/** order by stddev() on columns of table "business.daily_attendance" */
+export type BusinessDailyAttendanceStddevOrderBy = {
+  breakSecond: InputMaybe<OrderBy>;
+};
+
+/** order by stddevPop() on columns of table "business.daily_attendance" */
+export type BusinessDailyAttendanceStddevPopOrderBy = {
+  breakSecond: InputMaybe<OrderBy>;
+};
+
+/** order by stddevSamp() on columns of table "business.daily_attendance" */
+export type BusinessDailyAttendanceStddevSampOrderBy = {
+  breakSecond: InputMaybe<OrderBy>;
+};
+
 /** Streaming cursor of the table "business_daily_attendance" */
 export type BusinessDailyAttendanceStreamCursorInput = {
   /** Stream column input with initial value */
@@ -525,6 +583,11 @@ export type BusinessDailyAttendanceStreamCursorValueInput = {
   userId: InputMaybe<Scalars["String"]>;
 };
 
+/** order by sum() on columns of table "business.daily_attendance" */
+export type BusinessDailyAttendanceSumOrderBy = {
+  breakSecond: InputMaybe<OrderBy>;
+};
+
 /** update columns of table "business.daily_attendance" */
 export type BusinessDailyAttendanceUpdateColumn =
   /** column name */
@@ -541,6 +604,77 @@ export type BusinessDailyAttendanceUpdates = {
   _set: InputMaybe<BusinessDailyAttendanceSetInput>;
   /** filter the rows which have to be updated */
   where: BusinessDailyAttendanceBoolExp;
+};
+
+/** order by varPop() on columns of table "business.daily_attendance" */
+export type BusinessDailyAttendanceVarPopOrderBy = {
+  breakSecond: InputMaybe<OrderBy>;
+};
+
+/** order by varSamp() on columns of table "business.daily_attendance" */
+export type BusinessDailyAttendanceVarSampOrderBy = {
+  breakSecond: InputMaybe<OrderBy>;
+};
+
+/** order by variance() on columns of table "business.daily_attendance" */
+export type BusinessDailyAttendanceVarianceOrderBy = {
+  breakSecond: InputMaybe<OrderBy>;
+};
+
+/** Boolean expression to filter rows from the table "business.monthly_plan". All fields are combined with a logical 'AND'. */
+export type BusinessMonthlyPlanBoolExp = {
+  _and: InputMaybe<Array<BusinessMonthlyPlanBoolExp>>;
+  _not: InputMaybe<BusinessMonthlyPlanBoolExp>;
+  _or: InputMaybe<Array<BusinessMonthlyPlanBoolExp>>;
+  businessDays: InputMaybe<IntComparisonExp>;
+  id: InputMaybe<StringComparisonExp>;
+  plannedWorkingHoursLower: InputMaybe<NumericComparisonExp>;
+  plannedWorkingHoursUpper: InputMaybe<NumericComparisonExp>;
+  userId: InputMaybe<StringComparisonExp>;
+  yearMonth: InputMaybe<BpcharComparisonExp>;
+};
+
+/** Ordering options when selecting data from "business.monthly_plan". */
+export type BusinessMonthlyPlanOrderBy = {
+  businessDays: InputMaybe<OrderBy>;
+  id: InputMaybe<OrderBy>;
+  plannedWorkingHoursLower: InputMaybe<OrderBy>;
+  plannedWorkingHoursUpper: InputMaybe<OrderBy>;
+  userId: InputMaybe<OrderBy>;
+  yearMonth: InputMaybe<OrderBy>;
+};
+
+/** select columns of table "business.monthly_plan" */
+export type BusinessMonthlyPlanSelectColumn =
+  /** column name */
+  | "businessDays"
+  /** column name */
+  | "id"
+  /** column name */
+  | "plannedWorkingHoursLower"
+  /** column name */
+  | "plannedWorkingHoursUpper"
+  /** column name */
+  | "userId"
+  /** column name */
+  | "yearMonth";
+
+/** Streaming cursor of the table "business_monthly_plan" */
+export type BusinessMonthlyPlanStreamCursorInput = {
+  /** Stream column input with initial value */
+  initialValue: BusinessMonthlyPlanStreamCursorValueInput;
+  /** cursor ordering */
+  ordering: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type BusinessMonthlyPlanStreamCursorValueInput = {
+  businessDays: InputMaybe<Scalars["Int"]>;
+  id: InputMaybe<Scalars["String"]>;
+  plannedWorkingHoursLower: InputMaybe<Scalars["numeric"]>;
+  plannedWorkingHoursUpper: InputMaybe<Scalars["numeric"]>;
+  userId: InputMaybe<Scalars["String"]>;
+  yearMonth: InputMaybe<Scalars["bpchar"]>;
 };
 
 /** ordering argument of a cursor */
@@ -644,9 +778,11 @@ export type GroupBoolExp = {
   affiliationsAggregate: InputMaybe<AffiliationAggregateBoolExp>;
   apps: InputMaybe<AppBoolExp>;
   categories: InputMaybe<HouseholdCategoryBoolExp>;
+  conditionSessions: InputMaybe<HouseholdConditionSessionBoolExp>;
   creditCardDetails: InputMaybe<HouseholdCreditCardDetailBoolExp>;
   creditCardSummaries: InputMaybe<HouseholdCreditCardSummaryBoolExp>;
   creditCardSummariesAggregate: InputMaybe<HouseholdCreditCardSummaryAggregateBoolExp>;
+  dailyAttendances: InputMaybe<BusinessDailyAttendanceBoolExp>;
   dailyDetails: InputMaybe<HouseholdDailyDetailBoolExp>;
   dashboardSettings: InputMaybe<HouseholdDashboardSettingBoolExp>;
   depositCategories: InputMaybe<HouseholdDepositCategoryBoolExp>;
@@ -664,8 +800,7 @@ export type GroupBoolExp = {
   importFileHistoriesAggregate: InputMaybe<HouseholdImportFileHistoryAggregateBoolExp>;
   name: InputMaybe<StringComparisonExp>;
   tags: InputMaybe<HouseholdTagBoolExp>;
-  totalByCategoryView: InputMaybe<HouseholdTotalByCategoryViewBoolExp>;
-  totalByCategoryViewAggregate: InputMaybe<HouseholdTotalByCategoryViewAggregateBoolExp>;
+  templates: InputMaybe<HouseholdTemplateBoolExp>;
   transferCategory: InputMaybe<HouseholdTransferCategoryBoolExp>;
 };
 
@@ -675,8 +810,10 @@ export type GroupOrderBy = {
   affiliationsAggregate: InputMaybe<AffiliationAggregateOrderBy>;
   appsAggregate: InputMaybe<AppAggregateOrderBy>;
   categoriesAggregate: InputMaybe<HouseholdCategoryAggregateOrderBy>;
+  conditionSessionsAggregate: InputMaybe<HouseholdConditionSessionAggregateOrderBy>;
   creditCardDetailsAggregate: InputMaybe<HouseholdCreditCardDetailAggregateOrderBy>;
   creditCardSummariesAggregate: InputMaybe<HouseholdCreditCardSummaryAggregateOrderBy>;
+  dailyAttendancesAggregate: InputMaybe<BusinessDailyAttendanceAggregateOrderBy>;
   dailyDetailsAggregate: InputMaybe<HouseholdDailyDetailAggregateOrderBy>;
   dashboardSettingsAggregate: InputMaybe<HouseholdDashboardSettingAggregateOrderBy>;
   depositCategoriesAggregate: InputMaybe<HouseholdDepositCategoryAggregateOrderBy>;
@@ -688,7 +825,7 @@ export type GroupOrderBy = {
   importFileHistoriesAggregate: InputMaybe<HouseholdImportFileHistoryAggregateOrderBy>;
   name: InputMaybe<OrderBy>;
   tagsAggregate: InputMaybe<HouseholdTagAggregateOrderBy>;
-  totalByCategoryViewAggregate: InputMaybe<HouseholdTotalByCategoryViewAggregateOrderBy>;
+  templatesAggregate: InputMaybe<HouseholdTemplateAggregateOrderBy>;
   transferCategory: InputMaybe<HouseholdTransferCategoryOrderBy>;
 };
 
@@ -1132,6 +1269,8 @@ export type HouseholdCategoryBoolExp = {
   creditCardDetails: InputMaybe<HouseholdCreditCardDetailBoolExp>;
   dailyDetails: InputMaybe<HouseholdDailyDetailBoolExp>;
   depositCategory: InputMaybe<HouseholdDepositCategoryBoolExp>;
+  details: InputMaybe<HouseholdAllDetailViewBoolExp>;
+  detailsAggregate: InputMaybe<HouseholdAllDetailViewAggregateBoolExp>;
   displayOrder: InputMaybe<IntComparisonExp>;
   genre: InputMaybe<HouseholdGenreBoolExp>;
   genreId: InputMaybe<StringComparisonExp>;
@@ -1139,6 +1278,7 @@ export type HouseholdCategoryBoolExp = {
   groupId: InputMaybe<StringComparisonExp>;
   id: InputMaybe<StringComparisonExp>;
   name: InputMaybe<StringComparisonExp>;
+  totalByCategoryViews: InputMaybe<HouseholdTotalByCategoryViewBoolExp>;
   transferCategories: InputMaybe<HouseholdTransferCategoryBoolExp>;
   transferCategoriesAggregate: InputMaybe<HouseholdTransferCategoryAggregateBoolExp>;
   validFlag: InputMaybe<BooleanComparisonExp>;
@@ -1204,6 +1344,7 @@ export type HouseholdCategoryOrderBy = {
   creditCardDetailsAggregate: InputMaybe<HouseholdCreditCardDetailAggregateOrderBy>;
   dailyDetailsAggregate: InputMaybe<HouseholdDailyDetailAggregateOrderBy>;
   depositCategory: InputMaybe<HouseholdDepositCategoryOrderBy>;
+  detailsAggregate: InputMaybe<HouseholdAllDetailViewAggregateOrderBy>;
   displayOrder: InputMaybe<OrderBy>;
   genre: InputMaybe<HouseholdGenreOrderBy>;
   genreId: InputMaybe<OrderBy>;
@@ -1211,6 +1352,7 @@ export type HouseholdCategoryOrderBy = {
   groupId: InputMaybe<OrderBy>;
   id: InputMaybe<OrderBy>;
   name: InputMaybe<OrderBy>;
+  totalByCategoryViewsAggregate: InputMaybe<HouseholdTotalByCategoryViewAggregateOrderBy>;
   transferCategoriesAggregate: InputMaybe<HouseholdTransferCategoryAggregateOrderBy>;
   validFlag: InputMaybe<OrderBy>;
 };
@@ -1320,6 +1462,128 @@ export type HouseholdCategoryVarSampOrderBy = {
 /** order by variance() on columns of table "household.category" */
 export type HouseholdCategoryVarianceOrderBy = {
   displayOrder: InputMaybe<OrderBy>;
+};
+
+/** order by aggregate values of table "household.condition_session" */
+export type HouseholdConditionSessionAggregateOrderBy = {
+  count: InputMaybe<OrderBy>;
+  max: InputMaybe<HouseholdConditionSessionMaxOrderBy>;
+  min: InputMaybe<HouseholdConditionSessionMinOrderBy>;
+};
+
+/** Boolean expression to filter rows from the table "household.condition_session". All fields are combined with a logical 'AND'. */
+export type HouseholdConditionSessionBoolExp = {
+  _and: InputMaybe<Array<HouseholdConditionSessionBoolExp>>;
+  _not: InputMaybe<HouseholdConditionSessionBoolExp>;
+  _or: InputMaybe<Array<HouseholdConditionSessionBoolExp>>;
+  dataType: InputMaybe<StringComparisonExp>;
+  group: InputMaybe<GroupBoolExp>;
+  groupId: InputMaybe<StringComparisonExp>;
+  key: InputMaybe<StringComparisonExp>;
+  value: InputMaybe<JsonArrayComparisonExp>;
+};
+
+/** unique or primary key constraints on table "household.condition_session" */
+export type HouseholdConditionSessionConstraint =
+  /** unique or primary key constraint on columns "key" */
+  "condition_session_pkey";
+
+/** input type for inserting data into table "household.condition_session" */
+export type HouseholdConditionSessionInsertInput = {
+  dataType: InputMaybe<Scalars["String"]>;
+  groupId: InputMaybe<Scalars["String"]>;
+  key: InputMaybe<Scalars["String"]>;
+  value: InputMaybe<Array<Scalars["json"]>>;
+};
+
+/** order by max() on columns of table "household.condition_session" */
+export type HouseholdConditionSessionMaxOrderBy = {
+  dataType: InputMaybe<OrderBy>;
+  groupId: InputMaybe<OrderBy>;
+  key: InputMaybe<OrderBy>;
+  value: InputMaybe<OrderBy>;
+};
+
+/** order by min() on columns of table "household.condition_session" */
+export type HouseholdConditionSessionMinOrderBy = {
+  dataType: InputMaybe<OrderBy>;
+  groupId: InputMaybe<OrderBy>;
+  key: InputMaybe<OrderBy>;
+  value: InputMaybe<OrderBy>;
+};
+
+/** on_conflict condition type for table "household.condition_session" */
+export type HouseholdConditionSessionOnConflict = {
+  constraint: HouseholdConditionSessionConstraint;
+  updateColumns: Array<HouseholdConditionSessionUpdateColumn>;
+  where: InputMaybe<HouseholdConditionSessionBoolExp>;
+};
+
+/** Ordering options when selecting data from "household.condition_session". */
+export type HouseholdConditionSessionOrderBy = {
+  dataType: InputMaybe<OrderBy>;
+  group: InputMaybe<GroupOrderBy>;
+  groupId: InputMaybe<OrderBy>;
+  key: InputMaybe<OrderBy>;
+  value: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: household.condition_session */
+export type HouseholdConditionSessionPkColumnsInput = {
+  key: Scalars["String"];
+};
+
+/** select columns of table "household.condition_session" */
+export type HouseholdConditionSessionSelectColumn =
+  /** column name */
+  | "dataType"
+  /** column name */
+  | "groupId"
+  /** column name */
+  | "key"
+  /** column name */
+  | "value";
+
+/** input type for updating data in table "household.condition_session" */
+export type HouseholdConditionSessionSetInput = {
+  dataType: InputMaybe<Scalars["String"]>;
+  groupId: InputMaybe<Scalars["String"]>;
+  key: InputMaybe<Scalars["String"]>;
+  value: InputMaybe<Array<Scalars["json"]>>;
+};
+
+/** Streaming cursor of the table "household_condition_session" */
+export type HouseholdConditionSessionStreamCursorInput = {
+  /** Stream column input with initial value */
+  initialValue: HouseholdConditionSessionStreamCursorValueInput;
+  /** cursor ordering */
+  ordering: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type HouseholdConditionSessionStreamCursorValueInput = {
+  dataType: InputMaybe<Scalars["String"]>;
+  groupId: InputMaybe<Scalars["String"]>;
+  key: InputMaybe<Scalars["String"]>;
+  value: InputMaybe<Array<Scalars["json"]>>;
+};
+
+/** update columns of table "household.condition_session" */
+export type HouseholdConditionSessionUpdateColumn =
+  /** column name */
+  | "dataType"
+  /** column name */
+  | "groupId"
+  /** column name */
+  | "key"
+  /** column name */
+  | "value";
+
+export type HouseholdConditionSessionUpdates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set: InputMaybe<HouseholdConditionSessionSetInput>;
+  /** filter the rows which have to be updated */
+  where: HouseholdConditionSessionBoolExp;
 };
 
 /** order by aggregate values of table "household.credit_card_detail" */
@@ -3427,8 +3691,236 @@ export type HouseholdTagVarianceOrderBy = {
   displayOrder: InputMaybe<OrderBy>;
 };
 
-export type HouseholdTotalByCategoryViewAggregateBoolExp = {
-  count: InputMaybe<HouseholdTotalByCategoryViewAggregateBoolExpCount>;
+/** order by aggregate values of table "household.template" */
+export type HouseholdTemplateAggregateOrderBy = {
+  avg: InputMaybe<HouseholdTemplateAvgOrderBy>;
+  count: InputMaybe<OrderBy>;
+  max: InputMaybe<HouseholdTemplateMaxOrderBy>;
+  min: InputMaybe<HouseholdTemplateMinOrderBy>;
+  stddev: InputMaybe<HouseholdTemplateStddevOrderBy>;
+  stddevPop: InputMaybe<HouseholdTemplateStddevPopOrderBy>;
+  stddevSamp: InputMaybe<HouseholdTemplateStddevSampOrderBy>;
+  sum: InputMaybe<HouseholdTemplateSumOrderBy>;
+  varPop: InputMaybe<HouseholdTemplateVarPopOrderBy>;
+  varSamp: InputMaybe<HouseholdTemplateVarSampOrderBy>;
+  variance: InputMaybe<HouseholdTemplateVarianceOrderBy>;
+};
+
+/** order by avg() on columns of table "household.template" */
+export type HouseholdTemplateAvgOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
+/** Boolean expression to filter rows from the table "household.template". All fields are combined with a logical 'AND'. */
+export type HouseholdTemplateBoolExp = {
+  _and: InputMaybe<Array<HouseholdTemplateBoolExp>>;
+  _not: InputMaybe<HouseholdTemplateBoolExp>;
+  _or: InputMaybe<Array<HouseholdTemplateBoolExp>>;
+  accountId: InputMaybe<StringComparisonExp>;
+  amount: InputMaybe<IntComparisonExp>;
+  categoryId: InputMaybe<StringComparisonExp>;
+  genreId: InputMaybe<StringComparisonExp>;
+  group: InputMaybe<GroupBoolExp>;
+  groupId: InputMaybe<StringComparisonExp>;
+  id: InputMaybe<StringComparisonExp>;
+  iocomeType: InputMaybe<StringComparisonExp>;
+  memo: InputMaybe<StringComparisonExp>;
+  name: InputMaybe<StringComparisonExp>;
+};
+
+/** unique or primary key constraints on table "household.template" */
+export type HouseholdTemplateConstraint =
+  /** unique or primary key constraint on columns "id" */
+  "template_pkey";
+
+/** input type for incrementing numeric columns in table "household.template" */
+export type HouseholdTemplateIncInput = {
+  amount: InputMaybe<Scalars["Int"]>;
+};
+
+/** input type for inserting data into table "household.template" */
+export type HouseholdTemplateInsertInput = {
+  accountId: InputMaybe<Scalars["String"]>;
+  amount: InputMaybe<Scalars["Int"]>;
+  categoryId: InputMaybe<Scalars["String"]>;
+  genreId: InputMaybe<Scalars["String"]>;
+  groupId: InputMaybe<Scalars["String"]>;
+  id: InputMaybe<Scalars["String"]>;
+  iocomeType: InputMaybe<Scalars["String"]>;
+  memo: InputMaybe<Scalars["String"]>;
+  name: InputMaybe<Scalars["String"]>;
+};
+
+/** order by max() on columns of table "household.template" */
+export type HouseholdTemplateMaxOrderBy = {
+  accountId: InputMaybe<OrderBy>;
+  amount: InputMaybe<OrderBy>;
+  categoryId: InputMaybe<OrderBy>;
+  genreId: InputMaybe<OrderBy>;
+  groupId: InputMaybe<OrderBy>;
+  id: InputMaybe<OrderBy>;
+  iocomeType: InputMaybe<OrderBy>;
+  memo: InputMaybe<OrderBy>;
+  name: InputMaybe<OrderBy>;
+};
+
+/** order by min() on columns of table "household.template" */
+export type HouseholdTemplateMinOrderBy = {
+  accountId: InputMaybe<OrderBy>;
+  amount: InputMaybe<OrderBy>;
+  categoryId: InputMaybe<OrderBy>;
+  genreId: InputMaybe<OrderBy>;
+  groupId: InputMaybe<OrderBy>;
+  id: InputMaybe<OrderBy>;
+  iocomeType: InputMaybe<OrderBy>;
+  memo: InputMaybe<OrderBy>;
+  name: InputMaybe<OrderBy>;
+};
+
+/** on_conflict condition type for table "household.template" */
+export type HouseholdTemplateOnConflict = {
+  constraint: HouseholdTemplateConstraint;
+  updateColumns: Array<HouseholdTemplateUpdateColumn>;
+  where: InputMaybe<HouseholdTemplateBoolExp>;
+};
+
+/** Ordering options when selecting data from "household.template". */
+export type HouseholdTemplateOrderBy = {
+  accountId: InputMaybe<OrderBy>;
+  amount: InputMaybe<OrderBy>;
+  categoryId: InputMaybe<OrderBy>;
+  genreId: InputMaybe<OrderBy>;
+  group: InputMaybe<GroupOrderBy>;
+  groupId: InputMaybe<OrderBy>;
+  id: InputMaybe<OrderBy>;
+  iocomeType: InputMaybe<OrderBy>;
+  memo: InputMaybe<OrderBy>;
+  name: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: household.template */
+export type HouseholdTemplatePkColumnsInput = {
+  id: Scalars["String"];
+};
+
+/** select columns of table "household.template" */
+export type HouseholdTemplateSelectColumn =
+  /** column name */
+  | "accountId"
+  /** column name */
+  | "amount"
+  /** column name */
+  | "categoryId"
+  /** column name */
+  | "genreId"
+  /** column name */
+  | "groupId"
+  /** column name */
+  | "id"
+  /** column name */
+  | "iocomeType"
+  /** column name */
+  | "memo"
+  /** column name */
+  | "name";
+
+/** input type for updating data in table "household.template" */
+export type HouseholdTemplateSetInput = {
+  accountId: InputMaybe<Scalars["String"]>;
+  amount: InputMaybe<Scalars["Int"]>;
+  categoryId: InputMaybe<Scalars["String"]>;
+  genreId: InputMaybe<Scalars["String"]>;
+  groupId: InputMaybe<Scalars["String"]>;
+  id: InputMaybe<Scalars["String"]>;
+  iocomeType: InputMaybe<Scalars["String"]>;
+  memo: InputMaybe<Scalars["String"]>;
+  name: InputMaybe<Scalars["String"]>;
+};
+
+/** order by stddev() on columns of table "household.template" */
+export type HouseholdTemplateStddevOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
+/** order by stddevPop() on columns of table "household.template" */
+export type HouseholdTemplateStddevPopOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
+/** order by stddevSamp() on columns of table "household.template" */
+export type HouseholdTemplateStddevSampOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
+/** Streaming cursor of the table "household_template" */
+export type HouseholdTemplateStreamCursorInput = {
+  /** Stream column input with initial value */
+  initialValue: HouseholdTemplateStreamCursorValueInput;
+  /** cursor ordering */
+  ordering: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type HouseholdTemplateStreamCursorValueInput = {
+  accountId: InputMaybe<Scalars["String"]>;
+  amount: InputMaybe<Scalars["Int"]>;
+  categoryId: InputMaybe<Scalars["String"]>;
+  genreId: InputMaybe<Scalars["String"]>;
+  groupId: InputMaybe<Scalars["String"]>;
+  id: InputMaybe<Scalars["String"]>;
+  iocomeType: InputMaybe<Scalars["String"]>;
+  memo: InputMaybe<Scalars["String"]>;
+  name: InputMaybe<Scalars["String"]>;
+};
+
+/** order by sum() on columns of table "household.template" */
+export type HouseholdTemplateSumOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
+/** update columns of table "household.template" */
+export type HouseholdTemplateUpdateColumn =
+  /** column name */
+  | "accountId"
+  /** column name */
+  | "amount"
+  /** column name */
+  | "categoryId"
+  /** column name */
+  | "genreId"
+  /** column name */
+  | "groupId"
+  /** column name */
+  | "id"
+  /** column name */
+  | "iocomeType"
+  /** column name */
+  | "memo"
+  /** column name */
+  | "name";
+
+export type HouseholdTemplateUpdates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc: InputMaybe<HouseholdTemplateIncInput>;
+  /** sets the columns of the filtered rows to the given values */
+  _set: InputMaybe<HouseholdTemplateSetInput>;
+  /** filter the rows which have to be updated */
+  where: HouseholdTemplateBoolExp;
+};
+
+/** order by varPop() on columns of table "household.template" */
+export type HouseholdTemplateVarPopOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
+/** order by varSamp() on columns of table "household.template" */
+export type HouseholdTemplateVarSampOrderBy = {
+  amount: InputMaybe<OrderBy>;
+};
+
+/** order by variance() on columns of table "household.template" */
+export type HouseholdTemplateVarianceOrderBy = {
+  amount: InputMaybe<OrderBy>;
 };
 
 /** order by aggregate values of table "household.total_by_category_view" */
@@ -3456,52 +3948,38 @@ export type HouseholdTotalByCategoryViewBoolExp = {
   _and: InputMaybe<Array<HouseholdTotalByCategoryViewBoolExp>>;
   _not: InputMaybe<HouseholdTotalByCategoryViewBoolExp>;
   _or: InputMaybe<Array<HouseholdTotalByCategoryViewBoolExp>>;
+  category: InputMaybe<HouseholdCategoryBoolExp>;
   categoryId: InputMaybe<StringComparisonExp>;
-  categoryName: InputMaybe<StringComparisonExp>;
-  date: InputMaybe<DateComparisonExp>;
-  genreId: InputMaybe<StringComparisonExp>;
-  genreName: InputMaybe<StringComparisonExp>;
   group: InputMaybe<GroupBoolExp>;
   groupId: InputMaybe<StringComparisonExp>;
-  iocomeType: InputMaybe<StringComparisonExp>;
   total: InputMaybe<NumericComparisonExp>;
+  yyyyMm: InputMaybe<StringComparisonExp>;
 };
 
 /** order by max() on columns of table "household.total_by_category_view" */
 export type HouseholdTotalByCategoryViewMaxOrderBy = {
   categoryId: InputMaybe<OrderBy>;
-  categoryName: InputMaybe<OrderBy>;
-  date: InputMaybe<OrderBy>;
-  genreId: InputMaybe<OrderBy>;
-  genreName: InputMaybe<OrderBy>;
   groupId: InputMaybe<OrderBy>;
-  iocomeType: InputMaybe<OrderBy>;
   total: InputMaybe<OrderBy>;
+  yyyyMm: InputMaybe<OrderBy>;
 };
 
 /** order by min() on columns of table "household.total_by_category_view" */
 export type HouseholdTotalByCategoryViewMinOrderBy = {
   categoryId: InputMaybe<OrderBy>;
-  categoryName: InputMaybe<OrderBy>;
-  date: InputMaybe<OrderBy>;
-  genreId: InputMaybe<OrderBy>;
-  genreName: InputMaybe<OrderBy>;
   groupId: InputMaybe<OrderBy>;
-  iocomeType: InputMaybe<OrderBy>;
   total: InputMaybe<OrderBy>;
+  yyyyMm: InputMaybe<OrderBy>;
 };
 
 /** Ordering options when selecting data from "household.total_by_category_view". */
 export type HouseholdTotalByCategoryViewOrderBy = {
+  category: InputMaybe<HouseholdCategoryOrderBy>;
   categoryId: InputMaybe<OrderBy>;
-  categoryName: InputMaybe<OrderBy>;
-  date: InputMaybe<OrderBy>;
-  genreId: InputMaybe<OrderBy>;
-  genreName: InputMaybe<OrderBy>;
   group: InputMaybe<GroupOrderBy>;
   groupId: InputMaybe<OrderBy>;
-  iocomeType: InputMaybe<OrderBy>;
   total: InputMaybe<OrderBy>;
+  yyyyMm: InputMaybe<OrderBy>;
 };
 
 /** select columns of table "household.total_by_category_view" */
@@ -3509,19 +3987,11 @@ export type HouseholdTotalByCategoryViewSelectColumn =
   /** column name */
   | "categoryId"
   /** column name */
-  | "categoryName"
-  /** column name */
-  | "date"
-  /** column name */
-  | "genreId"
-  /** column name */
-  | "genreName"
-  /** column name */
   | "groupId"
   /** column name */
-  | "iocomeType"
+  | "total"
   /** column name */
-  | "total";
+  | "yyyyMm";
 
 /** order by stddev() on columns of table "household.total_by_category_view" */
 export type HouseholdTotalByCategoryViewStddevOrderBy = {
@@ -3549,13 +4019,9 @@ export type HouseholdTotalByCategoryViewStreamCursorInput = {
 /** Initial value of the column from where the streaming should start */
 export type HouseholdTotalByCategoryViewStreamCursorValueInput = {
   categoryId: InputMaybe<Scalars["String"]>;
-  categoryName: InputMaybe<Scalars["String"]>;
-  date: InputMaybe<Scalars["date"]>;
-  genreId: InputMaybe<Scalars["String"]>;
-  genreName: InputMaybe<Scalars["String"]>;
   groupId: InputMaybe<Scalars["String"]>;
-  iocomeType: InputMaybe<Scalars["String"]>;
   total: InputMaybe<Scalars["numeric"]>;
+  yyyyMm: InputMaybe<Scalars["String"]>;
 };
 
 /** order by sum() on columns of table "household.total_by_category_view" */
@@ -3576,62 +4042,6 @@ export type HouseholdTotalByCategoryViewVarSampOrderBy = {
 /** order by variance() on columns of table "household.total_by_category_view" */
 export type HouseholdTotalByCategoryViewVarianceOrderBy = {
   total: InputMaybe<OrderBy>;
-};
-
-/** Boolean expression to filter rows from the table "household.total_by_genre_view". All fields are combined with a logical 'AND'. */
-export type HouseholdTotalByGenreViewBoolExp = {
-  _and: InputMaybe<Array<HouseholdTotalByGenreViewBoolExp>>;
-  _not: InputMaybe<HouseholdTotalByGenreViewBoolExp>;
-  _or: InputMaybe<Array<HouseholdTotalByGenreViewBoolExp>>;
-  date: InputMaybe<DateComparisonExp>;
-  genreId: InputMaybe<StringComparisonExp>;
-  genreName: InputMaybe<StringComparisonExp>;
-  groupId: InputMaybe<StringComparisonExp>;
-  iocomeType: InputMaybe<StringComparisonExp>;
-  total: InputMaybe<NumericComparisonExp>;
-};
-
-/** Ordering options when selecting data from "household.total_by_genre_view". */
-export type HouseholdTotalByGenreViewOrderBy = {
-  date: InputMaybe<OrderBy>;
-  genreId: InputMaybe<OrderBy>;
-  genreName: InputMaybe<OrderBy>;
-  groupId: InputMaybe<OrderBy>;
-  iocomeType: InputMaybe<OrderBy>;
-  total: InputMaybe<OrderBy>;
-};
-
-/** select columns of table "household.total_by_genre_view" */
-export type HouseholdTotalByGenreViewSelectColumn =
-  /** column name */
-  | "date"
-  /** column name */
-  | "genreId"
-  /** column name */
-  | "genreName"
-  /** column name */
-  | "groupId"
-  /** column name */
-  | "iocomeType"
-  /** column name */
-  | "total";
-
-/** Streaming cursor of the table "household_total_by_genre_view" */
-export type HouseholdTotalByGenreViewStreamCursorInput = {
-  /** Stream column input with initial value */
-  initialValue: HouseholdTotalByGenreViewStreamCursorValueInput;
-  /** cursor ordering */
-  ordering: InputMaybe<CursorOrdering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type HouseholdTotalByGenreViewStreamCursorValueInput = {
-  date: InputMaybe<Scalars["date"]>;
-  genreId: InputMaybe<Scalars["String"]>;
-  genreName: InputMaybe<Scalars["String"]>;
-  groupId: InputMaybe<Scalars["String"]>;
-  iocomeType: InputMaybe<Scalars["String"]>;
-  total: InputMaybe<Scalars["numeric"]>;
 };
 
 export type HouseholdTransferCategoryAggregateBoolExp = {
@@ -3717,6 +4127,23 @@ export type IntComparisonExp = {
   _lte: InputMaybe<Scalars["Int"]>;
   _neq: InputMaybe<Scalars["Int"]>;
   _nin: InputMaybe<Array<Scalars["Int"]>>;
+};
+
+/** Boolean expression to compare columns of type "json". All fields are combined with logical 'AND'. */
+export type JsonArrayComparisonExp = {
+  /** is the array contained in the given array value */
+  _containedIn: InputMaybe<Array<Scalars["json"]>>;
+  /** does the array contain the given value */
+  _contains: InputMaybe<Array<Scalars["json"]>>;
+  _eq: InputMaybe<Array<Scalars["json"]>>;
+  _gt: InputMaybe<Array<Scalars["json"]>>;
+  _gte: InputMaybe<Array<Scalars["json"]>>;
+  _in: InputMaybe<Array<Array<Scalars["json"]>>>;
+  _isNull: InputMaybe<Scalars["Boolean"]>;
+  _lt: InputMaybe<Array<Scalars["json"]>>;
+  _lte: InputMaybe<Array<Scalars["json"]>>;
+  _neq: InputMaybe<Array<Scalars["json"]>>;
+  _nin: InputMaybe<Array<Array<Scalars["json"]>>>;
 };
 
 /** Boolean expression to compare columns of type "numeric". All fields are combined with logical 'AND'. */
@@ -3903,19 +4330,7 @@ export type AffiliationAggregateBoolExpCount = {
   predicate: IntComparisonExp;
 };
 
-export type CategoryTotalByMonthArgs = {
-  from_date: InputMaybe<Scalars["date"]>;
-  group_id: InputMaybe<Scalars["String"]>;
-  to_date: InputMaybe<Scalars["date"]>;
-};
-
 export type DailyDetailByDateArgs = {
-  from_date: InputMaybe<Scalars["date"]>;
-  group_id: InputMaybe<Scalars["String"]>;
-  to_date: InputMaybe<Scalars["date"]>;
-};
-
-export type GenreTotalByMonthArgs = {
   from_date: InputMaybe<Scalars["date"]>;
   group_id: InputMaybe<Scalars["String"]>;
   to_date: InputMaybe<Scalars["date"]>;
@@ -4016,13 +4431,6 @@ export type HouseholdImportFileHistoryAggregateBoolExpCount = {
   arguments: InputMaybe<Array<HouseholdImportFileHistorySelectColumn>>;
   distinct: InputMaybe<Scalars["Boolean"]>;
   filter: InputMaybe<HouseholdImportFileHistoryBoolExp>;
-  predicate: IntComparisonExp;
-};
-
-export type HouseholdTotalByCategoryViewAggregateBoolExpCount = {
-  arguments: InputMaybe<Array<HouseholdTotalByCategoryViewSelectColumn>>;
-  distinct: InputMaybe<Scalars["Boolean"]>;
-  filter: InputMaybe<HouseholdTotalByCategoryViewBoolExp>;
   predicate: IntComparisonExp;
 };
 

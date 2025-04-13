@@ -18,5 +18,12 @@ export type FindAttendanceGateway = {
         memo: string | null;
       }[];
     }[];
+    monthlyPlan: {
+      id: string;
+      yearMonth: string;
+      businessDays: number;
+      plannedWorkingHoursLower: number;
+      plannedWorkingHoursUpper: number;
+    } | null;
   }>;
 };
