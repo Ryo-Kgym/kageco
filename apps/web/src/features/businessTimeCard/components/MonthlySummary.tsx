@@ -4,19 +4,22 @@ import { convertSecondToHour } from "../../../function/date/convertSecond";
 import styles from "./MonthlySummary.module.scss";
 
 type Props = {
-  businessDays: number;
-  planWorkSecondLower: number;
-  planWorkSecondUpper: number;
+  plannedBusinessDays: number;
+  plannedWorkingSecondLower: number;
+  plannedWorkingSecondUpper: number;
   totalWorkSecond: number;
+  remainingBusinessDays: number;
   remainingWorkSecondLower: number;
   recommendedDailyWorkSecond: number;
 };
 
 export const MonthlySummary: FC<Props> = ({
-  businessDays,
-  planWorkSecondLower,
-  planWorkSecondUpper,
+  plannedBusinessDays,
+
+  plannedWorkingSecondLower,
+  plannedWorkingSecondUpper,
   totalWorkSecond,
+  remainingBusinessDays,
   remainingWorkSecondLower,
   recommendedDailyWorkSecond,
 }) => {
@@ -24,23 +27,27 @@ export const MonthlySummary: FC<Props> = ({
     <table className={styles.table}>
       <tbody>
         <tr>
-          <th>営業日数</th>
-          <td>{businessDays}</td>
+          <th>予定営業日数</th>
+          <td>{plannedBusinessDays}</td>
         </tr>
         <tr>
           <th>予定総労働時間（下限）</th>
-          <td>{convertSecondToHour(planWorkSecondLower).hhmm}</td>
+          <td>{convertSecondToHour(plannedWorkingSecondLower).hhmm}</td>
         </tr>
         <tr>
           <th>予定総労働時間（上限）</th>
-          <td>{convertSecondToHour(planWorkSecondUpper).hhmm}</td>
+          <td>{convertSecondToHour(plannedWorkingSecondUpper).hhmm}</td>
         </tr>
         <tr>
           <th>実績総労働時間</th>
           <td>{convertSecondToHour(totalWorkSecond).hhmm}</td>
         </tr>
         <tr>
-          <th>下限までの残り労働時間</th>
+          <th>残りの営業日数</th>
+          <td>{remainingBusinessDays}</td>
+        </tr>
+        <tr>
+          <th>下限までの残り 労働時間</th>
           <td>{convertSecondToHour(remainingWorkSecondLower).hhmm}</td>
         </tr>
         <tr>
