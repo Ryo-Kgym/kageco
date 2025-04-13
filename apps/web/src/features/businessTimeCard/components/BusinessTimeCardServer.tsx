@@ -1,4 +1,4 @@
-import type { YYYY_MM, YYYY_MM_DD } from "@/type/date/date";
+import type { YYYY_MM_DD } from "@/type/date/date";
 
 import { Tabs } from "../../../components/ui/v4/tab";
 import { fetchDailyAttendance } from "../server/fetchDailyAttendance";
@@ -14,21 +14,15 @@ export const BusinessTimeCardServer = async ({
 }: {
   baseDate: YYYY_MM_DD;
 }) => {
-  const { days, lastState, baseDateLogs, totalWorkSecond } =
-    await fetchDailyAttendance(baseDate);
-
-  const mocks = {
-    businessDays: 20,
-    plannedWorkingSecondLower: 140 * 60 * 60,
-    plannedWorkingSecondUpper: 180 * 60 * 60,
-    plannedWorkingHoursLower: 140,
-    plannedWorkingHoursUpper: 180,
-    totalWorkSecond: 140 * 60 * 60,
-    remainingBusinessDays: 10,
-    remainingWorkSecondLower: 20 * 60 * 60,
-    recommendedDailyWorkSecond: 8 * 60 * 60,
-    yearMonth: baseDate.slice(0, 7) as YYYY_MM,
-  };
+  const {
+    yearMonth,
+    days,
+    lastState,
+    baseDateLogs,
+    totalWorkSecond,
+    monthlyPlanned,
+    remaining,
+  } = await fetchDailyAttendance(baseDate);
 
   return (
     <div
@@ -44,13 +38,13 @@ export const BusinessTimeCardServer = async ({
       <DateNavigator baseDate={baseDate} />
       <AttendOrLeaveButton lastState={lastState} />
       <MonthlySummary
-        plannedBusinessDays={mocks.businessDays}
-        plannedWorkingSecondLower={mocks.plannedWorkingSecondLower}
-        plannedWorkingSecondUpper={mocks.plannedWorkingSecondUpper}
+        plannedBusinessDays={monthlyPlanned.businessDays}
+        plannedWorkingSecondLower={monthlyPlanned.workingSecondLower}
+        plannedWorkingSecondUpper={monthlyPlanned.workingSecondUpper}
         totalWorkSecond={totalWorkSecond}
-        remainingBusinessDays={mocks.remainingBusinessDays}
-        remainingWorkSecondLower={mocks.remainingWorkSecondLower}
-        recommendedDailyWorkSecond={mocks.recommendedDailyWorkSecond}
+        remainingBusinessDays={remaining.businessDays}
+        remainingWorkSecondLower={remaining.workingSecondLower}
+        recommendedDailyWorkSecond={remaining.recommendedDailyWorkSecond}
       />
       <div
         style={{
@@ -74,10 +68,10 @@ export const BusinessTimeCardServer = async ({
               Component: (
                 <MonthlyPlanSetting
                   initFormState={{
-                    yearMonth: mocks.yearMonth,
-                    businessDays: mocks.businessDays,
-                    plannedWorkingHoursLower: mocks.plannedWorkingHoursLower,
-                    plannedWorkingHoursUpper: mocks.plannedWorkingHoursUpper,
+                    yearMonth,
+                    businessDays: monthlyPlanned.businessDays,
+                    plannedWorkingHoursLower: monthlyPlanned.workingHoursLower,
+                    plannedWorkingHoursUpper: monthlyPlanned.workingHoursUpper,
                   }}
                 />
               ),

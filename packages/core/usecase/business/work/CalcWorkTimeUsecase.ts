@@ -1,6 +1,7 @@
-import type { TZDateTime, YYYYmmDD } from "@/type/date/date";
+import type { TZDateTime, YYYY_MM, YYYYmmDD } from "@/type/date/date";
 
 import type { AttendanceState } from "../../../domain/business/attend/AttendanceState";
+import { MonthlyPlan } from "../../../domain/business/work/MonthlyPlan";
 import { WorkTime } from "../../../domain/business/work/WorkTime";
 import { DayOfWeekFactory } from "../../../domain/date/DayOfWeekFactory";
 import type { DayOfWeek } from "../../../domain/date/dayOfWeek";
@@ -20,7 +21,7 @@ export class CalcWorkTimeUsecase
   async handle(input: CalcWorkTimeInput) {
     const monthlyList = makeDaysOfMonth(input.baseDate);
 
-    const { days } = await this.findAttendanceGateway.findBy(
+    const { days, monthlyPlan } = await this.findAttendanceGateway.findBy(
       monthlyList[0] ?? input.baseDate,
       monthlyList.slice(-1)[0] ?? input.baseDate,
     );
@@ -68,11 +69,30 @@ export class CalcWorkTimeUsecase
       0,
     );
 
+    const monthlyPlanObj = new MonthlyPlan({
+      businessDays: monthlyPlan?.businessDays ?? 0,
+      workingHoursLower: monthlyPlan?.plannedWorkingHoursLower ?? 0,
+      workingHoursUpper: monthlyPlan?.plannedWorkingHoursUpper ?? 0,
+    });
+
     return {
+      yearMonth: input.baseDate.yyyy_mm,
       days: mergedDailyList,
       lastState,
       baseDateLogs,
       totalWorkSecond,
+      monthlyPlanned: {
+        businessDays: monthlyPlanObj.businessDays,
+        workingHoursLower: monthlyPlanObj.workingHoursLower,
+        workingHoursUpper: monthlyPlanObj.workingHoursUpper,
+        workingSecondLower: monthlyPlanObj.workingSecondLower,
+        workingSecondUpper: monthlyPlanObj.workingSecondUpper,
+      },
+      remaining: {
+        businessDays: 10,
+        workingSecondLower: 20 * 60 * 60,
+        recommendedDailyWorkSecond: 8 * 60 * 60,
+      },
     };
   }
 }
@@ -82,10 +102,23 @@ type CalcWorkTimeInput = {
 };
 
 type CalcWorkTimeOutput = {
+  yearMonth: YYYY_MM;
   days: DayAttendance[];
   lastState: AttendanceState;
   baseDateLogs: AttendanceLog[];
   totalWorkSecond: number;
+  monthlyPlanned: {
+    businessDays: number;
+    workingHoursLower: number;
+    workingHoursUpper: number;
+    workingSecondLower: number;
+    workingSecondUpper: number;
+  } | null;
+  remaining: {
+    businessDays: number;
+    workingSecondLower: number;
+    recommendedDailyWorkSecond: number;
+  };
 };
 
 type DayAttendance = {

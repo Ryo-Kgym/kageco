@@ -72,6 +72,10 @@ export class YYYYmmDD {
   parseTZDateTime() {
     return new TZDateTime(`${this.yyyyMMdd}T00:00:00Z`);
   }
+
+  get yyyy_mm(): YYYY_MM {
+    return this.yyyyMMdd.slice(0, 7) as YYYY_MM;
+  }
 }
 
 export class TZDateTime {
