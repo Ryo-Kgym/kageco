@@ -39,11 +39,11 @@ export const BusinessTimeCardServer = async ({
       <AttendOrLeaveButton lastState={lastState} />
       <MonthlySummary
         plannedBusinessDays={monthlyPlanned.businessDays}
-        plannedWorkingSecondLower={monthlyPlanned.workingSecondLower}
-        plannedWorkingSecondUpper={monthlyPlanned.workingSecondUpper}
+        plannedWorkingSecondLower={monthlyPlanned.workSecondLower}
+        plannedWorkingSecondUpper={monthlyPlanned.workSecondUpper}
         totalWorkSecond={totalWorkSecond}
         remainingBusinessDays={remaining.businessDays}
-        remainingWorkSecondLower={remaining.workingSecondLower}
+        remainingWorkSecondLower={remaining.workSecondLower}
         recommendedDailyWorkSecond={remaining.recommendedDailyWorkSecond}
       />
       <div
@@ -70,8 +70,8 @@ export const BusinessTimeCardServer = async ({
                   initFormState={{
                     yearMonth,
                     businessDays: monthlyPlanned.businessDays,
-                    plannedWorkingHoursLower: monthlyPlanned.workingHoursLower,
-                    plannedWorkingHoursUpper: monthlyPlanned.workingHoursUpper,
+                    plannedWorkingHoursLower: monthlyPlanned.workHoursLower,
+                    plannedWorkingHoursUpper: monthlyPlanned.workHoursUpper,
                   }}
                 />
               ),

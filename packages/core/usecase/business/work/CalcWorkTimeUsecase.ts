@@ -1,10 +1,12 @@
 import type { TZDateTime, YYYY_MM, YYYYmmDD } from "@/type/date/date";
 
 import type { AttendanceState } from "../../../domain/business/attend/AttendanceState";
+import { DayAttendance } from "../../../domain/business/attend/DayAttendance";
+import { MonthlyAchievement } from "../../../domain/business/work/MonthlyAcheivement";
 import { MonthlyPlan } from "../../../domain/business/work/MonthlyPlan";
+import { MonthlyRemaining } from "../../../domain/business/work/MonthlyRemaining";
 import { WorkTime } from "../../../domain/business/work/WorkTime";
 import { DayOfWeekFactory } from "../../../domain/date/DayOfWeekFactory";
-import type { DayOfWeek } from "../../../domain/date/dayOfWeek";
 import type { FindAttendanceGateway } from "../../../gateway/business/work/FindAttendanceGateway";
 import type { BusinessUsecase } from "../BusinessUsecase";
 import { makeDaysOfMonth } from "./makeDaysOfMonth";
@@ -30,17 +32,17 @@ export class CalcWorkTimeUsecase
       const matched = days.find((day) => day.date.equals(date));
 
       if (!matched) {
-        return {
+        return new DayAttendance({
           date,
           dayOfWeek: DayOfWeekFactory.of(date),
           startDatetime: undefined,
           endDatetime: undefined,
           breakSecond: undefined,
           workSecond: undefined,
-        };
+        });
       }
 
-      return {
+      return new DayAttendance({
         date,
         dayOfWeek: DayOfWeekFactory.of(date),
         startDatetime: matched.startDatetime,
@@ -50,7 +52,7 @@ export class CalcWorkTimeUsecase
           startDatetime: matched.startDatetime,
           endDatetime: matched.endDatetime,
         }).calcWorkSecond(matched.breakSecond),
-      };
+      });
     });
 
     const baseDateLogs: AttendanceLog[] =
@@ -69,11 +71,13 @@ export class CalcWorkTimeUsecase
       0,
     );
 
-    const monthlyPlanObj = new MonthlyPlan({
+    const plan = new MonthlyPlan({
       businessDays: monthlyPlan?.businessDays ?? 0,
-      workingHoursLower: monthlyPlan?.plannedWorkingHoursLower ?? 0,
-      workingHoursUpper: monthlyPlan?.plannedWorkingHoursUpper ?? 0,
+      workHoursLower: monthlyPlan?.plannedWorkingHoursLower ?? 0,
+      workHoursUpper: monthlyPlan?.plannedWorkingHoursUpper ?? 0,
     });
+    const achievement = MonthlyAchievement.of(mergedDailyList);
+    const remaining = MonthlyRemaining.of(plan, achievement);
 
     return {
       yearMonth: input.baseDate.yyyy_mm,
@@ -82,16 +86,16 @@ export class CalcWorkTimeUsecase
       baseDateLogs,
       totalWorkSecond,
       monthlyPlanned: {
-        businessDays: monthlyPlanObj.businessDays,
-        workingHoursLower: monthlyPlanObj.workingHoursLower,
-        workingHoursUpper: monthlyPlanObj.workingHoursUpper,
-        workingSecondLower: monthlyPlanObj.workingSecondLower,
-        workingSecondUpper: monthlyPlanObj.workingSecondUpper,
+        businessDays: plan.businessDays,
+        workHoursLower: plan.workHoursLower,
+        workHoursUpper: plan.workHoursUpper,
+        workSecondLower: plan.workSecondLower,
+        workSecondUpper: plan.workSecondUpper,
       },
       remaining: {
-        businessDays: 10,
-        workingSecondLower: 20 * 60 * 60,
-        recommendedDailyWorkSecond: 8 * 60 * 60,
+        businessDays: remaining.businessDays,
+        workSecondLower: remaining.workSecondsLower,
+        recommendedDailyWorkSecond: remaining.calcRecommendedDailyWorkSecond(),
       },
     };
   }
@@ -109,25 +113,16 @@ type CalcWorkTimeOutput = {
   totalWorkSecond: number;
   monthlyPlanned: {
     businessDays: number;
-    workingHoursLower: number;
-    workingHoursUpper: number;
-    workingSecondLower: number;
-    workingSecondUpper: number;
+    workHoursLower: number;
+    workHoursUpper: number;
+    workSecondLower: number;
+    workSecondUpper: number;
   } | null;
   remaining: {
     businessDays: number;
-    workingSecondLower: number;
+    workSecondLower: number;
     recommendedDailyWorkSecond: number;
   };
-};
-
-type DayAttendance = {
-  date: YYYYmmDD;
-  dayOfWeek: DayOfWeek;
-  startDatetime: TZDateTime | undefined;
-  endDatetime: TZDateTime | undefined;
-  breakSecond: number | undefined;
-  workSecond: number | undefined;
 };
 
 type AttendanceLog = {

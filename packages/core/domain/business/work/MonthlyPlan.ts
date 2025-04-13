@@ -1,23 +1,23 @@
 export class MonthlyPlan {
   readonly businessDays: number;
-  readonly workingHoursLower: number;
-  readonly workingHoursUpper: number;
+  readonly workHoursLower: number;
+  readonly workHoursUpper: number;
 
   constructor(params: {
     businessDays: number;
-    workingHoursLower: number;
-    workingHoursUpper: number;
+    workHoursLower: number;
+    workHoursUpper: number;
   }) {
     this.businessDays = params.businessDays;
-    this.workingHoursLower = params.workingHoursLower;
-    this.workingHoursUpper = params.workingHoursUpper;
+    this.workHoursLower = params.workHoursLower;
+    this.workHoursUpper = params.workHoursUpper;
   }
 
-  get workingSecondLower() {
-    return this.workingHoursLower * 60 * 60;
+  get workSecondLower() {
+    return this.workHoursLower * 60 * 60;
   }
 
-  get workingSecondUpper() {
-    return this.workingHoursUpper * 60 * 60;
+  get workSecondUpper() {
+    return this.workHoursUpper * 60 * 60;
   }
 }
