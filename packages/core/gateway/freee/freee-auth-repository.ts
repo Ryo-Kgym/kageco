@@ -3,10 +3,6 @@ import type { FreeeAuthResponse, FreeeGateway } from "./freee-gateway";
 
 export class FreeeAuthRepository implements FreeeGateway {
   private readonly baseUrl = "https://accounts.secure.freee.co.jp";
-  private readonly apiBaseUrl =
-    typeof window !== "undefined"
-      ? "/api/freee"
-      : "http://localhost:3000/api/freee";
   private readonly clientId: string;
   private readonly clientSecret: string;
 
@@ -70,14 +66,6 @@ export class FreeeAuthRepository implements FreeeGateway {
     redirectUri: string,
   ): Promise<FreeeAuthResponse> {
     try {
-      // curl -i -X POST \
-      //  -H "Content-Type:application/x-www-form-urlencoded" \
-      //  -d "grant_type=authorization_code" \
-      //  -d "client_id=アプリのClient ID" \
-      //  -d "client_secret=アプリのClient Secret" \
-      //  -d "code=取得した認可コード" \
-      //  -d "redirect_uri=アプリのencodedコールバックURL" \
-      //  "https://accounts.secure.freee.co.jp/public_api/token"
       const response = await axios.post<FreeeAuthResponse>(
         `${this.baseUrl}/public_api/token`,
         {
@@ -109,12 +97,17 @@ export class FreeeAuthRepository implements FreeeGateway {
   async refreshAccessToken(refreshToken: string): Promise<FreeeAuthResponse> {
     try {
       const response = await axios.post<FreeeAuthResponse>(
-        `${this.apiBaseUrl}/token`,
+        `${this.baseUrl}/public_api/token`,
         {
-          clientId: this.clientId,
-          clientSecret: this.clientSecret,
-          grantType: "refresh_token",
-          refreshToken,
+          client_id: this.clientId,
+          client_secret: this.clientSecret,
+          grant_type: "refresh_token",
+          refresh_token: refreshToken,
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
         },
       );
 

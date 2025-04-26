@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, ReactNode } from "react";
+import type { FC, ReactNode } from "react";
 import { Loading } from "./Loading";
 
 interface LoadingMaskProps {
@@ -30,7 +30,7 @@ export const LoadingMask: FC<LoadingMaskProps> = ({
   return (
     <div className="relative">
       {children}
-      
+
       {isLoading && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg text-center">

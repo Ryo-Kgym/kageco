@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getTokenWithCode } from "../../../features/freee/actions/freee-auth-actions";
-import { saveCookie } from "../../../persistence/browser/client/cookie";
+import { saveFreeeAuth } from "../../../persistence/browser/client/freee-auth";
 
 export default function FreeeCallbackPage() {
   const router = useRouter();
@@ -58,14 +58,10 @@ export default function FreeeCallbackPage() {
 
         if (tokenInfo) {
           // クライアントサイドでCookieに保存
-          saveCookie({ key: "freeeAccessToken", value: tokenInfo.accessToken });
-          saveCookie({
-            key: "freeeRefreshToken",
-            value: tokenInfo.refreshToken,
-          });
-          saveCookie({
-            key: "freeeTokenExpiresAt",
-            value: String(Date.now() + tokenInfo.expiresIn * 1000),
+          saveFreeeAuth({
+            accessToken: tokenInfo.accessToken,
+            refreshToken: tokenInfo.refreshToken,
+            expiresIn: tokenInfo.expiresIn,
           });
 
           setStatus("success");

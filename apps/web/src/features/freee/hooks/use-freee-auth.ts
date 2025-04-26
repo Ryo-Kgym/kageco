@@ -1,27 +1,25 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { getCookieValue } from "../../../persistence/browser/client/cookie";
 import {
-  getCookieValue,
-  saveCookie,
-} from "../../../persistence/browser/client/cookie";
+  clearFreeeAuth,
+  isFreeeAuthenticated,
+  saveFreeeAuth,
+} from "../../../persistence/browser/client/freee-auth";
 import { refreshToken } from "../actions/freee-auth-actions";
 
 export const useFreeeAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isTokenProcessing, setIsTokenProcessing] = useState<boolean>(false);
 
   // ユーザーがfreeeで認証されているかどうかを確認する
   useEffect(() => {
     const checkAuth = () => {
       try {
-        const accessToken = getCookieValue<string>("freeeAccessToken", false);
-        const expiresAt = getCookieValue<string>("freeeTokenExpiresAt", false);
-        const isAuth = !!(
-          accessToken &&
-          expiresAt &&
-          Number(expiresAt) > Date.now()
-        );
+        const isAuth = isFreeeAuthenticated();
         setIsAuthenticated(isAuth);
       } catch (error) {
         console.error("Error checking auth:", error);
@@ -37,15 +35,17 @@ export const useFreeeAuth = () => {
   // 有効なアクセストークンを取得し、必要に応じて更新する
   const getAccessToken = useCallback(async (): Promise<string | null> => {
     try {
+      setIsTokenProcessing(true);
+
       const accessToken = getCookieValue<string>("freeeAccessToken", false);
       const refreshTokenValue = getCookieValue<string>(
         "freeeRefreshToken",
         false,
       );
-      const expiresAt = getCookieValue<string>("freeeTokenExpiresAt", false);
 
       // 有効なアクセストークンがある場合はそれを返す
-      if (accessToken && expiresAt && Number(expiresAt) > Date.now()) {
+      if (isFreeeAuthenticated()) {
+        setIsTokenProcessing(false);
         return accessToken;
       }
 
@@ -54,26 +54,28 @@ export const useFreeeAuth = () => {
         const result = await refreshToken(refreshTokenValue);
 
         if (result) {
-          // 新しいトークンを保存する
-          saveCookie({ key: "freeeAccessToken", value: result.accessToken });
-          saveCookie({ key: "freeeRefreshToken", value: result.refreshToken });
-          saveCookie({
-            key: "freeeTokenExpiresAt",
-            value: String(Date.now() + result.expiresIn * 1000),
+          saveFreeeAuth({
+            accessToken: result.accessToken,
+            refreshToken: result.refreshToken,
+            expiresIn: result.expiresIn,
           });
 
           // 認証状態を更新
           setIsAuthenticated(true);
+          setIsTokenProcessing(false);
           return result.accessToken;
         }
       }
 
       // 有効なトークンを取得できなかった場合はnullを返す
       setIsAuthenticated(false);
+      setIsTokenProcessing(false);
       return null;
     } catch (error) {
       console.error("Error getting access token:", error);
       setIsAuthenticated(false);
+      setErrorMessage("トークンの取得に失敗しました。再度お試しください。");
+      setIsTokenProcessing(false);
       return null;
     }
   }, []);
@@ -81,19 +83,26 @@ export const useFreeeAuth = () => {
   // freeeからログアウトする
   const logout = useCallback(() => {
     try {
-      saveCookie({ key: "freeeAccessToken", value: "" });
-      saveCookie({ key: "freeeRefreshToken", value: "" });
-      saveCookie({ key: "freeeTokenExpiresAt", value: "" });
+      clearFreeeAuth();
       setIsAuthenticated(false);
+      setErrorMessage(null);
     } catch (error) {
       console.error("Error logging out:", error);
     }
   }, []);
 
+  // エラーメッセージをクリアする
+  const clearErrorMessage = useCallback(() => {
+    setErrorMessage(null);
+  }, []);
+
   return {
     isAuthenticated,
     isLoading,
+    errorMessage,
+    isTokenProcessing,
     getAccessToken,
     logout,
+    clearErrorMessage,
   };
 };

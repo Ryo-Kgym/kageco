@@ -1,28 +1,48 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { FC } from "react";
 import { Button } from "../../../components/ui/button/v5";
 import { TextInput } from "../../../components/ui/textInput/TextInput";
-import { saveCookie } from "../../../persistence/browser/client/cookie";
+import { LoadingMask } from "../../../components/ui/v5/loading";
+import { saveFreeeAuth } from "../../../persistence/browser/client/freee-auth";
 import {
   getAuthorizationUrl,
   getTokenWithCode,
 } from "../../freee/actions/freee-auth-actions";
-import { useFreeeAuth } from "../../freee/hooks/useFreeeAuth";
+import { useFreeeAuth } from "../../freee/hooks/use-freee-auth";
 
 export const FreeeCsvExportButton: FC = () => {
   const {
     isAuthenticated,
     isLoading: isAuthLoading,
+    errorMessage,
+    isTokenProcessing,
     getAccessToken,
     logout,
+    clearErrorMessage,
   } = useFreeeAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [authCode, setAuthCode] = useState("");
   const [authFlowState, setAuthFlowState] = useState<
     "initial" | "url_opened" | "token_obtained"
   >("initial");
+
+  // マスク表示の状態を計算
+  const showMask = isTokenProcessing || isLoading;
+
+  // マスクに表示するメッセージを設定
+  const maskMessage = isTokenProcessing
+    ? "トークン取得中です。しばらくお待ちください..."
+    : "処理中です。しばらくお待ちください...";
+
+  // エラーメッセージがある場合は表示する
+  useEffect(() => {
+    if (errorMessage) {
+      alert(errorMessage);
+      clearErrorMessage();
+    }
+  }, [errorMessage, clearErrorMessage]);
 
   const handleAuthClick = async () => {
     try {
@@ -58,11 +78,10 @@ export const FreeeCsvExportButton: FC = () => {
       const tokenInfo = await getTokenWithCode(authCode);
       if (tokenInfo) {
         // クライアントサイドでCookieに保存
-        saveCookie({ key: "freeeAccessToken", value: tokenInfo.accessToken });
-        saveCookie({ key: "freeeRefreshToken", value: tokenInfo.refreshToken });
-        saveCookie({
-          key: "freeeTokenExpiresAt",
-          value: String(Date.now() + tokenInfo.expiresIn * 1000),
+        saveFreeeAuth({
+          accessToken: tokenInfo.accessToken,
+          refreshToken: tokenInfo.refreshToken,
+          expiresIn: tokenInfo.expiresIn,
         });
 
         setAuthFlowState("token_obtained");
@@ -110,66 +129,76 @@ export const FreeeCsvExportButton: FC = () => {
     alert("Freee連携を解除しました。");
   };
 
-  if (isAuthLoading) {
-    return (
-      <Button
-        label={"freee連携CSV出力"}
-        onClick={() => {}}
-        type={"add"}
-        disabled={true}
-      />
-    );
-  }
-
-  if (isAuthenticated) {
-    return (
-      <div className="flex space-x-2">
+  // コンポーネントの内容を定義
+  const renderContent = () => {
+    if (isAuthLoading) {
+      return (
         <Button
           label={"freee連携CSV出力"}
-          onClick={handleExportClick}
+          onClick={() => {}}
           type={"add"}
-          disabled={isLoading}
+          disabled={true}
         />
-        <Button
-          label={"連携解除"}
-          onClick={handleLogoutClick}
-          type={"dangerous"}
-          disabled={isLoading}
-        />
-      </div>
-    );
-  }
+      );
+    }
 
-  if (authFlowState === "url_opened") {
-    return (
-      <div className="flex flex-col space-y-2">
-        <div className="text-sm text-gray-600">
-          freee認証ページで認証を完了し、表示された認可コードを入力してください
-        </div>
+    if (isAuthenticated) {
+      return (
         <div className="flex space-x-2">
-          <TextInput
-            value={authCode}
-            setValue={setAuthCode}
-            placeholder="認可コードを入力"
-            label=""
-          />
           <Button
-            label={"トークン取得"}
-            onClick={handleGetTokenClick}
+            label={"freee連携CSV出力"}
+            onClick={handleExportClick}
             type={"add"}
             disabled={isLoading}
           />
+          <Button
+            label={"連携解除"}
+            onClick={handleLogoutClick}
+            type={"dangerous"}
+            disabled={isLoading}
+          />
         </div>
-      </div>
-    );
-  }
+      );
+    }
 
+    if (authFlowState === "url_opened") {
+      return (
+        <div className="flex flex-col space-y-2">
+          <div className="text-sm text-gray-600">
+            freee認証ページで認証を完了し、表示された認可コードを入力してください
+          </div>
+          <div className="flex space-x-2">
+            <TextInput
+              value={authCode}
+              setValue={setAuthCode}
+              placeholder="認可コードを入力"
+              label=""
+            />
+            <Button
+              label={"トークン取得"}
+              onClick={handleGetTokenClick}
+              type={"add"}
+              disabled={isLoading}
+            />
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <Button
+        label={"freee連携"}
+        onClick={handleAuthClick}
+        type={"add"}
+        disabled={isLoading}
+      />
+    );
+  };
+
+  // LoadingMaskでラップして返す
   return (
-    <Button
-      label={"freee連携"}
-      onClick={handleAuthClick}
-      type={"add"}
-      disabled={isLoading}
-    />
+    <LoadingMask isLoading={showMask} message={maskMessage}>
+      {renderContent()}
+    </LoadingMask>
   );
 };
