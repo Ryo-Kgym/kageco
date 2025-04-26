@@ -16,6 +16,7 @@ import { saveCategoryIds } from "../../../persistence/browser/client/saveCategor
 import { useRouter } from "../../../routing/client/useRouter";
 import { paths } from "../../../routing/paths";
 import type { YYYY_MM_DD } from "../../../types/yyyyMMdd";
+import { FreeeCsvExportButton } from "./FreeeCsvExportButton";
 
 type Props = {
   fromDate: YYYY_MM_DD;
@@ -130,6 +131,7 @@ export const SearchFormClient: FC<Props> = ({
           }}
           type={"save"}
         />
+        <FreeeCsvExportButton />
       </Modal>
     </div>
   );

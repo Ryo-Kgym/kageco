@@ -1,16 +1,12 @@
-import type { FC } from "react";
+import type { ComponentProps, FC } from "react";
 
-import type { YYYY_MM_DD } from "../../../types/yyyyMMdd";
 import { SearchFormClient } from "./SearchFormClient";
 
-type Props = {
-  fromDate: YYYY_MM_DD;
-  toDate: YYYY_MM_DD;
-  tagIds: string[];
-  categoryIds: string[];
-  accountIds: string[];
-};
-
+type Props = ComponentProps<typeof SearchFormClient>;
 export const SearchFormServer: FC<Props> = (props) => {
-  return <SearchFormClient {...props} />;
+  return (
+    <>
+      <SearchFormClient {...props} />
+    </>
+  );
 };
