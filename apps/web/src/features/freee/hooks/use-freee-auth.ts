@@ -54,11 +54,7 @@ export const useFreeeAuth = () => {
         const result = await refreshToken(refreshTokenValue);
 
         if (result) {
-          saveFreeeAuth({
-            accessToken: result.accessToken,
-            refreshToken: result.refreshToken,
-            expiresIn: result.expiresIn,
-          });
+          saveFreeeAuth(result);
 
           // 認証状態を更新
           setIsAuthenticated(true);
@@ -104,5 +100,6 @@ export const useFreeeAuth = () => {
     getAccessToken,
     logout,
     clearErrorMessage,
+    setIsAuthenticated,
   };
 };

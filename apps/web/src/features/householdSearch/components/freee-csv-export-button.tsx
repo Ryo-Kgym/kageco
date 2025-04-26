@@ -25,6 +25,7 @@ export const FreeeCsvExportButton: FC = () => {
     getAccessToken,
     logout,
     clearErrorMessage,
+    setIsAuthenticated,
   } = useFreeeAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [authCode, setAuthCode] = useState("");
@@ -83,8 +84,8 @@ export const FreeeCsvExportButton: FC = () => {
         saveFreeeAuth(tokenInfo);
 
         setAuthFlowState("token_obtained");
-        // リロードして認証状態を更新
-        window.location.reload();
+        // 認証状態を更新
+        setIsAuthenticated(true);
       } else {
         errorPopup(
           "トークンの取得に失敗しました。認可コードが正しいか確認してください。",
