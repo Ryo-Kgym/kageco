@@ -22,6 +22,7 @@ export const useNavigation = () => {
   };
 
   return {
+    push,
     prependParamAndPush,
     refresh: () => {
       const searchParamJoined = Object.entries(
