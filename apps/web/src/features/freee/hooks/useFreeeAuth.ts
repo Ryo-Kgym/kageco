@@ -1,7 +1,11 @@
 "use client";
 
-import { FreeeAuthUsecase } from "@/core/usecase/household/freee/freee-auth-usecase";
 import { useCallback, useEffect, useState } from "react";
+import {
+  getCookieValue,
+  saveCookie,
+} from "../../../persistence/browser/client/cookie";
+import { refreshToken } from "../actions/freee-auth-actions";
 
 export const useFreeeAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -10,16 +14,21 @@ export const useFreeeAuth = () => {
   // ユーザーがfreeeで認証されているかどうかを確認する
   useEffect(() => {
     const checkAuth = () => {
-      const accessToken = localStorage.getItem("freeeAccessToken");
-      const expiresAt = localStorage.getItem("freeeTokenExpiresAt");
-
-      if (accessToken && expiresAt && Number(expiresAt) > Date.now()) {
-        setIsAuthenticated(true);
-      } else {
+      try {
+        const accessToken = getCookieValue<string>("freeeAccessToken");
+        const expiresAt = getCookieValue<string>("freeeTokenExpiresAt");
+        const isAuth = !!(
+          accessToken &&
+          expiresAt &&
+          Number(expiresAt) > Date.now()
+        );
+        setIsAuthenticated(isAuth);
+      } catch (error) {
+        console.error("Error checking auth:", error);
         setIsAuthenticated(false);
+      } finally {
+        setIsLoading(false);
       }
-
-      setIsLoading(false);
     };
 
     checkAuth();
@@ -28,9 +37,9 @@ export const useFreeeAuth = () => {
   // 有効なアクセストークンを取得し、必要に応じて更新する
   const getAccessToken = useCallback(async (): Promise<string | null> => {
     try {
-      const accessToken = localStorage.getItem("freeeAccessToken");
-      const refreshToken = localStorage.getItem("freeeRefreshToken");
-      const expiresAt = localStorage.getItem("freeeTokenExpiresAt");
+      const accessToken = getCookieValue<string>("freeeAccessToken");
+      const refreshTokenValue = getCookieValue<string>("freeeRefreshToken");
+      const expiresAt = getCookieValue<string>("freeeTokenExpiresAt");
 
       // 有効なアクセストークンがある場合はそれを返す
       if (accessToken && expiresAt && Number(expiresAt) > Date.now()) {
@@ -38,31 +47,19 @@ export const useFreeeAuth = () => {
       }
 
       // リフレッシュトークンがある場合は、アクセストークンを更新してみる
-      if (refreshToken) {
-        const clientId = process.env.NEXT_PUBLIC_FREEE_CLIENT_ID;
-        const clientSecret = process.env.NEXT_PUBLIC_FREEE_CLIENT_SECRET;
+      if (refreshTokenValue) {
+        const result = await refreshToken(refreshTokenValue);
 
-        if (!clientId || !clientSecret) {
-          console.error("Freee client ID or client secret is not set");
-          return null;
-        }
-
-        const freeeAuthUsecase = new FreeeAuthUsecase(clientId, clientSecret);
-
-        const result = await freeeAuthUsecase.handle({
-          type: "refreshToken",
-          refreshToken,
-        });
-
-        if (result.type === "token") {
+        if (result) {
           // 新しいトークンを保存する
-          localStorage.setItem("freeeAccessToken", result.accessToken);
-          localStorage.setItem("freeeRefreshToken", result.refreshToken);
-          localStorage.setItem(
-            "freeeTokenExpiresAt",
-            String(Date.now() + result.expiresIn * 1000),
-          );
+          saveCookie({ key: "freeeAccessToken", value: result.accessToken });
+          saveCookie({ key: "freeeRefreshToken", value: result.refreshToken });
+          saveCookie({
+            key: "freeeTokenExpiresAt",
+            value: String(Date.now() + result.expiresIn * 1000),
+          });
 
+          // 認証状態を更新
           setIsAuthenticated(true);
           return result.accessToken;
         }
@@ -72,7 +69,7 @@ export const useFreeeAuth = () => {
       setIsAuthenticated(false);
       return null;
     } catch (error) {
-      console.error("Error refreshing freee token:", error);
+      console.error("Error getting access token:", error);
       setIsAuthenticated(false);
       return null;
     }
@@ -80,10 +77,14 @@ export const useFreeeAuth = () => {
 
   // freeeからログアウトする
   const logout = useCallback(() => {
-    localStorage.removeItem("freeeAccessToken");
-    localStorage.removeItem("freeeRefreshToken");
-    localStorage.removeItem("freeeTokenExpiresAt");
-    setIsAuthenticated(false);
+    try {
+      saveCookie({ key: "freeeAccessToken", value: "" });
+      saveCookie({ key: "freeeRefreshToken", value: "" });
+      saveCookie({ key: "freeeTokenExpiresAt", value: "" });
+      setIsAuthenticated(false);
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
   }, []);
 
   return {

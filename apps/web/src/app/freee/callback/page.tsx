@@ -1,8 +1,9 @@
 "use client";
 
-import { FreeeAuthUsecase } from "@/core/usecase/household/freee/freee-auth-usecase";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { getTokenWithCode } from "../../../features/freee/actions/freee-auth-actions";
+import { saveCookie } from "../../../persistence/browser/client/cookie";
 
 export default function FreeeCallbackPage() {
   const router = useRouter();
@@ -24,8 +25,10 @@ export default function FreeeCallbackPage() {
           return;
         }
 
-        // URLから認証コードを取得する
+        // URLから認証コードとstateを取得する
         const code = searchParams.get("code");
+        const state = searchParams.get("state");
+
         if (!code) {
           console.error("No authorization code received");
           setStatus("error");
@@ -33,38 +36,37 @@ export default function FreeeCallbackPage() {
           return;
         }
 
-        // 環境変数からクライアントIDとクライアントシークレットを取得する
-        const clientId = process.env.NEXT_PUBLIC_FREEE_CLIENT_ID;
-        const clientSecret = process.env.NEXT_PUBLIC_FREEE_CLIENT_SECRET;
-
-        if (!clientId || !clientSecret) {
-          console.error("Freee client ID or client secret is not set");
+        // CSRF対策：stateパラメータの検証
+        const savedState =
+          typeof window !== "undefined"
+            ? sessionStorage.getItem("freeeAuthState")
+            : null;
+        if (!state || !savedState || state !== savedState) {
+          console.error("State validation failed", { state, savedState });
           setStatus("error");
-          setErrorMessage("Freee連携の設定が不足しています");
+          setErrorMessage(
+            "セキュリティ検証に失敗しました。もう一度認証をやり直してください。",
+          );
           return;
         }
 
-        // ユースケースを作成する
-        const freeeAuthUsecase = new FreeeAuthUsecase(clientId, clientSecret);
+        // 検証が成功したらセッションストレージからstateを削除
+        sessionStorage.removeItem("freeeAuthState");
 
-        // リダイレクトURIを取得する（認証リクエストで使用したものと同じ）
-        const redirectUri = `${window.location.origin}/freee/callback`;
+        // サーバーアクションを使用してトークンを取得
+        const tokenInfo = await getTokenWithCode(code);
 
-        // 認証コードをアクセストークンと交換する
-        const result = await freeeAuthUsecase.handle({
-          type: "getToken",
-          code,
-          redirectUri,
-        });
-
-        if (result.type === "token") {
-          // トークンをlocalStorageまたはより安全なストレージに保存する
-          localStorage.setItem("freeeAccessToken", result.accessToken);
-          localStorage.setItem("freeeRefreshToken", result.refreshToken);
-          localStorage.setItem(
-            "freeeTokenExpiresAt",
-            String(Date.now() + result.expiresIn * 1000),
-          );
+        if (tokenInfo) {
+          // クライアントサイドでCookieに保存
+          saveCookie({ key: "freeeAccessToken", value: tokenInfo.accessToken });
+          saveCookie({
+            key: "freeeRefreshToken",
+            value: tokenInfo.refreshToken,
+          });
+          saveCookie({
+            key: "freeeTokenExpiresAt",
+            value: String(Date.now() + tokenInfo.expiresIn * 1000),
+          });
 
           setStatus("success");
 
@@ -72,6 +74,9 @@ export default function FreeeCallbackPage() {
           setTimeout(() => {
             router.push("/household/search");
           }, 2000);
+        } else {
+          setStatus("error");
+          setErrorMessage("トークンの取得に失敗しました");
         }
       } catch (error) {
         console.error("Error handling freee callback:", error);
@@ -80,7 +85,7 @@ export default function FreeeCallbackPage() {
       }
     };
 
-    handleCallback();
+    void handleCallback();
   }, [searchParams, router]);
 
   return (

@@ -8,8 +8,15 @@
 2. 以下の環境変数を`.env.local`ファイルに設定してください:
 
 ```
-NEXT_PUBLIC_FREEE_CLIENT_ID=your_client_id
-NEXT_PUBLIC_FREEE_CLIENT_SECRET=your_client_secret
+# サーバーサイドでのみ使用される環境変数（クライアントサイドからアクセス不可）
+FREEE_CLIENT_ID=your_client_id
+FREEE_CLIENT_SECRET=your_client_secret
+FREEE_CLIENT_REDIRECT_URI=your_redirect_uri
+
+# 以下は古い環境変数で、新しい実装では使用されません
+# NEXT_PUBLIC_FREEE_CLIENT_ID=your_client_id
+# NEXT_PUBLIC_FREEE_CLIENT_SECRET=your_client_secret
+# NEXT_PUBLIC_FREEE_CLIENT_REDIRECT_URI=your_redirect_uri
 ```
 
 ## 使用方法

@@ -14,9 +14,9 @@ export interface FreeeGateway {
   /**
    * OAuth2フローの認証URLを取得する
    * @param redirectUri 認証後にリダイレクトするURI
-   * @returns 認証URL
+   * @returns 認証URLとstate（CSRF対策用のランダムな文字列）
    */
-  getAuthorizationUrl(redirectUri: string): string;
+  getAuthorizationUrl(redirectUri: string): { url: string; state: string };
 
   /**
    * 認証コードをアクセストークンと交換する

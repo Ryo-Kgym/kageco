@@ -13,11 +13,14 @@ export class FreeeAuthUsecase
 
   async handle(input: FreeeAuthInput): Promise<FreeeAuthOutput> {
     switch (input.type) {
-      case "getAuthUrl":
+      case "getAuthUrl": {
+        const authUrlResult = this.freeeGateway.getAuthorizationUrl(input.redirectUri);
         return {
           type: "authUrl",
-          url: this.freeeGateway.getAuthorizationUrl(input.redirectUri),
+          url: authUrlResult.url,
+          state: authUrlResult.state,
         };
+      }
       case "getToken": {
         const tokenResponse = await this.freeeGateway.getAccessToken(
           input.code,
@@ -72,6 +75,7 @@ export type FreeeAuthOutput =
   | {
       type: "authUrl";
       url: string;
+      state: string;
     }
   | {
       type: "token";
