@@ -22,6 +22,7 @@ export type DataTableProps<R extends object> = {
   columns: ColumnProps<R>[];
   records: DataTableRowType<R>[];
   onRowClick?: (record: DataTableRowType<R>) => void;
+  onSelect?: (selectedRecords: DataTableRowType<R>[]) => void;
   height?: string;
   recordsPerPage?: number;
 };
@@ -30,10 +31,14 @@ export const MantineDataTable = <R extends object>({
   columns,
   records: defaultRecords,
   onRowClick,
+  onSelect,
   height = "85vh",
   recordsPerPage = 30,
 }: DataTableProps<R>) => {
   const [page, setPage] = useState(1);
+  const [selectedRecords, setSelectedRecords] = useState<DataTableRowType<R>[]>(
+    [],
+  );
   const {
     filteredRecords: filteredDefaultRecords,
     filterValues,
@@ -57,6 +62,13 @@ export const MantineDataTable = <R extends object>({
   useEffect(() => {
     setPage(1);
   }, [filterValues]);
+
+  // 選択が変更されたときにonSelectコールバックを呼び出す
+  useEffect(() => {
+    if (onSelect) {
+      onSelect(selectedRecords);
+    }
+  }, [selectedRecords, onSelect]);
 
   // カラムにヘッダーコンポーネントを追加
   const enhancedColumns = columns.map((column) => {
@@ -107,6 +119,8 @@ export const MantineDataTable = <R extends object>({
       rowClassName={
         onRowClick ? "cursor-pointer hover:bg-gray-100" : "hover:bg-gray-100"
       }
+      selectedRecords={selectedRecords}
+      onSelectedRecordsChange={setSelectedRecords}
     />
   );
 };
