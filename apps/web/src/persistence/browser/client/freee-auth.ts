@@ -20,15 +20,18 @@ export const isFreeeAuthenticated = (): boolean => {
  * @param accessToken - freeeアクセストークン
  * @param refreshToken - freeeリフレッシュトークン
  * @param expiresIn - トークンの有効期限（秒）
+ * @param companyId - 事業所ID
  */
 export const saveFreeeAuth = ({
   accessToken,
   refreshToken,
   expiresIn,
+  companyId,
 }: {
   accessToken: string;
   refreshToken: string;
   expiresIn?: number;
+  companyId: string;
 }) => {
   saveCookie({ key: "freeeAccessToken", value: accessToken });
   saveCookie({ key: "freeeRefreshToken", value: refreshToken });
@@ -38,10 +41,12 @@ export const saveFreeeAuth = ({
   const expiresAtValue = expiresIn ? String(Date.now() + expiresIn * 1000) : "";
 
   saveCookie({ key: "freeeTokenExpiresAt", value: expiresAtValue });
+  saveCookie({ key: "freeeCompanyId", value: companyId });
 };
 
 export const clearFreeeAuth = () => {
   saveCookie({ key: "freeeAccessToken", value: "" });
   saveCookie({ key: "freeeRefreshToken", value: "" });
   saveCookie({ key: "freeeTokenExpiresAt", value: "" });
+  saveCookie({ key: "freeeCompanyId", value: "" });
 };

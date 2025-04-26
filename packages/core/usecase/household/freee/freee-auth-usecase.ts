@@ -36,6 +36,8 @@ export class FreeeAuthUsecase
           tokenType: tokenResponse.token_type,
           scope: tokenResponse.scope,
           createdAt: tokenResponse.created_at,
+          companyId: tokenResponse.company_id,
+          externalCid: tokenResponse.external_cid,
         };
       }
       case "refreshToken": {
@@ -50,6 +52,8 @@ export class FreeeAuthUsecase
           tokenType: refreshResponse.token_type,
           scope: refreshResponse.scope,
           createdAt: refreshResponse.created_at,
+          companyId: refreshResponse.company_id,
+          externalCid: refreshResponse.external_cid,
         };
       }
       default:
@@ -87,4 +91,6 @@ export type FreeeAuthOutput =
       tokenType: string;
       scope: string;
       createdAt: number;
+      companyId: string;
+      externalCid: string;
     };

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { FC } from "react";
 import { LoadingMask } from "../../../components/ui/v5/loading";
 import { errorPopup, successPopup } from "../../../function/successPopup";
+import { saveCookie } from "../../../persistence/browser/client/cookie";
 import { saveFreeeAuth } from "../../../persistence/browser/client/freee-auth";
 import {
   getAuthorizationUrl,
@@ -53,8 +54,7 @@ export const FreeeCsvExportButton: FC = () => {
       // サーバーアクションを使用して認証URLとstateを取得
       const authResult = await getAuthorizationUrl();
       if (authResult?.url) {
-        // stateパラメータをセッションストレージに保存（CSRF対策）
-        sessionStorage.setItem("freeeAuthState", authResult.state);
+        saveCookie({ key: "freeeAuthState", value: authResult.state });
 
         // 別タブで認証URLを開く
         window.open(authResult.url, "_blank");

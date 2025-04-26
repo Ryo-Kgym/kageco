@@ -52,6 +52,7 @@ export async function getTokenWithCode(code: string): Promise<{
   accessToken: string;
   refreshToken: string;
   expiresIn: number;
+  companyId: string;
 } | null> {
   try {
     const clientId = process.env.FREEE_CLIENT_ID;
@@ -77,6 +78,7 @@ export async function getTokenWithCode(code: string): Promise<{
         accessToken: result.accessToken,
         refreshToken: result.refreshToken,
         expiresIn: result.expiresIn,
+        companyId: result.companyId,
       };
     }
 

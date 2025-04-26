@@ -5,6 +5,8 @@ export interface FreeeAuthResponse {
   refresh_token: string;
   scope: string;
   created_at: number;
+  company_id: string;
+  external_cid: string;
 }
 
 /**
