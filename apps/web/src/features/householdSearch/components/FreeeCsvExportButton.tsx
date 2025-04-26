@@ -22,6 +22,8 @@ export const FreeeCsvExportButton: FC = () => {
       // Get client ID and client secret from environment variables
       const clientId = process.env.NEXT_PUBLIC_FREEE_CLIENT_ID;
       const clientSecret = process.env.NEXT_PUBLIC_FREEE_CLIENT_SECRET;
+      const redirectUri =
+        process.env.NEXT_PUBLIC_FREEE_CLIENT_REDIRECT_URI || "";
 
       if (!clientId || !clientSecret) {
         console.error("Freee client ID or client secret is not set");
@@ -31,9 +33,6 @@ export const FreeeCsvExportButton: FC = () => {
 
       // Create the usecase
       const freeeAuthUsecase = new FreeeAuthUsecase(clientId, clientSecret);
-
-      // Get the current URL for the redirect URI
-      const redirectUri = `${window.location.origin}/freee/callback`;
 
       // Get the authorization URL
       const result = await freeeAuthUsecase.handle({

@@ -1,6 +1,6 @@
 "use client";
 
-import { FreeeAuthUsecase } from "@home-helper/core/usecase/household/freee/freee-auth-usecase";
+import { FreeeAuthUsecase } from "@/core/usecase/household/freee/freee-auth-usecase";
 import { useCallback, useEffect, useState } from "react";
 
 export const useFreeeAuth = () => {
