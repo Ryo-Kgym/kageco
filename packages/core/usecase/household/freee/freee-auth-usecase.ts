@@ -14,7 +14,9 @@ export class FreeeAuthUsecase
   async handle(input: FreeeAuthInput): Promise<FreeeAuthOutput> {
     switch (input.type) {
       case "getAuthUrl": {
-        const authUrlResult = this.freeeGateway.getAuthorizationUrl(input.redirectUri);
+        const authUrlResult = this.freeeGateway.getAuthorizationUrl(
+          input.redirectUri,
+        );
         return {
           type: "authUrl",
           url: authUrlResult.url,

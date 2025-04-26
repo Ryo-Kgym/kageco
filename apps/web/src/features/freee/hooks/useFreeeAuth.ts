@@ -15,8 +15,8 @@ export const useFreeeAuth = () => {
   useEffect(() => {
     const checkAuth = () => {
       try {
-        const accessToken = getCookieValue<string>("freeeAccessToken");
-        const expiresAt = getCookieValue<string>("freeeTokenExpiresAt");
+        const accessToken = getCookieValue<string>("freeeAccessToken", false);
+        const expiresAt = getCookieValue<string>("freeeTokenExpiresAt", false);
         const isAuth = !!(
           accessToken &&
           expiresAt &&
@@ -37,9 +37,12 @@ export const useFreeeAuth = () => {
   // 有効なアクセストークンを取得し、必要に応じて更新する
   const getAccessToken = useCallback(async (): Promise<string | null> => {
     try {
-      const accessToken = getCookieValue<string>("freeeAccessToken");
-      const refreshTokenValue = getCookieValue<string>("freeeRefreshToken");
-      const expiresAt = getCookieValue<string>("freeeTokenExpiresAt");
+      const accessToken = getCookieValue<string>("freeeAccessToken", false);
+      const refreshTokenValue = getCookieValue<string>(
+        "freeeRefreshToken",
+        false,
+      );
+      const expiresAt = getCookieValue<string>("freeeTokenExpiresAt", false);
 
       // 有効なアクセストークンがある場合はそれを返す
       if (accessToken && expiresAt && Number(expiresAt) > Date.now()) {
