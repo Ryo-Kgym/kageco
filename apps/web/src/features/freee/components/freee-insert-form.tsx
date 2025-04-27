@@ -14,39 +14,7 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
   initialRecords = [],
 }) => {
   // 統合されたレコードのフォームデータ
-  const [records, setRecords] = useState<UnifiedRecord[]>(
-    initialRecords.length > 0
-      ? initialRecords
-      : [
-          {
-            id: "record-1",
-            // 基本情報
-            issue_date: "",
-            type: "income",
-            company_id: "",
-            due_date: "",
-            partner_id: "",
-            partner_code: "",
-            ref_number: "",
-            // 明細情報
-            tax_code: "",
-            account_item_id: "",
-            amount: "",
-            item_id: "",
-            section_id: "",
-            tag_ids: [""],
-            description: "",
-            vat: "",
-            // 支払情報
-            payment_amount: "",
-            from_walletable_id: "",
-            from_walletable_type: "bank_account",
-            payment_date: "",
-            // 領収書ID
-            receipt_id: "",
-          },
-        ],
-  );
+  const [records, setRecords] = useState<UnifiedRecord[]>(initialRecords);
 
   // レコードの入力ハンドラ
   const handleRecordChange = (index: number, field: string, value: string) => {
@@ -58,41 +26,6 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
       newRecords[index][field] = value;
     }
     setRecords(newRecords);
-  };
-
-  // レコード行の追加
-  const addRecordRow = () => {
-    const newId = `record-${records.length + 1}`;
-    setRecords([
-      ...records,
-      {
-        id: newId,
-        // 基本情報
-        issue_date: "",
-        type: "income",
-        company_id: "",
-        due_date: "",
-        partner_id: "",
-        partner_code: "",
-        ref_number: "",
-        // 明細情報
-        tax_code: "",
-        account_item_id: "",
-        amount: "",
-        item_id: "",
-        section_id: "",
-        tag_ids: [""],
-        description: "",
-        vat: "",
-        // 支払情報
-        payment_amount: "",
-        from_walletable_id: "",
-        from_walletable_type: "bank_account",
-        payment_date: "",
-        // 領収書ID
-        receipt_id: "",
-      },
-    ]);
   };
 
   // フォーム送信ハンドラ
@@ -205,7 +138,6 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
         <div className="rounded-lg bg-white p-6 shadow-md">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-xl font-semibold">取引レコード</h2>
-            <Button label="レコードを追加" onClick={addRecordRow} type="add" />
           </div>
 
           <div className="overflow-x-auto">
@@ -216,11 +148,9 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                   {/* 基本情報 */}
                   <th className="border p-2 text-left">発生日</th>
                   <th className="border p-2 text-left">収支区分</th>
-                  <th className="border p-2 text-left">事業所ID</th>
                   <th className="border p-2 text-left">支払期日</th>
                   <th className="border p-2 text-left">取引先ID</th>
                   <th className="border p-2 text-left">取引先コード</th>
-                  <th className="border p-2 text-left">管理番号</th>
                   {/* 明細情報 */}
                   <th className="border p-2 text-left">税区分コード</th>
                   <th className="border p-2 text-left">勘定科目ID</th>
@@ -235,8 +165,6 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                   <th className="border p-2 text-left">口座ID</th>
                   <th className="border p-2 text-left">口座タイプ</th>
                   <th className="border p-2 text-left">支払日</th>
-                  {/* 領収書ID */}
-                  <th className="border p-2 text-left">領収書ID</th>
                 </tr>
               </thead>
               <tbody>
@@ -261,34 +189,9 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                       />
                     </td>
                     <td className="border p-2">
-                      <select
-                        id={`type_${index}`}
-                        value={record.type}
-                        onChange={(e) =>
-                          handleRecordChange(index, "type", e.target.value)
-                        }
-                        className="w-full rounded border p-1"
-                        required
-                      >
-                        <option value="income">収入</option>
-                        <option value="expense">支出</option>
-                      </select>
-                    </td>
-                    <td className="border p-2">
-                      <input
-                        id={`company_id_${index}`}
-                        type="number"
-                        value={record.company_id}
-                        onChange={(e) =>
-                          handleRecordChange(
-                            index,
-                            "company_id",
-                            e.target.value,
-                          )
-                        }
-                        className="w-full rounded border p-1"
-                        required
-                      />
+                      <div className="w-full p-1">
+                        {record.type === "income" ? "収入" : "支出"}
+                      </div>
                     </td>
                     <td className="border p-2">
                       <input
@@ -325,21 +228,6 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                           handleRecordChange(
                             index,
                             "partner_code",
-                            e.target.value,
-                          )
-                        }
-                        className="w-full rounded border p-1"
-                      />
-                    </td>
-                    <td className="border p-2">
-                      <input
-                        id={`ref_number_${index}`}
-                        type="text"
-                        value={record.ref_number}
-                        onChange={(e) =>
-                          handleRecordChange(
-                            index,
-                            "ref_number",
                             e.target.value,
                           )
                         }
@@ -514,22 +402,6 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                         }
                         className="w-full rounded border p-1"
                         required
-                      />
-                    </td>
-                    {/* 領収書ID */}
-                    <td className="border p-2">
-                      <input
-                        id={`receipt_id_${index}`}
-                        type="number"
-                        value={record.receipt_id}
-                        onChange={(e) =>
-                          handleRecordChange(
-                            index,
-                            "receipt_id",
-                            e.target.value,
-                          )
-                        }
-                        className="w-full rounded border p-1"
                       />
                     </td>
                   </tr>
