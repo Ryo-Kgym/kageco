@@ -15,37 +15,35 @@ export const submitFreeeRecords = async (records: UnifiedRecord[]) => {
   const freeeRecords: FreeeRecord[] = records.map((record) => ({
     id: record.id,
     // 基本情報
-    issueDate: record.issue_date,
+    issueDate: record.issueDate,
     type: record.type,
-    companyId: record.company_id,
-    dueDate: record.due_date,
-    partnerId: record.partner_id,
-    partnerCode: record.partner_code,
-    refNumber: record.ref_number,
+    companyId: record.companyId,
+    dueDate: record.dueDate,
+    partnerId: record.partnerId,
+    partnerCode: record.partnerCode,
+    refNumber: record.refNumber,
     // 明細情報
-    taxCode: record.tax_code,
-    accountItemId: record.account_item_id,
+    taxCode: record.taxCode,
+    accountItemId: record.accountItemId,
     amount: record.amount,
-    itemId: record.item_id,
-    sectionId: record.section_id,
-    tagIds: record.tag_ids,
+    itemId: record.itemId,
+    sectionId: record.sectionId,
+    tagIds: record.tagIds,
     description: record.description,
     vat: record.vat,
     // 支払情報
-    paymentAmount: record.payment_amount,
-    fromWalletableId: record.from_walletable_id,
-    fromWalletableType: record.from_walletable_type,
-    paymentDate: record.payment_date,
+    paymentAmount: record.paymentAmount,
+    fromWalletableId: record.fromWalletableId,
+    fromWalletableType: record.fromWalletableType,
+    paymentDate: record.paymentDate,
     // 領収書ID
-    receiptId: record.receipt_id,
+    receiptId: record.receiptId,
   }));
 
-  // リポジトリとユースケースを作成
   const repository = new RegisterTransactionRepository();
   const usecase = new SubmitFreeeTransactionUsecase(repository);
 
   try {
-    // ユースケースを実行
     return await usecase.execute(freeeRecords);
   } catch (error) {
     console.error("Error submitting data:", error);

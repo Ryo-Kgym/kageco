@@ -1,4 +1,4 @@
-import type { FreeeApiRequestData } from "../../domain/household/freee/freee-record";
+import type { FreeeTransactionData } from "../../domain/household/freee/freee-record";
 
 /**
  * freee API取引登録ゲートウェイのインターフェース
@@ -6,10 +6,10 @@ import type { FreeeApiRequestData } from "../../domain/household/freee/freee-rec
 export interface RegisterTransactionGateway {
   /**
    * freeeへ取引データを送信する
-   * @param requestData APIリクエスト用のデータ
+   * @param transactionData 取引データ
    * @returns 成功した場合はtrue、失敗した場合はfalse
    */
   registerTransaction(
-    requestData: FreeeApiRequestData,
+    transactionData: FreeeTransactionData,
   ): Promise<{ success: boolean }>;
 }

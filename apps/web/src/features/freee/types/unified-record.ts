@@ -4,27 +4,27 @@
 export type UnifiedRecord = {
   id: string;
   // 基本情報
-  issue_date: string;
+  issueDate: string;
   type: string;
-  company_id: string;
-  due_date: string;
-  partner_id: string;
-  partner_code: string;
-  ref_number: string;
+  companyId: string;
+  dueDate: string;
+  partnerId: string;
+  partnerCode: string;
+  refNumber: string;
   // 明細情報
-  tax_code: string;
-  account_item_id: string;
+  taxCode: string;
+  accountItemId: string;
   amount: string;
-  item_id: string;
-  section_id: string;
-  tag_ids: string[];
+  itemId: string;
+  sectionId: string;
+  tagIds: string[];
   description: string;
   vat: string;
   // 支払情報
-  payment_amount: string;
-  from_walletable_id: string;
-  from_walletable_type: string;
-  payment_date: string;
+  paymentAmount: string;
+  fromWalletableId: string;
+  fromWalletableType: string;
+  paymentDate: string;
   // 領収書ID
-  receipt_id: string;
+  receiptId: string;
 };

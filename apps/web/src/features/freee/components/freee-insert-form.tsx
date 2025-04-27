@@ -20,8 +20,8 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
   // レコードの入力ハンドラ
   const handleRecordChange = (index: number, field: string, value: string) => {
     const newRecords = [...records];
-    if (field === "tag_ids") {
-      // tag_idsは配列なので特別に処理
+    if (field === "tagIds") {
+      // tagIdsは配列なので特別に処理
       newRecords[index][field] = [value];
     } else {
       newRecords[index][field] = value;
@@ -96,15 +96,11 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                     {/* 基本情報 */}
                     <td className="border p-2">
                       <input
-                        id={`issue_date_${index}`}
+                        id={`issueDate_${index}`}
                         type="date"
-                        value={record.issue_date}
+                        value={record.issueDate}
                         onChange={(e) =>
-                          handleRecordChange(
-                            index,
-                            "issue_date",
-                            e.target.value,
-                          )
+                          handleRecordChange(index, "issueDate", e.target.value)
                         }
                         className="w-full rounded border p-1"
                         required
@@ -117,39 +113,35 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                     </td>
                     <td className="border p-2">
                       <input
-                        id={`due_date_${index}`}
+                        id={`dueDate_${index}`}
                         type="date"
-                        value={record.due_date}
+                        value={record.dueDate}
                         onChange={(e) =>
-                          handleRecordChange(index, "due_date", e.target.value)
+                          handleRecordChange(index, "dueDate", e.target.value)
                         }
                         className="w-full rounded border p-1"
                       />
                     </td>
                     <td className="border p-2">
                       <input
-                        id={`partner_id_${index}`}
+                        id={`partnerId_${index}`}
                         type="number"
-                        value={record.partner_id}
+                        value={record.partnerId}
                         onChange={(e) =>
-                          handleRecordChange(
-                            index,
-                            "partner_id",
-                            e.target.value,
-                          )
+                          handleRecordChange(index, "partnerId", e.target.value)
                         }
                         className="w-full rounded border p-1"
                       />
                     </td>
                     <td className="border p-2">
                       <input
-                        id={`partner_code_${index}`}
+                        id={`partnerCode_${index}`}
                         type="text"
-                        value={record.partner_code}
+                        value={record.partnerCode}
                         onChange={(e) =>
                           handleRecordChange(
                             index,
-                            "partner_code",
+                            "partnerCode",
                             e.target.value,
                           )
                         }
@@ -159,24 +151,24 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                     {/* 明細情報 */}
                     <td className="border p-2">
                       <input
-                        id={`tax_code_${index}`}
+                        id={`taxCode_${index}`}
                         type="number"
-                        value={record.tax_code}
+                        value={record.taxCode}
                         onChange={(e) =>
-                          handleRecordChange(index, "tax_code", e.target.value)
+                          handleRecordChange(index, "taxCode", e.target.value)
                         }
                         className="w-full rounded border p-1"
                       />
                     </td>
                     <td className="border p-2">
                       <input
-                        id={`account_item_id_${index}`}
+                        id={`accountItemId_${index}`}
                         type="number"
-                        value={record.account_item_id}
+                        value={record.accountItemId}
                         onChange={(e) =>
                           handleRecordChange(
                             index,
-                            "account_item_id",
+                            "accountItemId",
                             e.target.value,
                           )
                         }
@@ -197,37 +189,33 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                     </td>
                     <td className="border p-2">
                       <input
-                        id={`item_id_${index}`}
+                        id={`itemId_${index}`}
                         type="number"
-                        value={record.item_id}
+                        value={record.itemId}
                         onChange={(e) =>
-                          handleRecordChange(index, "item_id", e.target.value)
+                          handleRecordChange(index, "itemId", e.target.value)
                         }
                         className="w-full rounded border p-1"
                       />
                     </td>
                     <td className="border p-2">
                       <input
-                        id={`section_id_${index}`}
+                        id={`sectionId_${index}`}
                         type="number"
-                        value={record.section_id}
+                        value={record.sectionId}
                         onChange={(e) =>
-                          handleRecordChange(
-                            index,
-                            "section_id",
-                            e.target.value,
-                          )
+                          handleRecordChange(index, "sectionId", e.target.value)
                         }
                         className="w-full rounded border p-1"
                       />
                     </td>
                     <td className="border p-2">
                       <input
-                        id={`tag_ids_${index}`}
+                        id={`tagIds_${index}`}
                         type="number"
-                        value={record.tag_ids[0] || ""}
+                        value={record.tagIds[0] || ""}
                         onChange={(e) =>
-                          handleRecordChange(index, "tag_ids", e.target.value)
+                          handleRecordChange(index, "tagIds", e.target.value)
                         }
                         className="w-full rounded border p-1"
                       />
@@ -261,13 +249,13 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                     {/* 支払情報 */}
                     <td className="border p-2">
                       <input
-                        id={`payment_amount_${index}`}
+                        id={`paymentAmount_${index}`}
                         type="number"
-                        value={record.payment_amount}
+                        value={record.paymentAmount}
                         onChange={(e) =>
                           handleRecordChange(
                             index,
-                            "payment_amount",
+                            "paymentAmount",
                             e.target.value,
                           )
                         }
@@ -277,13 +265,13 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                     </td>
                     <td className="border p-2">
                       <input
-                        id={`from_walletable_id_${index}`}
+                        id={`fromWalletableId_${index}`}
                         type="number"
-                        value={record.from_walletable_id}
+                        value={record.fromWalletableId}
                         onChange={(e) =>
                           handleRecordChange(
                             index,
-                            "from_walletable_id",
+                            "fromWalletableId",
                             e.target.value,
                           )
                         }
@@ -293,12 +281,12 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                     </td>
                     <td className="border p-2">
                       <select
-                        id={`from_walletable_type_${index}`}
-                        value={record.from_walletable_type}
+                        id={`fromWalletableType_${index}`}
+                        value={record.fromWalletableType}
                         onChange={(e) =>
                           handleRecordChange(
                             index,
-                            "from_walletable_type",
+                            "fromWalletableType",
                             e.target.value,
                           )
                         }
@@ -312,13 +300,13 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                     </td>
                     <td className="border p-2">
                       <input
-                        id={`payment_date_${index}`}
+                        id={`paymentDate_${index}`}
                         type="date"
-                        value={record.payment_date}
+                        value={record.paymentDate}
                         onChange={(e) =>
                           handleRecordChange(
                             index,
-                            "payment_date",
+                            "paymentDate",
                             e.target.value,
                           )
                         }
