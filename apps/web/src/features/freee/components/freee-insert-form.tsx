@@ -146,7 +146,7 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                 <tr className="bg-gray-50">
                   <th className="border p-2 text-left">#</th>
                   {/* 基本情報 */}
-                  <th className="border p-2 text-left">発生日</th>
+                  <th className="border p-2 text-left">発生日 *</th>
                   <th className="border p-2 text-left">収支区分</th>
                   <th className="border p-2 text-left">支払期日</th>
                   <th className="border p-2 text-left">取引先ID</th>
@@ -154,17 +154,17 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                   {/* 明細情報 */}
                   <th className="border p-2 text-left">税区分コード</th>
                   <th className="border p-2 text-left">勘定科目ID</th>
-                  <th className="border p-2 text-left">金額</th>
+                  <th className="border p-2 text-left">金額 *</th>
                   <th className="border p-2 text-left">品目ID</th>
                   <th className="border p-2 text-left">部門ID</th>
                   <th className="border p-2 text-left">メモタグID</th>
                   <th className="border p-2 text-left">備考</th>
                   <th className="border p-2 text-left">消費税額</th>
                   {/* 支払情報 */}
-                  <th className="border p-2 text-left">支払金額</th>
-                  <th className="border p-2 text-left">口座ID</th>
-                  <th className="border p-2 text-left">口座タイプ</th>
-                  <th className="border p-2 text-left">支払日</th>
+                  <th className="border p-2 text-left">支払金額 *</th>
+                  <th className="border p-2 text-left">口座ID *</th>
+                  <th className="border p-2 text-left">口座タイプ *</th>
+                  <th className="border p-2 text-left">支払日 *</th>
                 </tr>
               </thead>
               <tbody>
