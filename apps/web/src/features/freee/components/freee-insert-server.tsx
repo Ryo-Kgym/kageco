@@ -1,6 +1,7 @@
 import { YYYYmmDD } from "@/type/date/date";
 import type { FC } from "react";
 
+import { findAccountIds } from "../../../persistence/browser/server/findAccountIds";
 import { findCategoryIds } from "../../../persistence/browser/server/findCategoryIds";
 import type { YYYY_MM_DD } from "../../../types/yyyyMMdd";
 import { fetchFreeeRecords } from "../server/fetch-freee-records";
@@ -28,11 +29,13 @@ export const FreeeInsertServer: FC<Props> = async ({
     categoryIdsFromUrl.length > 0
       ? categoryIdsFromUrl
       : await findCategoryIds();
+  const accountIds = await findAccountIds();
 
   const { records } = await fetchFreeeRecords({
     fromDate: new YYYYmmDD(fromDate),
     toDate: new YYYYmmDD(toDate),
     tagIds,
+    accountIds,
     categoryIds,
   });
 

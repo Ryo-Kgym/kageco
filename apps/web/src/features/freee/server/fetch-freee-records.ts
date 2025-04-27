@@ -2,7 +2,6 @@ import type { YYYY_MM_DD, YYYYmmDD } from "@/type/date/date";
 import type { FragAllDetailViewFragment } from "@v3/graphql/household/schema/query/v5/fragChartDetailTable.generated";
 import { GetAllDetailViewDocument } from "@v3/graphql/household/schema/query/v5/getAllDetailView.generated";
 
-import type { IocomeType } from "../../../domain/model/household/IocomeType";
 import { findUser } from "../../../persistence/browser/server/find-user";
 import { execQuery } from "../../../persistence/database/server/execQuery";
 import type { UnifiedRecord } from "../types/unified-record";
@@ -11,6 +10,7 @@ type Params = {
   fromDate: YYYYmmDD;
   toDate: YYYYmmDD;
   tagIds: string[];
+  accountIds: string[];
   categoryIds: string[];
 };
 
@@ -22,7 +22,7 @@ export const fetchFreeeRecords = async (params: Params) => {
     fromDate: params.fromDate.toString(),
     toDate: params.toDate.toString(),
     tagIds: params.tagIds,
-    accountIds: [], // 口座IDは指定しない
+    accountIds: params.accountIds,
     categoryIds: params.categoryIds,
   });
 

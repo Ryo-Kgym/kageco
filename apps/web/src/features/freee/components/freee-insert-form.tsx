@@ -200,7 +200,6 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
   return (
     <div className="p-4">
       <h1 className="mb-6 text-2xl font-bold">freee取引登録</h1>
-
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* 統合されたレコードテーブル */}
         <div className="rounded-lg bg-white p-6 shadow-md">
