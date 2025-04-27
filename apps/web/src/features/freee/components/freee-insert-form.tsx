@@ -5,70 +5,48 @@ import { useState } from "react";
 
 import { Button } from "../../../components/ui/button/v5";
 import { errorPopup, successPopup } from "../../../function/successPopup";
-
-// 統合されたレコードの型定義
-type UnifiedRecord = {
-  id: string;
-  // 基本情報
-  issue_date: string;
-  type: string;
-  company_id: string;
-  due_date: string;
-  partner_id: string;
-  partner_code: string;
-  ref_number: string;
-  // 明細情報
-  tax_code: string;
-  account_item_id: string;
-  amount: string;
-  item_id: string;
-  section_id: string;
-  tag_ids: string[];
-  description: string;
-  vat: string;
-  // 支払情報
-  payment_amount: string;
-  from_walletable_id: string;
-  from_walletable_type: string;
-  payment_date: string;
-  // 領収書ID
-  receipt_id: string;
-};
+import type { UnifiedRecord } from "../types/unified-record";
 
 /**
  * freeeへ取引登録するフォームコンポーネント
  */
-export const FreeeInsertForm: FC = () => {
+export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
+  initialRecords = [],
+}) => {
   // 統合されたレコードのフォームデータ
-  const [records, setRecords] = useState<UnifiedRecord[]>([
-    {
-      id: "record-1",
-      // 基本情報
-      issue_date: "",
-      type: "income",
-      company_id: "",
-      due_date: "",
-      partner_id: "",
-      partner_code: "",
-      ref_number: "",
-      // 明細情報
-      tax_code: "",
-      account_item_id: "",
-      amount: "",
-      item_id: "",
-      section_id: "",
-      tag_ids: [""],
-      description: "",
-      vat: "",
-      // 支払情報
-      payment_amount: "",
-      from_walletable_id: "",
-      from_walletable_type: "bank_account",
-      payment_date: "",
-      // 領収書ID
-      receipt_id: "",
-    },
-  ]);
+  const [records, setRecords] = useState<UnifiedRecord[]>(
+    initialRecords.length > 0
+      ? initialRecords
+      : [
+          {
+            id: "record-1",
+            // 基本情報
+            issue_date: "",
+            type: "income",
+            company_id: "",
+            due_date: "",
+            partner_id: "",
+            partner_code: "",
+            ref_number: "",
+            // 明細情報
+            tax_code: "",
+            account_item_id: "",
+            amount: "",
+            item_id: "",
+            section_id: "",
+            tag_ids: [""],
+            description: "",
+            vat: "",
+            // 支払情報
+            payment_amount: "",
+            from_walletable_id: "",
+            from_walletable_type: "bank_account",
+            payment_date: "",
+            // 領収書ID
+            receipt_id: "",
+          },
+        ],
+  );
 
   // レコードの入力ハンドラ
   const handleRecordChange = (index: number, field: string, value: string) => {
