@@ -1,5 +1,3 @@
-"use client";
-
 import type { FC } from "react";
 
 import { Button } from "../../../components/ui/button/v5";
@@ -46,13 +44,11 @@ export const SearchFormModal: FC<Props> = ({
     const toDateQuery = form.toDate && `toDate=${convertToYmd(form.toDate)}`;
     const tagIdsQuery =
       form.tags.length && `tag=${form.tags.map((tag) => `${tag}`).join(",")}`;
-    const categoryIdsQuery =
-      form.categoryIds.length && `categoryIds=${form.categoryIds.join(",")}`;
     await saveCategoryIds(form.categoryIds);
     await saveAccountIds(form.accountIds);
 
     onSearch(
-      `?${[fromDateQuery, toDateQuery, tagIdsQuery, categoryIdsQuery].filter((noop) => noop).join("&")}`,
+      `?${[fromDateQuery, toDateQuery, tagIdsQuery].filter((noop) => noop).join("&")}`,
     );
   };
 

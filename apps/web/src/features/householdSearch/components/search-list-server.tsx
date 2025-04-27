@@ -7,7 +7,7 @@ import { findAccountIds } from "../../../persistence/browser/server/findAccountI
 import { findCategoryIds } from "../../../persistence/browser/server/findCategoryIds";
 import type { YYYY_MM_DD } from "../../../types/yyyyMMdd";
 import { fetchDetails } from "../server/fetchDetails";
-import { SearchListTable } from "./SearchListTable";
+import { SearchListTable } from "./search-list-table";
 
 type Props = {
   fromDate: YYYY_MM_DD;

@@ -1,4 +1,4 @@
-import { SearchListServer } from "../../../../../features/householdSearch/components/SearchListServer";
+import { SearchListServer } from "../../../../../features/householdSearch/components/search-list-server";
 import type { YYYY_MM_DD } from "../../../../../types/yyyyMMdd";
 
 const Page = async ({
