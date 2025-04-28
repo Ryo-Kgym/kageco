@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import { Button } from "../../../components/ui/button/v5";
 import { errorPopup, successPopup } from "../../../function/successPopup";
-import { submitFreeeDeals } from "../actions/freee-submit-actions";
+import { submitFreeeDeals } from "../actions/submit-deals-actions";
 import type { UnifiedRecord } from "../types/unified-record";
 
 /**

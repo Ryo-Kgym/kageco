@@ -1,6 +1,6 @@
 "use server";
 
-import { submitFreeeRecords } from "../server/submit-freee-records";
+import { submitDeals } from "../server/submit-deals";
 import type { UnifiedRecord } from "../types/unified-record";
 
 /**
@@ -13,7 +13,7 @@ export async function submitFreeeDeals(records: UnifiedRecord[]): Promise<{
   error?: Error;
 }> {
   try {
-    return await submitFreeeRecords(records);
+    return await submitDeals(records);
   } catch (error) {
     console.error("Error submitting freee deals:", error);
     return {
