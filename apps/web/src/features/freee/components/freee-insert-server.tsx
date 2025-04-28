@@ -1,8 +1,10 @@
 import { YYYYmmDD } from "@/type/date/date";
+import { AxiosFreeeAccountItemsRepository } from "@kageco/persistence/api/axios/freee/axios-freee-account-items-repository";
 import type { FC } from "react";
 
 import { findAccountIds } from "../../../persistence/browser/server/findAccountIds";
 import { findCategoryIds } from "../../../persistence/browser/server/findCategoryIds";
+import { findFreeeAuth } from "../../../persistence/browser/server/freee-auth";
 import type { YYYY_MM_DD } from "../../../types/yyyyMMdd";
 import { fetchFreeeRecords } from "../server/fetch-freee-records";
 import { FreeeInsertForm } from "./freee-insert-form";
@@ -38,6 +40,13 @@ export const FreeeInsertServer: FC<Props> = async ({
     accountIds,
     categoryIds,
   });
+
+  const freeeAuth = await findFreeeAuth();
+
+  const accountItemsRepository = new AxiosFreeeAccountItemsRepository(
+    freeeAuth,
+  );
+  console.log(await accountItemsRepository.getAll());
 
   return <FreeeInsertForm initialRecords={records} />;
 };

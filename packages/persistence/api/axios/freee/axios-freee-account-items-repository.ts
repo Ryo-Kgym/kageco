@@ -7,7 +7,7 @@ export class AxiosFreeeAccountItemsRepository
 {
   async getAll() {
     try {
-      return await this.axiosGet({
+      return await super.axiosGet({
         endpointSuffix: `/account_items?company_id=${this.companyId}`,
       });
     } catch (error) {

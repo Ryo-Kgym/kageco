@@ -7,7 +7,7 @@ export class AxiosFreeeTaxesRepository
 {
   async getAll() {
     try {
-      return await this.axiosGet({
+      return await super.axiosGet({
         endpointSuffix: `/taxes/companies/${this.companyId}`,
       });
     } catch (error) {

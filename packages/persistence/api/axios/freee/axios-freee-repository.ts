@@ -16,8 +16,9 @@ export class AxiosFreeeRepository {
       `${this.baseUrl}${params.endpointSuffix}`,
       {
         headers: {
+          accept: "application/json",
           Authorization: `Bearer ${this.accessToken}`,
-          "Content-Type": "application/json",
+          "X-Api-Version": "2020-06-15",
         },
       },
     );

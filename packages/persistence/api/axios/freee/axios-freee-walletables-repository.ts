@@ -7,7 +7,7 @@ export class AxiosFreeeWalletablesRepository
 {
   async getAll() {
     try {
-      return await this.axiosGet({
+      return await super.axiosGet({
         endpointSuffix: `/walletables?company_id=${this.companyId}`,
       });
     } catch (error) {
