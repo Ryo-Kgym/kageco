@@ -7,7 +7,7 @@ import { findCategoryIds } from "../../../persistence/browser/server/findCategor
 import { findFreeeAuth } from "../../../persistence/browser/server/freee-auth";
 import type { YYYY_MM_DD } from "../../../types/yyyyMMdd";
 import { fetchFreeeRecords } from "../server/fetch-freee-records";
-import { FreeeInsertForm } from "./freee-insert-form";
+import { FreeeRegisterForm } from "./freee-register-form";
 
 type Props = {
   fromDate: YYYY_MM_DD;
@@ -18,9 +18,9 @@ type Props = {
 
 /**
  * freeeへ取引登録するサーバーコンポーネント
- * 指定された期間、タグ、カテゴリに基づいてデータを取得し、FreeeInsertFormに初期値として渡す
+ * 指定された期間、タグ、カテゴリに基づいてデータを取得し、FreeeRegisterFormに初期値として渡す
  */
-export const FreeeInsertServer: FC<Props> = async ({
+export const FreeeRegisterServer: FC<Props> = async ({
   fromDate,
   toDate,
   tagIds,
@@ -48,5 +48,5 @@ export const FreeeInsertServer: FC<Props> = async ({
   );
   console.log(await accountItemsRepository.getAll());
 
-  return <FreeeInsertForm initialRecords={records} />;
+  return <FreeeRegisterForm initialRecords={records} />;
 };

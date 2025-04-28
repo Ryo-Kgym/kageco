@@ -1,4 +1,4 @@
-import { FreeeIndex } from "../../../../features/freee/components/freee-index";
+import { FreeeIndex } from "../../../../features/freeeAuth/components/freee-index";
 
 /**
  * freee連携のインデックスページ

@@ -11,7 +11,7 @@ import type { UnifiedRecord } from "../types/unified-record";
 /**
  * freeeへ取引登録するフォームコンポーネント
  */
-export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
+export const FreeeRegisterForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
   initialRecords = [],
 }) => {
   // 統合されたレコードのフォームデータ
@@ -125,7 +125,7 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                     <td className="border p-2">
                       <input
                         id={`partnerId_${index}`}
-                        type="number"
+                        type="text"
                         value={record.partnerId}
                         onChange={(e) =>
                           handleRecordChange(index, "partnerId", e.target.value)
@@ -152,7 +152,7 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                     <td className="border p-2">
                       <input
                         id={`taxCode_${index}`}
-                        type="number"
+                        type="text"
                         value={record.taxCode}
                         onChange={(e) =>
                           handleRecordChange(index, "taxCode", e.target.value)
@@ -163,7 +163,7 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                     <td className="border p-2">
                       <input
                         id={`accountItemId_${index}`}
-                        type="number"
+                        type="text"
                         value={record.accountItemId}
                         onChange={(e) =>
                           handleRecordChange(
@@ -190,7 +190,7 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                     <td className="border p-2">
                       <input
                         id={`itemId_${index}`}
-                        type="number"
+                        type="text"
                         value={record.itemId}
                         onChange={(e) =>
                           handleRecordChange(index, "itemId", e.target.value)
@@ -201,7 +201,7 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                     <td className="border p-2">
                       <input
                         id={`sectionId_${index}`}
-                        type="number"
+                        type="text"
                         value={record.sectionId}
                         onChange={(e) =>
                           handleRecordChange(index, "sectionId", e.target.value)
@@ -212,7 +212,7 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                     <td className="border p-2">
                       <input
                         id={`tagIds_${index}`}
-                        type="number"
+                        type="text"
                         value={record.tagIds[0] || ""}
                         onChange={(e) =>
                           handleRecordChange(index, "tagIds", e.target.value)
@@ -238,7 +238,7 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                     <td className="border p-2">
                       <input
                         id={`vat_${index}`}
-                        type="number"
+                        type="text"
                         value={record.vat}
                         onChange={(e) =>
                           handleRecordChange(index, "vat", e.target.value)
@@ -266,7 +266,7 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                     <td className="border p-2">
                       <input
                         id={`fromWalletableId_${index}`}
-                        type="number"
+                        type="text"
                         value={record.fromWalletableId}
                         onChange={(e) =>
                           handleRecordChange(
@@ -294,8 +294,8 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                         required
                       >
                         <option value="bank_account">銀行口座</option>
-                        <option value="wallet">現金</option>
                         <option value="credit_card">クレジットカード</option>
+                        <option value="wallet">現金</option>
                       </select>
                     </td>
                     <td className="border p-2">
@@ -321,9 +321,10 @@ export const FreeeInsertForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
           </div>
         </div>
 
-        {/* 送信ボタン */}
-        <div className="flex justify-center">
-          <Button label="freeeに登録する" type="add" onClick={handleSubmit} />
+        <div className="flex justify-end">
+          <Button type="submit" className="px-6 py-2">
+            freeeに登録する
+          </Button>
         </div>
       </form>
     </div>

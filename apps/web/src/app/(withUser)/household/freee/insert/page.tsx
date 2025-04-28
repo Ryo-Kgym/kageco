@@ -1,4 +1,4 @@
-import { FreeeInsertServer } from "../../../../../features/freee/components/freee-insert-server";
+import { FreeeRegisterServer } from "../../../../../features/freeeRegisterDeals/components/freee-register-server";
 import {
   getThisYearFirstDate,
   getThisYearLastDate,
@@ -20,7 +20,7 @@ const Page = async ({
 }) => {
   const { fromDate, toDate, tag, categoryIds } = await searchParams;
   return (
-    <FreeeInsertServer
+    <FreeeRegisterServer
       fromDate={fromDate ?? getThisYearFirstDate()}
       toDate={toDate ?? getThisYearLastDate()}
       tagIds={tag?.split(",") ?? []}
