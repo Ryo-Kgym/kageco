@@ -15,6 +15,7 @@
   "dependencies": {
     "@/core": "workspace:^",
     "@/type": "workspace:^",
+    "@kageco/persistence": "workspace:^",
     "@apollo/client": "^3.9.9",
     "@clerk/nextjs": "^6.9.0",
     "@emotion/react": "^11.11.4",

@@ -1,0 +1,22 @@
+{
+  "name": "@kageco/persistence",
+  "version": "1.0.0",
+  "description": "core/gatewayに対する実装を配置するプロジェクトです。",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "with-env": "dotenv -e ../../.env --",
+    "test": "vitest --run",
+    "test:watch": "vitest"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@/core": "workspace:^",
+    "axios": "^1.9.0"
+  },
+  "devDependencies": {
+    "@acme/tsconfig": "workspace:^",
+    "typescript": "^5.3.3"
+  }
+}
