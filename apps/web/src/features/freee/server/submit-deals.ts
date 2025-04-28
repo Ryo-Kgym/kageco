@@ -1,5 +1,5 @@
-import { FreeeRegisterDealRepository } from "@/core/gateway/freee/freee-register-deal-repository";
 import { RegisterDealsUsecase } from "@/core/usecase/freee/register-deals-usecase";
+import { AxiosFreeeRegisterDealRepository } from "@kageco/persistence/api/axios/freee/axios-freee-register-deal-repository";
 import type { UnifiedRecord } from "../types/unified-record";
 import { convertToDealData } from "./convert-to-deal-data";
 
@@ -38,7 +38,7 @@ export const submitDeals = async (records: UnifiedRecord[]) => {
 
   const dealDataArray = convertToDealData(inputData);
 
-  const repository = new FreeeRegisterDealRepository();
+  const repository = new AxiosFreeeRegisterDealRepository();
   const usecase = new RegisterDealsUsecase(repository);
 
   try {

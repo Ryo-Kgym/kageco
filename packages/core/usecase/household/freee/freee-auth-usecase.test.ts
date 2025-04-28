@@ -1,42 +1,38 @@
 import { describe, expect, test, vi } from "vitest";
-import { FreeeAuthRepository } from "../../../gateway/freee/freee-auth-repository";
+import type { FreeeAuthGateway } from "../../../gateway/freee/freee-auth-gateway";
 import { FreeeAuthUsecase } from "./freee-auth-usecase";
 
-// Mock the FreeeAuthRepository
-vi.mock("../../../gateway/freee/freee-auth-repository", () => {
-  return {
-    FreeeAuthRepository: vi.fn().mockImplementation(() => {
-      return {
-        getAuthorizationUrl: vi
-          .fn()
-          .mockReturnValue("https://mock-auth-url.com"),
-        getAccessToken: vi.fn().mockResolvedValue({
-          access_token: "mock-access-token",
-          token_type: "Bearer",
-          expires_in: 3600,
-          refresh_token: "mock-refresh-token",
-          scope: "accounting",
-          created_at: 1234567890,
-        }),
-        refreshAccessToken: vi.fn().mockResolvedValue({
-          access_token: "mock-refreshed-token",
-          token_type: "Bearer",
-          expires_in: 3600,
-          refresh_token: "mock-new-refresh-token",
-          scope: "accounting",
-          created_at: 1234567890,
-        }),
-      };
-    }),
-  };
-});
+// Mock the FreeeAuthGateway
+const mockFreeeAuthGateway: FreeeAuthGateway = {
+  getAuthorizationUrl: vi.fn().mockReturnValue({
+    url: "https://mock-auth-url.com",
+    state: "mock-state",
+  }),
+  getAccessToken: vi.fn().mockResolvedValue({
+    access_token: "mock-access-token",
+    token_type: "Bearer",
+    expires_in: 3600,
+    refresh_token: "mock-refresh-token",
+    scope: "accounting",
+    created_at: 1234567890,
+    company_id: "mock-company-id",
+    external_cid: "mock-external-cid",
+  }),
+  refreshAccessToken: vi.fn().mockResolvedValue({
+    access_token: "mock-refreshed-token",
+    token_type: "Bearer",
+    expires_in: 3600,
+    refresh_token: "mock-new-refresh-token",
+    scope: "accounting",
+    created_at: 1234567890,
+    company_id: "mock-company-id",
+    external_cid: "mock-external-cid",
+  }),
+};
 
 describe("FreeeAuthUsecase", () => {
-  const clientId = "test-client-id";
-  const clientSecret = "test-client-secret";
-
-  test("should get authorization URL", async () => {
-    const usecase = new FreeeAuthUsecase(clientId, clientSecret);
+  test("getAuthUrlタイプの入力の場合、認証URLとstateが返ること", async () => {
+    const usecase = new FreeeAuthUsecase(mockFreeeAuthGateway);
     const result = await usecase.handle({
       type: "getAuthUrl",
       redirectUri: "https://example.com/callback",
@@ -45,14 +41,17 @@ describe("FreeeAuthUsecase", () => {
     expect(result).toEqual({
       type: "authUrl",
       url: "https://mock-auth-url.com",
+      state: "mock-state",
     });
 
-    // Verify FreeeAuthRepository was constructed with the correct parameters
-    expect(FreeeAuthRepository).toHaveBeenCalledWith(clientId, clientSecret);
+    // Verify the gateway method was called with the correct parameters
+    expect(mockFreeeAuthGateway.getAuthorizationUrl).toHaveBeenCalledWith(
+      "https://example.com/callback",
+    );
   });
 
-  test("should get access token", async () => {
-    const usecase = new FreeeAuthUsecase(clientId, clientSecret);
+  test("getTokenタイプの入力の場合、アクセストークンと関連情報が返ること", async () => {
+    const usecase = new FreeeAuthUsecase(mockFreeeAuthGateway);
     const result = await usecase.handle({
       type: "getToken",
       code: "test-code",
@@ -67,11 +66,19 @@ describe("FreeeAuthUsecase", () => {
       tokenType: "Bearer",
       scope: "accounting",
       createdAt: 1234567890,
+      companyId: "mock-company-id",
+      externalCid: "mock-external-cid",
     });
+
+    // Verify the gateway method was called with the correct parameters
+    expect(mockFreeeAuthGateway.getAccessToken).toHaveBeenCalledWith(
+      "test-code",
+      "https://example.com/callback",
+    );
   });
 
-  test("should refresh access token", async () => {
-    const usecase = new FreeeAuthUsecase(clientId, clientSecret);
+  test("refreshTokenタイプの入力の場合、更新されたアクセストークンと関連情報が返ること", async () => {
+    const usecase = new FreeeAuthUsecase(mockFreeeAuthGateway);
     const result = await usecase.handle({
       type: "refreshToken",
       refreshToken: "test-refresh-token",
@@ -85,11 +92,18 @@ describe("FreeeAuthUsecase", () => {
       tokenType: "Bearer",
       scope: "accounting",
       createdAt: 1234567890,
+      companyId: "mock-company-id",
+      externalCid: "mock-external-cid",
     });
+
+    // Verify the gateway method was called with the correct parameters
+    expect(mockFreeeAuthGateway.refreshAccessToken).toHaveBeenCalledWith(
+      "test-refresh-token",
+    );
   });
 
-  test("should throw error for invalid input type", async () => {
-    const usecase = new FreeeAuthUsecase(clientId, clientSecret);
+  test("無効なタイプの入力の場合、「Invalid input type」エラーが発生すること", async () => {
+    const usecase = new FreeeAuthUsecase(mockFreeeAuthGateway);
     // @ts-expect-error Testing invalid input
     await expect(usecase.handle({ type: "invalid" })).rejects.toThrow(
       "Invalid input type",

@@ -1,7 +1,7 @@
 "use server";
 
 import { FreeeAuthUsecase } from "@/core/usecase/household/freee/freee-auth-usecase";
-
+import { AxiosFreeeAuthRepository } from "@kageco/persistence/api/axios/freee/axios-freee-auth-repository";
 /**
  * 認証URLを取得する
  * @returns 認証URLとstate（CSRF対策用のランダムな文字列）
@@ -20,8 +20,8 @@ export async function getAuthorizationUrl(): Promise<{
       throw new Error("Freee client ID or client secret is not set");
     }
 
-    // ユースケースを作成
-    const freeeAuthUsecase = new FreeeAuthUsecase(clientId, clientSecret);
+    const repository = new AxiosFreeeAuthRepository(clientId, clientSecret);
+    const freeeAuthUsecase = new FreeeAuthUsecase(repository);
 
     // 認証URLを取得
     const result = await freeeAuthUsecase.handle({
@@ -63,8 +63,8 @@ export async function getTokenWithCode(code: string): Promise<{
       throw new Error("Freee client ID or client secret is not set");
     }
 
-    // ユースケースを作成
-    const freeeAuthUsecase = new FreeeAuthUsecase(clientId, clientSecret);
+    const repository = new AxiosFreeeAuthRepository(clientId, clientSecret);
+    const freeeAuthUsecase = new FreeeAuthUsecase(repository);
 
     const result = await freeeAuthUsecase.handle({
       type: "getToken",
@@ -109,7 +109,8 @@ export async function refreshToken(refreshToken: string): Promise<{
       return null;
     }
 
-    const freeeAuthUsecase = new FreeeAuthUsecase(clientId, clientSecret);
+    const repository = new AxiosFreeeAuthRepository(clientId, clientSecret);
+    const freeeAuthUsecase = new FreeeAuthUsecase(repository);
 
     const result = await freeeAuthUsecase.handle({
       type: "refreshToken",
