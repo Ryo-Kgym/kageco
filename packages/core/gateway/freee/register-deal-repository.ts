@@ -1,6 +1,5 @@
-import type { RegisterDealGateway } from "@/core/gateway/freee/register-deal-gateway";
-
-import type { RegisterDealDto } from "@/core/usecase/freee/register-deal-dto";
+import type { RegisterDealDto } from "../../usecase/freee/register-deal-dto";
+import type { RegisterDealGateway } from "./register-deal-gateway";
 
 /**
  * freee API取引登録ゲートウェイの実装
