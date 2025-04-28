@@ -322,9 +322,12 @@ export const FreeeRegisterForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
         </div>
 
         <div className="flex justify-end">
-          <Button type="submit" className="px-6 py-2">
-            freeeに登録する
-          </Button>
+          <Button
+            type="save"
+            label={"freeeに登録する"}
+            // @ts-expect-error
+            onClick={handleSubmit}
+          />
         </div>
       </form>
     </div>
