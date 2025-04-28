@@ -1,10 +1,10 @@
 import type { RegisterDealDto } from "../../usecase/freee/register-deal-dto";
-import type { RegisterDealGateway } from "./register-deal-gateway";
+import type { FreeeRegisterDealGateway } from "./freee-register-deal-gateway";
 
 /**
  * freee API取引登録ゲートウェイの実装
  */
-export class RegisterDealRepository implements RegisterDealGateway {
+export class FreeeRegisterDealRepository implements FreeeRegisterDealGateway {
   async exec(dealData: RegisterDealDto): Promise<{ success: boolean }> {
     try {
       // camelCaseからsnake_caseへ変換

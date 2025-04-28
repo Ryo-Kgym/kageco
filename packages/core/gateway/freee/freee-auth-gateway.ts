@@ -12,7 +12,7 @@ export interface FreeeAuthResponse {
 /**
  * freee API認証ゲートウェイのインターフェース
  */
-export interface AuthGateway {
+export interface FreeeAuthGateway {
   /**
    * OAuth2フローの認証URLを取得する
    * @param redirectUri 認証後にリダイレクトするURI

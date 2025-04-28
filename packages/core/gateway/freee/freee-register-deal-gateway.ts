@@ -3,7 +3,7 @@ import type { RegisterDealDto } from "../../usecase/freee/register-deal-dto";
 /**
  * freee API取引登録ゲートウェイのインターフェース
  */
-export interface RegisterDealGateway {
+export interface FreeeRegisterDealGateway {
   /**
    * freeeへ取引データを送信する
    * @param dealData 取引データ

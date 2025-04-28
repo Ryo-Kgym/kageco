@@ -1,4 +1,4 @@
-import { RegisterDealRepository } from "@/core/gateway/freee/register-deal-repository";
+import { FreeeRegisterDealRepository } from "@/core/gateway/freee/freee-register-deal-repository";
 import { RegisterDealsUsecase } from "@/core/usecase/freee/register-deals-usecase";
 import type { UnifiedRecord } from "../types/unified-record";
 import { convertToDealData } from "./convert-to-deal-data";
@@ -38,7 +38,7 @@ export const submitDeals = async (records: UnifiedRecord[]) => {
 
   const dealDataArray = convertToDealData(inputData);
 
-  const repository = new RegisterDealRepository();
+  const repository = new FreeeRegisterDealRepository();
   const usecase = new RegisterDealsUsecase(repository);
 
   try {

@@ -1,11 +1,11 @@
-import type { RegisterDealGateway } from "../../gateway/freee/register-deal-gateway";
+import type { FreeeRegisterDealGateway } from "../../gateway/freee/freee-register-deal-gateway";
 import type { RegisterDealDto } from "./register-deal-dto";
 
 /**
  * freeeへ取引データを登録するユースケース
  */
 export class RegisterDealsUsecase {
-  constructor(private readonly registerDealGateway: RegisterDealGateway) {}
+  constructor(private readonly registerDealGateway: FreeeRegisterDealGateway) {}
 
   /**
    * freeeへ取引データを登録する
