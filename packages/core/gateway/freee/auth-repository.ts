@@ -1,7 +1,7 @@
 import axios from "axios";
-import type { FreeeAuthResponse, FreeeGateway } from "./freee-gateway";
+import type { AuthGateway, FreeeAuthResponse } from "./auth-gateway";
 
-export class FreeeAuthRepository implements FreeeGateway {
+export class AuthRepository implements AuthGateway {
   private readonly baseUrl = "https://accounts.secure.freee.co.jp";
   private readonly clientId: string;
   private readonly clientSecret: string;

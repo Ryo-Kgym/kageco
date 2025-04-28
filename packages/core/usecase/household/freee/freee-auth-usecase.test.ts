@@ -1,8 +1,8 @@
 import { describe, expect, test, vi } from "vitest";
-import { FreeeAuthRepository } from "../../../gateway/freee/freee-auth-repository";
+import { AuthRepository } from "../../../gateway/freee/auth-repository";
 import { FreeeAuthUsecase } from "./freee-auth-usecase";
 
-// Mock the FreeeAuthRepository
+// Mock the AuthRepository
 vi.mock("../../../gateway/freee/freee-auth-repository", () => {
   return {
     FreeeAuthRepository: vi.fn().mockImplementation(() => {
@@ -47,8 +47,8 @@ describe("FreeeAuthUsecase", () => {
       url: "https://mock-auth-url.com",
     });
 
-    // Verify FreeeAuthRepository was constructed with the correct parameters
-    expect(FreeeAuthRepository).toHaveBeenCalledWith(clientId, clientSecret);
+    // Verify AuthRepository was constructed with the correct parameters
+    expect(AuthRepository).toHaveBeenCalledWith(clientId, clientSecret);
   });
 
   test("should get access token", async () => {

@@ -1,14 +1,14 @@
-import { FreeeAuthRepository } from "../../../gateway/freee/freee-auth-repository";
-import type { FreeeGateway } from "../../../gateway/freee/freee-gateway";
+import type { AuthGateway } from "../../../gateway/freee/auth-gateway";
+import { AuthRepository } from "../../../gateway/freee/auth-repository";
 import type { HouseholdUsecase } from "../HouseholdUsecase";
 
 export class FreeeAuthUsecase
   implements HouseholdUsecase<FreeeAuthInput, FreeeAuthOutput>
 {
-  private readonly freeeGateway: FreeeGateway;
+  private readonly freeeGateway: AuthGateway;
 
   constructor(clientId: string, clientSecret: string) {
-    this.freeeGateway = new FreeeAuthRepository(clientId, clientSecret);
+    this.freeeGateway = new AuthRepository(clientId, clientSecret);
   }
 
   async handle(input: FreeeAuthInput): Promise<FreeeAuthOutput> {
