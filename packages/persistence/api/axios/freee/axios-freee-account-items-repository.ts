@@ -5,14 +5,14 @@ export class AxiosFreeeAccountItemsRepository
   extends AxiosFreeeRepository
   implements FreeeAccountItemsGateway
 {
-  async getAll() {
+  getAll: FreeeAccountItemsGateway["getAll"] = async () => {
     try {
       return await super.axiosGet({
-        endpointSuffix: `/account_items?company_id=${this.companyId}`,
+        endpointSuffix: `/account_items?company_id=${this.companyId}&available=true`,
       });
     } catch (error) {
       console.error("Error fetching account items:", error);
       throw new Error("Failed to fetch account items from freee API");
     }
-  }
+  };
 }

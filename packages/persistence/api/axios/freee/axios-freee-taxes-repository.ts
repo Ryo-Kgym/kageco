@@ -5,7 +5,7 @@ export class AxiosFreeeTaxesRepository
   extends AxiosFreeeRepository
   implements FreeeTaxesGateway
 {
-  async getAll() {
+  getAll: FreeeTaxesGateway["getAll"] = async () => {
     try {
       return await super.axiosGet({
         endpointSuffix: `/taxes/companies/${this.companyId}`,
@@ -14,5 +14,5 @@ export class AxiosFreeeTaxesRepository
       console.error("Error fetching taxes:", error);
       throw new Error("Failed to fetch taxes from freee API");
     }
-  }
+  };
 }

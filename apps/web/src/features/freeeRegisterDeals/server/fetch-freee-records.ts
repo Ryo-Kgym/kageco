@@ -63,8 +63,8 @@ export const fetchFreeeRecords = async (params: Params) => {
     amount: detail.amount?.toString() || "",
     itemId: "",
     sectionId: "",
-    tagIds: detail.tags.map((tag) => tag.tag.id),
-    description: detail.memo || "",
+    tagIds: [],
+    description: `${detail.category?.name} ${detail.memo}` || "",
     vat: "",
     // 支払情報
     paymentAmount: detail.amount?.toString() || "",

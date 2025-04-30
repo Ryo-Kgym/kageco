@@ -5,7 +5,7 @@ export class AxiosFreeeWalletablesRepository
   extends AxiosFreeeRepository
   implements FreeeWalletablesGateway
 {
-  async getAll() {
+  getAll: FreeeWalletablesGateway["getAll"] = async () => {
     try {
       return await super.axiosGet({
         endpointSuffix: `/walletables?company_id=${this.companyId}`,
@@ -14,5 +14,5 @@ export class AxiosFreeeWalletablesRepository
       console.error("Error fetching walletables:", error);
       throw new Error("Failed to fetch walletables from freee API");
     }
-  }
+  };
 }
