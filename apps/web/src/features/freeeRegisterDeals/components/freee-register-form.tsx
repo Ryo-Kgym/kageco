@@ -4,15 +4,37 @@ import type { FC } from "react";
 import { useState } from "react";
 
 import { Button } from "../../../components/ui/button/v5";
+import { Select } from "../../../components/ui/select/v5";
 import { errorPopup, successPopup } from "../../../function/successPopup";
 import { submitFreeeDeals } from "../actions/submit-deals-actions";
 import type { UnifiedRecord } from "../types/unified-record";
+import styles from "./freee-register-form.module.scss";
 
-/**
- * freeeへ取引登録するフォームコンポーネント
- */
-export const FreeeRegisterForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
+type Props = {
+  initialRecords?: UnifiedRecord[];
+  freeeMasters: {
+    taxes: {
+      value: string;
+      label: string;
+    }[];
+    accountItems: {
+      group: string;
+      items: {
+        value: string;
+        label: string;
+      }[];
+    }[];
+    walletables: {
+      value: string;
+      label: string;
+      type: string;
+    }[];
+  };
+};
+
+export const FreeeRegisterForm: FC<Props> = ({
   initialRecords = [],
+  freeeMasters,
 }) => {
   // 統合されたレコードのフォームデータ
   const [records, setRecords] = useState<UnifiedRecord[]>(initialRecords);
@@ -53,48 +75,46 @@ export const FreeeRegisterForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
   };
 
   return (
-    <div className="p-4">
-      <h1 className="mb-6 text-2xl font-bold">freee取引登録</h1>
-      <form onSubmit={handleSubmit} className="space-y-8">
+    <div className={styles.container}>
+      <h1 className={styles.heading}>freee取引登録</h1>
+      <form onSubmit={handleSubmit} className={styles.form}>
         {/* 統合されたレコードテーブル */}
-        <div className="rounded-lg bg-white p-6 shadow-md">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-xl font-semibold">取引レコード</h2>
+        <div className={styles.card}>
+          <div className={styles.cardHeader}>
+            <h2 className={styles.cardTitle}>取引レコード</h2>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
+          <div className={styles.tableContainer}>
+            <table className={styles.table}>
               <thead>
-                <tr className="bg-gray-50">
-                  <th className="border p-2 text-left">#</th>
+                <tr>
+                  <th>#</th>
                   {/* 基本情報 */}
-                  <th className="border p-2 text-left">発生日 *</th>
-                  <th className="border p-2 text-left">収支区分</th>
-                  <th className="border p-2 text-left">支払期日</th>
-                  <th className="border p-2 text-left">取引先ID</th>
-                  <th className="border p-2 text-left">取引先コード</th>
+                  <th>発生日 *</th>
+                  <th>収支区分</th>
+                  <th>支払期日</th>
+                  <th>取引先ID</th>
+                  <th>取引先コード</th>
                   {/* 明細情報 */}
-                  <th className="border p-2 text-left">税区分コード</th>
-                  <th className="border p-2 text-left">勘定科目ID</th>
-                  <th className="border p-2 text-left">金額 *</th>
-                  <th className="border p-2 text-left">品目ID</th>
-                  <th className="border p-2 text-left">部門ID</th>
-                  <th className="border p-2 text-left">メモタグID</th>
-                  <th className="border p-2 text-left">備考</th>
-                  <th className="border p-2 text-left">消費税額</th>
+                  <th>税区分コード</th>
+                  <th>勘定科目ID</th>
+                  <th>金額 *</th>
+                  <th>メモタグID</th>
+                  <th>備考</th>
+                  <th>消費税額</th>
                   {/* 支払情報 */}
-                  <th className="border p-2 text-left">支払金額 *</th>
-                  <th className="border p-2 text-left">口座ID *</th>
-                  <th className="border p-2 text-left">口座タイプ *</th>
-                  <th className="border p-2 text-left">支払日 *</th>
+                  <th>支払金額 *</th>
+                  <th>口座ID *</th>
+                  <th>口座タイプ *</th>
+                  <th>支払日 *</th>
                 </tr>
               </thead>
               <tbody>
                 {records.map((record, index) => (
-                  <tr key={record.id} className="border-b hover:bg-gray-50">
-                    <td className="border p-2">{index + 1}</td>
+                  <tr key={record.id} className={styles.tableRow}>
+                    <td className={styles.tableCell}>{index + 1}</td>
                     {/* 基本情報 */}
-                    <td className="border p-2">
+                    <td className={styles.tableCell}>
                       <input
                         id={`issueDate_${index}`}
                         type="date"
@@ -102,16 +122,16 @@ export const FreeeRegisterForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                         onChange={(e) =>
                           handleRecordChange(index, "issueDate", e.target.value)
                         }
-                        className="w-full rounded border p-1"
+                        className={styles.input}
                         required
                       />
                     </td>
-                    <td className="border p-2">
-                      <div className="w-full p-1">
+                    <td className={styles.tableCell}>
+                      <div className={styles.cellContent}>
                         {record.type === "income" ? "収入" : "支出"}
                       </div>
                     </td>
-                    <td className="border p-2">
+                    <td className={styles.tableCell}>
                       <input
                         id={`dueDate_${index}`}
                         type="date"
@@ -119,10 +139,10 @@ export const FreeeRegisterForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                         onChange={(e) =>
                           handleRecordChange(index, "dueDate", e.target.value)
                         }
-                        className="w-full rounded border p-1"
+                        className={styles.input}
                       />
                     </td>
-                    <td className="border p-2">
+                    <td className={styles.tableCell}>
                       <input
                         id={`partnerId_${index}`}
                         type="text"
@@ -130,10 +150,10 @@ export const FreeeRegisterForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                         onChange={(e) =>
                           handleRecordChange(index, "partnerId", e.target.value)
                         }
-                        className="w-full rounded border p-1"
+                        className={styles.input}
                       />
                     </td>
-                    <td className="border p-2">
+                    <td className={styles.tableCell}>
                       <input
                         id={`partnerCode_${index}`}
                         type="text"
@@ -145,37 +165,31 @@ export const FreeeRegisterForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                             e.target.value,
                           )
                         }
-                        className="w-full rounded border p-1"
+                        className={styles.input}
                       />
                     </td>
                     {/* 明細情報 */}
-                    <td className="border p-2">
-                      <input
-                        id={`taxCode_${index}`}
-                        type="text"
-                        value={record.taxCode}
-                        onChange={(e) =>
-                          handleRecordChange(index, "taxCode", e.target.value)
+                    <td className={styles.selectCell}>
+                      <Select
+                        data={freeeMasters.taxes}
+                        label={""}
+                        value={records[index]?.taxCode ?? ""}
+                        onChange={(v) =>
+                          handleRecordChange(index, "taxCode", v)
                         }
-                        className="w-full rounded border p-1"
                       />
                     </td>
-                    <td className="border p-2">
-                      <input
-                        id={`accountItemId_${index}`}
-                        type="text"
-                        value={record.accountItemId}
-                        onChange={(e) =>
-                          handleRecordChange(
-                            index,
-                            "accountItemId",
-                            e.target.value,
-                          )
+                    <td className={styles.selectCell}>
+                      <Select
+                        data={freeeMasters.accountItems}
+                        label={""}
+                        value={records[index]?.accountItemId ?? ""}
+                        onChange={(v) =>
+                          handleRecordChange(index, "accountItemId", v)
                         }
-                        className="w-full rounded border p-1"
                       />
                     </td>
-                    <td className="border p-2">
+                    <td className={styles.tableCell}>
                       <input
                         id={`amount_${index}`}
                         type="number"
@@ -183,33 +197,11 @@ export const FreeeRegisterForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                         onChange={(e) =>
                           handleRecordChange(index, "amount", e.target.value)
                         }
-                        className="w-full rounded border p-1"
+                        className={styles.input}
                         required
                       />
                     </td>
-                    <td className="border p-2">
-                      <input
-                        id={`itemId_${index}`}
-                        type="text"
-                        value={record.itemId}
-                        onChange={(e) =>
-                          handleRecordChange(index, "itemId", e.target.value)
-                        }
-                        className="w-full rounded border p-1"
-                      />
-                    </td>
-                    <td className="border p-2">
-                      <input
-                        id={`sectionId_${index}`}
-                        type="text"
-                        value={record.sectionId}
-                        onChange={(e) =>
-                          handleRecordChange(index, "sectionId", e.target.value)
-                        }
-                        className="w-full rounded border p-1"
-                      />
-                    </td>
-                    <td className="border p-2">
+                    <td className={styles.tableCell}>
                       <input
                         id={`tagIds_${index}`}
                         type="text"
@@ -217,10 +209,10 @@ export const FreeeRegisterForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                         onChange={(e) =>
                           handleRecordChange(index, "tagIds", e.target.value)
                         }
-                        className="w-full rounded border p-1"
+                        className={styles.input}
                       />
                     </td>
-                    <td className="border p-2">
+                    <td className={styles.tableCell}>
                       <input
                         id={`description_${index}`}
                         type="text"
@@ -232,10 +224,10 @@ export const FreeeRegisterForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                             e.target.value,
                           )
                         }
-                        className="w-full rounded border p-1"
+                        className={styles.input}
                       />
                     </td>
-                    <td className="border p-2">
+                    <td className={styles.tableCell}>
                       <input
                         id={`vat_${index}`}
                         type="text"
@@ -243,11 +235,11 @@ export const FreeeRegisterForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                         onChange={(e) =>
                           handleRecordChange(index, "vat", e.target.value)
                         }
-                        className="w-full rounded border p-1"
+                        className={styles.input}
                       />
                     </td>
                     {/* 支払情報 */}
-                    <td className="border p-2">
+                    <td className={styles.tableCell}>
                       <input
                         id={`paymentAmount_${index}`}
                         type="number"
@@ -259,27 +251,21 @@ export const FreeeRegisterForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                             e.target.value,
                           )
                         }
-                        className="w-full rounded border p-1"
+                        className={styles.input}
                         required
                       />
                     </td>
-                    <td className="border p-2">
-                      <input
-                        id={`fromWalletableId_${index}`}
-                        type="text"
-                        value={record.fromWalletableId}
-                        onChange={(e) =>
-                          handleRecordChange(
-                            index,
-                            "fromWalletableId",
-                            e.target.value,
-                          )
+                    <td className={styles.tableCell}>
+                      <Select
+                        data={freeeMasters.walletables}
+                        label={""}
+                        value={records[index]?.fromWalletableId ?? ""}
+                        onChange={(v) =>
+                          handleRecordChange(index, "fromWalletableId", v)
                         }
-                        className="w-full rounded border p-1"
-                        required
                       />
                     </td>
-                    <td className="border p-2">
+                    <td className={styles.tableCell}>
                       <select
                         id={`fromWalletableType_${index}`}
                         value={record.fromWalletableType}
@@ -290,7 +276,7 @@ export const FreeeRegisterForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                             e.target.value,
                           )
                         }
-                        className="w-full rounded border p-1"
+                        className={styles.input}
                         required
                       >
                         <option value="bank_account">銀行口座</option>
@@ -298,7 +284,7 @@ export const FreeeRegisterForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                         <option value="wallet">現金</option>
                       </select>
                     </td>
-                    <td className="border p-2">
+                    <td className={styles.tableCell}>
                       <input
                         id={`paymentDate_${index}`}
                         type="date"
@@ -310,7 +296,7 @@ export const FreeeRegisterForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
                             e.target.value,
                           )
                         }
-                        className="w-full rounded border p-1"
+                        className={styles.input}
                         required
                       />
                     </td>
@@ -321,7 +307,7 @@ export const FreeeRegisterForm: FC<{ initialRecords?: UnifiedRecord[] }> = ({
           </div>
         </div>
 
-        <div className="flex justify-end">
+        <div className={styles.buttonContainer}>
           <Button
             type="save"
             label={"freeeに登録する"}

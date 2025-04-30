@@ -1,11 +1,12 @@
 import { YYYYmmDD } from "@/type/date/date";
-import { AxiosFreeeAccountItemsRepository } from "@kageco/persistence/api/axios/freee/axios-freee-account-items-repository";
+import { redirect } from "next/navigation";
 import type { FC } from "react";
 
 import { findAccountIds } from "../../../persistence/browser/server/findAccountIds";
 import { findCategoryIds } from "../../../persistence/browser/server/findCategoryIds";
-import { findFreeeAuth } from "../../../persistence/browser/server/freee-auth";
+import { paths } from "../../../routing/paths";
 import type { YYYY_MM_DD } from "../../../types/yyyyMMdd";
+import { fetchFreeeMaster } from "../server/fetch-freee-master";
 import { fetchFreeeRecords } from "../server/fetch-freee-records";
 import { FreeeRegisterForm } from "./freee-register-form";
 
@@ -41,12 +42,12 @@ export const FreeeRegisterServer: FC<Props> = async ({
     categoryIds,
   });
 
-  const freeeAuth = await findFreeeAuth();
-
-  const accountItemsRepository = new AxiosFreeeAccountItemsRepository(
-    freeeAuth,
-  );
-  console.log(await accountItemsRepository.getAll());
-
-  return <FreeeRegisterForm initialRecords={records} />;
+  try {
+    const freeeMasters = await fetchFreeeMaster();
+    return (
+      <FreeeRegisterForm initialRecords={records} freeeMasters={freeeMasters} />
+    );
+  } catch (e) {
+    redirect(paths.household.search);
+  }
 };
