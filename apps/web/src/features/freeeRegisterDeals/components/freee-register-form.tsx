@@ -92,20 +92,16 @@ export const FreeeRegisterForm: FC<Props> = ({
                   {/* 基本情報 */}
                   <th>発生日 *</th>
                   <th>収支区分</th>
-                  <th>支払期日</th>
                   <th>取引先ID</th>
-                  <th>取引先コード</th>
                   {/* 明細情報 */}
                   <th>税区分コード</th>
                   <th>勘定科目ID</th>
                   <th>金額 *</th>
                   <th>メモタグID</th>
                   <th>備考</th>
-                  <th>消費税額</th>
                   {/* 支払情報 */}
                   <th>支払金額 *</th>
                   <th>口座ID *</th>
-                  <th>口座タイプ *</th>
                   <th>支払日 *</th>
                 </tr>
               </thead>
@@ -133,37 +129,11 @@ export const FreeeRegisterForm: FC<Props> = ({
                     </td>
                     <td className={styles.tableCell}>
                       <input
-                        id={`dueDate_${index}`}
-                        type="date"
-                        value={record.dueDate}
-                        onChange={(e) =>
-                          handleRecordChange(index, "dueDate", e.target.value)
-                        }
-                        className={styles.input}
-                      />
-                    </td>
-                    <td className={styles.tableCell}>
-                      <input
                         id={`partnerId_${index}`}
                         type="text"
                         value={record.partnerId}
                         onChange={(e) =>
                           handleRecordChange(index, "partnerId", e.target.value)
-                        }
-                        className={styles.input}
-                      />
-                    </td>
-                    <td className={styles.tableCell}>
-                      <input
-                        id={`partnerCode_${index}`}
-                        type="text"
-                        value={record.partnerCode}
-                        onChange={(e) =>
-                          handleRecordChange(
-                            index,
-                            "partnerCode",
-                            e.target.value,
-                          )
                         }
                         className={styles.input}
                       />
@@ -227,17 +197,6 @@ export const FreeeRegisterForm: FC<Props> = ({
                         className={styles.input}
                       />
                     </td>
-                    <td className={styles.tableCell}>
-                      <input
-                        id={`vat_${index}`}
-                        type="text"
-                        value={record.vat}
-                        onChange={(e) =>
-                          handleRecordChange(index, "vat", e.target.value)
-                        }
-                        className={styles.input}
-                      />
-                    </td>
                     {/* 支払情報 */}
                     <td className={styles.tableCell}>
                       <input
@@ -264,25 +223,6 @@ export const FreeeRegisterForm: FC<Props> = ({
                           handleRecordChange(index, "fromWalletableId", v)
                         }
                       />
-                    </td>
-                    <td className={styles.tableCell}>
-                      <select
-                        id={`fromWalletableType_${index}`}
-                        value={record.fromWalletableType}
-                        onChange={(e) =>
-                          handleRecordChange(
-                            index,
-                            "fromWalletableType",
-                            e.target.value,
-                          )
-                        }
-                        className={styles.input}
-                        required
-                      >
-                        <option value="bank_account">銀行口座</option>
-                        <option value="credit_card">クレジットカード</option>
-                        <option value="wallet">現金</option>
-                      </select>
                     </td>
                     <td className={styles.tableCell}>
                       <input
