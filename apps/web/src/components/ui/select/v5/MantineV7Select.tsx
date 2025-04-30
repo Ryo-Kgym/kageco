@@ -4,6 +4,7 @@
 
 import type { MantineSize } from "@mantine/core";
 import { Select } from "@mantine/core";
+import styles from "./MantineV7Select.module.scss";
 
 import type { SelectData } from "./index";
 
@@ -64,6 +65,9 @@ export const MantineV7Select = ({
       withAsterisk={withAsterisk}
       error={error}
       disabled={disabled}
+      classNames={{
+        dropdown: styles.dropdown,
+      }}
     />
   );
 };
