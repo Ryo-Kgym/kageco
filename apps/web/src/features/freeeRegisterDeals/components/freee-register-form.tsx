@@ -3,8 +3,8 @@
 import type { FC } from "react";
 import { useState } from "react";
 
+import { ModalTableSelect } from "../../../components/ui";
 import { Button } from "../../../components/ui/button/v5";
-import { Select } from "../../../components/ui/select/v5";
 import { errorPopup, successPopup } from "../../../function/successPopup";
 import { submitFreeeDeals } from "../actions/submit-deals-actions";
 import type { UnifiedRecord } from "../types/unified-record";
@@ -140,23 +140,27 @@ export const FreeeRegisterForm: FC<Props> = ({
                     </td>
                     {/* 明細情報 */}
                     <td className={styles.selectCell}>
-                      <Select
+                      <ModalTableSelect
                         data={freeeMasters.taxes}
                         label={""}
                         value={records[index]?.taxCode ?? ""}
                         onChange={(v) =>
                           handleRecordChange(index, "taxCode", v)
                         }
+                        maxDropdownHeight={600}
+                        gridColumns={4}
+                        size={"xl"}
                       />
                     </td>
                     <td className={styles.selectCell}>
-                      <Select
+                      <ModalTableSelect
                         data={freeeMasters.accountItems}
                         label={""}
                         value={records[index]?.accountItemId ?? ""}
                         onChange={(v) =>
                           handleRecordChange(index, "accountItemId", v)
                         }
+                        maxDropdownHeight={600}
                       />
                     </td>
                     <td className={styles.tableCell}>
@@ -215,13 +219,15 @@ export const FreeeRegisterForm: FC<Props> = ({
                       />
                     </td>
                     <td className={styles.tableCell}>
-                      <Select
+                      <ModalTableSelect
                         data={freeeMasters.walletables}
                         label={""}
                         value={records[index]?.fromWalletableId ?? ""}
                         onChange={(v) =>
                           handleRecordChange(index, "fromWalletableId", v)
                         }
+                        maxDropdownHeight={400}
+                        gridColumns={1}
                       />
                     </td>
                     <td className={styles.tableCell}>
