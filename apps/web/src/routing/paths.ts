@@ -1,3 +1,5 @@
+import type { YYYY_MM_DD } from "@/type/date/date";
+
 export const paths = {
   group: {
     select: "/group",
@@ -33,6 +35,10 @@ export const paths = {
     },
     monthlySummary: {
       root: () => "/household/monthly-summary",
+    },
+    freee: {
+      insert: (searchParams?: URLSearchParams) =>
+        `/household/freee/insert${searchParams ? `?${searchParams.toString()}` : ""}`,
     },
   },
   business: {

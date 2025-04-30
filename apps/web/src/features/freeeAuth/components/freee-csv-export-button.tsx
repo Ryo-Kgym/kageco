@@ -1,12 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import type { FC } from "react";
+import { useEffect, useState } from "react";
+
 import { LoadingMask } from "../../../components/ui/v5/loading";
 import { errorPopup, successPopup } from "../../../function/successPopup";
 import { saveCookie } from "../../../persistence/browser/client/cookie";
 import { saveFreeeAuth } from "../../../persistence/browser/client/freee-auth";
 import { useNavigation } from "../../../routing/client/useNavigation";
+import { paths } from "../../../routing/paths";
 import {
   getAuthorizationUrl,
   getTokenWithCode,
@@ -34,7 +37,7 @@ export const FreeeCsvExportButton: FC = () => {
   const [authFlowState, setAuthFlowState] = useState<
     "initial" | "url_opened" | "token_obtained"
   >("initial");
-
+  const searchParams = useSearchParams();
   // マスク表示の状態を計算
   const showMask = isTokenProcessing || isLoading;
 
@@ -113,7 +116,7 @@ export const FreeeCsvExportButton: FC = () => {
       }
 
       // freee連携ページへ遷移
-      router.push("/household/freee/insert");
+      router.push(paths.household.freee.insert(searchParams));
     } catch (error) {
       console.error("Error exporting CSV:", error);
       errorPopup("CSV出力に失敗しました。もう一度お試しください。");
