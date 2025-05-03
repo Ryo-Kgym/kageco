@@ -29,6 +29,10 @@ type Props = {
       label: string;
       type: string;
     }[];
+    partners: {
+      value: string;
+      label: string;
+    }[];
   };
 };
 
@@ -127,15 +131,17 @@ export const FreeeRegisterForm: FC<Props> = ({
                         {record.type === "income" ? "収入" : "支出"}
                       </div>
                     </td>
-                    <td className={styles.tableCell}>
-                      <input
-                        id={`partnerId_${index}`}
-                        type="text"
-                        value={record.partnerId}
-                        onChange={(e) =>
-                          handleRecordChange(index, "partnerId", e.target.value)
+                    <td className={styles.selectCell}>
+                      <ModalTableSelect
+                        data={freeeMasters.partners}
+                        label={""}
+                        value={records[index]?.partnerId ?? ""}
+                        onChange={(v) =>
+                          handleRecordChange(index, "partnerId", v)
                         }
-                        className={styles.input}
+                        maxDropdownHeight={600}
+                        gridColumns={4}
+                        size={"xl"}
                       />
                     </td>
                     {/* 明細情報 */}

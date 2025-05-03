@@ -1,4 +1,5 @@
 import { AxiosFreeeAccountItemsRepository } from "@kageco/persistence/api/axios/freee/axios-freee-account-items-repository";
+import { AxiosFreeePartnersRepository } from "@kageco/persistence/api/axios/freee/axios-freee-partners-repository";
 import { AxiosFreeeTaxesRepository } from "@kageco/persistence/api/axios/freee/axios-freee-taxes-repository";
 import { AxiosFreeeWalletablesRepository } from "@kageco/persistence/api/axios/freee/axios-freee-walletables-repository";
 
@@ -13,6 +14,9 @@ export const fetchFreeeMaster = async () => {
   const taxRepository = new AxiosFreeeTaxesRepository(freeeAuth);
 
   const walletableRepository = new AxiosFreeeWalletablesRepository(freeeAuth);
+
+  const partnerRepository = new AxiosFreeePartnersRepository(freeeAuth);
+  console.log(await partnerRepository.getAll());
 
   return {
     taxes: (await taxRepository.getAll()).taxes.map((tax) => ({
@@ -31,6 +35,12 @@ export const fetchFreeeMaster = async () => {
       label: w.name,
       type: w.type,
     })),
+    partners: (await partnerRepository.getAll()).partners
+      .filter((partner) => partner.available)
+      .map((p) => ({
+        value: p.id.toString(),
+        label: p.name,
+      })),
   };
 };
 
