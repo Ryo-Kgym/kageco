@@ -1,7 +1,7 @@
-import { FormEvent, useEffect, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
+import type { DailyDetail } from "../../../domain/model/household/DailyDetail";
 import { errorPopup, successPopup } from "../../../function/successPopup";
 import { submitFreeeDeals } from "../actions/submit-deals-actions";
-import type { DailyDetail } from "../../../domain/model/household/DailyDetail";
 import type { UnifiedRecord } from "../types/unified-record";
 
 /**
@@ -58,6 +58,7 @@ export const useStateFreeeRecord = (params: {
       // tagIdsは配列なので特別に処理
       newRecord[field] = [value];
     } else {
+      // @ts-expect-error
       newRecord[field] = value;
     }
     setRecord(newRecord);

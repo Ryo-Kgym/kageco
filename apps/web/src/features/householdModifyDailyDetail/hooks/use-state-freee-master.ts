@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchFreeeMastersAction } from "../actions/fetch-freee-masters-action";
+import { fetchFreeeMasterActions } from "../actions/fetch-freee-master-actions";
 
 export type FreeeSelectItem = {
   value: string;
@@ -25,21 +25,13 @@ export type FreeeMasters = {
 export const useStateFreeeMaster = () => {
   const [freeeMasters, setFreeeMasters] = useState<FreeeMasters | null>(null);
   const [loadingMasters, setLoadingMasters] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
 
-  // freeeマスターデータの取得
   useEffect(() => {
     const fetchMasters = async () => {
       try {
         setLoadingMasters(true);
-        const masters = await fetchFreeeMastersAction();
+        const masters = await fetchFreeeMasterActions();
         setFreeeMasters(masters);
-        setError(null);
-      } catch (err) {
-        console.error("Error fetching freee masters:", err);
-        setError(
-          "freeeマスターデータの取得に失敗しました。もう一度お試しください。",
-        );
       } finally {
         setLoadingMasters(false);
       }
@@ -48,5 +40,5 @@ export const useStateFreeeMaster = () => {
     void fetchMasters();
   }, []);
 
-  return { freeeMasters, loadingMasters, error };
+  return { freeeMasters, loadingMasters };
 };

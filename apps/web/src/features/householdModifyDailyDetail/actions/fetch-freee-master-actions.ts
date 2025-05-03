@@ -1,3 +1,5 @@
+"use server";
+
 import { AxiosFreeeAccountItemsRepository } from "@kageco/persistence/api/axios/freee/axios-freee-account-items-repository";
 import { AxiosFreeePartnersRepository } from "@kageco/persistence/api/axios/freee/axios-freee-partners-repository";
 import { AxiosFreeeTaxesRepository } from "@kageco/persistence/api/axios/freee/axios-freee-taxes-repository";
@@ -5,8 +7,17 @@ import { AxiosFreeeWalletablesRepository } from "@kageco/persistence/api/axios/f
 
 import { findFreeeAuth } from "../../../persistence/browser/server/freee-auth";
 
-export const fetchFreeeMaster = async () => {
-  const freeeAuth = await findFreeeAuth();
+export const fetchFreeeMasterActions = async () => {
+  const freeeAuth = await findFreeeAuth({ required: false });
+
+  if (!freeeAuth.isSafety) {
+    return {
+      taxes: [],
+      accountItems: [],
+      walletables: [],
+      partners: [],
+    };
+  }
 
   const accountItemsRepository = new AxiosFreeeAccountItemsRepository(
     freeeAuth,

@@ -1,4 +1,4 @@
-import { type FC, useState } from "react";
+import type { FC } from "react";
 
 import { ModalTableSelect } from "../../../components/ui";
 import { Button } from "../../../components/ui/button/v5";
@@ -15,7 +15,7 @@ type Props = {
 
 export const LinkFreeeDetail: FC<Props> = ({ id, onClose }) => {
   const { form, loading } = useStateDailyDetail({ id });
-  const { freeeMasters, loadingMasters, error } = useStateFreeeMaster();
+  const { freeeMasters, loadingMasters } = useStateFreeeMaster();
   const { record, handleRecordChange, handleSubmit } = useStateFreeeRecord({
     form,
     onClose,
@@ -23,18 +23,6 @@ export const LinkFreeeDetail: FC<Props> = ({ id, onClose }) => {
 
   if (loading || loadingMasters) {
     return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
-
-  if (!freeeMasters) {
-    return (
-      <div>
-        freeeマスターデータが取得できませんでした。もう一度お試しください。
-      </div>
-    );
   }
 
   return (
