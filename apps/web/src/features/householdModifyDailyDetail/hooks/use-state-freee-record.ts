@@ -1,12 +1,9 @@
 import { type FormEvent, useEffect, useState } from "react";
 import type { DailyDetail } from "../../../domain/model/household/DailyDetail";
 import { errorPopup, successPopup } from "../../../function/successPopup";
-import { submitFreeeDeals } from "../actions/submit-deals-actions";
+import { submitDealActions } from "../actions/submit-deal-actions";
 import type { UnifiedRecord } from "../types/unified-record";
 
-/**
- * freeeレコードの状態管理を行うカスタムフック
- */
 export const useStateFreeeRecord = (params: {
   form: DailyDetail | undefined;
   onClose: () => void;
@@ -14,7 +11,6 @@ export const useStateFreeeRecord = (params: {
   const { form, onClose } = params;
   const [record, setRecord] = useState<UnifiedRecord | null>(null);
 
-  // レコードの初期化
   useEffect(() => {
     if (!form) return;
 
@@ -66,7 +62,6 @@ export const useStateFreeeRecord = (params: {
 
   // メッセージ定義
   const successMessage = "freeeへのデータ送信が完了しました";
-  const errorMessage = "データの送信に失敗しました。もう一度お試しください。";
 
   // フォーム送信ハンドラ
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -78,18 +73,12 @@ export const useStateFreeeRecord = (params: {
     }
 
     try {
-      // サーバーアクションを呼び出してデータを送信
-      const result = await submitFreeeDeals([record]);
-
-      if (result.success) {
-        successPopup(successMessage);
-        onClose();
-      } else {
-        errorPopup(result.error?.message || errorMessage);
-      }
+      await submitDealActions(record);
+      successPopup(successMessage);
+      onClose();
     } catch (error) {
       console.error("Error submitting data:", error);
-      errorPopup(errorMessage);
+      errorPopup(error as string);
     }
   };
 

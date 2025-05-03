@@ -2,26 +2,27 @@ import { getCookieValue } from "./cookie";
 
 export async function findFreeeAuth(options?: { required: true }): Promise<{
   accessToken: string;
-  companyId: string;
+  companyId: number;
 }>;
 export async function findFreeeAuth(options?: { required: false }): Promise<
   | {
       accessToken: string | undefined;
-      companyId: string | undefined;
+      companyId: number | undefined;
       isSafety: false;
     }
   | {
       accessToken: string;
-      companyId: string;
+      companyId: number;
       isSafety: true;
     }
 >;
 export async function findFreeeAuth(options?: { required: boolean }) {
   const accessToken = await getCookieValue("freeeAccessToken");
-  const companyId = await getCookieValue("freeeCompanyId");
+  const optCompanyId = await getCookieValue("freeeCompanyId");
 
   const required = options?.required ?? true;
-  const isSafety = !!accessToken && !!companyId;
+  const isSafety = !!accessToken && !!optCompanyId;
+  const companyId = optCompanyId ? Number(optCompanyId) : undefined;
 
   if (!required) {
     return {

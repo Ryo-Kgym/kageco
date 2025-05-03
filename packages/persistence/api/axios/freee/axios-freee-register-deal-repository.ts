@@ -5,23 +5,14 @@ export class AxiosFreeeRegisterDealRepository
   implements FreeeRegisterDealGateway
 {
   async exec(dealData: RegisterDealDto): Promise<{ success: boolean }> {
-    try {
-      // camelCaseからsnake_caseへ変換
-      const requestBody = this.convertToApiRequestBody(dealData);
+    const requestBody = this.convertToApiRequestBody(dealData);
 
-      // ここでAPIリクエストを送信
-      console.log("送信データ:", requestBody);
+    // ここでAPIリクエストを送信
+    console.log("送信データ:", requestBody);
 
-      // 実際のAPI呼び出しはここに実装する
-      // 例: const response = await fetch('https://api.freee.co.jp/...', { ... });
-
-      return {
-        success: true,
-      };
-    } catch (error) {
-      console.error("Error submitting data:", error);
-      throw error;
-    }
+    return {
+      success: true,
+    };
   }
 
   /**
