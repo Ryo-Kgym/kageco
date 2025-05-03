@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import type { FC } from "react";
+import type { FC, PropsWithChildren } from "react";
 import { useEffect, useState } from "react";
 
 import { LoadingMask } from "../../../components/ui/v5/loading";
@@ -9,7 +9,6 @@ import { errorPopup, successPopup } from "../../../function/successPopup";
 import { saveCookie } from "../../../persistence/browser/client/cookie";
 import { saveFreeeAuth } from "../../../persistence/browser/client/freee-auth";
 import { useNavigation } from "../../../routing/client/useNavigation";
-import { paths } from "../../../routing/paths";
 import {
   getAuthorizationUrl,
   getTokenWithCode,
@@ -20,13 +19,12 @@ import { FreeeAuthenticated } from "./freee-authenticated";
 import { FreeeInitialState } from "./freee-initial-state";
 import { FreeeLoading } from "./freee-loading";
 
-export const FreeeCsvExportButton: FC = () => {
+export const LinkFreeeComponent: FC<PropsWithChildren> = ({ children }) => {
   const {
     isAuthenticated,
     isLoading: isAuthLoading,
     errorMessage,
     isTokenProcessing,
-    getAccessToken,
     logout,
     clearErrorMessage,
     setIsAuthenticated,
@@ -104,27 +102,6 @@ export const FreeeCsvExportButton: FC = () => {
     }
   };
 
-  const handleExportClick = async () => {
-    try {
-      setIsLoading(true);
-
-      const accessToken = await getAccessToken();
-
-      if (!accessToken) {
-        errorPopup("Freee連携の認証情報が無効です。再認証してください。");
-        return;
-      }
-
-      // freee連携ページへ遷移
-      router.push(paths.household.freee.insert(searchParams));
-    } catch (error) {
-      console.error("Error exporting CSV:", error);
-      errorPopup("CSV出力に失敗しました。もう一度お試しください。");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const handleLogoutClick = () => {
     logout();
     successPopup("Freee連携を解除しました。");
@@ -139,10 +116,11 @@ export const FreeeCsvExportButton: FC = () => {
     if (isAuthenticated) {
       return (
         <FreeeAuthenticated
-          handleExportClick={handleExportClick}
           handleLogoutClick={handleLogoutClick}
           isLoading={isLoading}
-        />
+        >
+          {children}
+        </FreeeAuthenticated>
       );
     }
 

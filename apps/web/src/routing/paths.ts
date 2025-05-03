@@ -36,10 +36,6 @@ export const paths = {
     monthlySummary: {
       root: () => "/household/monthly-summary",
     },
-    freee: {
-      insert: (searchParams?: URLSearchParams) =>
-        `/household/freee/insert${searchParams ? `?${searchParams.toString()}` : ""}`,
-    },
   },
   business: {
     timecard: () => "/business/timecard",

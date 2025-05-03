@@ -1,34 +1,25 @@
-import type { FC } from "react";
+import type { FC, PropsWithChildren } from "react";
 import { Button } from "../../../components/ui/button/v5";
 
-interface FreeeAuthenticatedProps {
-  handleExportClick: () => Promise<void>;
+type Props = {
   handleLogoutClick: () => void;
   isLoading: boolean;
-}
+};
 
-/**
- * Freee認証済み状態を表示するコンポーネント
- */
-export const FreeeAuthenticated: FC<FreeeAuthenticatedProps> = ({
-  handleExportClick,
+export const FreeeAuthenticated: FC<PropsWithChildren<Props>> = ({
+  children,
   handleLogoutClick,
   isLoading,
 }) => {
   return (
-    <div className="flex space-x-2">
-      <Button
-        label={"freee連携CSV出力"}
-        onClick={handleExportClick}
-        type={"add"}
-        disabled={isLoading}
-      />
+    <div className="flex flex-col space-x-2">
       <Button
         label={"連携解除"}
         onClick={handleLogoutClick}
         type={"dangerous"}
         disabled={isLoading}
       />
+      {children}
     </div>
   );
 };
