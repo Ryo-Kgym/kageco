@@ -1,0 +1,118 @@
+.container {
+  padding: 20px;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.heading {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+}
+
+.cardHeader {
+  background-color: #f5f5f5;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.cardTitle {
+  font-size: 18px;
+  margin: 0;
+  color: #333;
+}
+
+.formContainer {
+  padding: 16px;
+}
+
+.formGroup {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.formGroup:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.formGroup h3 {
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #333;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.formLabel {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 14px;
+}
+
+.formField {
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.formField:last-child {
+  margin-bottom: 0;
+}
+
+.formValue {
+  padding: 8px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.required::after {
+  content: " *";
+  color: #ff0000;
+}
+
+.input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #0070f3;
+  box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
+}
+
+.cellContent {
+  padding: 8px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}

@@ -12,11 +12,8 @@ export const fetchFreeeMaster = async () => {
     freeeAuth,
   );
   const taxRepository = new AxiosFreeeTaxesRepository(freeeAuth);
-
   const walletableRepository = new AxiosFreeeWalletablesRepository(freeeAuth);
-
   const partnerRepository = new AxiosFreeePartnersRepository(freeeAuth);
-  console.log(await partnerRepository.getAll());
 
   return {
     taxes: (await taxRepository.getAll()).taxes.map((tax) => ({
