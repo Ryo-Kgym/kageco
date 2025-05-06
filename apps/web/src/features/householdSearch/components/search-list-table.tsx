@@ -6,7 +6,7 @@ import { FormatPrice } from "../../../components/molecules/FormatPrice";
 import { TagGroup } from "../../../components/ui/tag/TagGroup";
 import { DataTable } from "../../../components/ui/v4/table";
 import { CreditCardDetailEditModal } from "../../householdCreditDetailEdit/components/credit-card-detail-edit-model";
-import { DailyDetailEditModal } from "../../householdModifyDailyDetail/components/DailyDetailEditModal";
+import { DailyDetailEditModal } from "../../householdModifyDailyDetail/components/daily-detail-edit-modal";
 import type { SearchRow } from "../types/searchRow";
 
 type Props = {

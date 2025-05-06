@@ -1,9 +1,9 @@
 import { Modal } from "../../../components/atoms/Modal";
 import { Tab } from "../../../components/ui";
+import { LinkFreeeForDailyDetail } from "../../household-link-freee/components/link-freee-for-daily-detail";
 import { CutDailyDetail } from "./CutDailyDetail";
 import { DuplicateDailyDetail } from "./DuplicateDailyDetail";
 import { ModifyDailyDetail } from "./ModifyDailyDetail";
-import { LinkFreeeForDailyDetail } from "./link-freee-for-daily-detail";
 
 export const DailyDetailEditModal = ({
   id,

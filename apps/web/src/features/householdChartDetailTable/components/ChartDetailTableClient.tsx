@@ -8,7 +8,7 @@ import { DataTable } from "../../../components/ui/v4/table";
 import { IocomeType } from "../../../domain/model/household/IocomeType";
 import { colors } from "../../../styles/colors";
 import { CreditCardDetailEditModal } from "../../householdCreditDetailEdit/components/credit-card-detail-edit-model";
-import { DailyDetailEditModal } from "../../householdModifyDailyDetail/components/DailyDetailEditModal";
+import { DailyDetailEditModal } from "../../householdModifyDailyDetail/components/daily-detail-edit-modal";
 import type { ChartDetailTableRow } from "../types/chartDetailTableRow";
 
 export const ChartDetailTableClient = ({

@@ -2,8 +2,8 @@ import type { ComponentProps, FC } from "react";
 
 import { Modal } from "../../../components/atoms/Modal";
 import { Tab } from "../../../components/ui";
+import { LinkFreeeForCreditCardDetail } from "../../household-link-freee/components/link-freee-for-credit-card-detail";
 import { CreditCardDetailEditContainer } from "./CreditCardDetailEditContainer";
-import { LinkFreeeForCreditCardDetail } from "./link-freee-for-credit-card-detail";
 
 type Props = ComponentProps<typeof CreditCardDetailEditContainer> & {
   isOpen: boolean;

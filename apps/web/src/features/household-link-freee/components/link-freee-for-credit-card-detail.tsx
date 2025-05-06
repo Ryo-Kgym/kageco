@@ -3,10 +3,10 @@ import type { FC, FormEvent } from "react";
 import { ModalTableSelect } from "../../../components/ui";
 import { Button } from "../../../components/ui/button/v5";
 import { LinkFreeeComponent } from "../../freeeAuth/components/link-freee-component";
-import styles from "../../householdModifyDailyDetail/components/link-freee-detail.module.scss";
-import { useStateFreeeMaster } from "../../householdModifyDailyDetail/hooks/use-state-freee-master";
-import { useStateFreeeRecord } from "../hooks/use-state-freee-record";
-import { useStateCreditDetail } from "../hooks/useStateCreditDetail";
+import { useStateCreditDetail } from "../../householdCreditDetailEdit/hooks/useStateCreditDetail";
+import { useStateFreeeMaster } from "../hooks/use-state-freee-master";
+import { useStateFreeeRecord } from "../hooks/use-state-freee-record-credit";
+import styles from "./link-freee-detail.module.scss";
 
 type Props = {
   id: string;
