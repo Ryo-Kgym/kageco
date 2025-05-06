@@ -13,7 +13,7 @@ type Props = {
   onClose: () => void;
 };
 
-export const LinkFreeeDetail: FC<Props> = ({ id, onClose }) => {
+export const LinkFreeeForDailyDetail: FC<Props> = ({ id, onClose }) => {
   const { form, loading } = useStateDailyDetail({ id });
   const { freeeMasters, loadingMasters } = useStateFreeeMaster();
   const {

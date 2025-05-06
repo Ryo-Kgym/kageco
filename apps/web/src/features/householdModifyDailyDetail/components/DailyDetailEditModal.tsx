@@ -3,7 +3,7 @@ import { Tab } from "../../../components/ui";
 import { CutDailyDetail } from "./CutDailyDetail";
 import { DuplicateDailyDetail } from "./DuplicateDailyDetail";
 import { ModifyDailyDetail } from "./ModifyDailyDetail";
-import { LinkFreeeDetail } from "./link-freee-detail";
+import { LinkFreeeForDailyDetail } from "./link-freee-for-daily-detail";
 
 export const DailyDetailEditModal = ({
   id,
@@ -40,7 +40,9 @@ export const DailyDetailEditModal = ({
           value: "freee",
           label: "freee連携",
           icon: null,
-          contents: <LinkFreeeDetail id={id} onClose={onCloseHandler} />,
+          contents: (
+            <LinkFreeeForDailyDetail id={id} onClose={onCloseHandler} />
+          ),
         },
       ]}
     />
