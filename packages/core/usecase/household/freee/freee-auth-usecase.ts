@@ -1,0 +1,95 @@
+import type { FreeeAuthGateway } from "../../../gateway/freee/freee-auth-gateway";
+import type { HouseholdUsecase } from "../HouseholdUsecase";
+
+export class FreeeAuthUsecase
+  implements HouseholdUsecase<FreeeAuthInput, FreeeAuthOutput>
+{
+  private readonly freeeAuthGateway: FreeeAuthGateway;
+
+  constructor(freeeAuthGateway: FreeeAuthGateway) {
+    this.freeeAuthGateway = freeeAuthGateway;
+  }
+
+  async handle(input: FreeeAuthInput): Promise<FreeeAuthOutput> {
+    switch (input.type) {
+      case "getAuthUrl": {
+        const authUrlResult = this.freeeAuthGateway.getAuthorizationUrl(
+          input.redirectUri,
+        );
+        return {
+          type: "authUrl",
+          url: authUrlResult.url,
+          state: authUrlResult.state,
+        };
+      }
+      case "getToken": {
+        const tokenResponse = await this.freeeAuthGateway.getAccessToken(
+          input.code,
+          input.redirectUri,
+        );
+        return {
+          type: "token",
+          accessToken: tokenResponse.access_token,
+          refreshToken: tokenResponse.refresh_token,
+          expiresIn: tokenResponse.expires_in,
+          tokenType: tokenResponse.token_type,
+          scope: tokenResponse.scope,
+          createdAt: tokenResponse.created_at,
+          companyId: tokenResponse.company_id,
+          externalCid: tokenResponse.external_cid,
+        };
+      }
+      case "refreshToken": {
+        const refreshResponse = await this.freeeAuthGateway.refreshAccessToken(
+          input.refreshToken,
+        );
+        return {
+          type: "token",
+          accessToken: refreshResponse.access_token,
+          refreshToken: refreshResponse.refresh_token,
+          expiresIn: refreshResponse.expires_in,
+          tokenType: refreshResponse.token_type,
+          scope: refreshResponse.scope,
+          createdAt: refreshResponse.created_at,
+          companyId: refreshResponse.company_id,
+          externalCid: refreshResponse.external_cid,
+        };
+      }
+      default:
+        throw new Error("Invalid input type");
+    }
+  }
+}
+
+export type FreeeAuthInput =
+  | {
+      type: "getAuthUrl";
+      redirectUri: string;
+    }
+  | {
+      type: "getToken";
+      code: string;
+      redirectUri: string;
+    }
+  | {
+      type: "refreshToken";
+      refreshToken: string;
+    };
+
+export type FreeeAuthOutput =
+  | {
+      type: "authUrl";
+      url: string;
+      state: string;
+    }
+  | {
+      type: "token";
+      accessToken: string;
+      refreshToken: string;
+      expiresIn: number;
+      tokenType: string;
+      scope: string;
+      createdAt: number;
+      companyId: string;
+      externalCid: string;
+    };

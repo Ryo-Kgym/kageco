@@ -1,4 +1,8 @@
-import { SearchListServer } from "../../../../../features/householdSearch/components/SearchListServer";
+import { SearchListServer } from "../../../../../features/householdSearch/components/search-list-server";
+import {
+  getThisYearFirstDate,
+  getThisYearLastDate,
+} from "../../../../../function/date/this-year";
 import type { YYYY_MM_DD } from "../../../../../types/yyyyMMdd";
 
 const Page = async ({
@@ -12,14 +16,6 @@ const Page = async ({
   }>;
 }) => {
   const { fromDate, toDate, tag, categoryIds } = await searchParams;
-  const getThisYearFirstDate = () => {
-    const date = new Date();
-    return `${date.getFullYear()}-01-01` as YYYY_MM_DD;
-  };
-  const getThisYearLastDate = () => {
-    const date = new Date();
-    return `${date.getFullYear()}-12-31` as YYYY_MM_DD;
-  };
   return (
     <SearchListServer
       fromDate={fromDate ?? getThisYearFirstDate()}

@@ -12,6 +12,7 @@ export type DailyDetail = {
   accountId: string;
   memo: string;
   tags: string[];
+  categoryName?: string;
 };
 
 export const initialState = {

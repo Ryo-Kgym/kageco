@@ -1,3 +1,5 @@
+import type { YYYY_MM_DD } from "@/type/date/date";
+
 export const paths = {
   group: {
     select: "/group",

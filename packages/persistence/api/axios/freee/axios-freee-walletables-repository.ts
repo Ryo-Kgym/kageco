@@ -1,0 +1,18 @@
+import type { FreeeWalletablesGateway } from "@/core/gateway/freee/freee-walletables-gateway";
+import { AxiosFreeeRepository } from "./axios-freee-repository";
+
+export class AxiosFreeeWalletablesRepository
+  extends AxiosFreeeRepository
+  implements FreeeWalletablesGateway
+{
+  getAll: FreeeWalletablesGateway["getAll"] = async () => {
+    try {
+      return await super.axiosGet({
+        endpointSuffix: `/walletables?company_id=${this.companyId}`,
+      });
+    } catch (error) {
+      console.error("Error fetching walletables:", error);
+      throw new Error("Failed to fetch walletables from freee API");
+    }
+  };
+}
