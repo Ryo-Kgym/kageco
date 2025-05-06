@@ -15,6 +15,7 @@ fragment fragCreditCardDetail on HouseholdCreditCardDetail {
   }
   summary: creditCardSummary {
     id
+    withdrawalDate
     account {
       id
       name

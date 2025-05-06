@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import { YYYYmmDD } from "@/type/date/date";
 import { IocomeType } from "../../../domain/model/household/IocomeType";
 import type {
   CreditDetailEditDisplayState,
@@ -18,6 +19,7 @@ export const useStateCreditDetail = ({ id }: { id: string }) => {
     date: new Date(),
     iocomeType: IocomeType.Income,
     amount: 0,
+    withdrawalDate: new Date(),
   });
   const [initData, setInitData] = useState<{
     genreId: string;
@@ -46,9 +48,10 @@ export const useStateCreditDetail = ({ id }: { id: string }) => {
       });
       setDisplay({
         id,
-        date: initData.date,
+        date: new Date(initData.date),
         iocomeType: initData.iocomeType,
         amount: initData.amount,
+        withdrawalDate: new Date(initData.withdrawalDate),
       });
     })();
 

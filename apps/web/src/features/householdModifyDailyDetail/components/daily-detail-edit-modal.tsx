@@ -1,9 +1,9 @@
 import { Modal } from "../../../components/atoms/Modal";
 import { Tab } from "../../../components/ui";
+import { LinkFreeeForDailyDetail } from "../../household-link-freee/components/link-freee-for-daily-detail";
 import { CutDailyDetail } from "./CutDailyDetail";
 import { DuplicateDailyDetail } from "./DuplicateDailyDetail";
 import { ModifyDailyDetail } from "./ModifyDailyDetail";
-import { LinkFreeeDetail } from "./link-freee-detail";
 
 export const DailyDetailEditModal = ({
   id,
@@ -40,7 +40,9 @@ export const DailyDetailEditModal = ({
           value: "freee",
           label: "freee連携",
           icon: null,
-          contents: <LinkFreeeDetail id={id} onClose={onCloseHandler} />,
+          contents: (
+            <LinkFreeeForDailyDetail id={id} onClose={onCloseHandler} />
+          ),
         },
       ]}
     />

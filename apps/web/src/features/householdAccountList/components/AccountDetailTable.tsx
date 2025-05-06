@@ -8,7 +8,7 @@ import { TagGroup } from "../../../components/ui/tag/TagGroup";
 import { DataTable } from "../../../components/ui/v4/table";
 import type { IocomeType } from "../../../domain/model/household/IocomeType";
 import { convertToYmd } from "../../../function/date/convertToYmd";
-import { DailyDetailEditModal } from "../../householdModifyDailyDetail/components/DailyDetailEditModal";
+import { DailyDetailEditModal } from "../../householdModifyDailyDetail/components/daily-detail-edit-modal";
 import type { AccountDetailRow } from "../types/accountDetailRow";
 
 export const AccountDetailTable = ({

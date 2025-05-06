@@ -3,9 +3,9 @@ import type { FC, FormEvent } from "react";
 import { ModalTableSelect } from "../../../components/ui";
 import { Button } from "../../../components/ui/button/v5";
 import { LinkFreeeComponent } from "../../freeeAuth/components/link-freee-component";
+import { useStateCreditDetail } from "../../householdCreditDetailEdit/hooks/useStateCreditDetail";
 import { useStateFreeeMaster } from "../hooks/use-state-freee-master";
-import { useStateFreeeRecord } from "../hooks/use-state-freee-record";
-import { useStateDailyDetail } from "../hooks/useStateDailyDetail";
+import { useStateFreeeRecord } from "../hooks/use-state-freee-record-credit";
 import styles from "./link-freee-detail.module.scss";
 
 type Props = {
@@ -13,15 +13,16 @@ type Props = {
   onClose: () => void;
 };
 
-export const LinkFreeeDetail: FC<Props> = ({ id, onClose }) => {
-  const { form, loading } = useStateDailyDetail({ id });
+export const LinkFreeeForCreditCardDetail: FC<Props> = ({ id, onClose }) => {
+  const { formData, display, loading } = useStateCreditDetail({ id });
   const { freeeMasters, loadingMasters } = useStateFreeeMaster();
   const {
     record,
     handleRecordChange,
     handleSubmit: handleSubmitFieldOnly,
   } = useStateFreeeRecord({
-    form,
+    formData,
+    display,
     onClose,
   });
 
@@ -132,19 +133,6 @@ export const LinkFreeeDetail: FC<Props> = ({ id, onClose }) => {
                   onChange={(e) => handleRecordChange("amount", e.target.value)}
                   className={styles.input}
                   required
-                />
-              </div>
-
-              <div className={styles.formField}>
-                <label htmlFor="tagIds" className={styles.formLabel}>
-                  メモタグID
-                </label>
-                <input
-                  id="tagIds"
-                  type="text"
-                  value={record.tagIds[0] || ""}
-                  onChange={(e) => handleRecordChange("tagIds", e.target.value)}
-                  className={styles.input}
                 />
               </div>
 
