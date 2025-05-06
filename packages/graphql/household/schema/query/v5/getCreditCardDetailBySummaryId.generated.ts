@@ -621,6 +621,62 @@ export type BusinessDailyAttendanceVarianceOrderBy = {
   breakSecond: InputMaybe<OrderBy>;
 };
 
+/** Boolean expression to filter rows from the table "business.monthly_plan". All fields are combined with a logical 'AND'. */
+export type BusinessMonthlyPlanBoolExp = {
+  _and: InputMaybe<Array<BusinessMonthlyPlanBoolExp>>;
+  _not: InputMaybe<BusinessMonthlyPlanBoolExp>;
+  _or: InputMaybe<Array<BusinessMonthlyPlanBoolExp>>;
+  businessDays: InputMaybe<IntComparisonExp>;
+  id: InputMaybe<StringComparisonExp>;
+  plannedWorkingHoursLower: InputMaybe<NumericComparisonExp>;
+  plannedWorkingHoursUpper: InputMaybe<NumericComparisonExp>;
+  userId: InputMaybe<StringComparisonExp>;
+  yearMonth: InputMaybe<BpcharComparisonExp>;
+};
+
+/** Ordering options when selecting data from "business.monthly_plan". */
+export type BusinessMonthlyPlanOrderBy = {
+  businessDays: InputMaybe<OrderBy>;
+  id: InputMaybe<OrderBy>;
+  plannedWorkingHoursLower: InputMaybe<OrderBy>;
+  plannedWorkingHoursUpper: InputMaybe<OrderBy>;
+  userId: InputMaybe<OrderBy>;
+  yearMonth: InputMaybe<OrderBy>;
+};
+
+/** select columns of table "business.monthly_plan" */
+export type BusinessMonthlyPlanSelectColumn =
+  /** column name */
+  | "businessDays"
+  /** column name */
+  | "id"
+  /** column name */
+  | "plannedWorkingHoursLower"
+  /** column name */
+  | "plannedWorkingHoursUpper"
+  /** column name */
+  | "userId"
+  /** column name */
+  | "yearMonth";
+
+/** Streaming cursor of the table "business_monthly_plan" */
+export type BusinessMonthlyPlanStreamCursorInput = {
+  /** Stream column input with initial value */
+  initialValue: BusinessMonthlyPlanStreamCursorValueInput;
+  /** cursor ordering */
+  ordering: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type BusinessMonthlyPlanStreamCursorValueInput = {
+  businessDays: InputMaybe<Scalars["Int"]>;
+  id: InputMaybe<Scalars["String"]>;
+  plannedWorkingHoursLower: InputMaybe<Scalars["numeric"]>;
+  plannedWorkingHoursUpper: InputMaybe<Scalars["numeric"]>;
+  userId: InputMaybe<Scalars["String"]>;
+  yearMonth: InputMaybe<Scalars["bpchar"]>;
+};
+
 /** ordering argument of a cursor */
 export type CursorOrdering =
   /** ascending ordering of the cursor */
@@ -4416,6 +4472,7 @@ export type GetCreditCardDetailBySummaryIdQuery = {
       summary: {
         __typename?: "HouseholdCreditCardSummary";
         id: string;
+        withdrawalDate: YYYY_MM_DD;
         account: { __typename?: "HouseholdAccount"; id: string; name: string };
       };
       tags: Array<{
@@ -4591,6 +4648,10 @@ export const GetCreditCardDetailBySummaryIdDocument = {
               kind: "SelectionSet",
               selections: [
                 { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "withdrawalDate" },
+                },
                 {
                   kind: "Field",
                   name: { kind: "Name", value: "account" },
