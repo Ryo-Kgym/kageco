@@ -1,6 +1,4 @@
-/*
- * Copyright (c) 2024 Ryo-Kgym.
- */
+"use client";
 
 import type { MantineSize } from "@mantine/core";
 import { Button, Modal, Text, TextInput } from "@mantine/core";
