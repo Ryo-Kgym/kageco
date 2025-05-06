@@ -5,7 +5,7 @@ import { type FC, useState } from "react";
 import { FormatPrice } from "../../../components/molecules/FormatPrice";
 import { TagGroup } from "../../../components/ui/tag/TagGroup";
 import { DataTable } from "../../../components/ui/v4/table";
-import { CreditCardDetailEditModal } from "../../householdCreditDetailEdit/components/CreditCardDetailEditModel";
+import { CreditCardDetailEditModal } from "../../householdCreditDetailEdit/components/credit-card-detail-edit-model";
 import { DailyDetailEditModal } from "../../householdModifyDailyDetail/components/DailyDetailEditModal";
 import type { SearchRow } from "../types/searchRow";
 

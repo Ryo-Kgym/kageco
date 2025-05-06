@@ -1,26 +1,31 @@
 import type { FormEvent } from "react";
 import { useEffect, useState } from "react";
 
-import type { DailyDetail } from "../../../domain/model/household/DailyDetail";
+import { YYYYmmDD } from "@/type/date/date";
 import { errorPopup, successPopup } from "../../../function/successPopup";
-import { submitDealActions } from "../actions/submit-deal-actions";
-import type { UnifiedRecord } from "../types/unified-record";
+import { submitDealActions } from "../../householdModifyDailyDetail/actions/submit-deal-actions";
+import type { UnifiedRecord } from "../../householdModifyDailyDetail/types/unified-record";
+import type {
+  CreditDetailEditDisplayState,
+  CreditDetailEditFormState,
+} from "../types/type";
 
 export const useStateFreeeRecord = (params: {
-  form: DailyDetail | undefined;
+  formData: CreditDetailEditFormState | undefined;
+  display: CreditDetailEditDisplayState | undefined;
   onClose: () => void;
 }) => {
-  const { form, onClose } = params;
+  const { formData, display, onClose } = params;
   const [record, setRecord] = useState<UnifiedRecord | null>(null);
 
   useEffect(() => {
-    if (!form) return;
+    if (!formData || !display) return;
 
     const newRecord: UnifiedRecord = {
-      id: form.id,
+      id: display.id,
       // 基本情報
-      issueDate: form.date,
-      type: form.iocomeType === "INCOME" ? "income" : "expense",
+      issueDate: YYYYmmDD.valueOf(display.date).toString(),
+      type: display.iocomeType === "INCOME" ? "income" : "expense",
       companyId: "",
       dueDate: "",
       partnerId: "",
@@ -29,23 +34,23 @@ export const useStateFreeeRecord = (params: {
       // 明細情報
       taxCode: "",
       accountItemId: "",
-      amount: form.amount.toString(),
+      amount: display.amount.toString(),
       itemId: "",
       sectionId: "",
       tagIds: [],
-      description: `${form.categoryName}-${form.memo}`,
+      description: formData.memo || "",
       vat: "",
       // 支払情報
-      paymentAmount: form.amount.toString(),
+      paymentAmount: display.amount.toString(),
       fromWalletableId: "",
       fromWalletableType: "",
-      paymentDate: form.date,
+      paymentDate: YYYYmmDD.valueOf(display.withdrawalDate).toString(),
       // 領収書ID
       receiptId: "",
     };
 
     setRecord(newRecord);
-  }, [form]);
+  }, [formData, display]);
 
   // レコードの入力ハンドラ
   const handleRecordChange = (field: keyof UnifiedRecord, value: string) => {

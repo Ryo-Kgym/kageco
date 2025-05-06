@@ -11,4 +11,5 @@ export type CreditDetailEditDisplayState = {
   date: Date;
   iocomeType: IocomeType;
   amount: number;
+  withdrawalDate: Date;
 };

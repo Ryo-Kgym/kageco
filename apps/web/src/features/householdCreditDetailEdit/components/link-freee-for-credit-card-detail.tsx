@@ -3,25 +3,26 @@ import type { FC, FormEvent } from "react";
 import { ModalTableSelect } from "../../../components/ui";
 import { Button } from "../../../components/ui/button/v5";
 import { LinkFreeeComponent } from "../../freeeAuth/components/link-freee-component";
-import { useStateFreeeMaster } from "../hooks/use-state-freee-master";
+import styles from "../../householdModifyDailyDetail/components/link-freee-detail.module.scss";
+import { useStateFreeeMaster } from "../../householdModifyDailyDetail/hooks/use-state-freee-master";
 import { useStateFreeeRecord } from "../hooks/use-state-freee-record";
-import { useStateDailyDetail } from "../hooks/useStateDailyDetail";
-import styles from "./link-freee-detail.module.scss";
+import { useStateCreditDetail } from "../hooks/useStateCreditDetail";
 
 type Props = {
   id: string;
   onClose: () => void;
 };
 
-export const LinkFreeeForDailyDetail: FC<Props> = ({ id, onClose }) => {
-  const { form, loading } = useStateDailyDetail({ id });
+export const LinkFreeeForCreditCardDetail: FC<Props> = ({ id, onClose }) => {
+  const { formData, display, loading } = useStateCreditDetail({ id });
   const { freeeMasters, loadingMasters } = useStateFreeeMaster();
   const {
     record,
     handleRecordChange,
     handleSubmit: handleSubmitFieldOnly,
   } = useStateFreeeRecord({
-    form,
+    formData,
+    display,
     onClose,
   });
 
