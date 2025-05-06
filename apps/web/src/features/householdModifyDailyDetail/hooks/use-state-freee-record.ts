@@ -1,4 +1,6 @@
-import { type FormEvent, useEffect, useState } from "react";
+import type { FormEvent } from "react";
+import { useEffect, useState } from "react";
+
 import type { DailyDetail } from "../../../domain/model/household/DailyDetail";
 import { errorPopup, successPopup } from "../../../function/successPopup";
 import { submitDealActions } from "../actions/submit-deal-actions";
@@ -46,7 +48,7 @@ export const useStateFreeeRecord = (params: {
   }, [form]);
 
   // レコードの入力ハンドラ
-  const handleRecordChange = (field: string, value: string) => {
+  const handleRecordChange = (field: keyof UnifiedRecord, value: string) => {
     if (!record) return;
 
     const newRecord = { ...record };
@@ -54,7 +56,6 @@ export const useStateFreeeRecord = (params: {
       // tagIdsは配列なので特別に処理
       newRecord[field] = [value];
     } else {
-      // @ts-expect-error
       newRecord[field] = value;
     }
     setRecord(newRecord);
@@ -64,7 +65,10 @@ export const useStateFreeeRecord = (params: {
   const successMessage = "freeeへのデータ送信が完了しました";
 
   // フォーム送信ハンドラ
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    fromWalletableType: string,
+    e: FormEvent<HTMLFormElement>,
+  ) => {
     e.preventDefault();
 
     if (!record) {
@@ -73,9 +77,9 @@ export const useStateFreeeRecord = (params: {
     }
 
     try {
-      await submitDealActions(record);
+      await submitDealActions({ ...record, fromWalletableType });
       successPopup(successMessage);
-      onClose();
+      // onClose();
     } catch (error) {
       console.error("Error submitting data:", error);
       errorPopup(error as string);

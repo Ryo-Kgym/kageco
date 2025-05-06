@@ -1,30 +1,34 @@
 export type RegisterDealDto = {
   // 基本情報
   issueDate: string;
-  type: string;
-  companyId: number | null;
-  dueDate: string;
+  type: "income" | "expense";
+  companyId: number;
+  dueDate: string | null;
   partnerId: number | null;
-  partnerCode: string;
-  refNumber: string;
+  partnerCode: string | null;
+  refNumber: string | null;
   // 明細情報
   details: Array<{
-    taxCode: number | null;
-    accountItemId: number | null;
-    amount: number | null;
+    taxCode: number;
+    accountItemId: number;
+    amount: number;
     itemId: number | null;
     sectionId: number | null;
-    tagIds: number[];
-    description: string;
+    tagIds: number[] | null;
+    description: string | null;
     vat: number | null;
   }>;
   // 支払情報
   payments: Array<{
-    amount: number | null;
-    fromWalletableId: number | null;
-    fromWalletableType: string;
+    amount: number;
+    fromWalletableId: number;
+    fromWalletableType:
+      | "bank_account"
+      | "credit_card"
+      | "wallet"
+      | "private_account_item";
     date: string;
-  }>;
+  }> | null;
   // 領収書ID
-  receiptIds: number[];
+  receiptIds: number[] | null;
 };

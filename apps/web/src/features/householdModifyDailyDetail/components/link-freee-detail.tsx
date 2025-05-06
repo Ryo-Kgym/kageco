@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import type { FC, FormEvent } from "react";
 
 import { ModalTableSelect } from "../../../components/ui";
 import { Button } from "../../../components/ui/button/v5";
@@ -16,10 +16,26 @@ type Props = {
 export const LinkFreeeDetail: FC<Props> = ({ id, onClose }) => {
   const { form, loading } = useStateDailyDetail({ id });
   const { freeeMasters, loadingMasters } = useStateFreeeMaster();
-  const { record, handleRecordChange, handleSubmit } = useStateFreeeRecord({
+  const {
+    record,
+    handleRecordChange,
+    handleSubmit: handleSubmitFieldOnly,
+  } = useStateFreeeRecord({
     form,
     onClose,
   });
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const fromWalletableType = freeeMasters?.walletables.find(
+      (w) => w.value === record?.fromWalletableId,
+    )?.type;
+
+    if (!fromWalletableType) {
+      return;
+    }
+
+    return handleSubmitFieldOnly(fromWalletableType, e);
+  };
 
   if (loading || loadingMasters) {
     return <div>Loading...</div>;
@@ -67,11 +83,10 @@ export const LinkFreeeDetail: FC<Props> = ({ id, onClose }) => {
                 <ModalTableSelect
                   data={freeeMasters.partners}
                   label={""}
-                  value={record.partnerId ?? ""}
+                  value={record.partnerId}
                   onChange={(v) => handleRecordChange("partnerId", v)}
                   maxDropdownHeight={600}
                   gridColumns={4}
-                  size={"xl"}
                 />
               </div>
 
@@ -83,11 +98,10 @@ export const LinkFreeeDetail: FC<Props> = ({ id, onClose }) => {
                 <ModalTableSelect
                   data={freeeMasters.taxes}
                   label={""}
-                  value={record.taxCode ?? ""}
+                  value={record.taxCode}
                   onChange={(v) => handleRecordChange("taxCode", v)}
                   maxDropdownHeight={600}
                   gridColumns={4}
-                  size={"xl"}
                 />
               </div>
 
@@ -98,7 +112,7 @@ export const LinkFreeeDetail: FC<Props> = ({ id, onClose }) => {
                 <ModalTableSelect
                   data={freeeMasters.accountItems}
                   label={""}
-                  value={record.accountItemId ?? ""}
+                  value={record.accountItemId}
                   onChange={(v) => handleRecordChange("accountItemId", v)}
                   maxDropdownHeight={600}
                 />
@@ -179,7 +193,7 @@ export const LinkFreeeDetail: FC<Props> = ({ id, onClose }) => {
                 <ModalTableSelect
                   data={freeeMasters.walletables}
                   label={""}
-                  value={record.fromWalletableId ?? ""}
+                  value={record.fromWalletableId}
                   onChange={(v) => handleRecordChange("fromWalletableId", v)}
                   maxDropdownHeight={400}
                   gridColumns={1}
