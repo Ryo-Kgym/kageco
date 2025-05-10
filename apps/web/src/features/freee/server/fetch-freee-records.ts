@@ -1,5 +1,5 @@
 import type { YYYY_MM_DD, YYYYmmDD } from "@/type/date/date";
-import type { FragAllDetailViewFragment } from "@v3/graphql/household/schema/query/v5/fragChartDetailTable.generated";
+import type { FragAllDetailViewFragment } from "@v3/graphql/household/schema/query/v5/fragAllDetailView.generated";
 import { GetAllDetailViewDocument } from "@v3/graphql/household/schema/query/v5/getAllDetailView.generated";
 
 import { findUser } from "../../../persistence/browser/server/find-user";

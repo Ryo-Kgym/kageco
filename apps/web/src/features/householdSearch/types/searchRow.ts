@@ -26,4 +26,8 @@ export type SearchRow = {
     colorCode: string;
     displayOrder: number;
   }[];
+  freeeLinkDetails: {
+    id: string;
+    linkedDatetime: string;
+  }[];
 };

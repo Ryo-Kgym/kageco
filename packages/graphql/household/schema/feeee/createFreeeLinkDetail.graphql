@@ -1,0 +1,5 @@
+mutation createFreeeLinkDetail($object: HouseholdFreeeLinkDetailInsertInput!) {
+  insertHouseholdFreeeLinkDetailOne(object: $object) {
+    id
+  }
+}

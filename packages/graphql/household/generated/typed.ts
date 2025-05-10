@@ -1,9 +1,4 @@
-import {
-  TZDateTime,
-  YYYY_MM_DD,
-  YYYY_MM_DD_HH_MM_SS,
-  YYYYmmDD,
-} from "@/type/date/date";
+import { TZDateTime, YYYY_MM_DD, YYYY_MM_DD_HH_MM_SS, YYYYmmDD } from "@/type/date/date";
 
 export type Exact<T extends Record<string, unknown>> = {
   [K in keyof T]: T[K];
@@ -29,3 +24,9 @@ export type HouseholdTagSetInput = {};
 export type HouseholdTagInsertInput = {};
 export type HouseholdCreditCardSummarySetInput = {};
 export type OrderBy = {};
+
+export interface HouseholdFreeeLinkDetailInsertInput {
+  detailId: string
+  id: string
+  linkedDatetime: YYYY_MM_DD_HH_MM_SS
+}

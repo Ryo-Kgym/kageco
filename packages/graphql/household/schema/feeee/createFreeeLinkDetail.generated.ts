@@ -1,7 +1,7 @@
 import { YYYY_MM_DD, YYYY_MM_DD_HH_MM_SS } from "@/type/date/date";
 import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
 
-import * as Types from "../../../generated/typed";
+import * as Types from "../../generated/typed";
 
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -4529,59 +4529,40 @@ export type HouseholdTransferCategoryAggregateBoolExpCount = {
   predicate: IntComparisonExp;
 };
 
-export type GetTransferCategoryByQueryVariables = Types.Exact<{
-  groupId: Types.Scalars["String"];
+export type CreateFreeeLinkDetailMutationVariables = Types.Exact<{
+  object: Types.HouseholdFreeeLinkDetailInsertInput;
 }>;
 
-export type GetTransferCategoryByQuery = {
-  __typename?: "query_root";
-  transferCategory: {
-    __typename?: "HouseholdTransferCategory";
+export type CreateFreeeLinkDetailMutation = {
+  __typename?: "mutation_root";
+  insertHouseholdFreeeLinkDetailOne: {
+    __typename?: "HouseholdFreeeLinkDetail";
     id: string;
-    incomeCategory: {
-      __typename?: "HouseholdCategory";
-      id: string;
-      categoryId: string;
-      genre: {
-        __typename?: "HouseholdGenre";
-        id: string;
-        iocomeType: string;
-        genreId: string;
-      };
-    };
-    outcomeCategory: {
-      __typename?: "HouseholdCategory";
-      id: string;
-      categoryId: string;
-      genre: {
-        __typename?: "HouseholdGenre";
-        id: string;
-        iocomeType: string;
-        genreId: string;
-      };
-    };
   } | null;
 };
 
-export const GetTransferCategoryByDocument = {
+export const CreateFreeeLinkDetailDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "GetTransferCategoryBy" },
+      operation: "mutation",
+      name: { kind: "Name", value: "createFreeeLinkDetail" },
       variableDefinitions: [
         {
           kind: "VariableDefinition",
           variable: {
             kind: "Variable",
-            name: { kind: "Name", value: "groupId" },
+            name: { kind: "Name", value: "object" },
           },
           type: {
             kind: "NonNullType",
             type: {
               kind: "NamedType",
-              name: { kind: "Name", value: "String" },
+              name: {
+                kind: "Name",
+                value: "HouseholdFreeeLinkDetailInsertInput",
+              },
             },
           },
         },
@@ -4591,102 +4572,21 @@ export const GetTransferCategoryByDocument = {
         selections: [
           {
             kind: "Field",
-            alias: { kind: "Name", value: "transferCategory" },
-            name: { kind: "Name", value: "householdTransferCategoryByPk" },
+            name: { kind: "Name", value: "insertHouseholdFreeeLinkDetailOne" },
             arguments: [
               {
                 kind: "Argument",
-                name: { kind: "Name", value: "groupId" },
+                name: { kind: "Name", value: "object" },
                 value: {
                   kind: "Variable",
-                  name: { kind: "Name", value: "groupId" },
+                  name: { kind: "Name", value: "object" },
                 },
               },
             ],
             selectionSet: {
               kind: "SelectionSet",
               selections: [
-                {
-                  kind: "Field",
-                  alias: { kind: "Name", value: "id" },
-                  name: { kind: "Name", value: "groupId" },
-                },
-                {
-                  kind: "Field",
-                  alias: { kind: "Name", value: "incomeCategory" },
-                  name: { kind: "Name", value: "categoryByIncomeCategoryId" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "id" } },
-                      {
-                        kind: "Field",
-                        alias: { kind: "Name", value: "categoryId" },
-                        name: { kind: "Name", value: "id" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "genre" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "id" },
-                            },
-                            {
-                              kind: "Field",
-                              alias: { kind: "Name", value: "genreId" },
-                              name: { kind: "Name", value: "id" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "iocomeType" },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: "Field",
-                  alias: { kind: "Name", value: "outcomeCategory" },
-                  name: { kind: "Name", value: "categoryByOutcomeCategoryId" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "id" } },
-                      {
-                        kind: "Field",
-                        alias: { kind: "Name", value: "categoryId" },
-                        name: { kind: "Name", value: "id" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "genre" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "id" },
-                            },
-                            {
-                              kind: "Field",
-                              alias: { kind: "Name", value: "genreId" },
-                              name: { kind: "Name", value: "id" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "iocomeType" },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
+                { kind: "Field", name: { kind: "Name", value: "id" } },
               ],
             },
           },
@@ -4695,6 +4595,6 @@ export const GetTransferCategoryByDocument = {
     },
   ],
 } as unknown as DocumentNode<
-  GetTransferCategoryByQuery,
-  GetTransferCategoryByQueryVariables
+  CreateFreeeLinkDetailMutation,
+  CreateFreeeLinkDetailMutationVariables
 >;

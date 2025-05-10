@@ -30,4 +30,9 @@ fragment fragAllDetailView on HouseholdAllDetailView {
       ...fragTag
     }
   }
+  freeeLinkDetails {
+    __typename
+    id
+    linkedDatetime
+  }
 }
