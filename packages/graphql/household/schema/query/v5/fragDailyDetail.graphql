@@ -25,9 +25,4 @@ fragment fragDailyDetail on HouseholdDailyDetail {
       ...fragTag
     }
   }
-  freeeLinkDetails {
-    __typename
-    id
-    linkedDatetime
-  }
 }

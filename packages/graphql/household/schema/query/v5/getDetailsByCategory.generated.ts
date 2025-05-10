@@ -1627,7 +1627,6 @@ export type HouseholdCreditCardDetailBoolExp = {
   date: InputMaybe<DateComparisonExp>;
   detailTags: InputMaybe<HouseholdDetailTagBoolExp>;
   detailTagsAggregate: InputMaybe<HouseholdDetailTagAggregateBoolExp>;
-  freeeLinkDetails: InputMaybe<HouseholdFreeeLinkDetailBoolExp>;
   genre: InputMaybe<HouseholdGenreBoolExp>;
   genreId: InputMaybe<StringComparisonExp>;
   group: InputMaybe<GroupBoolExp>;
@@ -1658,7 +1657,6 @@ export type HouseholdCreditCardDetailInsertInput = {
   creditCardSummary: InputMaybe<HouseholdCreditCardSummaryObjRelInsertInput>;
   date: InputMaybe<Scalars["date"]>;
   detailTags: InputMaybe<HouseholdDetailTagArrRelInsertInput>;
-  freeeLinkDetails: InputMaybe<HouseholdFreeeLinkDetailArrRelInsertInput>;
   genre: InputMaybe<HouseholdGenreObjRelInsertInput>;
   genreId: InputMaybe<Scalars["String"]>;
   groupId: InputMaybe<Scalars["String"]>;
@@ -1713,7 +1711,6 @@ export type HouseholdCreditCardDetailOrderBy = {
   creditCardSummary: InputMaybe<HouseholdCreditCardSummaryOrderBy>;
   date: InputMaybe<OrderBy>;
   detailTagsAggregate: InputMaybe<HouseholdDetailTagAggregateOrderBy>;
-  freeeLinkDetailsAggregate: InputMaybe<HouseholdFreeeLinkDetailAggregateOrderBy>;
   genre: InputMaybe<HouseholdGenreOrderBy>;
   genreId: InputMaybe<OrderBy>;
   group: InputMaybe<GroupOrderBy>;
@@ -2187,7 +2184,6 @@ export type HouseholdDailyDetailBoolExp = {
   date: InputMaybe<DateComparisonExp>;
   detailTags: InputMaybe<HouseholdDetailTagBoolExp>;
   detailTagsAggregate: InputMaybe<HouseholdDetailTagAggregateBoolExp>;
-  freeeLinkDetails: InputMaybe<HouseholdFreeeLinkDetailBoolExp>;
   genre: InputMaybe<HouseholdGenreBoolExp>;
   genreId: InputMaybe<StringComparisonExp>;
   group: InputMaybe<GroupBoolExp>;
@@ -2218,7 +2214,6 @@ export type HouseholdDailyDetailInsertInput = {
   categoryId: InputMaybe<Scalars["String"]>;
   date: InputMaybe<Scalars["date"]>;
   detailTags: InputMaybe<HouseholdDetailTagArrRelInsertInput>;
-  freeeLinkDetails: InputMaybe<HouseholdFreeeLinkDetailArrRelInsertInput>;
   genre: InputMaybe<HouseholdGenreObjRelInsertInput>;
   genreId: InputMaybe<Scalars["String"]>;
   groupId: InputMaybe<Scalars["String"]>;
@@ -2273,7 +2268,6 @@ export type HouseholdDailyDetailOrderBy = {
   categoryId: InputMaybe<OrderBy>;
   date: InputMaybe<OrderBy>;
   detailTagsAggregate: InputMaybe<HouseholdDetailTagAggregateOrderBy>;
-  freeeLinkDetailsAggregate: InputMaybe<HouseholdFreeeLinkDetailAggregateOrderBy>;
   genre: InputMaybe<HouseholdGenreOrderBy>;
   genreId: InputMaybe<OrderBy>;
   group: InputMaybe<GroupOrderBy>;
@@ -3155,13 +3149,6 @@ export type HouseholdFreeeLinkDetailAggregateOrderBy = {
   count: InputMaybe<OrderBy>;
   max: InputMaybe<HouseholdFreeeLinkDetailMaxOrderBy>;
   min: InputMaybe<HouseholdFreeeLinkDetailMinOrderBy>;
-};
-
-/** input type for inserting array relation for remote table "household.freee_link_detail" */
-export type HouseholdFreeeLinkDetailArrRelInsertInput = {
-  data: Array<HouseholdFreeeLinkDetailInsertInput>;
-  /** upsert condition */
-  onConflict: InputMaybe<HouseholdFreeeLinkDetailOnConflict>;
 };
 
 /** Boolean expression to filter rows from the table "household.freee_link_detail". All fields are combined with a logical 'AND'. */
@@ -4588,11 +4575,6 @@ export type GetDetailsByCategoryQuery = {
           displayOrder: number;
         };
       }>;
-      freeeLinkDetails: Array<{
-        __typename: "HouseholdFreeeLinkDetail";
-        id: string;
-        linkedDatetime: YYYY_MM_DD_HH_MM_SS;
-      }>;
     }>;
     creditCardDetails: Array<{
       __typename?: "HouseholdCreditCardDetail";
@@ -4625,11 +4607,6 @@ export type GetDetailsByCategoryQuery = {
           displayOrder: number;
         };
       }>;
-      freeeLinkDetails: Array<{
-        __typename: "HouseholdFreeeLinkDetail";
-        id: string;
-        linkedDatetime: YYYY_MM_DD_HH_MM_SS;
-      }>;
     }>;
     withdrawalCreditCardDetails: Array<{
       __typename?: "HouseholdCreditCardDetail";
@@ -4661,11 +4638,6 @@ export type GetDetailsByCategoryQuery = {
           colorCode: string;
           displayOrder: number;
         };
-      }>;
-      freeeLinkDetails: Array<{
-        __typename: "HouseholdFreeeLinkDetail";
-        id: string;
-        linkedDatetime: YYYY_MM_DD_HH_MM_SS;
       }>;
     }>;
   } | null;
@@ -5161,21 +5133,6 @@ export const GetDetailsByCategoryDocument = {
               ],
             },
           },
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "freeeLinkDetails" },
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "__typename" } },
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "linkedDatetime" },
-                },
-              ],
-            },
-          },
         ],
       },
     },
@@ -5289,21 +5246,6 @@ export const GetDetailsByCategoryDocument = {
                       },
                     ],
                   },
-                },
-              ],
-            },
-          },
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "freeeLinkDetails" },
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "__typename" } },
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "linkedDatetime" },
                 },
               ],
             },
