@@ -28,4 +28,9 @@ fragment fragCreditCardDetail on HouseholdCreditCardDetail {
       ...fragTag
     }
   }
+  freeeLinkDetails {
+    __typename
+    id
+    linkedDatetime
+  }
 }

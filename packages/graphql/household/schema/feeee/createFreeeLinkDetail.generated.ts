@@ -4542,37 +4542,40 @@ export type HouseholdTransferCategoryAggregateBoolExpCount = {
   predicate: IntComparisonExp;
 };
 
-export type InsertTemplateMutationVariables = Types.Exact<{
-  input: Types.HouseholdTemplateInsertInput;
+export type CreateFreeeLinkDetailMutationVariables = Types.Exact<{
+  object: Types.HouseholdFreeeLinkDetailInsertInput;
 }>;
 
-export type InsertTemplateMutation = {
+export type CreateFreeeLinkDetailMutation = {
   __typename?: "mutation_root";
-  insertHouseholdTemplateOne: {
-    __typename: "HouseholdTemplate";
+  insertHouseholdFreeeLinkDetailOne: {
+    __typename?: "HouseholdFreeeLinkDetail";
     id: string;
   } | null;
 };
 
-export const InsertTemplateDocument = {
+export const CreateFreeeLinkDetailDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "mutation",
-      name: { kind: "Name", value: "insertTemplate" },
+      name: { kind: "Name", value: "createFreeeLinkDetail" },
       variableDefinitions: [
         {
           kind: "VariableDefinition",
           variable: {
             kind: "Variable",
-            name: { kind: "Name", value: "input" },
+            name: { kind: "Name", value: "object" },
           },
           type: {
             kind: "NonNullType",
             type: {
               kind: "NamedType",
-              name: { kind: "Name", value: "HouseholdTemplateInsertInput" },
+              name: {
+                kind: "Name",
+                value: "HouseholdFreeeLinkDetailInsertInput",
+              },
             },
           },
         },
@@ -4582,21 +4585,20 @@ export const InsertTemplateDocument = {
         selections: [
           {
             kind: "Field",
-            name: { kind: "Name", value: "insertHouseholdTemplateOne" },
+            name: { kind: "Name", value: "insertHouseholdFreeeLinkDetailOne" },
             arguments: [
               {
                 kind: "Argument",
                 name: { kind: "Name", value: "object" },
                 value: {
                   kind: "Variable",
-                  name: { kind: "Name", value: "input" },
+                  name: { kind: "Name", value: "object" },
                 },
               },
             ],
             selectionSet: {
               kind: "SelectionSet",
               selections: [
-                { kind: "Field", name: { kind: "Name", value: "__typename" } },
                 { kind: "Field", name: { kind: "Name", value: "id" } },
               ],
             },
@@ -4606,6 +4608,6 @@ export const InsertTemplateDocument = {
     },
   ],
 } as unknown as DocumentNode<
-  InsertTemplateMutation,
-  InsertTemplateMutationVariables
+  CreateFreeeLinkDetailMutation,
+  CreateFreeeLinkDetailMutationVariables
 >;

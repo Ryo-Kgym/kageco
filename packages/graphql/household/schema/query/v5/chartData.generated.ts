@@ -1070,6 +1070,7 @@ export type HouseholdAllDetailViewBoolExp = {
   date: InputMaybe<DateComparisonExp>;
   detailTags: InputMaybe<HouseholdDetailTagBoolExp>;
   detailTagsAggregate: InputMaybe<HouseholdDetailTagAggregateBoolExp>;
+  freeeLinkDetails: InputMaybe<HouseholdFreeeLinkDetailBoolExp>;
   genre: InputMaybe<HouseholdGenreBoolExp>;
   genreId: InputMaybe<StringComparisonExp>;
   groupId: InputMaybe<StringComparisonExp>;
@@ -1125,6 +1126,7 @@ export type HouseholdAllDetailViewOrderBy = {
   categoryId: InputMaybe<OrderBy>;
   date: InputMaybe<OrderBy>;
   detailTagsAggregate: InputMaybe<HouseholdDetailTagAggregateOrderBy>;
+  freeeLinkDetailsAggregate: InputMaybe<HouseholdFreeeLinkDetailAggregateOrderBy>;
   genre: InputMaybe<HouseholdGenreOrderBy>;
   genreId: InputMaybe<OrderBy>;
   groupId: InputMaybe<OrderBy>;
@@ -1625,6 +1627,7 @@ export type HouseholdCreditCardDetailBoolExp = {
   date: InputMaybe<DateComparisonExp>;
   detailTags: InputMaybe<HouseholdDetailTagBoolExp>;
   detailTagsAggregate: InputMaybe<HouseholdDetailTagAggregateBoolExp>;
+  freeeLinkDetails: InputMaybe<HouseholdFreeeLinkDetailBoolExp>;
   genre: InputMaybe<HouseholdGenreBoolExp>;
   genreId: InputMaybe<StringComparisonExp>;
   group: InputMaybe<GroupBoolExp>;
@@ -1655,6 +1658,7 @@ export type HouseholdCreditCardDetailInsertInput = {
   creditCardSummary: InputMaybe<HouseholdCreditCardSummaryObjRelInsertInput>;
   date: InputMaybe<Scalars["date"]>;
   detailTags: InputMaybe<HouseholdDetailTagArrRelInsertInput>;
+  freeeLinkDetails: InputMaybe<HouseholdFreeeLinkDetailArrRelInsertInput>;
   genre: InputMaybe<HouseholdGenreObjRelInsertInput>;
   genreId: InputMaybe<Scalars["String"]>;
   groupId: InputMaybe<Scalars["String"]>;
@@ -1709,6 +1713,7 @@ export type HouseholdCreditCardDetailOrderBy = {
   creditCardSummary: InputMaybe<HouseholdCreditCardSummaryOrderBy>;
   date: InputMaybe<OrderBy>;
   detailTagsAggregate: InputMaybe<HouseholdDetailTagAggregateOrderBy>;
+  freeeLinkDetailsAggregate: InputMaybe<HouseholdFreeeLinkDetailAggregateOrderBy>;
   genre: InputMaybe<HouseholdGenreOrderBy>;
   genreId: InputMaybe<OrderBy>;
   group: InputMaybe<GroupOrderBy>;
@@ -2182,6 +2187,7 @@ export type HouseholdDailyDetailBoolExp = {
   date: InputMaybe<DateComparisonExp>;
   detailTags: InputMaybe<HouseholdDetailTagBoolExp>;
   detailTagsAggregate: InputMaybe<HouseholdDetailTagAggregateBoolExp>;
+  freeeLinkDetails: InputMaybe<HouseholdFreeeLinkDetailBoolExp>;
   genre: InputMaybe<HouseholdGenreBoolExp>;
   genreId: InputMaybe<StringComparisonExp>;
   group: InputMaybe<GroupBoolExp>;
@@ -2212,6 +2218,7 @@ export type HouseholdDailyDetailInsertInput = {
   categoryId: InputMaybe<Scalars["String"]>;
   date: InputMaybe<Scalars["date"]>;
   detailTags: InputMaybe<HouseholdDetailTagArrRelInsertInput>;
+  freeeLinkDetails: InputMaybe<HouseholdFreeeLinkDetailArrRelInsertInput>;
   genre: InputMaybe<HouseholdGenreObjRelInsertInput>;
   genreId: InputMaybe<Scalars["String"]>;
   groupId: InputMaybe<Scalars["String"]>;
@@ -2266,6 +2273,7 @@ export type HouseholdDailyDetailOrderBy = {
   categoryId: InputMaybe<OrderBy>;
   date: InputMaybe<OrderBy>;
   detailTagsAggregate: InputMaybe<HouseholdDetailTagAggregateOrderBy>;
+  freeeLinkDetailsAggregate: InputMaybe<HouseholdFreeeLinkDetailAggregateOrderBy>;
   genre: InputMaybe<HouseholdGenreOrderBy>;
   genreId: InputMaybe<OrderBy>;
   group: InputMaybe<GroupOrderBy>;
@@ -3141,6 +3149,99 @@ export type HouseholdFavoriteFilterUpdates = {
   /** filter the rows which have to be updated */
   where: HouseholdFavoriteFilterBoolExp;
 };
+
+/** order by aggregate values of table "household.freee_link_detail" */
+export type HouseholdFreeeLinkDetailAggregateOrderBy = {
+  count: InputMaybe<OrderBy>;
+  max: InputMaybe<HouseholdFreeeLinkDetailMaxOrderBy>;
+  min: InputMaybe<HouseholdFreeeLinkDetailMinOrderBy>;
+};
+
+/** input type for inserting array relation for remote table "household.freee_link_detail" */
+export type HouseholdFreeeLinkDetailArrRelInsertInput = {
+  data: Array<HouseholdFreeeLinkDetailInsertInput>;
+  /** upsert condition */
+  onConflict: InputMaybe<HouseholdFreeeLinkDetailOnConflict>;
+};
+
+/** Boolean expression to filter rows from the table "household.freee_link_detail". All fields are combined with a logical 'AND'. */
+export type HouseholdFreeeLinkDetailBoolExp = {
+  _and: InputMaybe<Array<HouseholdFreeeLinkDetailBoolExp>>;
+  _not: InputMaybe<HouseholdFreeeLinkDetailBoolExp>;
+  _or: InputMaybe<Array<HouseholdFreeeLinkDetailBoolExp>>;
+  detailId: InputMaybe<StringComparisonExp>;
+  id: InputMaybe<StringComparisonExp>;
+  linkedDatetime: InputMaybe<TimestamptzComparisonExp>;
+};
+
+/** unique or primary key constraints on table "household.freee_link_detail" */
+export type HouseholdFreeeLinkDetailConstraint =
+  /** unique or primary key constraint on columns "id" */
+  "freee_link_detail_pkey";
+
+/** input type for inserting data into table "household.freee_link_detail" */
+export type HouseholdFreeeLinkDetailInsertInput = {
+  detailId: InputMaybe<Scalars["String"]>;
+  id: InputMaybe<Scalars["String"]>;
+  linkedDatetime: InputMaybe<Scalars["timestamptz"]>;
+};
+
+/** order by max() on columns of table "household.freee_link_detail" */
+export type HouseholdFreeeLinkDetailMaxOrderBy = {
+  detailId: InputMaybe<OrderBy>;
+  id: InputMaybe<OrderBy>;
+  linkedDatetime: InputMaybe<OrderBy>;
+};
+
+/** order by min() on columns of table "household.freee_link_detail" */
+export type HouseholdFreeeLinkDetailMinOrderBy = {
+  detailId: InputMaybe<OrderBy>;
+  id: InputMaybe<OrderBy>;
+  linkedDatetime: InputMaybe<OrderBy>;
+};
+
+/** on_conflict condition type for table "household.freee_link_detail" */
+export type HouseholdFreeeLinkDetailOnConflict = {
+  constraint: HouseholdFreeeLinkDetailConstraint;
+  updateColumns: Array<HouseholdFreeeLinkDetailUpdateColumn>;
+  where: InputMaybe<HouseholdFreeeLinkDetailBoolExp>;
+};
+
+/** Ordering options when selecting data from "household.freee_link_detail". */
+export type HouseholdFreeeLinkDetailOrderBy = {
+  detailId: InputMaybe<OrderBy>;
+  id: InputMaybe<OrderBy>;
+  linkedDatetime: InputMaybe<OrderBy>;
+};
+
+/** select columns of table "household.freee_link_detail" */
+export type HouseholdFreeeLinkDetailSelectColumn =
+  /** column name */
+  | "detailId"
+  /** column name */
+  | "id"
+  /** column name */
+  | "linkedDatetime";
+
+/** Streaming cursor of the table "household_freee_link_detail" */
+export type HouseholdFreeeLinkDetailStreamCursorInput = {
+  /** Stream column input with initial value */
+  initialValue: HouseholdFreeeLinkDetailStreamCursorValueInput;
+  /** cursor ordering */
+  ordering: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type HouseholdFreeeLinkDetailStreamCursorValueInput = {
+  detailId: InputMaybe<Scalars["String"]>;
+  id: InputMaybe<Scalars["String"]>;
+  linkedDatetime: InputMaybe<Scalars["timestamptz"]>;
+};
+
+/** placeholder for update columns of table "household.freee_link_detail" (current role has no relevant permissions) */
+export type HouseholdFreeeLinkDetailUpdateColumn =
+  /** placeholder (do not use) */
+  "_PLACEHOLDER";
 
 export type HouseholdGenreAggregateBoolExp = {
   bool_and: InputMaybe<HouseholdGenreAggregateBoolExpBool_And>;
@@ -4489,6 +4590,11 @@ export type ChartDataQuery = {
         displayOrder: number;
       };
     }>;
+    freeeLinkDetails: Array<{
+      __typename: "HouseholdFreeeLinkDetail";
+      id: string;
+      linkedDatetime: YYYY_MM_DD_HH_MM_SS;
+    }>;
   }>;
   transferCategory: {
     __typename: "HouseholdTransferCategory";
@@ -4802,6 +4908,21 @@ export const ChartDataDocument = {
                       },
                     ],
                   },
+                },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "freeeLinkDetails" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "__typename" } },
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "linkedDatetime" },
                 },
               ],
             },

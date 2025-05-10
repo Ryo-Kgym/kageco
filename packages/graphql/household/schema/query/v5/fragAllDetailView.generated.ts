@@ -1,7 +1,7 @@
 import { YYYY_MM_DD, YYYY_MM_DD_HH_MM_SS } from "@/type/date/date";
 import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
 
-import * as Types from "../../generated/typed";
+import * as Types from "../../../generated/typed";
 
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -4542,54 +4542,148 @@ export type HouseholdTransferCategoryAggregateBoolExpCount = {
   predicate: IntComparisonExp;
 };
 
-export type InsertTemplateMutationVariables = Types.Exact<{
-  input: Types.HouseholdTemplateInsertInput;
-}>;
-
-export type InsertTemplateMutation = {
-  __typename?: "mutation_root";
-  insertHouseholdTemplateOne: {
-    __typename: "HouseholdTemplate";
+export type FragAllDetailViewFragment = {
+  __typename: "HouseholdAllDetailView";
+  id: string | null;
+  type: string | null;
+  settlementDate: YYYY_MM_DD | null;
+  withdrawalDate: YYYY_MM_DD | null;
+  iocomeType: string | null;
+  memo: string | null;
+  amount: number | null;
+  account: { __typename?: "HouseholdAccount"; id: string; name: string } | null;
+  genre: {
+    __typename?: "HouseholdGenre";
     id: string;
+    name: string;
+    genreType: string;
   } | null;
+  category: {
+    __typename?: "HouseholdCategory";
+    id: string;
+    name: string;
+    depositCategory: {
+      __typename?: "HouseholdDepositCategory";
+      id: string;
+    } | null;
+  } | null;
+  tags: Array<{
+    __typename: "HouseholdDetailTag";
+    id: string;
+    tag: {
+      __typename: "HouseholdTag";
+      id: string;
+      name: string;
+      colorCode: string;
+      displayOrder: number;
+    };
+  }>;
+  freeeLinkDetails: Array<{
+    __typename: "HouseholdFreeeLinkDetail";
+    id: string;
+    linkedDatetime: YYYY_MM_DD_HH_MM_SS;
+  }>;
 };
 
-export const InsertTemplateDocument = {
+export const FragAllDetailViewFragmentDoc = {
   kind: "Document",
   definitions: [
     {
-      kind: "OperationDefinition",
-      operation: "mutation",
-      name: { kind: "Name", value: "insertTemplate" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "input" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "HouseholdTemplateInsertInput" },
-            },
-          },
-        },
-      ],
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "fragAllDetailView" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "HouseholdAllDetailView" },
+      },
       selectionSet: {
         kind: "SelectionSet",
         selections: [
+          { kind: "Field", name: { kind: "Name", value: "__typename" } },
+          { kind: "Field", name: { kind: "Name", value: "id" } },
+          { kind: "Field", name: { kind: "Name", value: "type" } },
+          { kind: "Field", name: { kind: "Name", value: "settlementDate" } },
+          { kind: "Field", name: { kind: "Name", value: "withdrawalDate" } },
           {
             kind: "Field",
-            name: { kind: "Name", value: "insertHouseholdTemplateOne" },
+            alias: { kind: "Name", value: "amount" },
+            name: { kind: "Name", value: "originalAmount" },
+          },
+          { kind: "Field", name: { kind: "Name", value: "iocomeType" } },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "account" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "genre" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                { kind: "Field", name: { kind: "Name", value: "genreType" } },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "category" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "depositCategory" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        alias: { kind: "Name", value: "id" },
+                        name: { kind: "Name", value: "categoryId" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          { kind: "Field", name: { kind: "Name", value: "memo" } },
+          {
+            kind: "Field",
+            alias: { kind: "Name", value: "tags" },
+            name: { kind: "Name", value: "detailTags" },
             arguments: [
               {
                 kind: "Argument",
-                name: { kind: "Name", value: "object" },
+                name: { kind: "Name", value: "orderBy" },
                 value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "input" },
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "tag" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "displayOrder" },
+                            value: { kind: "EnumValue", value: "ASC" },
+                          },
+                        ],
+                      },
+                    },
+                  ],
                 },
               },
             ],
@@ -4598,14 +4692,57 @@ export const InsertTemplateDocument = {
               selections: [
                 { kind: "Field", name: { kind: "Name", value: "__typename" } },
                 { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "tag" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "FragmentSpread",
+                        name: { kind: "Name", value: "fragTag" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "freeeLinkDetails" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "__typename" } },
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "linkedDatetime" },
+                },
               ],
             },
           },
         ],
       },
     },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "fragTag" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "HouseholdTag" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "__typename" } },
+          { kind: "Field", name: { kind: "Name", value: "id" } },
+          { kind: "Field", name: { kind: "Name", value: "name" } },
+          { kind: "Field", name: { kind: "Name", value: "colorCode" } },
+          { kind: "Field", name: { kind: "Name", value: "displayOrder" } },
+        ],
+      },
+    },
   ],
-} as unknown as DocumentNode<
-  InsertTemplateMutation,
-  InsertTemplateMutationVariables
->;
+} as unknown as DocumentNode<FragAllDetailViewFragment, unknown>;
