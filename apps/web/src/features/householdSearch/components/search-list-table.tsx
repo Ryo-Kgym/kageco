@@ -47,6 +47,7 @@ export const SearchListTable: FC<Props> = ({ records }) => {
             render: (record) => {
               return (
                 <>
+                  {record.freeeLinked && <span>freee連携済み</span>}
                   <TagGroup tags={record.tags} />
                   {record.memo}
                 </>
@@ -72,6 +73,7 @@ export const SearchListTable: FC<Props> = ({ records }) => {
               label: tag.name,
               colorCode: tag.colorCode,
             })),
+          freeeLinked: r.freeeLinkDetails[0]?.id,
         }))}
         recordsPerPage={200}
         onRowClick={(detail) => {
