@@ -13,11 +13,16 @@ export const AppListContainer = () => {
 
   if (fetching) return <Text>Loading...</Text>;
 
-  const apps =
-    data?.group?.groupApplications.map((g) => ({
+  const apps = [
+    ...(data?.group?.groupApplications.map((g) => ({
       appName: g.application.name,
       path: paths.household.dashboard,
-    })) ?? [];
+    })) ?? []),
+    {
+      appName: "勤怠管理",
+      path: paths.business.timecard,
+    },
+  ];
 
   return <AppListPresenter apps={apps} />;
 };

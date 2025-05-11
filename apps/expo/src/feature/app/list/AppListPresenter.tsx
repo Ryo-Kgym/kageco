@@ -11,7 +11,7 @@ export const AppListPresenter = ({
     renderItem={({ item: app }) => (
       <Pressable
         className={
-          "rounded-2xl border-2 border-gray-500 bg-neutral-50 shadow-md"
+          "rounded-2xl border-2 border-gray-500 bg-neutral-50 shadow-sm mb-2"
         }
       >
         <Link href={app.path as `./`}>
