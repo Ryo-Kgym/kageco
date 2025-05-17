@@ -2,7 +2,7 @@
 
 import type { MantineSize } from "@mantine/core";
 import { Button, Modal, Text, TextInput } from "@mantine/core";
-import { useState } from "react";
+import { type JSX, useState } from "react";
 
 import styles from "./ModalTableSelect.module.scss";
 import type { SelectData } from "./index";

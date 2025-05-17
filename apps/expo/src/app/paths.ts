@@ -49,4 +49,7 @@ export const paths = {
         `/household/setting/favoriteFilter/detail?id=${id}&name=${name}` as "/",
     },
   },
+  business: {
+    timecard: "/business/timecard" as "/",
+  }
 } as const;

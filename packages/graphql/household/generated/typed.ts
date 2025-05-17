@@ -14,6 +14,7 @@ export type Scalars = {
   date: YYYY_MM_DD;
   numeric: number;
   timestamp: YYYY_MM_DD_HH_MM_SS;
+  json: object
 };
 
 export type Maybe<T> = T | null;
@@ -29,4 +30,16 @@ export interface HouseholdFreeeLinkDetailInsertInput {
   detailId: string
   id: string
   linkedDatetime: YYYY_MM_DD_HH_MM_SS
+}
+
+export interface HouseholdTemplateInsertInput {
+  id: string,
+  groupId: string,
+  name: string,
+  accountId: string,
+  genreId: string,
+  categoryId: string,
+  iocomeType: string,
+  amount: number,
+  memo: string,
 }

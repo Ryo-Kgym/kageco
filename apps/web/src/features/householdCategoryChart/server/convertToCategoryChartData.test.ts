@@ -11,6 +11,7 @@ const dummyData = {
   withdrawalDate: null,
   memo: null,
   account: null,
+  freeeLinkDetails: [],
 };
 
 describe("convertToCategoryChartData", () => {
