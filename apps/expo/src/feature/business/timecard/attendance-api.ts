@@ -37,15 +37,33 @@ export const attendOrLeaveWork = async (
 
 /**
  * 現在の出勤・退勤状態を取得する
+ * @param baseDate 基準日（YYYY-MM-DD形式）
  * @param userId ユーザーID
  * @param groupId グループID
  * @returns 現在の状態（"attend" または "leave"）
  */
 export const fetchAttendanceState = async (
+  baseDate: string,
   userId: string,
   groupId: string
-): Promise<{ nextState: "attend" | "leave" }> => {
-  return attendOrLeaveWork(userId, groupId);
+): Promise<{ lastState: "attend" | "leave" }> => {
+  try {
+    const response = await fetch(
+      `${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api/business/attendOrLeaveWork?baseDate=${baseDate}&userId=${userId}&groupId=${groupId}`,
+      {
+        method: "GET",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("勤怠データの取得に失敗しました");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error in fetchMonthlyAttendance API:", error);
+    throw error;
+  }
 };
 
 /**

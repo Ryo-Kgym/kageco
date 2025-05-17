@@ -49,7 +49,13 @@ export const MonthlyCalendar = () => {
         // 月の初日を基準日として使用
         const baseDate = `${year}-${String(month + 1).padStart(2, '0')}-01`;
         const data = await fetchMonthlyAttendance(baseDate, userId, groupId);
-        console.log(data);
+        console.log("Received attendance data:", JSON.stringify(data, null, 2));
+
+        // データ内のログを確認
+        if (data && data.days && data.days.length > 0) {
+          console.log("First day logs:", JSON.stringify(data.days[0].logs, null, 2));
+        }
+
         setAttendanceData(data);
       } catch (err) {
         console.error("Error fetching attendance data:", err);
@@ -82,11 +88,19 @@ export const MonthlyCalendar = () => {
     if (!attendanceData) return undefined;
 
     const dateString = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-    return attendanceData.days.find(day => day.date.toString() === dateString);
+
+    // 日付文字列の比較方法を修正
+    return attendanceData.days.find(day => {
+      const dayDateStr = day.date.toString();
+      // 日付文字列が一致するか確認
+      return dayDateStr === dateString;
+    });
   };
 
   // 日付をタップしたときのハンドラ
   const handleDayPress = (day: DayAttendance) => {
+    console.log("Selected day:", JSON.stringify(day, null, 2));
+    console.log("Selected day logs:", day.logs ? JSON.stringify(day.logs, null, 2) : "No logs");
     setSelectedDay(day);
     setDetailModalVisible(true);
   };

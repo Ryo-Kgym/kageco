@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Modal, ScrollView } from "react-native";
 import { formatTime, formatMinutes, formatSeconds } from "./utils";
 import type { DayAttendance } from "./types";
@@ -13,9 +12,13 @@ interface DailyAttendanceDetailProps {
  * 日毎の勤怠詳細を表示するコンポーネント
  */
 export const DailyAttendanceDetail = ({ day, onClose, visible }: DailyAttendanceDetailProps) => {
+  // デバッグログ
+  console.log("DailyAttendanceDetail - day:", JSON.stringify(day, null, 2));
+  console.log("DailyAttendanceDetail - logs:", day.logs ? JSON.stringify(day.logs, null, 2) : "No logs");
+
   // 日付を整形
   const formattedDate = day.date.toString().replace(/(\d{4})-(\d{2})-(\d{2})/, "$1年$2月$3日");
-  
+
   return (
     <Modal
       animationType="slide"
@@ -26,7 +29,7 @@ export const DailyAttendanceDetail = ({ day, onClose, visible }: DailyAttendance
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text style={styles.modalTitle}>{formattedDate}（{day.dayOfWeek}）</Text>
-          
+
           {/* 勤怠情報 */}
           <View style={styles.infoContainer}>
             <View style={styles.infoRow}>
@@ -35,21 +38,21 @@ export const DailyAttendanceDetail = ({ day, onClose, visible }: DailyAttendance
                 {day.startDatetime ? formatTime(day.startDatetime.parseDate()) : "-"}
               </Text>
             </View>
-            
+
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>退勤時間:</Text>
               <Text style={styles.infoValue}>
                 {day.endDatetime ? formatTime(day.endDatetime.parseDate()) : "-"}
               </Text>
             </View>
-            
+
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>休憩時間:</Text>
               <Text style={styles.infoValue}>
                 {formatMinutes(day.breakSecond)}分
               </Text>
             </View>
-            
+
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>勤務時間:</Text>
               <Text style={styles.infoValue}>
@@ -57,11 +60,11 @@ export const DailyAttendanceDetail = ({ day, onClose, visible }: DailyAttendance
               </Text>
             </View>
           </View>
-          
+
           {/* ログ履歴 */}
-          {day.logs && day.logs.length > 0 && (
-            <View style={styles.logsContainer}>
-              <Text style={styles.sectionTitle}>ログ履歴</Text>
+          <View style={styles.logsContainer}>
+            <Text style={styles.sectionTitle}>ログ履歴</Text>
+            {day.logs && day.logs.length > 0 ? (
               <ScrollView style={styles.logsList}>
                 {day.logs.map((log, index) => (
                   <View key={log.id} style={styles.logItem}>
@@ -75,9 +78,11 @@ export const DailyAttendanceDetail = ({ day, onClose, visible }: DailyAttendance
                   </View>
                 ))}
               </ScrollView>
-            </View>
-          )}
-          
+            ) : (
+              <Text style={styles.noLogsText}>ログ記録がありません</Text>
+            )}
+          </View>
+
           <TouchableOpacity
             style={styles.closeButton}
             onPress={onClose}
@@ -172,6 +177,13 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     color: "#666",
     flex: 1,
+  },
+  noLogsText: {
+    fontSize: 14,
+    color: "#999",
+    fontStyle: "italic",
+    textAlign: "center",
+    padding: 10,
   },
   closeButton: {
     backgroundColor: "#2196F3",

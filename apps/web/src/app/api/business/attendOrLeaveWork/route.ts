@@ -126,7 +126,6 @@ export async function GET(request: Request) {
 
     // 勤怠データを取得
     const attendanceData = await apiFetchAttendance(baseDate, userId, groupId);
-    console.log(attendanceData);
 
     // レスポンスを返す
     return NextResponse.json(attendanceData);

@@ -11,6 +11,7 @@ export const AttendanceButtonView = () => {
   // ユーザーIDとグループIDを取得
   const { userId } = useSaveUserId();
   const { groupId } = useSaveGroupId();
+  const now = new Date();
 
   // 出勤・退勤の状態を管理するstate
   const [attendanceState, setAttendanceState] = useState<"attend" | "leave">("attend");
@@ -24,11 +25,12 @@ export const AttendanceButtonView = () => {
       try {
         setIsLoading(true);
 
+        const baseDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-01`;
         // APIを呼び出して現在の状態を取得する
-        const data = await fetchAttendanceState(userId, groupId);
+        const data = await fetchAttendanceState(baseDate,userId, groupId);
 
         // 次の状態を設定する
-        setAttendanceState(data.nextState);
+        setAttendanceState(data.lastState);
       } catch (error) {
         console.error("Error fetching initial state:", error);
         // 初期状態の取得に失敗した場合はデフォルト値を使用
