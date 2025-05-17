@@ -47,3 +47,31 @@ export const fetchAttendanceState = async (
 ): Promise<{ nextState: "attend" | "leave" }> => {
   return attendOrLeaveWork(userId, groupId);
 };
+
+/**
+ * 月次の勤怠データを取得する
+ * @param baseDate 基準日（YYYY-MM-DD形式）
+ * @returns 月次の勤怠データ
+ */
+export const fetchMonthlyAttendance = async (baseDate: string) => {
+  try {
+    const response = await fetch(
+      `${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api/business/fetchMonthlyAttendance?baseDate=${baseDate}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("月次勤怠データの取得に失敗しました");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error in fetchMonthlyAttendance API:", error);
+    throw error;
+  }
+};
