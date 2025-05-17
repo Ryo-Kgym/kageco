@@ -56,7 +56,7 @@ export const fetchAttendanceState = async (
 export const fetchMonthlyAttendance = async (baseDate: string) => {
   try {
     const response = await fetch(
-      `${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api/business/fetchMonthlyAttendance?baseDate=${baseDate}`,
+      `${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api/business/attendOrLeaveWork?baseDate=${baseDate}`,
       {
         method: "GET",
         headers: {

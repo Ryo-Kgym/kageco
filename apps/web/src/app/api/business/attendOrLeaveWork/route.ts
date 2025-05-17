@@ -1,6 +1,6 @@
 import { convertToYmd } from "@/core/function/date/convertToYmd";
 import { CalcAttendanceLogUsecase } from "@/core/usecase/business/attend/CalcAttendanceLogUsecase";
-import { TZDateTime, YYYYmmDD } from "@/type/date/date";
+import { TZDateTime, type YYYY_MM_DD, YYYYmmDD } from "@/type/date/date";
 import {
   InsertDailyAttendanceDocument,
   InsertDailyAttendanceLogDocument,
@@ -10,6 +10,7 @@ import { NextResponse } from "next/server";
 
 import { generateId } from "../../../../function/generateId";
 import { execMutation } from "../../../../persistence/database/server/execMutation";
+import { apiFetchAttendance } from "./api-fetch-attendance";
 import { ApiFindLastAttendanceLogRepository } from "./api-find-last-attendance-log-repository";
 
 export async function POST(request: Request) {
@@ -87,6 +88,53 @@ export async function POST(request: Request) {
     console.error("Error in attendOrLeaveWork API:", error);
     return NextResponse.json(
       { error: "Failed to process attendance request" },
+      { status: 500 },
+    );
+  }
+}
+
+export async function GET(request: Request) {
+  try {
+    // URLからクエリパラメータを取得
+    const { searchParams } = new URL(request.url);
+    const baseDate = searchParams.get("baseDate") as YYYY_MM_DD;
+
+    // リクエストボディからuserIdとgroupIdを取得
+    const body = await request.json();
+    const { userId, groupId } = body;
+
+    // 必須パラメータの検証
+    if (!baseDate) {
+      return NextResponse.json(
+        { error: "baseDate is required" },
+        { status: 400 },
+      );
+    }
+
+    if (!userId || !groupId) {
+      return NextResponse.json(
+        { error: "userId and groupId are required" },
+        { status: 400 },
+      );
+    }
+
+    // 日付形式の検証
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(baseDate)) {
+      return NextResponse.json(
+        { error: "baseDate must be in YYYY-MM-DD format" },
+        { status: 400 },
+      );
+    }
+
+    // 勤怠データを取得
+    const attendanceData = await apiFetchAttendance(baseDate, userId, groupId);
+
+    // レスポンスを返す
+    return NextResponse.json(attendanceData);
+  } catch (error) {
+    console.error("Error in attendOrLeaveWork GET API:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch attendance data" },
       { status: 500 },
     );
   }
