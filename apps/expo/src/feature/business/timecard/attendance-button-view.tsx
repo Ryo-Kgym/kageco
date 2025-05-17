@@ -2,13 +2,12 @@ import { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { useSaveUserId } from "~/hooks/user/useSaveUserId";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
-import { MonthlyCalendar } from "./monthly-calendar";
 import { attendOrLeaveWork, fetchAttendanceState } from "./attendance-api";
 
 /**
- * 勤怠管理のUI表示コンポーネント
+ * 出勤・退勤ボタンのUI表示コンポーネント
  */
-export const TimecardView = () => {
+export const AttendanceButtonView = () => {
   // ユーザーIDとグループIDを取得
   const { userId } = useSaveUserId();
   const { groupId } = useSaveGroupId();
@@ -67,7 +66,7 @@ export const TimecardView = () => {
         <TouchableOpacity
           style={[
             styles.attendanceButton,
-            attendanceState === "leave" ?styles.attendButton: styles.leaveButton ,
+            attendanceState === "leave" ? styles.attendButton : styles.leaveButton,
             isLoading && styles.disabledButton,
           ]}
           onPress={handleAttendanceButtonClick}
@@ -78,8 +77,6 @@ export const TimecardView = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      <Text style={styles.title}>勤怠記録</Text>
-      <MonthlyCalendar />
     </View>
   );
 };
@@ -123,11 +120,5 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 24,
     fontWeight: "bold",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 16,
-    color: "#000",
   },
 });

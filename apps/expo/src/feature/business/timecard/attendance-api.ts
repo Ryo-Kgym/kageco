@@ -13,7 +13,7 @@ export const attendOrLeaveWork = async (
   groupId: string
 ): Promise<{ nextState: "attend" | "leave" }> => {
   try {
-    const response = await fetch("https://home-helper.vercel.app/api/business/attendOrLeaveWork", {
+    const response = await fetch(`${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api/business/attendOrLeaveWork`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
