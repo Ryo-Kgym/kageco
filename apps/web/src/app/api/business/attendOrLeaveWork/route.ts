@@ -98,10 +98,8 @@ export async function GET(request: Request) {
     // URLからクエリパラメータを取得
     const { searchParams } = new URL(request.url);
     const baseDate = searchParams.get("baseDate") as YYYY_MM_DD;
-
-    // リクエストボディからuserIdとgroupIdを取得
-    const body = await request.json();
-    const { userId, groupId } = body;
+    const userId = searchParams.get("userId");
+    const groupId = searchParams.get("groupId");
 
     // 必須パラメータの検証
     if (!baseDate) {

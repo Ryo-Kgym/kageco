@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
-import { StyleSheet, Text, View, ScrollView, ActivityIndicator, TouchableOpacity, Alert } from "react-native";
-import { useSaveUserId } from "~/hooks/user/useSaveUserId";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
+import type { DayAttendance, DayOfWeek, MonthlyAttendanceData } from "./types";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
+import { useSaveUserId } from "~/hooks/user/useSaveUserId";
 import { fetchMonthlyAttendance } from "./attendance-api";
-import { formatTime, formatMinutes, formatSeconds } from "./utils";
-import type { MonthlyAttendanceData, DayAttendance } from "./types";
 import { DailyAttendanceDetail } from "./daily-attendance-detail";
+import { formatMinutes, formatSeconds, formatTime } from "./utils";
+
 
 /**
  * 月間カレンダーコンポーネント
@@ -23,7 +25,8 @@ export const MonthlyCalendar = () => {
 
   // 勤怠データの状態
   const [loading, setLoading] = useState(false);
-  const [attendanceData, setAttendanceData] = useState<MonthlyAttendanceData | null>(null);
+  const [attendanceData, setAttendanceData] =
+    useState<MonthlyAttendanceData | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // 選択された日の状態
@@ -47,11 +50,11 @@ export const MonthlyCalendar = () => {
         setError(null);
 
         // 月の初日を基準日として使用
-        const baseDate = `${year}-${String(month + 1).padStart(2, '0')}-01`;
-        const data = await fetchMonthlyAttendance(baseDate);
+        const baseDate = `${year}-${String(month + 1).padStart(2, "0")}-01`;
+        const data = await fetchMonthlyAttendance(baseDate, userId, groupId);
+
         setAttendanceData(data);
       } catch (err) {
-        console.error("Error fetching attendance data:", err);
         setError("勤怠データの取得に失敗しました");
         Alert.alert("エラー", "勤怠データの取得に失敗しました");
       } finally {
@@ -62,26 +65,31 @@ export const MonthlyCalendar = () => {
     fetchData();
   }, [userId, groupId, year, month]);
 
-  // 月の最後の日を取得
-  const lastDay = new Date(year, month + 1, 0);
-  const daysInMonth = lastDay.getDate();
+  // data.days から日付ごとのデータを取得するためのマップを作成
+  const attendanceDaysMap = new Map<string, DayAttendance>();
+  if (attendanceData && attendanceData.days) {
+    attendanceData.days.forEach((day) => {
+      const dateStr = day.date.toString();
+      attendanceDaysMap.set(dateStr, day);
+    });
+  }
 
   // 日付の配列を作成
-  const calendarDays = Array.from({ length: daysInMonth }, (_, i) => {
-    const date = new Date(year, month, i + 1);
-    return {
-      date: date,
-      dayOfWeek: getDayOfWeekJapanese(date.getDay()),
-      dayOfWeekColor: getDayOfWeekColor(date.getDay()),
-    };
-  });
+  const calendarDays = (attendanceData?.days.map((d) => ({
+    date: d.date.yyyyMMdd,
+    dayOfWeek: d.dayOfWeek,
+    dayOfWeekColor: getDayOfWeekColor(d.dayOfWeek),
+    startDatetime: d.startDatetime?.tzDateTime,
+    endDatetime: d.endDatetime?.tzDateTime,
+    breakSecond:d.breakSecond
+
+  })) ?? []) satisfies Array<{ date: string; dayOfWeek: DayOfWeek }>;
 
   // 勤怠データから日付ごとのデータを取得する関数
-  const getAttendanceForDate = (date: Date): DayAttendance | undefined => {
+  const getAttendanceForDate = (date: string): DayAttendance | undefined => {
     if (!attendanceData) return undefined;
-
-    const dateString = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-    return attendanceData.days.find(day => day.date.toString() === dateString);
+    // マップから直接データを取得
+    return attendanceDaysMap.get(date);
   };
 
   // 日付をタップしたときのハンドラ
@@ -99,11 +107,17 @@ export const MonthlyCalendar = () => {
     <View style={styles.calendarContainer}>
       {/* 月切り替えナビゲーション */}
       <View style={styles.navigation}>
-        <TouchableOpacity onPress={() => changeMonth(-1)} style={styles.navButton}>
+        <TouchableOpacity
+          onPress={() => changeMonth(-1)}
+          style={styles.navButton}
+        >
           <Text style={styles.navButtonText}>前月</Text>
         </TouchableOpacity>
         <Text style={styles.monthTitle}>{`${year}年${month + 1}月`}</Text>
-        <TouchableOpacity onPress={() => changeMonth(1)} style={styles.navButton}>
+        <TouchableOpacity
+          onPress={() => changeMonth(1)}
+          style={styles.navButton}
+        >
           <Text style={styles.navButtonText}>翌月</Text>
         </TouchableOpacity>
       </View>
@@ -112,13 +126,13 @@ export const MonthlyCalendar = () => {
       {attendanceData && (
         <View style={styles.summary}>
           <Text style={styles.summaryText}>
-            予定: {attendanceData.monthlyPlanned.businessDays}日 / 
+            予定: {attendanceData.monthlyPlanned.businessDays}日 /
             {formatSeconds(attendanceData.monthlyPlanned.workSecondLower)}〜
             {formatSeconds(attendanceData.monthlyPlanned.workSecondUpper)}
           </Text>
           <Text style={styles.summaryText}>
-            実績: {formatSeconds(attendanceData.totalWorkSecond)} / 
-            残り: {attendanceData.remaining.businessDays}日
+            実績: {formatSeconds(attendanceData.totalWorkSecond)} / 残り:{" "}
+            {attendanceData.remaining.businessDays}日
           </Text>
         </View>
       )}
@@ -147,24 +161,24 @@ export const MonthlyCalendar = () => {
           {calendarDays.map((day, index) => {
             const attendanceDay = getAttendanceForDate(day.date);
             return (
-              <TouchableOpacity 
-                key={index} 
+              <TouchableOpacity
+                key={index}
                 style={isToday(day.date) ? styles.todayRow : styles.row}
                 onPress={() => attendanceDay && handleDayPress(attendanceDay)}
                 disabled={!attendanceDay}
               >
-                <Text style={styles.dateCell}>{day.date.getDate()}</Text>
+                <Text style={styles.dateCell}>{day.date.slice(8,10)}</Text>
                 <Text style={[styles.dayCell, { color: day.dayOfWeekColor }]}>
                   {day.dayOfWeek}
                 </Text>
                 <Text style={styles.cell}>
-                  {attendanceDay?.startDatetime ? formatTime(attendanceDay.startDatetime.parseDate()) : ""}
+                  {formatTime(day.startDatetime, "")}
                 </Text>
                 <Text style={styles.cell}>
-                  {attendanceDay?.endDatetime ? formatTime(attendanceDay.endDatetime.parseDate()) : ""}
+                  {formatTime(day.endDatetime, "")}
                 </Text>
                 <Text style={styles.cell}>
-                  {attendanceDay ? formatMinutes(attendanceDay.breakSecond) : ""}
+                  {formatMinutes(day.breakSecond, "")}
                 </Text>
               </TouchableOpacity>
             );
@@ -195,22 +209,22 @@ const getDayOfWeekJapanese = (dayIndex: number): string => {
 /**
  * 曜日に応じた色を返す
  */
-const getDayOfWeekColor = (dayIndex: number): string => {
-  if (dayIndex === 0) return "#F44336"; // 日曜日は赤
-  if (dayIndex === 6) return "#2196F3"; // 土曜日は青
+const getDayOfWeekColor = (dayIndex: DayOfWeek): string => {
+  if (dayIndex === "sun") return "#F44336"; // 日曜日は赤
+  if (dayIndex ==="sat") return "#2196F3"; // 土曜日は青
   return "#333333"; // 平日は黒
 };
 
 /**
  * 指定された日付が今日かどうかを判定する
  */
-const isToday = (date: Date): boolean => {
+const isToday = (date: string): boolean => {
   const today = new Date();
-  return (
-    date.getDate() === today.getDate() &&
-    date.getMonth() === today.getMonth() &&
-    date.getFullYear() === today.getFullYear()
-  );
+  const day = today.getDate();
+  const month = today.getMonth();
+  const year = today.getFullYear();
+  const d = new Date(year, month, day);
+  return date === d.toISOString().slice(0, 10);
 };
 
 /**
@@ -226,7 +240,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
-    height: '90%', // コンテナの高さを制限して、スクロールが必要になるようにする
+    height: "90%", // コンテナの高さを制限して、スクロールが必要になるようにする
   },
   // 月切り替えナビゲーション
   navigation: {
