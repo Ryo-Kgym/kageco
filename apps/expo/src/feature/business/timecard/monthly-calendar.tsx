@@ -23,7 +23,6 @@ export const MonthlyCalendar = () => {
       dayOfWeekColor: getDayOfWeekColor(date.getDay()),
     };
   });
-  console.log(days);
 
   return (
     <View style={styles.calendarContainer}>
@@ -93,7 +92,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
-    height: '85%', // コンテナの高さを制限して、スクロールが必要になるようにする
+    height: '90%', // コンテナの高さを制限して、スクロールが必要になるようにする
   },
   scrollView: {
     flex: 1,

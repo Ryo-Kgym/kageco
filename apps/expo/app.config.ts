@@ -18,7 +18,7 @@ const defineConfig = (): ExpoConfig => ({
     url: "https://u.expo.dev/86b12fab-9446-4883-bde4-cac8a047cdaa",
   },
   assetBundlePatterns: ["**/*"],
-  runtimeVersion: "exposdk:49.0.0",
+  runtimeVersion: "exposdk:53.0.0",
   ios: {
     runtimeVersion: "1.0.0",
     bundleIdentifier: "your.bundle.identifier",
