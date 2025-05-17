@@ -51,17 +51,16 @@ export const fetchAttendanceState = async (
 /**
  * 月次の勤怠データを取得する
  * @param baseDate 基準日（YYYY-MM-DD形式）
+ * @param userId ユーザーID
+ * @param groupId グループID
  * @returns 月次の勤怠データ
  */
-export const fetchMonthlyAttendance = async (baseDate: string) => {
+export const fetchMonthlyAttendance = async (baseDate: string, userId: string, groupId: string) => {
   try {
     const response = await fetch(
-      `${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api/business/attendOrLeaveWork?baseDate=${baseDate}`,
+      `${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api/business/attendOrLeaveWork?baseDate=${baseDate}&userId=${userId}&groupId=${groupId}`,
       {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
       }
     );
 

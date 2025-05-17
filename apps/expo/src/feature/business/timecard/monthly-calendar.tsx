@@ -48,7 +48,8 @@ export const MonthlyCalendar = () => {
 
         // 月の初日を基準日として使用
         const baseDate = `${year}-${String(month + 1).padStart(2, '0')}-01`;
-        const data = await fetchMonthlyAttendance(baseDate);
+        const data = await fetchMonthlyAttendance(baseDate, userId, groupId);
+        console.log(data);
         setAttendanceData(data);
       } catch (err) {
         console.error("Error fetching attendance data:", err);
