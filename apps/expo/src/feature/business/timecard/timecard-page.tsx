@@ -1,10 +1,5 @@
-import { TimecardView } from "~/feature/business/timecard/timecard-view";
-/**
- * 勤怠管理ページのメインコンポーネント
- * SSRを採用し、サーバーサイドでデータを取得して表示する
- */
-export const TimecardPage = () => {
-  return (
-    <TimecardView />
-  );
-};
+import { AttendanceButtonView } from "./attendance-button-view";
+import { AttendanceRecordsView } from "./attendance-records-view";
+
+// 各タブで使用するコンポーネントをエクスポート
+export { AttendanceButtonView, AttendanceRecordsView };

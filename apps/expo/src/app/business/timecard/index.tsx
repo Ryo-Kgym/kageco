@@ -1,22 +1,9 @@
-import { StyleSheet, View } from "react-native";
-import { Stack } from "expo-router";
-import { TimecardPage } from "~/feature/business/timecard";
+import { Redirect } from "expo-router";
 
 /**
  * 勤怠管理ページ
- * SSRを採用し、サーバーサイドでデータを取得して表示する
+ * 出勤・退勤ボタンタブにリダイレクトする
  */
 export default function Page() {
-  return (
-    <View style={styles.container}>
-      <Stack.Screen options={{ headerTitle: "勤怠管理" }} />
-      <TimecardPage />
-    </View>
-  );
+  return <Redirect href="/business/timecard/button" />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1 // これが重要です
-  }
-});

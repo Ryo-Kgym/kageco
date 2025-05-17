@@ -2,9 +2,9 @@ import { StyleSheet, Text, View } from "react-native";
 import { MonthlyCalendar } from "./monthly-calendar";
 
 /**
- * 勤怠管理のUI表示コンポーネント
+ * 勤怠記録のUI表示コンポーネント
  */
-export const TimecardView = () => {
+export const AttendanceRecordsView = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>勤怠記録</Text>

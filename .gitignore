@@ -53,3 +53,4 @@ yarn-error.log*
 /packages/graphql/**/schema.json
 /packages/graphql/**/schema/graphql.config.yml
 /packages/graphql/**/schema/schema.graphql
+/apps/expo/.env.development
