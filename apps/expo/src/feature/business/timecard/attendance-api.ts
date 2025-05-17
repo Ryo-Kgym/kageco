@@ -12,27 +12,22 @@ export const attendOrLeaveWork = async (
   userId: string,
   groupId: string
 ): Promise<{ nextState: "attend" | "leave" }> => {
-  try {
-    const response = await fetch(`${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api/business/attendOrLeaveWork`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId,
-        groupId,
-      }),
-    });
+  const response = await fetch(`${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api/business/attendOrLeaveWork`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userId,
+      groupId,
+    }),
+  });
 
-    if (!response.ok) {
-      throw new Error("APIリクエストに失敗しました");
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Error in attendOrLeaveWork API:", error);
-    throw error;
+  if (!response.ok) {
+    throw new Error("APIリクエストに失敗しました");
   }
+
+  return await response.json();
 };
 
 /**
@@ -47,23 +42,18 @@ export const fetchAttendanceState = async (
   userId: string,
   groupId: string
 ): Promise<{ lastState: "attend" | "leave" }> => {
-  try {
-    const response = await fetch(
-      `${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api/business/attendOrLeaveWork?baseDate=${baseDate}&userId=${userId}&groupId=${groupId}`,
-      {
-        method: "GET",
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("勤怠データの取得に失敗しました");
+  const response = await fetch(
+    `${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api/business/attendOrLeaveWork?baseDate=${baseDate}&userId=${userId}&groupId=${groupId}`,
+    {
+      method: "GET",
     }
+  );
 
-    return await response.json();
-  } catch (error) {
-    console.error("Error in fetchMonthlyAttendance API:", error);
-    throw error;
+  if (!response.ok) {
+    throw new Error("勤怠データの取得に失敗しました");
   }
+
+  return await response.json();
 };
 
 /**
@@ -74,21 +64,16 @@ export const fetchAttendanceState = async (
  * @returns 月次の勤怠データ
  */
 export const fetchMonthlyAttendance = async (baseDate: string, userId: string, groupId: string) => {
-  try {
-    const response = await fetch(
-      `${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api/business/attendOrLeaveWork?baseDate=${baseDate}&userId=${userId}&groupId=${groupId}`,
-      {
-        method: "GET",
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("月次勤怠データの取得に失敗しました");
+  const response = await fetch(
+    `${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api/business/attendOrLeaveWork?baseDate=${baseDate}&userId=${userId}&groupId=${groupId}`,
+    {
+      method: "GET",
     }
+  );
 
-    return await response.json();
-  } catch (error) {
-    console.error("Error in fetchMonthlyAttendance API:", error);
-    throw error;
+  if (!response.ok) {
+    throw new Error("月次勤怠データの取得に失敗しました");
   }
+
+  return await response.json();
 };

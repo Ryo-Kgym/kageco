@@ -6,6 +6,7 @@
  * 勤怠ログの状態
  */
 export type AttendanceState = "attend" | "leave";
+export type DayOfWeek = "sun" | "mon" | "tue" | "wed" | "thu" | "fri" | "sat";
 
 /**
  * 勤怠ログ
@@ -13,8 +14,7 @@ export type AttendanceState = "attend" | "leave";
 export interface AttendanceLog {
   id: string;
   datetime: {
-    parseDate: () => Date;
-    toString: () => string;
+    tzDateTime: string;
   };
   state: AttendanceState;
   memo?: string;
@@ -26,16 +26,14 @@ export interface AttendanceLog {
 export interface DayAttendance {
   id: string;
   date: {
-    toString: () => string;
+    yyyyMMdd: string
   };
-  dayOfWeek: string;
+  dayOfWeek: DayOfWeek;
   startDatetime?: {
-    parseDate: () => Date;
-    toString: () => string;
+    tzDateTime: string;
   };
   endDatetime?: {
-    parseDate: () => Date;
-    toString: () => string;
+    tzDateTime: string;
   };
   breakSecond: number;
   workSecond: number;

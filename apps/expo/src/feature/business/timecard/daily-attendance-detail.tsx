@@ -35,14 +35,14 @@ export const DailyAttendanceDetail = ({ day, onClose, visible }: DailyAttendance
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>出勤時間:</Text>
               <Text style={styles.infoValue}>
-                {day.startDatetime ? formatTime(day.startDatetime.parseDate()) : "-"}
+                {formatTime(day?.startDatetime?.tzDateTime,"-")}
               </Text>
             </View>
 
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>退勤時間:</Text>
               <Text style={styles.infoValue}>
-                {day.endDatetime ? formatTime(day.endDatetime.parseDate()) : "-"}
+                {formatTime(day?.endDatetime?.tzDateTime,"-") }
               </Text>
             </View>
 
@@ -69,7 +69,7 @@ export const DailyAttendanceDetail = ({ day, onClose, visible }: DailyAttendance
                 {day.logs.map((log, index) => (
                   <View key={log.id} style={styles.logItem}>
                     <Text style={styles.logTime}>
-                      {formatTime(log.datetime.parseDate())}
+                      {formatTime(log.datetime.tzDateTime)}
                     </Text>
                     <Text style={styles.logState}>
                       {log.state === "attend" ? "出勤" : "退勤"}
