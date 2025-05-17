@@ -1,6 +1,5 @@
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Stack } from "expo-router";
-
 import { TimecardPage } from "~/feature/business/timecard";
 
 /**
@@ -9,9 +8,15 @@ import { TimecardPage } from "~/feature/business/timecard";
  */
 export default function Page() {
   return (
-    <View>
+    <View style={styles.container}>
       <Stack.Screen options={{ headerTitle: "勤怠管理" }} />
       <TimecardPage />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1 // これが重要です
+  }
+});
