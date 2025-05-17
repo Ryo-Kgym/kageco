@@ -8,6 +8,7 @@ const dummyData = {
   account: null,
   genre: null,
   category: null,
+  freeeLinkDetails: [],
 };
 
 describe("sumBalanceData", () => {

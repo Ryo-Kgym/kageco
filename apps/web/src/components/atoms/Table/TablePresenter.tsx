@@ -9,7 +9,7 @@ type TablePresenterProps = {
   fontSize: number;
   horizontalSpacing: number;
   verticalSpacing: number;
-  viewport: RefObject<HTMLDivElement>;
+  viewport: RefObject<HTMLDivElement | null>;
   scrollToBottom?: () => void;
   toButtonOpen: boolean;
   onMouseMoveHandler: () => void;

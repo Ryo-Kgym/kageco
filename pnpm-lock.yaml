@@ -9893,7 +9893,7 @@ snapshots:
   '@graphql-tools/optimize@1.4.0(graphql@16.11.0)':
     dependencies:
       graphql: 16.11.0
-      tslib: 2.6.3
+      tslib: 2.5.3
 
   '@graphql-tools/optimize@2.0.0(graphql@16.11.0)':
     dependencies:
@@ -9933,7 +9933,7 @@ snapshots:
       '@ardatan/relay-compiler': 12.0.0(graphql@16.11.0)
       '@graphql-tools/utils': 9.2.1(graphql@16.11.0)
       graphql: 16.11.0
-      tslib: 2.6.3
+      tslib: 2.5.3
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -9989,7 +9989,7 @@ snapshots:
   '@graphql-tools/utils@8.13.1(graphql@16.11.0)':
     dependencies:
       graphql: 16.11.0
-      tslib: 2.4.1
+      tslib: 2.6.3
 
   '@graphql-tools/utils@9.2.1(graphql@16.11.0)':
     dependencies:

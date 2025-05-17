@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "exit 0",
-    "typecheck": "tsc ./src/**/*.ts --noEmit",
+    "typecheck": "tsc --noEmit",
     "test": "vitest --run",
     "test:watch": "vitest",
     "allcheck": "tsc && vitest --run"
@@ -15,11 +15,11 @@
   "dependencies": {
     "@/core": "workspace:^",
     "@/type": "workspace:^",
-    "@kageco/persistence": "workspace:^",
     "@apollo/client": "^3.9.9",
     "@clerk/nextjs": "^6.9.0",
     "@emotion/react": "^11.11.4",
     "@emotion/server": "^11.11.0",
+    "@kageco/persistence": "workspace:^",
     "@mantine/carousel": "^7.7.1",
     "@mantine/code-highlight": "^7.7.1",
     "@mantine/core": "^7.15.0",
