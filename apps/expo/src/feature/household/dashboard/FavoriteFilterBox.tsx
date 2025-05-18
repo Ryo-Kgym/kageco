@@ -1,9 +1,9 @@
 import { Text, View } from "react-native";
 
-import type { WithAmountType } from "~/hooks/household/total/total-category";
 import { paths } from "~/app/paths";
 import { DashboardFrame } from "~/feature/household/dashboard/DashboardFrame";
 import { useConvertFavoriteFilter } from "~/hooks/household/favoriteFilter/useConvertFavoriteFilter";
+import type { WithAmountType } from "~/hooks/household/total/total-category";
 import { useGetCategoryTotal } from "~/hooks/household/total/useGetCategoryTotal";
 import { genreTypeArray } from "~/types/genre-type";
 
@@ -77,7 +77,7 @@ const IocomeBox = ({ categoryTotal }: { categoryTotal: WithAmountType[] }) => (
     {categoryTotal
       .sort((a, b) => b.amount - a.amount)
       .map((c, i) => (
-        <View key={i} className={"flex-row items-center"}>
+        <View key={i.toString()} className={"flex-row items-center"}>
           <Text className={"w-[4%] text-xs"}>{i + 1}</Text>
           <View className={"w-11/12 flex-row items-center justify-between"}>
             <Text className={"text-md text-gray-500"}>

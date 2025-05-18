@@ -1,5 +1,5 @@
-import type { ComponentProps } from "react";
 import { useRouter } from "expo-router";
+import type { ComponentProps } from "react";
 
 import { paths } from "~/app/paths";
 import { getYear } from "~/func/date/get-year";
@@ -40,7 +40,7 @@ export const DetailListByYearlyCategory = ({
         iocomeType: d.genre.iocomeType,
         redirectHandler: () => push(paths.household.daily({ id: d.id })),
         memo: d.memo,
-        type: "daily",
+        type: "daily" as const,
       })),
     ...creditCardDetailList
       .filter((d) => d.category.id === categoryId)
@@ -56,7 +56,7 @@ export const DetailListByYearlyCategory = ({
         redirectHandler: () =>
           push(paths.household.creditCardDetail({ id: d.id })),
         memo: d.memo,
-        type: "creditCardDetail",
+        type: "creditCardDetail" as const,
       })),
   ].sort(sortBy.date.desc);
 

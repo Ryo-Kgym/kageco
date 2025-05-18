@@ -1,8 +1,8 @@
-import { useEffect } from "react";
 import { useGetValidCategoryByGenreIdQuery } from "@v3/graphql/household";
+import { useEffect } from "react";
 
-import type { EditableProps } from "~/ui/editable/editable-props";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
+import type { EditableProps } from "~/ui/editable/editable-props";
 import { Picker } from "../Picker";
 
 export const EditableCategory = ({
@@ -27,15 +27,12 @@ export const EditableCategory = ({
       label: category.name,
     })) ?? [];
 
-  useEffect(
-    () => {
-      if (!value && categories[0]) {
-        setValue(categories[0].value);
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [categories],
-  );
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    if (!value && categories[0]) {
+      setValue(categories[0].value);
+    }
+  }, [categories]);
 
   return (
     <Picker

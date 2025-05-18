@@ -1,7 +1,7 @@
 import { FlatList, Pressable, Text, View } from "react-native";
 
-import type { Detail } from "~/ui/Details/detail-type";
 import { Amount } from "~/ui/Amount";
+import type { Detail } from "~/ui/Details/detail-type";
 import { getBgColor } from "~/ui/Details/get-bg-color";
 
 export const Details = ({ details }: { details: Detail[] }) => (
@@ -30,7 +30,7 @@ export const Details = ({ details }: { details: Detail[] }) => (
                 <Text className={"text-gray-600"}>{detail.accountName}</Text>
               )}
               <Text className={"text-gray-600"}>
-                {detail.memo ? detail.memo.substring(0, 10) + "..." : null}
+                {detail.memo ? `${detail.memo.substring(0, 10)}...` : null}
               </Text>
             </View>
           </View>

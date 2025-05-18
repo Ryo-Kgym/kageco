@@ -8,11 +8,15 @@
     "dev:ios": "expo start --ios",
     "ios": "expo run:ios",
     "format": "prettier --check ./src --ignore-path ../../.gitignore",
+    "biome:format": "biome format --write ./src",
+    "biome:lint": "biome lint ./src",
+    "biome:check": "biome check ./src",
     "typecheck": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@/util": "workspace:^",
     "@expo/metro-config": "^0.20.0",
     "@react-native-community/datetimepicker": "8.3.0",
     "@react-native-picker/picker": "^2.10.1",
@@ -22,7 +26,6 @@
     "@trpc/client": "next",
     "@trpc/react-query": "next",
     "@v3/graphql": "workspace:^",
-    "dayjs": "^1.11.10",
     "expo": "^53.0.9",
     "expo-constants": "~17.1.0",
     "expo-linking": "~7.1.0",

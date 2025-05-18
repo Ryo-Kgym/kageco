@@ -1,16 +1,16 @@
-import type { RenderItemParams } from "react-native-draggable-flatlist";
 import { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import type { RenderItemParams } from "react-native-draggable-flatlist";
 import DraggableFlatList, {
   ScaleDecorator,
 } from "react-native-draggable-flatlist";
 
-import type { SettingProps } from "../type";
 import { AddButton, Modal, UpdateButton } from "~/ui";
 import { useGetDashboardBoxes } from "../../dashboard/useGetDashboardBoxes";
 import { EditDashboardSetting } from "../edit/EditDashboardSetting";
 import { featureMap } from "../list/feature-map";
 import { RegisterDashboardSetting } from "../register/RegisterDashboardSetting";
+import type { SettingProps } from "../type";
 import { useUpdateDashboardSettingOrder } from "./useUpdateDashboardSettingOrder";
 
 export const DashboardSettingList = () => {
@@ -22,13 +22,10 @@ export const DashboardSettingList = () => {
   const setting = getSettings().find((s) => s.id === settingId);
   const { updateOrder } = useUpdateDashboardSettingOrder();
 
-  useEffect(
-    () => {
-      setData(getSettings());
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [visible, addVisible],
-  );
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    setData(getSettings());
+  }, [visible, addVisible]);
 
   const updateOrderHandler = async () => {
     try {
@@ -77,6 +74,7 @@ export const DashboardSettingList = () => {
               textAlign: "right",
             }}
           >
+            {/* biome-ignore lint/style/noNonNullAssertion: <explanation> */}
             {getIndex() ? getIndex()! + 1 : 1}
           </Text>
           <View
@@ -100,7 +98,7 @@ export const DashboardSettingList = () => {
                     textAlign: "right",
                   }}
                 >
-                  {at.type + "= " + at.value.toString()}
+                  {`${at.type}= ${at.value.toString()}`}
                 </Text>
               ))}
             </View>

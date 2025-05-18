@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
-import { useSaveUserId } from "~/hooks/user/useSaveUserId";
+import { convertToYmd } from "@/util/date/convertToYmd";
+import { useEffect, useState } from "react";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
+import { useSaveUserId } from "~/hooks/user/useSaveUserId";
 import { attendOrLeaveWork, fetchAttendanceState } from "./attendance-api";
 
 /**
@@ -14,20 +15,23 @@ export const AttendanceButtonView = () => {
   const now = new Date();
 
   // 出勤・退勤の状態を管理するstate
-  const [attendanceState, setAttendanceState] = useState<"attend" | "leave">("attend");
+  const [attendanceState, setAttendanceState] = useState<"attend" | "leave">(
+    "attend",
+  );
   // ボタンの無効化状態を管理するstate
   const [isLoading, setIsLoading] = useState(false);
 
   // 初期状態を取得する
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     // 初期状態を取得する処理
     const fetchInitialState = async () => {
       try {
         setIsLoading(true);
 
-        const baseDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-01`;
+        const baseDate = convertToYmd(now);
         // APIを呼び出して現在の状態を取得する
-        const data = await fetchAttendanceState(baseDate,userId, groupId);
+        const data = await fetchAttendanceState(baseDate, userId, groupId);
 
         // 次の状態を設定する
         setAttendanceState(data.lastState);
@@ -68,7 +72,9 @@ export const AttendanceButtonView = () => {
         <TouchableOpacity
           style={[
             styles.attendanceButton,
-            attendanceState === "leave" ? styles.attendButton : styles.leaveButton,
+            attendanceState === "leave"
+              ? styles.attendButton
+              : styles.leaveButton,
             isLoading && styles.disabledButton,
           ]}
           onPress={handleAttendanceButtonClick}

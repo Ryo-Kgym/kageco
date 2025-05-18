@@ -1,4 +1,4 @@
-import type { YYYY_MM, YYYYmmDD } from "@/type/date/date";
+import type { YYYY_MM, YYYYmmDD } from "@/util/date/date";
 import { GetCategorizedDetailsDocument } from "@v3/graphql/household/schema/query/v5/getCategorizedDetails.generated";
 
 import { IocomeType } from "../../../domain/model/household/IocomeType";

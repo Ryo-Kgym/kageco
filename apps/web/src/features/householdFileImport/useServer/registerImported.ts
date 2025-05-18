@@ -1,6 +1,6 @@
 "use server";
 
-import type { YYYY_MM_DD } from "@/type/date/date";
+import type { YYYY_MM_DD } from "@/util/date/date";
 
 import { registerDailyDetail } from "../../../useServer/household/daily_detail/registerDailyDetail";
 import type { LoadFileProps } from "../types";

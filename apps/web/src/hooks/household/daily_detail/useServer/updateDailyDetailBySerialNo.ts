@@ -2,8 +2,8 @@
 
 import { UpdateDailyDetailByIdDocument } from "@v3/graphql/household/schema/mutation/update/UpdateDailyDetailById.generated";
 
+import { convertToYmd } from "@/util/date/convertToYmd";
 import type { IocomeType } from "../../../../domain/model/household/IocomeType";
-import { convertToYmd } from "../../../../function/date/convertToYmd";
 import { execMutation } from "../../../../persistence/database/server/execMutation";
 
 export const updateDailyDetailBySerialNo = async (params: {

@@ -1,4 +1,4 @@
-import type { YYYY_MM_DD } from "@/type/date/date";
+import type { YYYY_MM_DD } from "@/util/date/date";
 import { GetAllCategoriesDocument } from "@v3/graphql/household/schema/batch-sort-category/getAllCategories.generated";
 import { GetRecentDetailsDocument } from "@v3/graphql/household/schema/batch-sort-category/getRecentDetails.generated";
 import { UpdateCategoryDisplayOrderDocument } from "@v3/graphql/household/schema/batch-sort-category/updateCategoryDisplayOrder.generated";

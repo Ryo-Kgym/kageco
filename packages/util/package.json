@@ -1,24 +1,27 @@
 {
-  "name": "@/type",
+  "name": "@/util",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "license": "MIT",
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
+    "typecheck": "tsc",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "with-env": "dotenv -e ../../.env --",
-    "test": "exit 0",
-    "test:watch": "exit 0"
+    "test": "vitest --run",
+    "test:watch": "vitest"
   },
   "devDependencies": {
     "@acme/prettier-config": "workspace:^",
     "@acme/tsconfig": "workspace:^",
     "prettier": "^3.2.5",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vite": "6.3.4",
+    "vitest": "^3.1.3"
   },
   "prettier": "@acme/prettier-config",
   "dependencies": {
-    "@neondatabase/serverless": "^0.9.3"
+    "dayjs": "^1.11.10"
   }
 }

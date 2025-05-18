@@ -1,6 +1,6 @@
-import { Stack, Tabs } from "expo-router";
 import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons/";
+import { Stack, Tabs } from "expo-router";
 
 const Layout = () => (
   <>

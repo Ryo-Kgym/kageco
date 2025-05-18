@@ -1,4 +1,4 @@
-import type { YYYYmmDD } from "@/type/date/date";
+import type { YYYYmmDD } from "@/util/date/date";
 import { GetAccountBalanceListDocument } from "@v3/graphql/household/schema/query/v5/getAccountBalanceList.generated";
 import {
   convertToAccounts,

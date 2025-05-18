@@ -1,4 +1,4 @@
-import { DetailType } from "./detail-type";
+import type { DetailType } from "./detail-type";
 import { getBgColor } from "./get-bg-color";
 
 describe("getBgColor", () => {
@@ -13,7 +13,7 @@ describe("getBgColor", () => {
   ];
 
   it.each(testData)(
-    `$type のとき、$expected が返る。`,
+    "$type のとき、$expected が返る。",
     ({ type, expected }) => {
       expect(getBgColor(type)).toBe(expected);
     },

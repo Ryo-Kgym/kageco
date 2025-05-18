@@ -2,6 +2,8 @@
  * 勤怠管理のAPI通信を担当するモジュール
  */
 
+import { paths } from "~/app/paths";
+
 /**
  * 出勤・退勤の状態を取得または切り替えるAPIを呼び出す
  * @param userId ユーザーID
@@ -10,9 +12,9 @@
  */
 export const attendOrLeaveWork = async (
   userId: string,
-  groupId: string
+  groupId: string,
 ): Promise<{ nextState: "attend" | "leave" }> => {
-  const response = await fetch(`${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api/business/attendOrLeaveWork`, {
+  const response = await fetch(paths.api.business.attendOrLeaveWork.post(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -40,13 +42,17 @@ export const attendOrLeaveWork = async (
 export const fetchAttendanceState = async (
   baseDate: string,
   userId: string,
-  groupId: string
+  groupId: string,
 ): Promise<{ lastState: "attend" | "leave" }> => {
   const response = await fetch(
-    `${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api/business/attendOrLeaveWork?baseDate=${baseDate}&userId=${userId}&groupId=${groupId}`,
+    paths.api.business.attendOrLeaveWork.get({
+      baseDate,
+      userId,
+      groupId,
+    }),
     {
       method: "GET",
-    }
+    },
   );
 
   if (!response.ok) {
@@ -63,12 +69,20 @@ export const fetchAttendanceState = async (
  * @param groupId グループID
  * @returns 月次の勤怠データ
  */
-export const fetchMonthlyAttendance = async (baseDate: string, userId: string, groupId: string) => {
+export const fetchMonthlyAttendance = async (
+  baseDate: string,
+  userId: string,
+  groupId: string,
+) => {
   const response = await fetch(
-    `${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api/business/attendOrLeaveWork?baseDate=${baseDate}&userId=${userId}&groupId=${groupId}`,
+    paths.api.business.attendOrLeaveWork.get({
+      baseDate,
+      userId,
+      groupId,
+    }),
     {
       method: "GET",
-    }
+    },
   );
 
   if (!response.ok) {

@@ -1,7 +1,7 @@
-import { convertToYmd } from "@/core/function/date/convertToYmd";
-import { YYYYmmDD } from "@/type/date/date";
+import { YYYYmmDD } from "@/util/date/date";
 import type { FC, PropsWithChildren } from "react";
 
+import { convertToYmd } from "@/util/date/convertToYmd";
 import { MemoTextArea } from "../../../components/molecules/CustomTextArea/Memo";
 import { Button } from "../../../components/ui/button/v5";
 import { DatePicker } from "../../../components/ui/date";
@@ -10,7 +10,7 @@ import { IocomeTypeSegment } from "../../../components/ui/segment/IocomeTypeSegm
 import { AccountSelect } from "../../../components/ui/select/AccountSelect";
 import { CategorySelect } from "../../../components/ui/select/CategorySelect";
 import { GenreSelect } from "../../../components/ui/select/GenreSelect";
-import { Loading } from "../../../components/ui/v5/loading/Loading";
+import { Loading } from "../../../components/ui/v5/loading";
 import { errorPopup, successPopup } from "../../../function/successPopup";
 import { useNavigation } from "../../../routing/client/useNavigation";
 import { useStateDuplicateDailyDetail } from "../hooks/useStateDuplicateDailyDetail";

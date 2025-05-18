@@ -1,4 +1,4 @@
-import type { YYYYmmDD } from "@/type/date/date";
+import type { YYYYmmDD } from "@/util/date/date";
 import { ChartDataDocument } from "@v3/graphql/household/schema/query/v5/chartData.generated";
 
 import { findUser } from "../../../persistence/browser/server/find-user";

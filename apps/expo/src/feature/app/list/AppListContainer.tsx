@@ -1,5 +1,5 @@
-import { Text } from "react-native";
 import { useGetApplicationsQuery } from "@v3/graphql/public";
+import { Text } from "react-native";
 
 import { paths } from "~/app/paths";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";

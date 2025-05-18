@@ -1,5 +1,5 @@
-import { FlatList, Pressable, Text, View } from "react-native";
 import { useRouter } from "expo-router";
+import { FlatList, Pressable, Text, View } from "react-native";
 
 import { paths } from "~/app/paths";
 
@@ -36,6 +36,6 @@ export const Setting = () => {
           </View>
         </Pressable>
       )}
-    ></FlatList>
+    />
   );
 };

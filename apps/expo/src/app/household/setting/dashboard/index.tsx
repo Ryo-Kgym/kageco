@@ -1,5 +1,5 @@
-import { View } from "react-native";
 import { Stack } from "expo-router";
+import { View } from "react-native";
 
 import { DashboardSettingList } from "~/feature/household/setting";
 

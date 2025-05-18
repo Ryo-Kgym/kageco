@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 
-import type { IocomeType } from "~/types/iocome-type";
 import { useDeleteDaily } from "~/hooks/household/daily/useDeleteDaily";
 import { useEditDaily } from "~/hooks/household/daily/useEditDaily";
 import { useGetDailyById } from "~/hooks/household/daily/useGetDailyById";
 import { useAlert } from "~/hooks/useAlert";
+import type { IocomeType } from "~/types/iocome-type";
 import { EditDailyPresenter } from "./EditDailyPresenter";
 
 export const EditDailyContainer = ({ id }: { id: string }) => {
@@ -39,7 +39,7 @@ export const EditDailyContainer = ({ id }: { id: string }) => {
     try {
       await editDaily({
         id,
-        date: date!,
+        date: date as Date,
         iocomeType,
         genreId,
         categoryId,
@@ -74,19 +74,16 @@ export const EditDailyContainer = ({ id }: { id: string }) => {
     });
   };
 
-  useEffect(
-    () => {
-      setDate(daily.date);
-      setIocomeType(daily.genre.iocomeType);
-      setGenreId(daily.genre.id);
-      setCategoryId(daily.category.id);
-      setAccountId(daily.account.id);
-      setAmount(daily.amount);
-      setMemo(daily.memo);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [loading],
-  );
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    setDate(daily.date);
+    setIocomeType(daily.genre.iocomeType);
+    setGenreId(daily.genre.id);
+    setCategoryId(daily.category.id);
+    setAccountId(daily.account.id);
+    setAmount(daily.amount);
+    setMemo(daily.memo);
+  }, [loading]);
 
   return (
     <EditDailyPresenter

@@ -1,5 +1,5 @@
-import type { ComponentProps } from "react";
 import { useRouter } from "expo-router";
+import type { ComponentProps } from "react";
 
 import { paths } from "~/app/paths";
 import { getMonth } from "~/func/date/get-month";
@@ -36,7 +36,7 @@ export const CategoryRankingDetailListContainer = ({
         iocomeType: d.genre.iocomeType,
         redirectHandler: () => push(paths.household.daily({ id: d.id })),
         memo: d.memo,
-        type: "daily",
+        type: "daily" as const,
       };
     }),
     ...creditCardDetailList.map((d) => ({
@@ -50,7 +50,7 @@ export const CategoryRankingDetailListContainer = ({
       redirectHandler: () =>
         push(paths.household.creditCardDetail({ id: d.id })),
       memo: d.memo,
-      type: "creditCardDetail",
+      type: "creditCardDetail" as const,
     })),
   ].sort(sortBy.date.desc);
 

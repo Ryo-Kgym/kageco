@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Text, View } from "react-native";
 
-import type { FavoriteFilterArgKey } from "../favorite-filter-type";
 import type { IocomeType } from "~/types/iocome-type";
 import { UpdateButton } from "~/ui";
+import type { FavoriteFilterArgKey } from "../favorite-filter-type";
 import { FavoriteFilterArgKeyPicker, FavoriteFilterArgValueInput } from "../ui";
 import { useEditFavoriteFilterArg } from "./useEditFavoriteFilterArg";
 

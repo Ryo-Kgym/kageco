@@ -3,8 +3,8 @@ import type { FC } from "react";
 import {
   convertSecondToHour,
   convertSecondToMinute,
-} from "../../../function/date/convertSecond";
-import { convertToHms } from "../../../function/date/convertToHms";
+} from "@/util/date/convertSecond";
+import { convertToHms } from "@/util/date/convertToHms";
 import type { DayAttendance } from "../types/type";
 import styles from "./DailyAttendanceTable.module.scss";
 

@@ -1,4 +1,4 @@
-import type { YYYY_MM_DD } from "@/type/date/date";
+import type { YYYY_MM_DD } from "@/util/date/date";
 import { GetCreditCardSummaryByAccountIdDocument } from "@v3/graphql/household/schema/query/v3/getCreditCardSummaryByAccountId.generated";
 import { GetDailyByAccountIdDocument } from "@v3/graphql/household/schema/query/v3/getDailyByAccountId.generated";
 

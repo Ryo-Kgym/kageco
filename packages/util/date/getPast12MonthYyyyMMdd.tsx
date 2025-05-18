@@ -1,5 +1,5 @@
-import { convertToYmd } from "@/core/function/date/convertToYmd";
-import { YYYYmmDD } from "@/type/date/date";
+import { convertToYmd } from "./convertToYmd";
+import { YYYYmmDD } from "./date";
 
 export const getPast12MonthYyyyMMdd = () => {
   const date = new Date();

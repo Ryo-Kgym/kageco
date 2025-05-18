@@ -1,5 +1,5 @@
-import { View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
+import { View } from "react-native";
 
 import { DetailListByCategory } from "~/feature/household/detailList";
 
@@ -11,7 +11,7 @@ const Page = () => {
 
   return (
     <View>
-      <Stack.Screen options={{ title: yyyy + "年-" }} />
+      <Stack.Screen options={{ title: `${yyyy}年-` }} />
       <View className={"w-full"}>
         <DetailListByCategory
           year={new Date(yyyy_MM_dd as string)}

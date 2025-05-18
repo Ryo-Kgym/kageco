@@ -26,7 +26,7 @@ export interface AttendanceLog {
 export interface DayAttendance {
   id: string;
   date: {
-    yyyyMMdd: string
+    yyyyMMdd: string;
   };
   dayOfWeek: DayOfWeek;
   startDatetime?: {

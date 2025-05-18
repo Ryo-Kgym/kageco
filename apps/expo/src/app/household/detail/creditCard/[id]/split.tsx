@@ -1,5 +1,5 @@
-import { View } from "react-native";
 import { Stack, useGlobalSearchParams } from "expo-router";
+import { View } from "react-native";
 
 import { SplitCreditCardDetail } from "~/feature/household/creditCardDetail";
 

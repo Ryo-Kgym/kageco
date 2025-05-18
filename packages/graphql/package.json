@@ -12,7 +12,7 @@
     "hasura-business-codegen": "graphql-codegen --config business/hasura-codegen.cjs"
   },
   "dependencies": {
-    "@/type": "workspace:^"
+    "@/util": "workspace:^"
   },
   "devDependencies": {
     "@acme/prettier-config": "workspace:^",

@@ -1,6 +1,6 @@
 "use server";
 
-import { type YYYY_MM_DD, YYYYmmDD } from "@/type/date/date";
+import { type YYYY_MM_DD, YYYYmmDD } from "@/util/date/date";
 import { CreateDailyDetailDocument } from "@v3/graphql/household/schema/mutation/create/CreateDailyDetail.generated";
 import { GetTransferCategoryByDocument } from "@v3/graphql/household/schema/query/v5/getTransferCategory.generated";
 

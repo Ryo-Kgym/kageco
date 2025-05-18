@@ -1,4 +1,4 @@
-import type { YYYY_MM_DD } from "../../types/yyyyMMdd";
+import type { YYYY_MM_DD } from "./date";
 
 /**
  * 今年の最初の日付（1月1日）を取得する

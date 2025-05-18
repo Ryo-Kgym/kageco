@@ -56,7 +56,7 @@ export const CalendarPresenter = ({
             changeHandler(day.item.date);
           }}
         >
-          <View className={`h-full w-full`}>
+          <View className={"h-full w-full"}>
             <Text className={"text-gray-600"}>
               {day.item.date.toISOString().slice(8, 10)}
             </Text>

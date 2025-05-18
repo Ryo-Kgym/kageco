@@ -1,6 +1,6 @@
-import { convertToYmd } from "@/core/function/date/convertToYmd";
-import { type YYYY_MM_DD, YYYYmmDD } from "@/type/date/date";
+import { type YYYY_MM_DD, YYYYmmDD } from "@/util/date/date";
 
+import { convertToYmd } from "@/util/date/convertToYmd";
 import { fetchAccountDetailList } from "../server/fetchAccountDetailList";
 import { AccountDetailTable } from "./AccountDetailTable";
 

@@ -1,4 +1,4 @@
-import type { YYYY_MM_DD, YYYY_MM_DD_HH_MM_SS } from "@/type/date/date";
+import type { YYYY_MM_DD, YYYY_MM_DD_HH_MM_SS } from "@/util/date/date";
 
 export type Exact<T extends Record<string, unknown>> = {
   [K in keyof T]: T[K];

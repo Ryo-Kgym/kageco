@@ -1,5 +1,5 @@
-import { FlatList, Pressable, Text, View } from "react-native";
 import { Link } from "expo-router";
+import { FlatList, Pressable, Text, View } from "react-native";
 
 export const AppListPresenter = ({
   apps,

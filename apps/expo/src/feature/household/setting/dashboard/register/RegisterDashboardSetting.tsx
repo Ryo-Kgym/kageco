@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 
-import type { ArgsMapType, Feature } from "../type";
 import { RegisterButton, ResetButton } from "~/ui";
 import { featureMap } from "../list/feature-map";
+import type { ArgsMapType, Feature } from "../type";
 import { ArgsMapTypesPicker, EditableFeature } from "../ui";
 import { useRegisterDashboardSetting } from "./useRegisterDashboardSetting";
 
@@ -30,7 +30,7 @@ export const RegisterDashboardSetting = ({
       console.error(e);
       alert("登録に失敗しました");
     } finally {
-      registerAfterHandler && registerAfterHandler();
+      registerAfterHandler?.();
     }
   };
 

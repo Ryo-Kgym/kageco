@@ -1,6 +1,6 @@
 "use server";
 
-import type { YYYY_MM_DD } from "@/type/date/date";
+import type { YYYY_MM_DD } from "@/util/date/date";
 import { CreateDailyDetailDocument } from "@v3/graphql/household/schema/mutation/create/CreateDailyDetail.generated";
 
 import type { IocomeType } from "../../../domain/model/household/IocomeType";

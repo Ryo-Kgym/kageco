@@ -1,6 +1,6 @@
 "use client";
 
-import type { YYYY_MM } from "@/type/date/date";
+import type { YYYY_MM } from "@/util/date/date";
 import { type FC, useState } from "react";
 import { NumberInput } from "../../../components/ui/numberInput/v4/NumberInput";
 import { TextInput } from "../../../components/ui/textInput/TextInput";

@@ -1,19 +1,19 @@
-import type { ComponentProps } from "react";
-import { useRouter } from "expo-router";
 import {
   OrderBy,
   useGetCreditCardSummaryByAccountIdQuery,
   useGetDailyByAccountIdQuery,
 } from "@v3/graphql/household";
+import { useRouter } from "expo-router";
+import type { ComponentProps } from "react";
 
-import type { CreditCard } from "~/types/credit-card";
-import type { IocomeType } from "~/types/iocome-type";
 import { paths } from "~/app/paths";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
 import {
   getCreditCardGenreName,
   getCreditCardName,
 } from "~/hooks/household/credit_card/get-label";
+import type { CreditCard } from "~/types/credit-card";
+import type { IocomeType } from "~/types/iocome-type";
 import { Details } from "~/ui";
 
 export const DetailListByAccountContainer = ({
@@ -53,7 +53,7 @@ export const DetailListByAccountContainer = ({
       iocomeType: d.genre.iocomeType as IocomeType,
       redirectHandler: () => push(paths.household.daily({ id: d.id })),
       memo: d.memo ?? null,
-      type: "daily",
+      type: "daily" as const,
     })) ?? []),
     ...(creditCardSummary?.creditCardSummaries.map((d) => ({
       id: d.id,
@@ -67,7 +67,7 @@ export const DetailListByAccountContainer = ({
           paths.household.detailListByCreditCardSummary({ summaryId: d.id }),
         ),
       memo: null,
-      type: "creditCardSummary",
+      type: "creditCardSummary" as const,
     })) ?? []),
   ].sort((a, b) => {
     if (!a.date) return 1;
