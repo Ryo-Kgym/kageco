@@ -14,7 +14,6 @@
       "apps/expo/.expo*",
       "apps/expo/dist",
       "apps/expo/ios",
-      "apps/expo/src",
       "apps/web/.next/",
       "apps/web/src/styles/globals.css",
       "packages/graphql/**/*schema.json",

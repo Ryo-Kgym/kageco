@@ -8,6 +8,9 @@
     "dev:ios": "expo start --ios",
     "ios": "expo run:ios",
     "format": "prettier --check ./src --ignore-path ../../.gitignore",
+    "biome:format": "biome format --write ./src",
+    "biome:lint": "biome lint ./src",
+    "biome:check": "biome check ./src",
     "typecheck": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watch"
