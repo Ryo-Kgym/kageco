@@ -1,3 +1,4 @@
+import { convertToYmd } from "@/util/date/convertToYmd";
 import { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
@@ -28,7 +29,7 @@ export const AttendanceButtonView = () => {
       try {
         setIsLoading(true);
 
-        const baseDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-01`;
+        const baseDate = convertToYmd(now);
         // APIを呼び出して現在の状態を取得する
         const data = await fetchAttendanceState(baseDate, userId, groupId);
 

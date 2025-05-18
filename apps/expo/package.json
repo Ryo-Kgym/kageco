@@ -26,7 +26,6 @@
     "@trpc/client": "next",
     "@trpc/react-query": "next",
     "@v3/graphql": "workspace:^",
-    "dayjs": "^1.11.10",
     "expo": "^53.0.9",
     "expo-constants": "~17.1.0",
     "expo-linking": "~7.1.0",

@@ -22,6 +22,6 @@
   },
   "prettier": "@acme/prettier-config",
   "dependencies": {
-    "@neondatabase/serverless": "^0.9.3"
+    "dayjs": "^1.11.10"
   }
 }

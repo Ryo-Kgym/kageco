@@ -46,7 +46,6 @@
     "@urql/next": "^1.1.0",
     "@v3/graphql": "workspace:^",
     "clsx": "^2.1.1",
-    "dayjs": "^1.11.10",
     "embla-carousel-react": "8.0.0-rc18",
     "encoding-japanese": "^2.1.0",
     "graphql": "^16.8.1",
