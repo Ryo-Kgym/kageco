@@ -1,4 +1,4 @@
-import type { YYYYmmDD } from "@/type/date/date";
+import type { YYYYmmDD } from "@/util/date/date";
 
 import type { DayOfWeek } from "./dayOfWeek";
 

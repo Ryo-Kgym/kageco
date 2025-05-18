@@ -1,4 +1,4 @@
-import type { TZDateTime, YYYYmmDD } from "@/type/date/date";
+import type { TZDateTime, YYYYmmDD } from "@/util/date/date";
 
 import type { AttendanceState } from "../../../domain/business/attend/AttendanceState";
 

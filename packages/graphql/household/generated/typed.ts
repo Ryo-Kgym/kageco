@@ -1,4 +1,4 @@
-import { TZDateTime, YYYY_MM_DD, YYYY_MM_DD_HH_MM_SS, YYYYmmDD } from "@/type/date/date";
+import { TZDateTime, YYYY_MM_DD, YYYY_MM_DD_HH_MM_SS, YYYYmmDD } from "@/util/date/date";
 
 export type Exact<T extends Record<string, unknown>> = {
   [K in keyof T]: T[K];

@@ -1,4 +1,4 @@
-import { TZDateTime, YYYYmmDD } from "@/type/date/date";
+import { TZDateTime, YYYYmmDD } from "@/util/date/date";
 import { describe, expect, test, vi } from "vitest";
 
 import { CalcAttendanceLogUsecase } from "./CalcAttendanceLogUsecase";

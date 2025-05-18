@@ -1,5 +1,5 @@
 import { convertToYmd } from "@/core/function/date/convertToYmd";
-import { YYYYmmDD } from "@/type/date/date";
+import { YYYYmmDD } from "@/util/date/date";
 import type { FC, PropsWithChildren } from "react";
 
 import { MemoTextArea } from "../../../components/molecules/CustomTextArea/Memo";

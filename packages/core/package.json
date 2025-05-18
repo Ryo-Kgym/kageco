@@ -19,6 +19,6 @@
   },
   "prettier": "@acme/prettier-config",
   "dependencies": {
-    "@/type": "workspace:^"
+    "@/util": "workspace:^"
   }
 }

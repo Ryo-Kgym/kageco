@@ -2,7 +2,7 @@
 
 import { GetCreditCardDetailByIdDocument } from "@v3/graphql/household/schema/query/v5/getCreditCardDetailById.generated";
 
-import type { YYYY_MM_DD } from "@/type/date/date";
+import type { YYYY_MM_DD } from "@/util/date/date";
 import { IocomeType } from "../../../domain/model/household/IocomeType";
 import { execQuery } from "../../../persistence/database/server/execQuery";
 

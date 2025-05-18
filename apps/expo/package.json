@@ -16,6 +16,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@/util": "workspace:^",
     "@expo/metro-config": "^0.20.0",
     "@react-native-community/datetimepicker": "8.3.0",
     "@react-native-picker/picker": "^2.10.1",

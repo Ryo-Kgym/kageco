@@ -1,4 +1,4 @@
-import type { YYYY_MM } from "@/type/date/date";
+import type { YYYY_MM } from "@/util/date/date";
 import type { ChartDataQuery } from "@v3/graphql/household/schema/query/v5/chartData.generated";
 
 import type { SumBalance } from "./types";

@@ -1,6 +1,6 @@
 "use client";
 
-import { YYYYmmDD } from "@/type/date/date";
+import { YYYYmmDD } from "@/util/date/date";
 import { useState } from "react";
 
 import { errorPopup, successPopup } from "../../../function/successPopup";

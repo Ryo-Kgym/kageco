@@ -1,4 +1,4 @@
-import { YYYY_MM_DD, YYYY_MM_DD_HH_MM_SS } from "@/type/date/date";
+import { YYYY_MM_DD, YYYY_MM_DD_HH_MM_SS } from "@/util/date/date";
 import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core";
 
 import * as Types from "../../../generated/typed";

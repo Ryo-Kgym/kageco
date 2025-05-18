@@ -1,5 +1,5 @@
 import { convertToYmd } from "@/core/function/date/convertToYmd";
-import { YYYYmmDD } from "@/type/date/date";
+import { YYYYmmDD } from "@/util/date/date";
 import { z } from "zod";
 
 import type { DashboardComponentProps } from "../types/dashboardFC";

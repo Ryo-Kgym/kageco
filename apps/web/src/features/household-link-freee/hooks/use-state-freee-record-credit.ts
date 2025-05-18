@@ -1,4 +1,4 @@
-import { YYYYmmDD } from "@/type/date/date";
+import { YYYYmmDD } from "@/util/date/date";
 import type { FormEvent } from "react";
 import { useEffect, useState } from "react";
 import { errorPopup, successPopup } from "../../../function/successPopup";

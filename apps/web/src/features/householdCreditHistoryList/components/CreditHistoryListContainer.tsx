@@ -4,7 +4,7 @@
 
 "use client";
 
-import type { YYYY_MM_DD } from "@/type/date/date";
+import type { YYYY_MM_DD } from "@/util/date/date";
 import { useRouter } from "next/navigation";
 import type { FC } from "react";
 

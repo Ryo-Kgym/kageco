@@ -1,4 +1,4 @@
-import type { YYYY_MM_DD } from "@/type/date/date";
+import type { YYYY_MM_DD } from "@/util/date/date";
 
 export const convertToYmd = (date: Date): YYYY_MM_DD => {
   const mm = date.getMonth() + 1;

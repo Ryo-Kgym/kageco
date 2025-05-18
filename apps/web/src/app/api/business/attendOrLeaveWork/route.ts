@@ -1,6 +1,6 @@
 import { convertToYmd } from "@/core/function/date/convertToYmd";
 import { CalcAttendanceLogUsecase } from "@/core/usecase/business/attend/CalcAttendanceLogUsecase";
-import { TZDateTime, type YYYY_MM_DD, YYYYmmDD } from "@/type/date/date";
+import { TZDateTime, type YYYY_MM_DD, YYYYmmDD } from "@/util/date/date";
 import {
   InsertDailyAttendanceDocument,
   InsertDailyAttendanceLogDocument,

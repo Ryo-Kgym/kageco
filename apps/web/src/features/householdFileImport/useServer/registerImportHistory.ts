@@ -1,6 +1,6 @@
 "use server";
 
-import { TZDateTime } from "@/type/date/date";
+import { TZDateTime } from "@/util/date/date";
 import { CreateImportFileHistoryDocument } from "@v3/graphql/household/schema/mutation/create/CreateImportFileHistory.generated";
 
 import { generateId } from "../../../function/generateId";

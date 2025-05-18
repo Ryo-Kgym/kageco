@@ -1,6 +1,6 @@
 "use server";
 
-import type { YYYY_MM_DD } from "@/type/date/date";
+import type { YYYY_MM_DD } from "@/util/date/date";
 import { CreateCreditCardDetailDocument } from "@v3/graphql/household/schema/mutation/create/CreateCreditCardDetail.generated";
 import { CreateCreditCardSummaryDocument } from "@v3/graphql/household/schema/mutation/create/CreateCreditCardSummary.generated";
 

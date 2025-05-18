@@ -32,6 +32,9 @@ importers:
 
   apps/expo:
     dependencies:
+      '@/util':
+        specifier: workspace:^
+        version: link:../../packages/util
       '@expo/metro-config':
         specifier: ^0.20.0
         version: 0.20.14
@@ -180,9 +183,9 @@ importers:
       '@/core':
         specifier: workspace:^
         version: link:../../packages/core
-      '@/type':
+      '@/util':
         specifier: workspace:^
-        version: link:../../packages/type
+        version: link:../../packages/util
       '@apollo/client':
         specifier: ^3.9.9
         version: 3.13.8(@types/react@19.1.4)(graphql-ws@5.12.1(graphql@16.11.0))(graphql@16.11.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -394,9 +397,9 @@ importers:
 
   packages/core:
     dependencies:
-      '@/type':
+      '@/util':
         specifier: workspace:^
-        version: link:../type
+        version: link:../util
     devDependencies:
       '@acme/prettier-config':
         specifier: workspace:^
@@ -413,9 +416,9 @@ importers:
 
   packages/graphql:
     dependencies:
-      '@/type':
+      '@/util':
         specifier: workspace:^
-        version: link:../type
+        version: link:../util
     devDependencies:
       '@acme/prettier-config':
         specifier: workspace:^
@@ -488,7 +491,7 @@ importers:
         specifier: ^5.8.3
         version: 5.8.3
 
-  packages/type:
+  packages/util:
     dependencies:
       '@neondatabase/serverless':
         specifier: ^0.9.3

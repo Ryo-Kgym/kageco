@@ -11,7 +11,7 @@ export default defineConfig({
     setupFiles: ["./setup-vitest.ts"],
     alias: {
       "@/core": path.resolve(__dirname, "../../packages/core"),
-      "@/type": path.resolve(__dirname, "../../packages/type"),
+      "@/util": path.resolve(__dirname, "../../packages/util"),
     },
   },
 });

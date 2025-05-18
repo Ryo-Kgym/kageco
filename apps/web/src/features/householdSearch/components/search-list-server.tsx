@@ -1,4 +1,4 @@
-import { YYYYmmDD } from "@/type/date/date";
+import { YYYYmmDD } from "@/util/date/date";
 import type { FC } from "react";
 
 import { IocomeTotal } from "../../../components/molecules/Total";

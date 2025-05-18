@@ -1,4 +1,4 @@
-import { TZDateTime } from "@/type/date/date";
+import { TZDateTime } from "@/util/date/date";
 import { describe, test } from "vitest";
 
 import { AttendAtWork } from "./AttendAtWork";

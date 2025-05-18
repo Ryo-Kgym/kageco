@@ -3,7 +3,7 @@
 import { AxiosFreeeRegisterDealRepository } from "@kageco/persistence/api/axios/freee/axios-freee-register-deal-repository";
 import { CreateFreeeLinkDetailDocument } from "@v3/graphql/household/schema/feeee/createFreeeLinkDetail.generated";
 
-import { TZDateTime } from "@/type/date/date";
+import { TZDateTime } from "@/util/date/date";
 import { generateId } from "../../../function/generateId";
 import { findFreeeAuth } from "../../../persistence/browser/server/freee-auth";
 import { execMutation } from "../../../persistence/database/server/execMutation";

@@ -19,7 +19,7 @@ module.exports = {
         ["typescript", "typescript-operations", "typed-document-node",
           {
             add: {
-              content: "import { YYYY_MM_DD, YYYY_MM_DD_HH_MM_SS } from '@/type/date/date';"
+              content: "import { YYYY_MM_DD, YYYY_MM_DD_HH_MM_SS } from '@/util/date/date';"
             }
           }
         ],

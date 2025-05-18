@@ -1,4 +1,4 @@
-import { YYYYmmDD } from "@/type/date/date";
+import { YYYYmmDD } from "@/util/date/date";
 
 import { convertToYmd } from "../../../function/date/convertToYmd";
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { YYYYmmDD } from "@/type/date/date";
+import { YYYYmmDD } from "@/util/date/date";
 import { IocomeType } from "../../../domain/model/household/IocomeType";
 import type {
   CreditDetailEditDisplayState,

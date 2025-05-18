@@ -1,5 +1,5 @@
 import { CalcWorkTimeUsecase } from "@/core/usecase/business/work/CalcWorkTimeUsecase";
-import { TZDateTime, type YYYY_MM_DD, YYYYmmDD } from "@/type/date/date";
+import { TZDateTime, type YYYY_MM_DD, YYYYmmDD } from "@/util/date/date";
 import { GetAttendanceOfMonthDocument } from "@v3/graphql/business/schema/query/v5/queryDailyAttendance.generated";
 
 import { findUser } from "../../../persistence/browser/server/find-user";

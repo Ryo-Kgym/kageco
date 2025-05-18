@@ -1,7 +1,7 @@
 import type { FormEvent } from "react";
 import { useEffect, useState } from "react";
 
-import { YYYYmmDD } from "@/type/date/date";
+import { YYYYmmDD } from "@/util/date/date";
 import { errorPopup, successPopup } from "../../../function/successPopup";
 import { submitDealActions } from "../../householdModifyDailyDetail/actions/submit-deal-actions";
 import type { UnifiedRecord } from "../../householdModifyDailyDetail/types/unified-record";
