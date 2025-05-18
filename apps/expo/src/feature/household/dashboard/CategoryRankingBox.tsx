@@ -1,12 +1,12 @@
 import { Text, View } from "react-native";
 
-import type { GenreType } from "~/types/genre-type";
-import type { IocomeType } from "~/types/iocome-type";
 import { paths } from "~/app/paths";
 import { DashboardFrame } from "~/feature/household/dashboard/DashboardFrame";
 import { getMonth } from "~/func/date/get-month";
 import { useGetCategoryTotal } from "~/hooks/household/total/useGetCategoryTotal";
+import type { GenreType } from "~/types/genre-type";
 import { getGenreTypeLabel } from "~/types/genre-type";
+import type { IocomeType } from "~/types/iocome-type";
 import { getLabel } from "~/types/iocome-type";
 
 export const CategoryRankingBox = ({
@@ -43,7 +43,7 @@ export const CategoryRankingBox = ({
       {categoryTotal
         .sort((a, b) => b.amount - a.amount)
         .map((c, i) => (
-          <View key={i} className={"flex-row items-center"}>
+          <View key={i.toString()} className={"flex-row items-center"}>
             <Text className={"w-1/12 text-xs"}>{i + 1}</Text>
             <View className={"w-11/12 flex-row items-center justify-between"}>
               <Text className={"text-md text-gray-500"}>

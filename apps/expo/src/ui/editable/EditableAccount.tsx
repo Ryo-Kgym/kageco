@@ -1,8 +1,8 @@
-import { useEffect } from "react";
 import { useGetValidAccountsQuery } from "@v3/graphql/household";
+import { useEffect } from "react";
 
-import type { EditableProps } from "~/ui/editable/editable-props";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
+import type { EditableProps } from "~/ui/editable/editable-props";
 import { Picker } from "../Picker";
 
 export const EditableAccount = ({
@@ -22,15 +22,12 @@ export const EditableAccount = ({
       label: account.accountName,
     })) ?? [];
 
-  useEffect(
-    () => {
-      if (!value && accounts[0]) {
-        setValue(accounts[0].value);
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [accounts],
-  );
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    if (!value && accounts[0]) {
+      setValue(accounts[0].value);
+    }
+  }, [accounts]);
 
   return (
     <Picker

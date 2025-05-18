@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Text, View } from "react-native";
 
-import type { FavoriteFilterArgValueInputComponent } from "../FavoriteFilterArgValueInput";
 import type { IocomeType } from "~/types/iocome-type";
 import { EditableCategory, EditableGenre, EditableIocomeType } from "~/ui";
+import type { FavoriteFilterArgValueInputComponent } from "../FavoriteFilterArgValueInput";
 
 export const CategoryIdInput: FavoriteFilterArgValueInputComponent<{
   genre: { id: string; iocomeType: IocomeType };

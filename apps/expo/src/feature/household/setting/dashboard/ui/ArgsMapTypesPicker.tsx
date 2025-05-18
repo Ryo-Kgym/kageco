@@ -24,7 +24,7 @@ export const ArgsMapTypesPicker = ({
       <Text>{type}</Text>
       <Picker
         key={type}
-        value={argsMapTypes[index]!.value}
+        value={argsMapTypes[index]?.value}
         setValue={(value) => {
           const newArgs = [...argsMapTypes];
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment

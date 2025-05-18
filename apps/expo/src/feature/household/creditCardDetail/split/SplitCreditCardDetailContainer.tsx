@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 
-import type { IocomeType } from "~/types/iocome-type";
 import { useSplitCreditCardDetail } from "~/feature/household/creditCardDetail/split/useSplitCreditCardDetail";
 import { useGetCreditCardDetailById } from "~/hooks/household/credit_card/useGetCreditCardDetailById";
+import type { IocomeType } from "~/types/iocome-type";
 import { SplitCreditCardDetailPresenter } from "./SplitCreditCardDetailPresenter";
 
 export const SplitCreditCardDetailContainer = ({ id }: { id: string }) => {
@@ -49,6 +49,7 @@ export const SplitCreditCardDetailContainer = ({ id }: { id: string }) => {
     }
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(
     () => {
       setAmount(creditCardDetail.amount);

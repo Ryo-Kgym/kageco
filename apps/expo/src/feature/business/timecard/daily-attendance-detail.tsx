@@ -1,6 +1,13 @@
-import { StyleSheet, Text, View, TouchableOpacity, Modal, ScrollView } from "react-native";
-import { formatTime, formatMinutes, formatSeconds } from "./utils";
+import {
+  Modal,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import type { DayAttendance } from "./types";
+import { formatMinutes, formatSeconds, formatTime } from "./utils";
 
 interface DailyAttendanceDetailProps {
   day: DayAttendance;
@@ -11,13 +18,22 @@ interface DailyAttendanceDetailProps {
 /**
  * 日毎の勤怠詳細を表示するコンポーネント
  */
-export const DailyAttendanceDetail = ({ day, onClose, visible }: DailyAttendanceDetailProps) => {
+export const DailyAttendanceDetail = ({
+  day,
+  onClose,
+  visible,
+}: DailyAttendanceDetailProps) => {
   // デバッグログ
   console.log("DailyAttendanceDetail - day:", JSON.stringify(day, null, 2));
-  console.log("DailyAttendanceDetail - logs:", day.logs ? JSON.stringify(day.logs, null, 2) : "No logs");
+  console.log(
+    "DailyAttendanceDetail - logs:",
+    day.logs ? JSON.stringify(day.logs, null, 2) : "No logs",
+  );
 
   // 日付を整形
-  const formattedDate = day.date.toString().replace(/(\d{4})-(\d{2})-(\d{2})/, "$1年$2月$3日");
+  const formattedDate = day.date
+    .toString()
+    .replace(/(\d{4})-(\d{2})-(\d{2})/, "$1年$2月$3日");
 
   return (
     <Modal
@@ -28,21 +44,23 @@ export const DailyAttendanceDetail = ({ day, onClose, visible }: DailyAttendance
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Text style={styles.modalTitle}>{formattedDate}（{day.dayOfWeek}）</Text>
+          <Text style={styles.modalTitle}>
+            {formattedDate}（{day.dayOfWeek}）
+          </Text>
 
           {/* 勤怠情報 */}
           <View style={styles.infoContainer}>
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>出勤時間:</Text>
               <Text style={styles.infoValue}>
-                {formatTime(day?.startDatetime?.tzDateTime,"-")}
+                {formatTime(day?.startDatetime?.tzDateTime, "-")}
               </Text>
             </View>
 
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>退勤時間:</Text>
               <Text style={styles.infoValue}>
-                {formatTime(day?.endDatetime?.tzDateTime,"-") }
+                {formatTime(day?.endDatetime?.tzDateTime, "-")}
               </Text>
             </View>
 
@@ -83,10 +101,7 @@ export const DailyAttendanceDetail = ({ day, onClose, visible }: DailyAttendance
             )}
           </View>
 
-          <TouchableOpacity
-            style={styles.closeButton}
-            onPress={onClose}
-          >
+          <TouchableOpacity style={styles.closeButton} onPress={onClose}>
             <Text style={styles.closeButtonText}>閉じる</Text>
           </TouchableOpacity>
         </View>

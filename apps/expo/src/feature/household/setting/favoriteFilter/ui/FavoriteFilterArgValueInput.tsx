@@ -13,7 +13,7 @@ export const FavoriteFilterArgValueInput = <O,>({
 
 const inputMap: {
   [key in FavoriteFilterArgKey]: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     Component: FavoriteFilterArgValueInputComponent<any>;
   };
 } = {

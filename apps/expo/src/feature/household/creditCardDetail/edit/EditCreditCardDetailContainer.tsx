@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 
-import type { IocomeType } from "~/types/iocome-type";
 import { useEditCreditCardDetail } from "~/hooks/household/credit_card/useEditCreditCardDetail";
 import { useGetCreditCardDetailById } from "~/hooks/household/credit_card/useGetCreditCardDetailById";
+import type { IocomeType } from "~/types/iocome-type";
 import { EditCreditCardDetailPresenter } from "./EditCreditCardDetailPresenter";
 
 export const EditCreditCardDetailContainer = ({ id }: { id: string }) => {
@@ -47,19 +47,16 @@ export const EditCreditCardDetailContainer = ({ id }: { id: string }) => {
     }
   };
 
-  useEffect(
-    () => {
-      setDate(creditCardDetail.date);
-      setIocomeType(creditCardDetail.genre.iocomeType);
-      setGenreId(creditCardDetail.genre.id);
-      setCategoryId(creditCardDetail.category.id);
-      setAccountId(creditCardDetail.account.id);
-      setAmount(creditCardDetail.amount);
-      setMemo(creditCardDetail.memo);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [loading],
-  );
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    setDate(creditCardDetail.date);
+    setIocomeType(creditCardDetail.genre.iocomeType);
+    setGenreId(creditCardDetail.genre.id);
+    setCategoryId(creditCardDetail.category.id);
+    setAccountId(creditCardDetail.account.id);
+    setAmount(creditCardDetail.amount);
+    setMemo(creditCardDetail.memo);
+  }, [loading]);
 
   return (
     <EditCreditCardDetailPresenter

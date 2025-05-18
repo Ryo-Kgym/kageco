@@ -1,4 +1,3 @@
-import type { DetailType } from "./detail-setting";
 import type { IocomeType } from "~/types/iocome-type";
 
 export type Detail = {

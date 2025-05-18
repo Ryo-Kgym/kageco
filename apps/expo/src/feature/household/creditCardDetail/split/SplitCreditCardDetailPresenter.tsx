@@ -60,7 +60,7 @@ export const SplitCreditCardDetailPresenter = ({
             disabled
           />
         </View>
-        <View className={"w-full border-b-2 border-gray-300"}></View>
+        <View className={"w-full border-b-2 border-gray-300"} />
         <Text>分割後</Text>
         <View>
           <Text>ジャンル</Text>

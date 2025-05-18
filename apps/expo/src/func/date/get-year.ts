@@ -1,7 +1,5 @@
-export const getYear = (baseDate?: Date) => {
-  if (!baseDate) {
-    baseDate = new Date();
-  }
+export const getYear = (paramDate?: Date) => {
+  const baseDate = paramDate ?? new Date();
 
   const year = baseDate.getFullYear();
   const firstDayOfYear = new Date(year, 0, 1, 9);

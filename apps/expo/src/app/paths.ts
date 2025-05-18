@@ -51,5 +51,20 @@ export const paths = {
   },
   business: {
     timecard: "/business/timecard" as "/",
-  }
+  },
+  api: {
+    business: {
+      attendOrLeaveWork: {
+        post: () => `${API_ROOT}/business/attendOrLeaveWork`,
+        get: ({
+          baseDate,
+          userId,
+          groupId,
+        }: { baseDate: string; userId: string; groupId: string }) =>
+          `${API_ROOT}/business/attendOrLeaveWork`,
+      },
+    },
+  },
 } as const;
+
+const API_ROOT = `${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api/`;

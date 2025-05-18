@@ -1,5 +1,5 @@
-import { View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
+import { View } from "react-native";
 
 import { FavoriteFilterDetail } from "~/feature/household/setting";
 

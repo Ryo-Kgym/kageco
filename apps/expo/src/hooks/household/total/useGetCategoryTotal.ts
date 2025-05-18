@@ -1,12 +1,12 @@
 import { useGetDetailsByCategoryQuery } from "@v3/graphql/household";
 
-import type { WithAmountType } from "./total-category";
-import type { GenreType } from "~/types/genre-type";
-import type { IocomeType } from "~/types/iocome-type";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
 import { sortBy } from "~/hooks/household/total/sort-by";
+import type { GenreType } from "~/types/genre-type";
 import { genreTypeArray } from "~/types/genre-type";
+import type { IocomeType } from "~/types/iocome-type";
 import { iocomeTypeArray } from "~/types/iocome-type";
+import type { WithAmountType } from "./total-category";
 import { totalCategory } from "./total-category";
 
 export const useGetCategoryTotal = ({
@@ -55,8 +55,7 @@ export const useGetCategoryTotal = ({
   const categoryTotal = totalCategory({
     details: [...dailyDetails, ...creditCardDetails],
     filter: (d) =>
-      filter &&
-      filter(d) &&
+      filter?.(d) &&
       genreType.includes(d.genreType) &&
       // カテゴリ：振替は除外する。
       d.categoryId !== data?.group?.transfer?.incomeCategoryId &&

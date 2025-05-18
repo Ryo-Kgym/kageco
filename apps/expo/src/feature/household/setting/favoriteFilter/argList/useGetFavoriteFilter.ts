@@ -1,7 +1,7 @@
 import { useGetFavoriteFilterQuery } from "@v3/graphql/household";
 
-import type { FavoriteFilterArgKey } from "../favorite-filter-type";
 import type { IocomeType } from "~/types/iocome-type";
+import type { FavoriteFilterArgKey } from "../favorite-filter-type";
 
 export const useGetFavoriteFilter = (filterId: string) => {
   const [{ data }] = useGetFavoriteFilterQuery({
@@ -29,7 +29,7 @@ export const useGetFavoriteFilter = (filterId: string) => {
 
   const convertValue = ({ key, value, category }: FavoriteFilterArgsType) => {
     if (category && key === "categoryId") {
-      return category.genre.name + " - " + category.name;
+      return `${category.genre.name} - ${category.name}`;
     }
     return value;
   };

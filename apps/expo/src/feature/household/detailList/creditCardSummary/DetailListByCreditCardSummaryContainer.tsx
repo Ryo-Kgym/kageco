@@ -1,8 +1,8 @@
 import { useRouter } from "expo-router";
 
-import type { Detail } from "~/ui";
 import { paths } from "~/app/paths";
 import { useGetCreditCardDetailBySummaryId } from "~/hooks/household/credit_card/useGetCreditCardDetailBySummaryId";
+import type { Detail } from "~/ui";
 import { Details } from "~/ui";
 
 export const DetailListByCreditCardSummaryContainer = ({

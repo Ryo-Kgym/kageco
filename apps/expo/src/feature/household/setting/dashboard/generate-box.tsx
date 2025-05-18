@@ -1,7 +1,7 @@
-import type { ArgsMapType, SettingProps } from "./type";
 import type { GenreType } from "~/types/genre-type";
 import type { IocomeType } from "~/types/iocome-type";
 import { featureSetting } from "./feature-setting";
+import type { ArgsMapType, SettingProps } from "./type";
 
 export const generateBox = (
   settingPropsList: SettingProps[],
@@ -76,7 +76,7 @@ export const generateBox = (
       });
     }
 
-    return <Component key={index} {...props} />;
+    return <Component key={index.toString()} {...props} />;
   });
 
 const appendProps = ({

@@ -1,5 +1,5 @@
-import { View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
+import { View } from "react-native";
 
 import { YearlyCategoryRankList } from "~/feature/household/rank";
 
@@ -10,7 +10,7 @@ const Page = () => {
   const yyyy = new Date(yyyy_MM_dd as string).toISOString().slice(0, 4);
   return (
     <View>
-      <Stack.Screen options={{ title: yyyy + "年のランキング" }} />
+      <Stack.Screen options={{ title: `${yyyy}年のランキング` }} />
       <View className={"w-full"}>
         <YearlyCategoryRankList year={new Date(yyyy_MM_dd as string)} />
       </View>

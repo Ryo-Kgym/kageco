@@ -1,5 +1,5 @@
-import { Stack, Tabs } from "expo-router";
 import { FontAwesome5, MaterialIcons } from "@expo/vector-icons";
+import { Stack, Tabs } from "expo-router";
 
 /**
  * 勤怠管理ページのタブレイアウト

@@ -1,6 +1,6 @@
+import { Link } from "expo-router";
 import type { ReactNode } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { Link } from "expo-router";
 
 export const DashboardFrame = ({
   label,
@@ -18,7 +18,7 @@ export const DashboardFrame = ({
   footer?: ReactNode;
 }) =>
   scroll ? (
-    <View className={`px-1 py-0.5`} style={{ width: size }}>
+    <View className={"px-1 py-0.5"} style={{ width: size }}>
       <View
         className={"rounded-2xl border-2 bg-neutral-50 p-3 shadow-sm"}
         style={{

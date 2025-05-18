@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 
-import type { ArgsMapType, Feature } from "../type";
 import { DeleteButton, ResetButton, UpdateButton } from "~/ui";
 import { featureMap } from "../list/feature-map";
+import type { ArgsMapType, Feature } from "../type";
 import { ArgsMapTypesPicker, EditableFeature } from "../ui";
 import { useDeleteDashboardSetting } from "./useDeleteDashboardSetting";
 import { useEditDashboardSetting } from "./useEditDashboardSetting";
@@ -44,7 +44,7 @@ export const EditDashboardSetting = ({
       console.error(e);
       alert("更新に失敗しました");
     } finally {
-      updateAfterHandler && updateAfterHandler();
+      updateAfterHandler?.();
     }
   };
 
@@ -59,7 +59,7 @@ export const EditDashboardSetting = ({
       console.error(e);
       alert("削除に失敗しました");
     } finally {
-      updateAfterHandler && updateAfterHandler();
+      updateAfterHandler?.();
     }
   };
 

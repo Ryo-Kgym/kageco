@@ -1,9 +1,10 @@
-import { View } from "react-native";
 import { useRouter } from "expo-router";
+import { View } from "react-native";
 
 import { paths } from "~/app/paths";
 import { useGetDetails } from "~/hooks/household/detail/useGetDetails";
 import { Details, Total } from "~/ui";
+import type { DetailType } from "~/ui/Details/detail-type";
 import { CalendarPresenter } from "./CalendarPresenter";
 import { generateCalendar } from "./generate-calendar";
 
@@ -12,7 +13,9 @@ export const CalendarContainer = ({ baseDate }: { baseDate: Date }) => {
   const today = new Date();
 
   const calendar = generateCalendar(baseDate);
+  // biome-ignore lint/style/noNonNullAssertion: <explanation>
   const fromDate = calendar[0]!;
+  // biome-ignore lint/style/noNonNullAssertion: <explanation>
   const toDate = calendar[calendar.length - 1]!;
 
   const { getDetailsByDate } = useGetDetails({
@@ -28,7 +31,7 @@ export const CalendarContainer = ({ baseDate }: { baseDate: Date }) => {
         iocomeType: detail.genre.iocomeType,
         memo: detail.memo,
         redirectHandler: () => push(paths.household.daily({ id: detail.id })),
-        type: "daily",
+        type: "daily" as DetailType,
       }),
       creditCardSummary: (summary) => ({
         id: summary.id,
@@ -44,7 +47,7 @@ export const CalendarContainer = ({ baseDate }: { baseDate: Date }) => {
               summaryId: summary.id,
             }),
           ),
-        type: "creditCardSummary",
+        type: "creditCardSummary" as DetailType,
       }),
     },
   });
@@ -67,6 +70,10 @@ export const CalendarContainer = ({ baseDate }: { baseDate: Date }) => {
 
   const changeHandler = (date: Date) =>
     push(paths.household.calendar({ date }));
+
+  if (!details) {
+    return null;
+  }
 
   return (
     <>

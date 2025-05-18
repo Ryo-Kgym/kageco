@@ -1,7 +1,5 @@
-export const getMonth = (baseDate?: Date) => {
-  if (!baseDate) {
-    baseDate = new Date();
-  }
+export const getMonth = (paramDate?: Date) => {
+  const baseDate = paramDate ?? new Date();
 
   const firstDayOfMonth = new Date(
     baseDate.getFullYear(),

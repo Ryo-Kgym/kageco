@@ -1,13 +1,13 @@
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
-import { useRouter } from "expo-router";
 
-import type { IocomeType } from "~/types/iocome-type";
 import { paths } from "~/app/paths";
 import { FilterModal } from "~/feature/household/rank/category/yearly/FilterModal";
 import { getYear } from "~/func/date/get-year";
 import { sortBy } from "~/hooks/household/total/sort-by";
 import { useGetCategoryTotal } from "~/hooks/household/total/useGetCategoryTotal";
+import type { IocomeType } from "~/types/iocome-type";
 
 export const YearlyCategoryRankList = ({ year }: { year: Date }) => {
   const [visible, setVisible] = useState(false);

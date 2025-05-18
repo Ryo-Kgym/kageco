@@ -1,5 +1,5 @@
-import { View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
+import { View } from "react-native";
 
 import { DetailListByCreditCardSummary } from "~/feature/household/detailList";
 import { useGetCreditCardSummaryById } from "~/hooks/household/credit_card/useGetCreditCardSummaryById";
@@ -14,7 +14,7 @@ const Page = () => {
     <View>
       <Stack.Screen
         options={{
-          title: creditCardSummary.genre.name + "の引き落とし",
+          title: `${creditCardSummary.genre.name}の引き落とし`,
         }}
       />
       <View className={"w-full"}>

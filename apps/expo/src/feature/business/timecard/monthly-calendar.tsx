@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
-import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
-import type { DayAttendance, DayOfWeek, MonthlyAttendanceData } from "./types";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
 import { useSaveUserId } from "~/hooks/user/useSaveUserId";
 import { fetchMonthlyAttendance } from "./attendance-api";
 import { DailyAttendanceDetail } from "./daily-attendance-detail";
+import type { DayAttendance, DayOfWeek, MonthlyAttendanceData } from "./types";
 import { formatMinutes, formatSeconds, formatTime } from "./utils";
-
 
 /**
  * 月間カレンダーコンポーネント
@@ -67,7 +74,7 @@ export const MonthlyCalendar = () => {
 
   // data.days から日付ごとのデータを取得するためのマップを作成
   const attendanceDaysMap = new Map<string, DayAttendance>();
-  if (attendanceData && attendanceData.days) {
+  if (attendanceData?.days) {
     attendanceData.days.forEach((day) => {
       const dateStr = day.date.toString();
       attendanceDaysMap.set(dateStr, day);
@@ -81,8 +88,7 @@ export const MonthlyCalendar = () => {
     dayOfWeekColor: getDayOfWeekColor(d.dayOfWeek),
     startDatetime: d.startDatetime?.tzDateTime,
     endDatetime: d.endDatetime?.tzDateTime,
-    breakSecond:d.breakSecond
-
+    breakSecond: d.breakSecond,
   })) ?? []) satisfies Array<{ date: string; dayOfWeek: DayOfWeek }>;
 
   // 勤怠データから日付ごとのデータを取得する関数
@@ -162,12 +168,12 @@ export const MonthlyCalendar = () => {
             const attendanceDay = getAttendanceForDate(day.date);
             return (
               <TouchableOpacity
-                key={index}
+                key={index.toString()}
                 style={isToday(day.date) ? styles.todayRow : styles.row}
                 onPress={() => attendanceDay && handleDayPress(attendanceDay)}
                 disabled={!attendanceDay}
               >
-                <Text style={styles.dateCell}>{day.date.slice(8,10)}</Text>
+                <Text style={styles.dateCell}>{day.date.slice(8, 10)}</Text>
                 <Text style={[styles.dayCell, { color: day.dayOfWeekColor }]}>
                   {day.dayOfWeek}
                 </Text>
@@ -211,7 +217,7 @@ const getDayOfWeekJapanese = (dayIndex: number): string => {
  */
 const getDayOfWeekColor = (dayIndex: DayOfWeek): string => {
   if (dayIndex === "sun") return "#F44336"; // 日曜日は赤
-  if (dayIndex ==="sat") return "#2196F3"; // 土曜日は青
+  if (dayIndex === "sat") return "#2196F3"; // 土曜日は青
   return "#333333"; // 平日は黒
 };
 
