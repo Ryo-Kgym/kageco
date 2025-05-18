@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { convertSecondToHour } from "../../../function/date/convertSecond";
+import { convertSecondToHour } from "@/util/date/convertSecond";
 import styles from "./MonthlySummary.module.scss";
 
 type Props = {

@@ -2,8 +2,8 @@
 
 import type { FC } from "react";
 
+import { convertToYmd } from "@/util/date/convertToYmd";
 import { RangeMonthPicker } from "../../../components/ui/v5/date/RangeMonthPicker";
-import { convertToYmd } from "../../../function/date/convertToYmd";
 import { useNavigation } from "../../../routing/client/useNavigation";
 import { BalanceChart } from "./BalanceChart";
 

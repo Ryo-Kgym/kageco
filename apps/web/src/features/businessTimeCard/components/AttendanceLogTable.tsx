@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { convertToHms } from "../../../function/date/convertToHms";
+import { convertToHms } from "@/util/date/convertToHms";
 import type { AttendanceLog } from "../types/type";
 import styles from "./AttendanceLogTable.module.scss";
 

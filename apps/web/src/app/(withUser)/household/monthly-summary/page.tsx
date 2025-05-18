@@ -1,9 +1,9 @@
-import { convertToYmd } from "@/core/function/date/convertToYmd";
 import { type YYYY_MM_DD, YYYYmmDD } from "@/util/date/date";
 import { redirect } from "next/navigation";
 
+import { convertToYmd } from "@/util/date/convertToYmd";
+import { getPast12MonthYyyyMMdd } from "@/util/date/getPast12MonthYyyyMMdd";
 import { MonthlySummaryServer } from "../../../../features/householdMonthlySummary/components/MonthlySummaryServer";
-import { getPast12MonthYyyyMMdd } from "../../../../function/date/getPast12MonthYyyyMMdd";
 import { paths } from "../../../../routing/paths";
 
 const Page = async ({

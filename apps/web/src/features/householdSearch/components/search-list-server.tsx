@@ -1,11 +1,10 @@
-import { YYYYmmDD } from "@/util/date/date";
+import { type YYYY_MM_DD, YYYYmmDD } from "@/util/date/date";
 import type { FC } from "react";
 
 import { IocomeTotal } from "../../../components/molecules/Total";
 import { IocomeType } from "../../../domain/model/household/IocomeType";
 import { findAccountIds } from "../../../persistence/browser/server/findAccountIds";
 import { findCategoryIds } from "../../../persistence/browser/server/findCategoryIds";
-import type { YYYY_MM_DD } from "../../../types/yyyyMMdd";
 import { fetchDetails } from "../server/fetchDetails";
 import { SearchListTable } from "./search-list-table";
 

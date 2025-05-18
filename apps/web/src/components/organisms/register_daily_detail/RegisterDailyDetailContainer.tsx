@@ -1,6 +1,6 @@
-import { convertToYmd } from "@/core/function/date/convertToYmd";
 import { useState } from "react";
 
+import { convertToYmd } from "@/util/date/convertToYmd";
 import { errorPopup, successPopup } from "../../../function/successPopup";
 import { useNavigation } from "../../../routing/client/useNavigation";
 import { registerDailyDetail } from "../../../useServer/household/daily_detail/registerDailyDetail";
