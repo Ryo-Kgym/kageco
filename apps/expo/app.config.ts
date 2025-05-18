@@ -2,7 +2,7 @@ import type { ExpoConfig } from "@expo/config";
 
 const defineConfig = (): ExpoConfig => ({
   name: "kageco",
-  slug: "kageco",
+  slug: "home-helper",
   scheme: "kageco",
   version: "0.1.0",
   orientation: "portrait",
@@ -44,6 +44,7 @@ const defineConfig = (): ExpoConfig => ({
     typedRoutes: true,
   },
   plugins: ["expo-router", "./expo-plugins/with-modify-gradle.js"],
+  owner: "ryo-kgym"
 });
 
 export default defineConfig;
