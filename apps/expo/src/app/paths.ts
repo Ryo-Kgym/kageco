@@ -61,7 +61,7 @@ export const paths = {
           userId,
           groupId,
         }: { baseDate: string; userId: string; groupId: string }) =>
-          `${API_ROOT}/business/attendOrLeaveWork`,
+          `${API_ROOT}/business/attendOrLeaveWork?baseDate=${baseDate}&userId=${userId}&groupId=${groupId}`,
       },
     },
   },
