@@ -1,15 +1,15 @@
 import type { ExpoConfig } from "@expo/config";
 
 const defineConfig = (): ExpoConfig => ({
-  name: "Home Helper",
-  slug: "home-helper",
-  scheme: "home-helper",
+  name: "kageco",
+  slug: "kageco",
+  scheme: "kageco",
   version: "0.1.0",
   orientation: "portrait",
-  icon: "./assets/icon.png",
+  icon: "./assets/kageco-icon.png",
   userInterfaceStyle: "light",
   splash: {
-    image: "./assets/icon.png",
+    image: "./assets/kageco-icon.png",
     resizeMode: "contain",
     backgroundColor: "#1F104A",
   },
@@ -30,7 +30,7 @@ const defineConfig = (): ExpoConfig => ({
     },
     package: "your.bundle.identifier",
     adaptiveIcon: {
-      foregroundImage: "./assets/icon.png",
+      foregroundImage: "./assets/kageco-icon.png",
       backgroundColor: "#1F104A",
     },
   },
