@@ -3,7 +3,12 @@
  */
 
 import type { YYYY_MM_DD_HH_MM_SS } from "@/util/date/date";
+import type { AttendanceState } from "@/util/domain/business/timecard/attendance-state";
 import { paths } from "~/app/paths";
+import type {
+  AttendanceLog,
+  MonthlyPlanned,
+} from "~/feature/business/timecard/types";
 
 /**
  * 出勤・退勤の状態を取得または切り替えるAPIを呼び出す
@@ -14,7 +19,7 @@ import { paths } from "~/app/paths";
 export const attendOrLeaveWork = async (
   userId: string,
   groupId: string,
-): Promise<{ nextState: "attend" | "leave" }> => {
+): Promise<{ nextState: AttendanceState }> => {
   const response = await fetch(paths.api.business.attendOrLeaveWork.post(), {
     method: "POST",
     headers: {
@@ -40,26 +45,14 @@ export const attendOrLeaveWork = async (
  * @param groupId グループID
  * @returns 現在の状態（"attend" または "leave"）
  */
-export const fetchAttendanceState = async (
+export const fetchAttendanceByDate = async (
   baseDate: string,
   userId: string,
   groupId: string,
 ): Promise<{
-  lastState: "attend" | "leave";
-  baseDateLogs: Array<{
-    id: string;
-    state: "attend" | "leave";
-    datetime: {
-      tzDateTime: YYYY_MM_DD_HH_MM_SS;
-    };
-  }>;
-  monthlyPlanned: {
-    businessDays: number;
-    workHoursLower: number;
-    workHoursUpper: number;
-    workSecondLower: number;
-    workSecondUpper: number;
-  } | null;
+  lastState: AttendanceState;
+  baseDateLogs: Array<AttendanceLog>;
+  monthlyPlanned: MonthlyPlanned | null;
 }> => {
   const response = await fetch(
     paths.api.business.attendOrLeaveWork.get({

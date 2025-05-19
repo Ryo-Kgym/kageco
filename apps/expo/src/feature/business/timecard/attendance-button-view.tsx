@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
 import { useSaveUserId } from "~/hooks/user/useSaveUserId";
-import { attendOrLeaveWork, fetchAttendanceState } from "./attendance-api";
+import { attendOrLeaveWork, fetchAttendanceByDate } from "./attendance-api";
+import { AttendanceLogsView } from "./attendance-logs-view";
+import type { AttendanceLog } from "./types";
 
 /**
  * 出勤・退勤ボタンのUI表示コンポーネント
@@ -18,6 +20,8 @@ export const AttendanceButtonView = () => {
     useState<AttendanceState>("attend");
   // ボタンの無効化状態を管理するstate
   const [isLoading, setIsLoading] = useState(false);
+  // 当日の勤怠ログを管理するstate
+  const [attendanceLogs, setAttendanceLogs] = useState<AttendanceLog[]>([]);
 
   // 初期状態を取得する
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -29,12 +33,10 @@ export const AttendanceButtonView = () => {
 
         const baseDate = convertToYmd(now);
         // APIを呼び出して現在の状態を取得する
-        const data = await fetchAttendanceState(baseDate, userId, groupId);
-        console.log(data.monthlyPlanned);
-        console.log(data.baseDateLogs);
+        const data = await fetchAttendanceByDate(baseDate, userId, groupId);
 
-        // 次の状態を設定する
         setAttendanceState(data.lastState);
+        setAttendanceLogs(data.baseDateLogs);
       } catch (error) {
         console.error("Error fetching initial state:", error);
         // 初期状態の取得に失敗した場合はデフォルト値を使用
@@ -51,13 +53,22 @@ export const AttendanceButtonView = () => {
   // 出勤・退勤ボタンのクリックハンドラ
   const handleAttendanceButtonClick = async () => {
     try {
-      setIsLoading(true);
+      // setIsLoading(true);
 
       // APIを呼び出して出勤・退勤を記録する
       const data = await attendOrLeaveWork(userId, groupId);
 
       // 次の状態を設定する
       setAttendanceState(data.nextState);
+
+      // 勤怠ログを更新するために再取得する
+      const baseDate = convertToYmd(now);
+      const updatedData = await fetchAttendanceByDate(
+        baseDate,
+        userId,
+        groupId,
+      );
+      setAttendanceLogs(updatedData.baseDateLogs);
     } catch (error) {
       console.error("Error:", error);
       Alert.alert("エラー", "出勤・退勤の記録に失敗しました");
@@ -85,6 +96,9 @@ export const AttendanceButtonView = () => {
           </Text>
         </TouchableOpacity>
       </View>
+
+      {/* 勤怠ログ一覧を表示 */}
+      <AttendanceLogsView logs={attendanceLogs} />
     </View>
   );
 };
