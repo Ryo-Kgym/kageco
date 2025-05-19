@@ -6,7 +6,8 @@ import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
 import { useSaveUserId } from "~/hooks/user/useSaveUserId";
 import { attendOrLeaveWork, fetchAttendanceByDate } from "./attendance-api";
 import { AttendanceLogsView } from "./attendance-logs-view";
-import type { AttendanceLog } from "./types";
+import { MonthlyPlannedView } from "./monthly-planned-view";
+import type { AttendanceLog, MonthlyPlanned, Remaining } from "./types";
 
 /**
  * 出勤・退勤ボタンのUI表示コンポーネント
@@ -22,6 +23,12 @@ export const AttendanceButtonView = () => {
   const [isLoading, setIsLoading] = useState(false);
   // 当日の勤怠ログを管理するstate
   const [attendanceLogs, setAttendanceLogs] = useState<AttendanceLog[]>([]);
+  // 月次予定・実績データを管理するstate
+  const [monthlyPlanned, setMonthlyPlanned] = useState<
+    MonthlyPlanned | undefined
+  >();
+  // 残り勤務情報を管理するstate
+  const [remaining, setRemaining] = useState<Remaining | undefined>();
 
   // 初期状態を取得する
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -37,6 +44,8 @@ export const AttendanceButtonView = () => {
 
         setAttendanceState(data.lastState);
         setAttendanceLogs(data.baseDateLogs);
+        setMonthlyPlanned(data.monthlyPlanned ?? undefined);
+        setRemaining(data.remaining);
       } catch (error) {
         console.error("Error fetching initial state:", error);
         // 初期状態の取得に失敗した場合はデフォルト値を使用
@@ -53,7 +62,7 @@ export const AttendanceButtonView = () => {
   // 出勤・退勤ボタンのクリックハンドラ
   const handleAttendanceButtonClick = async () => {
     try {
-      // setIsLoading(true);
+      setIsLoading(true);
 
       // APIを呼び出して出勤・退勤を記録する
       const data = await attendOrLeaveWork(userId, groupId);
@@ -69,6 +78,8 @@ export const AttendanceButtonView = () => {
         groupId,
       );
       setAttendanceLogs(updatedData.baseDateLogs);
+      setMonthlyPlanned(updatedData.monthlyPlanned ?? undefined);
+      setRemaining(updatedData.remaining);
     } catch (error) {
       console.error("Error:", error);
       Alert.alert("エラー", "出勤・退勤の記録に失敗しました");
@@ -99,6 +110,12 @@ export const AttendanceButtonView = () => {
 
       {/* 勤怠ログ一覧を表示 */}
       <AttendanceLogsView logs={attendanceLogs} />
+
+      {/* 月次予定・実績を表示 */}
+      <MonthlyPlannedView
+        monthlyPlanned={monthlyPlanned}
+        remaining={remaining}
+      />
     </View>
   );
 };

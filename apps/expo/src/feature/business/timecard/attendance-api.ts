@@ -8,6 +8,7 @@ import { paths } from "~/app/paths";
 import type {
   AttendanceLog,
   MonthlyPlanned,
+  Remaining,
 } from "~/feature/business/timecard/types";
 
 /**
@@ -53,6 +54,7 @@ export const fetchAttendanceByDate = async (
   lastState: AttendanceState;
   baseDateLogs: Array<AttendanceLog>;
   monthlyPlanned: MonthlyPlanned | null;
+  remaining: Remaining;
 }> => {
   const response = await fetch(
     paths.api.business.attendOrLeaveWork.get({

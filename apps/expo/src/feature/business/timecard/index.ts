@@ -4,6 +4,7 @@
 export { AttendanceButtonView } from "./attendance-button-view";
 export { AttendanceRecordsView } from "./attendance-records-view";
 export { AttendanceLogsView } from "./attendance-logs-view";
+export { MonthlyPlannedView } from "./monthly-planned-view";
 export { MonthlyCalendar } from "./monthly-calendar";
 export { DailyAttendanceDetail } from "./daily-attendance-detail";
 

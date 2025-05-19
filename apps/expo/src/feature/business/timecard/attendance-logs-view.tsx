@@ -10,7 +10,7 @@ interface AttendanceLogsViewProps {
 }
 
 export const AttendanceLogsView = ({ logs }: AttendanceLogsViewProps) => {
-  if (!logs || logs.length === 0) {
+  if (!logs?.length) {
     return (
       <View style={styles.container}>
         <Text style={styles.emptyText}>本日の勤怠記録はありません</Text>
