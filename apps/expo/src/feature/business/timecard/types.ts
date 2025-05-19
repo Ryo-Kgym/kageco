@@ -2,11 +2,9 @@
  * 勤怠管理に関する型定義
  */
 
-/**
- * 勤怠ログの状態
- */
-export type AttendanceState = "attend" | "leave";
-export type DayOfWeek = "sun" | "mon" | "tue" | "wed" | "thu" | "fri" | "sat";
+import type { YYYY_MM_DD } from "@/util/date/date";
+import type { DayOfWeek } from "@/util/date/day-of-week";
+import type { AttendanceState } from "@/util/domain/business/timecard/attendance-state";
 
 /**
  * 勤怠ログ
@@ -26,7 +24,7 @@ export interface AttendanceLog {
 export interface DayAttendance {
   id: string;
   date: {
-    yyyyMMdd: string;
+    yyyyMMdd: YYYY_MM_DD;
   };
   dayOfWeek: DayOfWeek;
   startDatetime?: {

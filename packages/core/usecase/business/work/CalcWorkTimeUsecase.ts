@@ -1,6 +1,6 @@
 import type { TZDateTime, YYYY_MM, YYYYmmDD } from "@/util/date/date";
 
-import type { AttendanceState } from "../../../domain/business/attend/AttendanceState";
+import type { AttendanceState } from "@/util/domain/business/timecard/attendance-state";
 import { DayAttendance } from "../../../domain/business/attend/DayAttendance";
 import { MonthlyAchievement } from "../../../domain/business/work/MonthlyAchievement";
 import { MonthlyPlan } from "../../../domain/business/work/MonthlyPlan";

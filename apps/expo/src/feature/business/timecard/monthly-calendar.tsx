@@ -9,11 +9,14 @@ import {
   View,
 } from "react-native";
 
+import { convertToYmd } from "@/util/date/convertToYmd";
+import type { YYYY_MM_DD } from "@/util/date/date";
+import type { DayOfWeek } from "@/util/date/day-of-week";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
 import { useSaveUserId } from "~/hooks/user/useSaveUserId";
 import { fetchMonthlyAttendance } from "./attendance-api";
 import { DailyAttendanceDetail } from "./daily-attendance-detail";
-import type { DayAttendance, DayOfWeek, MonthlyAttendanceData } from "./types";
+import type { DayAttendance, MonthlyAttendanceData } from "./types";
 import { formatMinutes, formatSeconds, formatTime } from "./utils";
 
 /**
@@ -175,7 +178,7 @@ export const MonthlyCalendar = () => {
               >
                 <Text style={styles.dateCell}>{day.date.slice(8, 10)}</Text>
                 <Text style={[styles.dayCell, { color: day.dayOfWeekColor }]}>
-                  {day.dayOfWeek}
+                  {getDayOfWeekJapanese(day.dayOfWeek)}
                 </Text>
                 <Text style={styles.cell}>
                   {formatTime(day.startDatetime, "")}
@@ -207,30 +210,35 @@ export const MonthlyCalendar = () => {
 /**
  * 曜日の日本語表記を返す
  */
-const getDayOfWeekJapanese = (dayIndex: number): string => {
-  const days = ["日", "月", "火", "水", "木", "金", "土"];
-  return days[dayIndex] as string;
+const getDayOfWeekJapanese = (dayOfWeek: DayOfWeek): string => {
+  const label: Record<DayOfWeek, string> = {
+    sun: "日",
+    mon: "月",
+    tue: "火",
+    wed: "水",
+    thu: "木",
+    fri: "金",
+    sat: "土",
+  };
+
+  return label[dayOfWeek];
 };
 
 /**
  * 曜日に応じた色を返す
  */
-const getDayOfWeekColor = (dayIndex: DayOfWeek): string => {
-  if (dayIndex === "sun") return "#F44336"; // 日曜日は赤
-  if (dayIndex === "sat") return "#2196F3"; // 土曜日は青
+const getDayOfWeekColor = (dayOfWeek: DayOfWeek): string => {
+  if (dayOfWeek === "sun") return "#F44336"; // 日曜日は赤
+  if (dayOfWeek === "sat") return "#2196F3"; // 土曜日は青
   return "#333333"; // 平日は黒
 };
 
 /**
  * 指定された日付が今日かどうかを判定する
  */
-const isToday = (date: string): boolean => {
-  const today = new Date();
-  const day = today.getDate();
-  const month = today.getMonth();
-  const year = today.getFullYear();
-  const d = new Date(year, month, day);
-  return date === d.toISOString().slice(0, 10);
+const isToday = (date: YYYY_MM_DD): boolean => {
+  const today = convertToYmd(new Date());
+  return date === today;
 };
 
 /**

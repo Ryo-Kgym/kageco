@@ -1,7 +1,7 @@
 import type { TZDateTime, YYYYmmDD } from "@/util/date/date";
 
+import type { AttendanceState } from "@/util/domain/business/timecard/attendance-state";
 import { AttendAtWork } from "../../../domain/business/attend/AttendAtWork";
-import type { AttendanceState } from "../../../domain/business/attend/AttendanceState";
 import { LeaveWork } from "../../../domain/business/attend/LeaveWork";
 import type { FindLastAttendanceLogGateway } from "../../../gateway/business/attend/FindLastAttendanceLogGateway";
 import type { BusinessUsecase } from "../BusinessUsecase";

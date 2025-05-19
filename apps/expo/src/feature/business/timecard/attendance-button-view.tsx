@@ -1,25 +1,34 @@
 import { convertToYmd } from "@/util/date/convertToYmd";
+import type { AttendanceState } from "@/util/domain/business/timecard/attendance-state";
 import { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
 import { useSaveUserId } from "~/hooks/user/useSaveUserId";
-import { attendOrLeaveWork, fetchAttendanceState } from "./attendance-api";
+import { attendOrLeaveWork, fetchAttendanceByDate } from "./attendance-api";
+import { AttendanceLogsView } from "./attendance-logs-view";
+import { MonthlyPlannedView } from "./monthly-planned-view";
+import type { AttendanceLog, MonthlyPlanned, Remaining } from "./types";
 
 /**
  * 出勤・退勤ボタンのUI表示コンポーネント
  */
 export const AttendanceButtonView = () => {
-  // ユーザーIDとグループIDを取得
   const { userId } = useSaveUserId();
   const { groupId } = useSaveGroupId();
   const now = new Date();
 
-  // 出勤・退勤の状態を管理するstate
-  const [attendanceState, setAttendanceState] = useState<"attend" | "leave">(
-    "attend",
-  );
+  const [attendanceState, setAttendanceState] =
+    useState<AttendanceState>("attend");
   // ボタンの無効化状態を管理するstate
   const [isLoading, setIsLoading] = useState(false);
+  // 当日の勤怠ログを管理するstate
+  const [attendanceLogs, setAttendanceLogs] = useState<AttendanceLog[]>([]);
+  // 月次予定・実績データを管理するstate
+  const [monthlyPlanned, setMonthlyPlanned] = useState<
+    MonthlyPlanned | undefined
+  >();
+  // 残り勤務情報を管理するstate
+  const [remaining, setRemaining] = useState<Remaining | undefined>();
 
   // 初期状態を取得する
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -31,10 +40,12 @@ export const AttendanceButtonView = () => {
 
         const baseDate = convertToYmd(now);
         // APIを呼び出して現在の状態を取得する
-        const data = await fetchAttendanceState(baseDate, userId, groupId);
+        const data = await fetchAttendanceByDate(baseDate, userId, groupId);
 
-        // 次の状態を設定する
         setAttendanceState(data.lastState);
+        setAttendanceLogs(data.baseDateLogs);
+        setMonthlyPlanned(data.monthlyPlanned ?? undefined);
+        setRemaining(data.remaining);
       } catch (error) {
         console.error("Error fetching initial state:", error);
         // 初期状態の取得に失敗した場合はデフォルト値を使用
@@ -58,6 +69,17 @@ export const AttendanceButtonView = () => {
 
       // 次の状態を設定する
       setAttendanceState(data.nextState);
+
+      // 勤怠ログを更新するために再取得する
+      const baseDate = convertToYmd(now);
+      const updatedData = await fetchAttendanceByDate(
+        baseDate,
+        userId,
+        groupId,
+      );
+      setAttendanceLogs(updatedData.baseDateLogs);
+      setMonthlyPlanned(updatedData.monthlyPlanned ?? undefined);
+      setRemaining(updatedData.remaining);
     } catch (error) {
       console.error("Error:", error);
       Alert.alert("エラー", "出勤・退勤の記録に失敗しました");
@@ -85,6 +107,15 @@ export const AttendanceButtonView = () => {
           </Text>
         </TouchableOpacity>
       </View>
+
+      {/* 勤怠ログ一覧を表示 */}
+      <AttendanceLogsView logs={attendanceLogs} />
+
+      {/* 月次予定・実績を表示 */}
+      <MonthlyPlannedView
+        monthlyPlanned={monthlyPlanned}
+        remaining={remaining}
+      />
     </View>
   );
 };

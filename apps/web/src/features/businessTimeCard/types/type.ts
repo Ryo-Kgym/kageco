@@ -1,5 +1,5 @@
-import type { AttendanceState } from "@/core/domain/business/attend/AttendanceState";
 import type { TZDateTime, YYYYmmDD } from "@/util/date/date";
+import type { AttendanceState } from "@/util/domain/business/timecard/attendance-state";
 
 export type DayAttendance = {
   date: YYYYmmDD;

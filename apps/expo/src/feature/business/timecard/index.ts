@@ -3,19 +3,20 @@
 // コンポーネントのエクスポート
 export { AttendanceButtonView } from "./attendance-button-view";
 export { AttendanceRecordsView } from "./attendance-records-view";
+export { AttendanceLogsView } from "./attendance-logs-view";
+export { MonthlyPlannedView } from "./monthly-planned-view";
 export { MonthlyCalendar } from "./monthly-calendar";
 export { DailyAttendanceDetail } from "./daily-attendance-detail";
 
 // API関数のエクスポート
 export {
   attendOrLeaveWork,
-  fetchAttendanceState,
+  fetchAttendanceByDate,
   fetchMonthlyAttendance,
 } from "./attendance-api";
 
 // 型定義のエクスポート
 export type {
-  AttendanceState,
   AttendanceLog,
   DayAttendance,
   MonthlyPlanned,

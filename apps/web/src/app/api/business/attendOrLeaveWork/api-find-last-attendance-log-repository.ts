@@ -1,6 +1,6 @@
-import type { AttendanceState } from "@/core/domain/business/attend/AttendanceState";
 import type { FindLastAttendanceLogGateway } from "@/core/gateway/business/attend/FindLastAttendanceLogGateway";
 import { TZDateTime, type YYYYmmDD } from "@/util/date/date";
+import type { AttendanceState } from "@/util/domain/business/timecard/attendance-state";
 import { GetAttendanceDocument } from "@v3/graphql/business/schema/query/v5/queryDailyAttendance.generated";
 import { execQuery } from "../../../../persistence/database/server/execQuery";
 
