@@ -2,6 +2,7 @@
  * 勤怠管理のAPI通信を担当するモジュール
  */
 
+import type { YYYY_MM_DD_HH_MM_SS } from "@/util/date/date";
 import { paths } from "~/app/paths";
 
 /**
@@ -43,7 +44,23 @@ export const fetchAttendanceState = async (
   baseDate: string,
   userId: string,
   groupId: string,
-): Promise<{ lastState: "attend" | "leave" }> => {
+): Promise<{
+  lastState: "attend" | "leave";
+  baseDateLogs: Array<{
+    id: string;
+    state: "attend" | "leave";
+    datetime: {
+      tzDateTime: YYYY_MM_DD_HH_MM_SS;
+    };
+  }>;
+  monthlyPlanned: {
+    businessDays: number;
+    workHoursLower: number;
+    workHoursUpper: number;
+    workSecondLower: number;
+    workSecondUpper: number;
+  } | null;
+}> => {
   const response = await fetch(
     paths.api.business.attendOrLeaveWork.get({
       baseDate,

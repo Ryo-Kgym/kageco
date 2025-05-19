@@ -1,4 +1,5 @@
 import { convertToYmd } from "@/util/date/convertToYmd";
+import type { AttendanceState } from "@/util/domain/business/timecard/attendance-state";
 import { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
@@ -9,15 +10,12 @@ import { attendOrLeaveWork, fetchAttendanceState } from "./attendance-api";
  * 出勤・退勤ボタンのUI表示コンポーネント
  */
 export const AttendanceButtonView = () => {
-  // ユーザーIDとグループIDを取得
   const { userId } = useSaveUserId();
   const { groupId } = useSaveGroupId();
   const now = new Date();
 
-  // 出勤・退勤の状態を管理するstate
-  const [attendanceState, setAttendanceState] = useState<"attend" | "leave">(
-    "attend",
-  );
+  const [attendanceState, setAttendanceState] =
+    useState<AttendanceState>("attend");
   // ボタンの無効化状態を管理するstate
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,6 +30,8 @@ export const AttendanceButtonView = () => {
         const baseDate = convertToYmd(now);
         // APIを呼び出して現在の状態を取得する
         const data = await fetchAttendanceState(baseDate, userId, groupId);
+        console.log(data.monthlyPlanned);
+        console.log(data.baseDateLogs);
 
         // 次の状態を設定する
         setAttendanceState(data.lastState);

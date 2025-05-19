@@ -2,10 +2,11 @@
  * 勤怠管理に関する型定義
  */
 
+import type { AttendanceState } from "@/util/domain/business/timecard/attendance-state";
+
 /**
  * 勤怠ログの状態
  */
-export type AttendanceState = "attend" | "leave";
 export type DayOfWeek = "sun" | "mon" | "tue" | "wed" | "thu" | "fri" | "sat";
 
 /**

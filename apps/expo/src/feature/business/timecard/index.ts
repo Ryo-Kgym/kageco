@@ -15,7 +15,6 @@ export {
 
 // 型定義のエクスポート
 export type {
-  AttendanceState,
   AttendanceLog,
   DayAttendance,
   MonthlyPlanned,
