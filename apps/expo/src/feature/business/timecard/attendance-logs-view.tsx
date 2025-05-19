@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import type { AttendanceLog } from "./types";
 import { formatTime } from "./utils";
 
@@ -30,7 +30,9 @@ export const AttendanceLogsView = ({ logs }: AttendanceLogsViewProps) => {
               <View
                 style={[
                   styles.stateIndicator,
-                  item.state === "attend" ? styles.attendIndicator : styles.leaveIndicator,
+                  item.state === "attend"
+                    ? styles.attendIndicator
+                    : styles.leaveIndicator,
                 ]}
               />
               <Text style={styles.stateText}>
