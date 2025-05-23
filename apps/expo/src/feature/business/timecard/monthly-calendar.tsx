@@ -92,6 +92,7 @@ export const MonthlyCalendar = () => {
     startDatetime: d.startDatetime?.tzDateTime,
     endDatetime: d.endDatetime?.tzDateTime,
     breakSecond: d.breakSecond,
+    workSecond: d.workSecond,
   })) ?? []) satisfies Array<{ date: string; dayOfWeek: DayOfWeek }>;
 
   // 勤怠データから日付ごとのデータを取得する関数
@@ -152,6 +153,7 @@ export const MonthlyCalendar = () => {
         <Text style={styles.headerCell}>曜日</Text>
         <Text style={styles.headerCell}>出勤</Text>
         <Text style={styles.headerCell}>退勤</Text>
+        <Text style={styles.headerCell}>労働時間</Text>
         <Text style={styles.headerCell}>休憩</Text>
       </View>
 
@@ -185,6 +187,9 @@ export const MonthlyCalendar = () => {
                 </Text>
                 <Text style={styles.cell}>
                   {formatTime(day.endDatetime, "")}
+                </Text>
+                <Text style={styles.cell}>
+                  {formatSeconds(day.workSecond, "")}
                 </Text>
                 <Text style={styles.cell}>
                   {formatMinutes(day.breakSecond, "")}

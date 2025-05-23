@@ -2,11 +2,11 @@
  * 勤怠管理のAPI通信を担当するモジュール
  */
 
-import type { YYYY_MM_DD_HH_MM_SS } from "@/util/date/date";
 import type { AttendanceState } from "@/util/domain/business/timecard/attendance-state";
 import { paths } from "~/app/paths";
 import type {
   AttendanceLog,
+  MonthlyAttendanceData,
   MonthlyPlanned,
   Remaining,
 } from "~/feature/business/timecard/types";
@@ -85,7 +85,7 @@ export const fetchMonthlyAttendance = async (
   baseDate: string,
   userId: string,
   groupId: string,
-) => {
+): Promise<MonthlyAttendanceData> => {
   const response = await fetch(
     paths.api.business.attendOrLeaveWork.get({
       baseDate,

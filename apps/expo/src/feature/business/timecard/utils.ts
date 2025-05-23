@@ -17,9 +17,8 @@ export const formatTime = (
   const dateObj = new Date(date);
   const hours = dateObj.getHours();
   const minutes = dateObj.getMinutes();
-  const seconds = dateObj.getSeconds();
 
-  return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+  return `${hours}:${minutes.toString().padStart(2, "0")}`;
 };
 
 /**
@@ -28,8 +27,11 @@ export const formatTime = (
  * @param defaultValue デフォルト値（秒数が0以下の場合に返す値）
  * @returns 時間:分形式の文字列
  */
-export const formatSeconds = (seconds: number, defaultValue = "-"): string => {
-  if (seconds <= 0) return defaultValue;
+export const formatSeconds = (
+  seconds: number | undefined,
+  defaultValue = "-",
+): string => {
+  if (!seconds || seconds <= 0) return defaultValue;
 
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
