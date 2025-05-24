@@ -1,5 +1,3 @@
-import type { YYYY_MM_DD } from "@/util/date/date";
-
 export const paths = {
   group: {
     select: "/group",
@@ -36,8 +34,5 @@ export const paths = {
     monthlySummary: {
       root: () => "/household/monthly-summary",
     },
-  },
-  business: {
-    timecard: () => "/business/timecard",
   },
 };
