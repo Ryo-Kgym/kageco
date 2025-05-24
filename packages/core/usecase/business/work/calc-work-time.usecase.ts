@@ -1,17 +1,15 @@
 import type { TZDateTime, YYYY_MM, YYYYmmDD } from "@/util/date/date";
 
 import type { AttendanceState } from "@/util/domain/business/timecard/attendance-state";
-import { DayAttendance } from "../../../domain/business/attend/DayAttendance";
+import type { DayAttendance } from "../../../domain/business/attend/DayAttendance";
 import { MonthlyAchievement } from "../../../domain/business/work/MonthlyAchievement";
-import { MonthlyPlan } from "../../../domain/business/work/MonthlyPlan";
 import { MonthlyRemaining } from "../../../domain/business/work/MonthlyRemaining";
-import { WorkTime } from "../../../domain/business/work/WorkTime";
-import { DayOfWeekFactory } from "../../../domain/date/DayOfWeekFactory";
-import { CreateFailureException } from "../../../exception/create-failure.exception";
-import type { FindAttendanceGateway } from "../../../gateway/business/work/FindAttendanceGateway";
-import type { CreateMonthlyPlanGateway } from "../../../gateway/business/work/create-monthly-plan-gateway";
+import type { CreateMonthlyPlanGateway } from "../../../gateway/business/work/create-monthly-plan.gateway";
+import type { FindAttendanceGateway } from "../../../gateway/business/work/find-attendance.gateway";
 import type { BusinessUsecase } from "../BusinessUsecase";
+import { CreateMonthlyPlanUsecase } from "./create-monthly-plan.usecase";
 import { makeDaysOfMonth } from "./makeDaysOfMonth";
+import { mergeDailyList } from "./merge-daily-list";
 
 export class CalcWorkTimeUsecase
   implements BusinessUsecase<CalcWorkTimeInput, CalcWorkTimeOutput>
@@ -29,32 +27,7 @@ export class CalcWorkTimeUsecase
       monthlyList.slice(-1)[0] ?? input.baseDate,
     );
 
-    const mergedDailyList: DayAttendance[] = monthlyList.map((date) => {
-      const matched = days.find((day) => day.date.equals(date));
-
-      if (!matched) {
-        return new DayAttendance({
-          date,
-          dayOfWeek: DayOfWeekFactory.of(date),
-          startDatetime: undefined,
-          endDatetime: undefined,
-          breakSecond: undefined,
-          workSecond: undefined,
-        });
-      }
-
-      return new DayAttendance({
-        date,
-        dayOfWeek: DayOfWeekFactory.of(date),
-        startDatetime: matched.startDatetime,
-        endDatetime: matched.endDatetime,
-        breakSecond: matched.breakSecond ?? 0,
-        workSecond: new WorkTime({
-          startDatetime: matched.startDatetime,
-          endDatetime: matched.endDatetime,
-        }).calcWorkSecond(matched.breakSecond),
-      });
-    });
+    const mergedDailyList = mergeDailyList(monthlyList, days);
 
     const baseDateLogs: AttendanceLog[] =
       days
@@ -72,19 +45,12 @@ export class CalcWorkTimeUsecase
       0,
     );
 
-    const plan = monthlyPlan
-      ? new MonthlyPlan({
-          businessDays: monthlyPlan.businessDays,
-          workHoursLower: monthlyPlan.plannedWorkingHoursLower,
-          workHoursUpper: monthlyPlan.plannedWorkingHoursUpper,
-        })
-      : await this.createMonthlyPlanGateway.createMonthlyPlan(
-          MonthlyPlan.of(1.0),
-        );
-
-    if (!plan) {
-      throw new CreateFailureException("monthly-plan");
-    }
+    const createMonthlyPlanUsecase = new CreateMonthlyPlanUsecase(
+      this.createMonthlyPlanGateway,
+    );
+    const plan = await createMonthlyPlanUsecase.handle({
+      monthlyPlan,
+    });
 
     const achievement = MonthlyAchievement.of(mergedDailyList);
     const remaining = MonthlyRemaining.of(plan, achievement);
