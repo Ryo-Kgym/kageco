@@ -35,7 +35,12 @@ const updateMonthlyPlan = async (params: {
 const getMonthlyPlan = async (params: {
   userId: string;
   yearMonth: YYYY_MM;
-}): Promise<MonthlyPlan | null> => {
+}): Promise<
+  | (Pick<MonthlyPlan, "businessDays" | "workHoursUpper" | "workHoursLower"> & {
+      id: string;
+    })
+  | null
+> => {
   const { data } = await execQuery(GetMonthlyPlanDocument, {
     userId: params.userId,
     yearMonth: params.yearMonth,
@@ -45,11 +50,12 @@ const getMonthlyPlan = async (params: {
     return null;
   }
 
-  return new MonthlyPlan({
+  return {
+    id: data.monthlyPlan[0].id,
     businessDays: data.monthlyPlan[0].businessDays,
     workHoursLower: data.monthlyPlan[0].plannedWorkingHoursLower,
     workHoursUpper: data.monthlyPlan[0].plannedWorkingHoursUpper,
-  });
+  };
 };
 
 /**
@@ -156,8 +162,8 @@ export async function GET(request: Request) {
     const url = new URL(request.url);
 
     // Extract query parameters
-    const userId = url.searchParams.get('userId');
-    const yearMonth = url.searchParams.get('yearMonth') as YYYY_MM | null;
+    const userId = url.searchParams.get("userId");
+    const yearMonth = url.searchParams.get("yearMonth") as YYYY_MM | null;
 
     // Validate required parameters
     if (!userId || !yearMonth) {
@@ -196,14 +202,21 @@ export async function GET(request: Request) {
       );
     }
 
+    const monthlyPlanClass = new MonthlyPlan({
+      businessDays: monthlyPlan.businessDays,
+      workHoursLower: monthlyPlan.workHoursLower,
+      workHoursUpper: monthlyPlan.workHoursUpper,
+    });
+
     return NextResponse.json({
       success: true,
       data: {
-        businessDays: monthlyPlan.businessDays,
-        workHoursLower: monthlyPlan.workHoursLower,
-        workHoursUpper: monthlyPlan.workHoursUpper,
-        workSecondLower: monthlyPlan.workSecondLower,
-        workSecondUpper: monthlyPlan.workSecondUpper,
+        id: monthlyPlan.id,
+        businessDays: monthlyPlanClass.businessDays,
+        workHoursLower: monthlyPlanClass.workHoursLower,
+        workHoursUpper: monthlyPlanClass.workHoursUpper,
+        workSecondLower: monthlyPlanClass.workSecondLower,
+        workSecondUpper: monthlyPlanClass.workSecondUpper,
       },
     });
   } catch (error) {

@@ -65,6 +65,8 @@ export const paths = {
       },
       monthlyPlan: {
         post: () => `${API_ROOT}/business/monthlyPlan`,
+        get: ({ userId, yearMonth }: { userId: string; yearMonth: string }) =>
+          `${API_ROOT}/business/monthlyPlan?userId=${userId}&yearMonth=${yearMonth}`,
       },
     },
   },

@@ -1,6 +1,8 @@
-import { useRouter } from "expo-router";
-import React, { useState } from "react";
+import { convertToYyyyMm } from "@/util/date/convert-to-yyyy-mm";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import React, { useState, useEffect, useCallback } from "react";
 import {
+  ActivityIndicator,
   Alert,
   StyleSheet,
   Text,
@@ -9,6 +11,7 @@ import {
   View,
 } from "react-native";
 import { paths } from "~/app/paths";
+import { useSaveUserId } from "~/hooks/user/useSaveUserId";
 
 /**
  * 月次計画更新画面
@@ -16,21 +19,60 @@ import { paths } from "~/app/paths";
  */
 export default function MonthlyPlanPage() {
   const router = useRouter();
+  const params = useLocalSearchParams();
   const [id, setId] = useState("");
   const [businessDays, setBusinessDays] = useState("");
   const [plannedWorkingHoursLower, setPlannedWorkingHoursLower] = useState("");
   const [plannedWorkingHoursUpper, setPlannedWorkingHoursUpper] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isInitializing, setIsInitializing] = useState(true);
+  const { userId } = useSaveUserId();
+  const yearMonth = convertToYyyyMm(new Date());
+
+  /**
+   * 月次計画を取得する
+   */
+  const fetchMonthlyPlan = useCallback(async () => {
+    if (!userId) {
+      setIsInitializing(false);
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        paths.api.business.monthlyPlan.get({ userId, yearMonth }),
+        {
+          method: "GET",
+        },
+      );
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        // フォームに値をセット
+        setId(data.data.id || "");
+        setBusinessDays(data.data.businessDays?.toString() || "");
+        setPlannedWorkingHoursLower(data.data.workHoursLower?.toString() || "");
+        setPlannedWorkingHoursUpper(data.data.workHoursUpper?.toString() || "");
+      } else {
+        console.log("Monthly plan not found or error:", data.error);
+      }
+    } catch (error) {
+      console.error("Error fetching monthly plan:", error);
+    } finally {
+      setIsInitializing(false);
+    }
+  }, [userId, yearMonth]);
+
+  // コンポーネントマウント時に月次計画を取得
+  useEffect(() => {
+    fetchMonthlyPlan();
+  }, [fetchMonthlyPlan]);
 
   /**
    * 月次計画を更新する
    */
   const updateMonthlyPlan = async () => {
-    if (!id) {
-      Alert.alert("エラー", "月次計画IDを入力してください");
-      return;
-    }
-
     if (!businessDays) {
       Alert.alert("エラー", "営業日数を入力してください");
       return;
@@ -79,20 +121,20 @@ export default function MonthlyPlanPage() {
     }
   };
 
+  // 初期化中はローディングを表示
+  if (isInitializing) {
+    return (
+      <View style={[styles.container, styles.loadingContainer]}>
+        <ActivityIndicator size="large" color="#007AFF" />
+        <Text style={styles.loadingText}>月次計画を読み込み中...</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>月次計画更新</Text>
-
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>月次計画ID</Text>
-        <TextInput
-          style={styles.input}
-          value={id}
-          onChangeText={setId}
-          placeholder="月次計画IDを入力"
-          keyboardType="default"
-        />
-      </View>
+      <Text style={styles.yearMonth}>{yearMonth}</Text>
 
       <View style={styles.inputContainer}>
         <Text style={styles.label}>営業日数</Text>
@@ -145,9 +187,24 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
+  loadingContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loadingText: {
+    marginTop: 16,
+    fontSize: 16,
+    color: "#666",
+  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
+    marginBottom: 8,
+    textAlign: "center",
+  },
+  yearMonth: {
+    fontSize: 18,
+    color: "#666",
     marginBottom: 24,
     textAlign: "center",
   },
