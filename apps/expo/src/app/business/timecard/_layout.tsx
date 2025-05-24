@@ -10,6 +10,12 @@ const Layout = () => (
     <Stack.Screen options={{ title: "勤怠管理" }} />
     <Tabs>
       <Tabs.Screen
+        name="index"
+        options={{
+          href: null, // hrefをnullに設定
+        }}
+      />
+      <Tabs.Screen
         name="button/index"
         options={{
           title: "出退勤",
