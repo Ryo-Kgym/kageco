@@ -1,9 +1,9 @@
-import { FontAwesome5, MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome5, MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Stack, Tabs } from "expo-router";
 
 /**
  * 勤怠管理ページのタブレイアウト
- * 出勤・退勤ボタンと勤怠記録をタブで分ける
+ * 出勤・退勤ボタン、勤怠記録、月次計画をタブで分ける
  */
 const Layout = () => (
   <>
@@ -33,6 +33,16 @@ const Layout = () => (
             <MaterialIcons name="calendar-month" size={24} color={color} />
           ),
           href: "/business/timecard/records",
+        }}
+      />
+      <Tabs.Screen
+        name="monthly-plan/index"
+        options={{
+          title: "月次計画",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="calendar-edit" size={24} color={color} />
+          ),
+          href: "/business/timecard/monthly-plan",
         }}
       />
     </Tabs>
