@@ -46,4 +46,13 @@ export type BusinessDailyAttendanceSetInput = {
   startDatetime?: YYYY_MM_DD_HH_MM_SS;
 };
 
+export type BusinessMonthlyPlanInsertInput = {
+  id: string;
+  userId: string;
+  yearMonth: string;
+  businessDays: number;
+  plannedWorkingHoursLower: number;
+  plannedWorkingHoursUpper: number;
+};
+
 export type AttendanceState = "attend" | "leave";

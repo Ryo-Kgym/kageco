@@ -1,0 +1,10 @@
+mutation insertMonthlyPlan($input: BusinessMonthlyPlanInsertInput!) {
+  insertBusinessMonthlyPlanOne(object: $input) {
+    id
+    userId
+    yearMonth
+    businessDays
+    plannedWorkingHoursLower
+    plannedWorkingHoursUpper
+  }
+}

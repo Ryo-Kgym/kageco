@@ -7,18 +7,19 @@ import { MonthlyPlan } from "../../../domain/business/work/MonthlyPlan";
 import { MonthlyRemaining } from "../../../domain/business/work/MonthlyRemaining";
 import { WorkTime } from "../../../domain/business/work/WorkTime";
 import { DayOfWeekFactory } from "../../../domain/date/DayOfWeekFactory";
+import { CreateFailureException } from "../../../exception/create-failure.exception";
 import type { FindAttendanceGateway } from "../../../gateway/business/work/FindAttendanceGateway";
+import type { CreateMonthlyPlanGateway } from "../../../gateway/business/work/create-monthly-plan-gateway";
 import type { BusinessUsecase } from "../BusinessUsecase";
 import { makeDaysOfMonth } from "./makeDaysOfMonth";
 
 export class CalcWorkTimeUsecase
   implements BusinessUsecase<CalcWorkTimeInput, CalcWorkTimeOutput>
 {
-  private readonly findAttendanceGateway: FindAttendanceGateway;
-
-  constructor(findAttendanceGateway: FindAttendanceGateway) {
-    this.findAttendanceGateway = findAttendanceGateway;
-  }
+  constructor(
+    private findAttendanceGateway: FindAttendanceGateway,
+    private createMonthlyPlanGateway: CreateMonthlyPlanGateway,
+  ) {}
 
   async handle(input: CalcWorkTimeInput) {
     const monthlyList = makeDaysOfMonth(input.baseDate);
@@ -71,11 +72,20 @@ export class CalcWorkTimeUsecase
       0,
     );
 
-    const plan = new MonthlyPlan({
-      businessDays: monthlyPlan?.businessDays ?? 0,
-      workHoursLower: monthlyPlan?.plannedWorkingHoursLower ?? 0,
-      workHoursUpper: monthlyPlan?.plannedWorkingHoursUpper ?? 0,
-    });
+    const plan = monthlyPlan
+      ? new MonthlyPlan({
+          businessDays: monthlyPlan.businessDays,
+          workHoursLower: monthlyPlan.plannedWorkingHoursLower,
+          workHoursUpper: monthlyPlan.plannedWorkingHoursUpper,
+        })
+      : await this.createMonthlyPlanGateway.createMonthlyPlan(
+          MonthlyPlan.of(1.0),
+        );
+
+    if (!plan) {
+      throw new CreateFailureException("monthly-plan");
+    }
+
     const achievement = MonthlyAchievement.of(mergedDailyList);
     const remaining = MonthlyRemaining.of(plan, achievement);
 
@@ -117,7 +127,7 @@ type CalcWorkTimeOutput = {
     workHoursUpper: number;
     workSecondLower: number;
     workSecondUpper: number;
-  } | null;
+  };
   remaining: {
     businessDays: number;
     workSecondLower: number;

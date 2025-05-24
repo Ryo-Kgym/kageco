@@ -634,6 +634,37 @@ export type BusinessMonthlyPlanBoolExp = {
   yearMonth: InputMaybe<BpcharComparisonExp>;
 };
 
+/** unique or primary key constraints on table "business.monthly_plan" */
+export type BusinessMonthlyPlanConstraint =
+  /** unique or primary key constraint on columns "id" */
+  | "monthly_plan_pkey"
+  /** unique or primary key constraint on columns "user_id", "year_month" */
+  | "monthly_plan_user_id_year_month_key";
+
+/** input type for incrementing numeric columns in table "business.monthly_plan" */
+export type BusinessMonthlyPlanIncInput = {
+  businessDays: InputMaybe<Scalars["Int"]>;
+  plannedWorkingHoursLower: InputMaybe<Scalars["numeric"]>;
+  plannedWorkingHoursUpper: InputMaybe<Scalars["numeric"]>;
+};
+
+/** input type for inserting data into table "business.monthly_plan" */
+export type BusinessMonthlyPlanInsertInput = {
+  businessDays: InputMaybe<Scalars["Int"]>;
+  id: InputMaybe<Scalars["String"]>;
+  plannedWorkingHoursLower: InputMaybe<Scalars["numeric"]>;
+  plannedWorkingHoursUpper: InputMaybe<Scalars["numeric"]>;
+  userId: InputMaybe<Scalars["String"]>;
+  yearMonth: InputMaybe<Scalars["bpchar"]>;
+};
+
+/** on_conflict condition type for table "business.monthly_plan" */
+export type BusinessMonthlyPlanOnConflict = {
+  constraint: BusinessMonthlyPlanConstraint;
+  updateColumns: Array<BusinessMonthlyPlanUpdateColumn>;
+  where: InputMaybe<BusinessMonthlyPlanBoolExp>;
+};
+
 /** Ordering options when selecting data from "business.monthly_plan". */
 export type BusinessMonthlyPlanOrderBy = {
   businessDays: InputMaybe<OrderBy>;
@@ -642,6 +673,11 @@ export type BusinessMonthlyPlanOrderBy = {
   plannedWorkingHoursUpper: InputMaybe<OrderBy>;
   userId: InputMaybe<OrderBy>;
   yearMonth: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: business.monthly_plan */
+export type BusinessMonthlyPlanPkColumnsInput = {
+  id: Scalars["String"];
 };
 
 /** select columns of table "business.monthly_plan" */
@@ -659,6 +695,16 @@ export type BusinessMonthlyPlanSelectColumn =
   /** column name */
   | "yearMonth";
 
+/** input type for updating data in table "business.monthly_plan" */
+export type BusinessMonthlyPlanSetInput = {
+  businessDays: InputMaybe<Scalars["Int"]>;
+  id: InputMaybe<Scalars["String"]>;
+  plannedWorkingHoursLower: InputMaybe<Scalars["numeric"]>;
+  plannedWorkingHoursUpper: InputMaybe<Scalars["numeric"]>;
+  userId: InputMaybe<Scalars["String"]>;
+  yearMonth: InputMaybe<Scalars["bpchar"]>;
+};
+
 /** Streaming cursor of the table "business_monthly_plan" */
 export type BusinessMonthlyPlanStreamCursorInput = {
   /** Stream column input with initial value */
@@ -675,6 +721,30 @@ export type BusinessMonthlyPlanStreamCursorValueInput = {
   plannedWorkingHoursUpper: InputMaybe<Scalars["numeric"]>;
   userId: InputMaybe<Scalars["String"]>;
   yearMonth: InputMaybe<Scalars["bpchar"]>;
+};
+
+/** update columns of table "business.monthly_plan" */
+export type BusinessMonthlyPlanUpdateColumn =
+  /** column name */
+  | "businessDays"
+  /** column name */
+  | "id"
+  /** column name */
+  | "plannedWorkingHoursLower"
+  /** column name */
+  | "plannedWorkingHoursUpper"
+  /** column name */
+  | "userId"
+  /** column name */
+  | "yearMonth";
+
+export type BusinessMonthlyPlanUpdates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc: InputMaybe<BusinessMonthlyPlanIncInput>;
+  /** sets the columns of the filtered rows to the given values */
+  _set: InputMaybe<BusinessMonthlyPlanSetInput>;
+  /** filter the rows which have to be updated */
+  where: BusinessMonthlyPlanBoolExp;
 };
 
 /** ordering argument of a cursor */
@@ -1070,6 +1140,7 @@ export type HouseholdAllDetailViewBoolExp = {
   date: InputMaybe<DateComparisonExp>;
   detailTags: InputMaybe<HouseholdDetailTagBoolExp>;
   detailTagsAggregate: InputMaybe<HouseholdDetailTagAggregateBoolExp>;
+  freeeLinkDetails: InputMaybe<HouseholdFreeeLinkDetailBoolExp>;
   genre: InputMaybe<HouseholdGenreBoolExp>;
   genreId: InputMaybe<StringComparisonExp>;
   groupId: InputMaybe<StringComparisonExp>;
@@ -1125,6 +1196,7 @@ export type HouseholdAllDetailViewOrderBy = {
   categoryId: InputMaybe<OrderBy>;
   date: InputMaybe<OrderBy>;
   detailTagsAggregate: InputMaybe<HouseholdDetailTagAggregateOrderBy>;
+  freeeLinkDetailsAggregate: InputMaybe<HouseholdFreeeLinkDetailAggregateOrderBy>;
   genre: InputMaybe<HouseholdGenreOrderBy>;
   genreId: InputMaybe<OrderBy>;
   groupId: InputMaybe<OrderBy>;
@@ -3141,6 +3213,92 @@ export type HouseholdFavoriteFilterUpdates = {
   /** filter the rows which have to be updated */
   where: HouseholdFavoriteFilterBoolExp;
 };
+
+/** order by aggregate values of table "household.freee_link_detail" */
+export type HouseholdFreeeLinkDetailAggregateOrderBy = {
+  count: InputMaybe<OrderBy>;
+  max: InputMaybe<HouseholdFreeeLinkDetailMaxOrderBy>;
+  min: InputMaybe<HouseholdFreeeLinkDetailMinOrderBy>;
+};
+
+/** Boolean expression to filter rows from the table "household.freee_link_detail". All fields are combined with a logical 'AND'. */
+export type HouseholdFreeeLinkDetailBoolExp = {
+  _and: InputMaybe<Array<HouseholdFreeeLinkDetailBoolExp>>;
+  _not: InputMaybe<HouseholdFreeeLinkDetailBoolExp>;
+  _or: InputMaybe<Array<HouseholdFreeeLinkDetailBoolExp>>;
+  detailId: InputMaybe<StringComparisonExp>;
+  id: InputMaybe<StringComparisonExp>;
+  linkedDatetime: InputMaybe<TimestamptzComparisonExp>;
+};
+
+/** unique or primary key constraints on table "household.freee_link_detail" */
+export type HouseholdFreeeLinkDetailConstraint =
+  /** unique or primary key constraint on columns "id" */
+  "freee_link_detail_pkey";
+
+/** input type for inserting data into table "household.freee_link_detail" */
+export type HouseholdFreeeLinkDetailInsertInput = {
+  detailId: InputMaybe<Scalars["String"]>;
+  id: InputMaybe<Scalars["String"]>;
+  linkedDatetime: InputMaybe<Scalars["timestamptz"]>;
+};
+
+/** order by max() on columns of table "household.freee_link_detail" */
+export type HouseholdFreeeLinkDetailMaxOrderBy = {
+  detailId: InputMaybe<OrderBy>;
+  id: InputMaybe<OrderBy>;
+  linkedDatetime: InputMaybe<OrderBy>;
+};
+
+/** order by min() on columns of table "household.freee_link_detail" */
+export type HouseholdFreeeLinkDetailMinOrderBy = {
+  detailId: InputMaybe<OrderBy>;
+  id: InputMaybe<OrderBy>;
+  linkedDatetime: InputMaybe<OrderBy>;
+};
+
+/** on_conflict condition type for table "household.freee_link_detail" */
+export type HouseholdFreeeLinkDetailOnConflict = {
+  constraint: HouseholdFreeeLinkDetailConstraint;
+  updateColumns: Array<HouseholdFreeeLinkDetailUpdateColumn>;
+  where: InputMaybe<HouseholdFreeeLinkDetailBoolExp>;
+};
+
+/** Ordering options when selecting data from "household.freee_link_detail". */
+export type HouseholdFreeeLinkDetailOrderBy = {
+  detailId: InputMaybe<OrderBy>;
+  id: InputMaybe<OrderBy>;
+  linkedDatetime: InputMaybe<OrderBy>;
+};
+
+/** select columns of table "household.freee_link_detail" */
+export type HouseholdFreeeLinkDetailSelectColumn =
+  /** column name */
+  | "detailId"
+  /** column name */
+  | "id"
+  /** column name */
+  | "linkedDatetime";
+
+/** Streaming cursor of the table "household_freee_link_detail" */
+export type HouseholdFreeeLinkDetailStreamCursorInput = {
+  /** Stream column input with initial value */
+  initialValue: HouseholdFreeeLinkDetailStreamCursorValueInput;
+  /** cursor ordering */
+  ordering: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type HouseholdFreeeLinkDetailStreamCursorValueInput = {
+  detailId: InputMaybe<Scalars["String"]>;
+  id: InputMaybe<Scalars["String"]>;
+  linkedDatetime: InputMaybe<Scalars["timestamptz"]>;
+};
+
+/** placeholder for update columns of table "household.freee_link_detail" (current role has no relevant permissions) */
+export type HouseholdFreeeLinkDetailUpdateColumn =
+  /** placeholder (do not use) */
+  "_PLACEHOLDER";
 
 export type HouseholdGenreAggregateBoolExp = {
   bool_and: InputMaybe<HouseholdGenreAggregateBoolExpBool_And>;

@@ -10,8 +10,8 @@ import { NextResponse } from "next/server";
 import { convertToYmd } from "@/util/date/convertToYmd";
 import { generateId } from "../../../../function/generateId";
 import { execMutation } from "../../../../persistence/database/server/execMutation";
-import { apiFetchAttendance } from "./api-fetch-attendance";
 import { ApiFindLastAttendanceLogRepository } from "./api-find-last-attendance-log-repository";
+import { calcWorkTimeInvoker } from "./calc-work-time-invoker";
 
 export async function POST(request: Request) {
   try {
@@ -125,7 +125,7 @@ export async function GET(request: Request) {
     }
 
     // 勤怠データを取得
-    const attendanceData = await apiFetchAttendance(baseDate, userId, groupId);
+    const attendanceData = await calcWorkTimeInvoker(baseDate, userId, groupId);
 
     // レスポンスを返す
     return NextResponse.json(attendanceData);
