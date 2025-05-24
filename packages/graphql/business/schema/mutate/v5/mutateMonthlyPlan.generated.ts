@@ -4616,6 +4616,23 @@ export type InsertMonthlyPlanMutation = {
   } | null;
 };
 
+export type UpdateMonthlyPlanMutationVariables = Types.Exact<{
+  id: Types.Scalars["String"];
+  set: Types.BusinessMonthlyPlanSetInput;
+}>;
+
+export type UpdateMonthlyPlanMutation = {
+  __typename?: "mutation_root";
+  updateBusinessMonthlyPlanByPk: {
+    __typename?: "BusinessMonthlyPlan";
+    id: string;
+    userId: string;
+    yearMonth: string;
+    businessDays: number;
+    plannedWorkingHoursUpper: number;
+  } | null;
+};
+
 export const InsertMonthlyPlanDocument = {
   kind: "Document",
   definitions: [
@@ -4683,4 +4700,97 @@ export const InsertMonthlyPlanDocument = {
 } as unknown as DocumentNode<
   InsertMonthlyPlanMutation,
   InsertMonthlyPlanMutationVariables
+>;
+export const UpdateMonthlyPlanDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "updateMonthlyPlan" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "set" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "BusinessMonthlyPlanSetInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "updateBusinessMonthlyPlanByPk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "pkColumns" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "id" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "_set" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "set" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "userId" } },
+                { kind: "Field", name: { kind: "Name", value: "yearMonth" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "businessDays" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "plannedWorkingHoursUpper" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "plannedWorkingHoursUpper" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  UpdateMonthlyPlanMutation,
+  UpdateMonthlyPlanMutationVariables
 >;

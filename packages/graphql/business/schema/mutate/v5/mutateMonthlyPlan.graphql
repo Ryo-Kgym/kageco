@@ -8,3 +8,14 @@ mutation insertMonthlyPlan($input: BusinessMonthlyPlanInsertInput!) {
     plannedWorkingHoursUpper
   }
 }
+
+mutation updateMonthlyPlan($id: String!, $set: BusinessMonthlyPlanSetInput!) {
+  updateBusinessMonthlyPlanByPk(pkColumns: { id: $id }, _set: $set) {
+    id
+    userId
+    yearMonth
+    businessDays
+    plannedWorkingHoursUpper
+    plannedWorkingHoursUpper
+  }
+}

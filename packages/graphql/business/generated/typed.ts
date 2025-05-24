@@ -1,4 +1,8 @@
-import type { YYYY_MM_DD, YYYY_MM_DD_HH_MM_SS } from "@/util/date/date";
+import type {
+  YYYY_MM,
+  YYYY_MM_DD,
+  YYYY_MM_DD_HH_MM_SS,
+} from "@/util/date/date";
 
 export type Exact<T extends Record<string, unknown>> = {
   [K in keyof T]: T[K];
@@ -56,3 +60,13 @@ export type BusinessMonthlyPlanInsertInput = {
 };
 
 export type AttendanceState = "attend" | "leave";
+
+export type BusinessMonthlyPlanPkColumnsInput = {
+  id: string;
+};
+
+export type BusinessMonthlyPlanSetInput = {
+  businessDays: number;
+  plannedWorkingHoursLower: number;
+  plannedWorkingHoursUpper: number;
+};
