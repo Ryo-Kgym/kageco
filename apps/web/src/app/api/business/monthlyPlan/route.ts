@@ -1,6 +1,10 @@
+import { MonthlyPlan } from "@/core/domain/business/work/MonthlyPlan";
+import type { YYYY_MM } from "@/util/date/date";
 import { UpdateMonthlyPlanDocument } from "@v3/graphql/business/schema/mutate/v5/mutateMonthlyPlan.generated";
+import { GetMonthlyPlanDocument } from "@v3/graphql/business/schema/query/v5/queryMonthlyPlan.generated";
 import { NextResponse } from "next/server";
 import { execMutation } from "../../../../persistence/database/server/execMutation";
+import { execQuery } from "../../../../persistence/database/server/execQuery";
 
 /**
  * 月次計画を更新する関数
@@ -25,6 +29,26 @@ const updateMonthlyPlan = async (params: {
       plannedWorkingHoursLower: params.plannedWorkingHoursLower,
       plannedWorkingHoursUpper: params.plannedWorkingHoursUpper,
     },
+  });
+};
+
+const getMonthlyPlan = async (params: {
+  userId: string;
+  yearMonth: YYYY_MM;
+}): Promise<MonthlyPlan | null> => {
+  const { data } = await execQuery(GetMonthlyPlanDocument, {
+    userId: params.userId,
+    yearMonth: params.yearMonth,
+  });
+
+  if (!data.monthlyPlan?.[0]) {
+    return null;
+  }
+
+  return new MonthlyPlan({
+    businessDays: data.monthlyPlan[0].businessDays,
+    workHoursLower: data.monthlyPlan[0].plannedWorkingHoursLower,
+    workHoursUpper: data.monthlyPlan[0].plannedWorkingHoursUpper,
   });
 };
 
@@ -109,6 +133,83 @@ export async function POST(request: Request) {
     console.error("Error in updateMonthlyPlan API:", error);
     return NextResponse.json(
       { error: "Failed to update monthly plan" },
+      { status: 500 },
+    );
+  }
+}
+
+/**
+ * 月次計画を取得するGETエンドポイント
+ *
+ * @example
+ * // リクエスト例
+ * fetch('/api/business/monthlyPlan?userId=user-id&yearMonth=2023-01', {
+ *   method: 'GET',
+ * });
+ *
+ * @param request GETリクエスト
+ * @returns 月次計画のレスポンス
+ */
+export async function GET(request: Request) {
+  try {
+    // Get URL from request
+    const url = new URL(request.url);
+
+    // Extract query parameters
+    const userId = url.searchParams.get('userId');
+    const yearMonth = url.searchParams.get('yearMonth') as YYYY_MM | null;
+
+    // Validate required parameters
+    if (!userId || !yearMonth) {
+      return NextResponse.json(
+        {
+          error: "Both userId and yearMonth parameters are required",
+        },
+        { status: 400 },
+      );
+    }
+
+    // Validate yearMonth format
+    const yearMonthRegex = /^20\d{2}-(?:0[1-9]|1[0-2])$/;
+    if (!yearMonthRegex.test(yearMonth)) {
+      return NextResponse.json(
+        {
+          error: "yearMonth must be in YYYY-MM format (e.g., 2023-01)",
+        },
+        { status: 400 },
+      );
+    }
+
+    // Get monthly plan
+    const monthlyPlan = await getMonthlyPlan({
+      userId,
+      yearMonth,
+    });
+
+    // Return response
+    if (!monthlyPlan) {
+      return NextResponse.json(
+        {
+          error: "Monthly plan not found",
+        },
+        { status: 404 },
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      data: {
+        businessDays: monthlyPlan.businessDays,
+        workHoursLower: monthlyPlan.workHoursLower,
+        workHoursUpper: monthlyPlan.workHoursUpper,
+        workSecondLower: monthlyPlan.workSecondLower,
+        workSecondUpper: monthlyPlan.workSecondUpper,
+      },
+    });
+  } catch (error) {
+    console.error("Error in getMonthlyPlan API:", error);
+    return NextResponse.json(
+      { error: "Failed to get monthly plan" },
       { status: 500 },
     );
   }

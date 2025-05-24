@@ -4599,56 +4599,13 @@ export type HouseholdTransferCategoryAggregateBoolExpCount = {
   predicate: IntComparisonExp;
 };
 
-export type GetAttendanceQueryVariables = Types.Exact<{
-  date: Types.Scalars["date"];
-  groupId: Types.Scalars["String"];
+export type GetMonthlyPlanQueryVariables = Types.Exact<{
   userId: Types.Scalars["String"];
-}>;
-
-export type GetAttendanceQuery = {
-  __typename?: "query_root";
-  day: Array<{
-    __typename: "BusinessDailyAttendance";
-    id: string;
-    date: YYYY_MM_DD;
-    startDatetime: YYYY_MM_DD_HH_MM_SS;
-    endDatetime: YYYY_MM_DD_HH_MM_SS;
-    breakSecond: number;
-    logs: Array<{
-      __typename: "BusinessDailyAttendanceLog";
-      id: string;
-      datetime: YYYY_MM_DD_HH_MM_SS;
-      state: string;
-      memo: string | null;
-    }>;
-  }>;
-};
-
-export type GetAttendanceOfMonthQueryVariables = Types.Exact<{
-  fromDate: Types.Scalars["date"];
-  toDate: Types.Scalars["date"];
   yearMonth: Types.Scalars["bpchar"];
-  groupId: Types.Scalars["String"];
-  userId: Types.Scalars["String"];
 }>;
 
-export type GetAttendanceOfMonthQuery = {
+export type GetMonthlyPlanQuery = {
   __typename?: "query_root";
-  days: Array<{
-    __typename: "BusinessDailyAttendance";
-    id: string;
-    date: YYYY_MM_DD;
-    startDatetime: YYYY_MM_DD_HH_MM_SS;
-    endDatetime: YYYY_MM_DD_HH_MM_SS;
-    breakSecond: number;
-    logs: Array<{
-      __typename: "BusinessDailyAttendanceLog";
-      id: string;
-      datetime: YYYY_MM_DD_HH_MM_SS;
-      state: string;
-      memo: string | null;
-    }>;
-  }>;
   monthlyPlan: Array<{
     __typename: "BusinessMonthlyPlan";
     id: string;
@@ -4659,107 +4616,53 @@ export type GetAttendanceOfMonthQuery = {
   }>;
 };
 
-export type FragDailyAttendanceFragment = {
-  __typename: "BusinessDailyAttendance";
+export type FragMonthlyPlanFragment = {
+  __typename: "BusinessMonthlyPlan";
   id: string;
-  date: YYYY_MM_DD;
-  startDatetime: YYYY_MM_DD_HH_MM_SS;
-  endDatetime: YYYY_MM_DD_HH_MM_SS;
-  breakSecond: number;
-  logs: Array<{
-    __typename: "BusinessDailyAttendanceLog";
-    id: string;
-    datetime: YYYY_MM_DD_HH_MM_SS;
-    state: string;
-    memo: string | null;
-  }>;
+  yearMonth: string;
+  businessDays: number;
+  plannedWorkingHoursLower: number;
+  plannedWorkingHoursUpper: number;
 };
 
-export const FragDailyAttendanceFragmentDoc = {
+export const FragMonthlyPlanFragmentDoc = {
   kind: "Document",
   definitions: [
     {
       kind: "FragmentDefinition",
-      name: { kind: "Name", value: "fragDailyAttendance" },
+      name: { kind: "Name", value: "fragMonthlyPlan" },
       typeCondition: {
         kind: "NamedType",
-        name: { kind: "Name", value: "BusinessDailyAttendance" },
+        name: { kind: "Name", value: "BusinessMonthlyPlan" },
       },
       selectionSet: {
         kind: "SelectionSet",
         selections: [
           { kind: "Field", name: { kind: "Name", value: "__typename" } },
           { kind: "Field", name: { kind: "Name", value: "id" } },
-          { kind: "Field", name: { kind: "Name", value: "date" } },
-          { kind: "Field", name: { kind: "Name", value: "startDatetime" } },
-          { kind: "Field", name: { kind: "Name", value: "endDatetime" } },
-          { kind: "Field", name: { kind: "Name", value: "breakSecond" } },
+          { kind: "Field", name: { kind: "Name", value: "yearMonth" } },
+          { kind: "Field", name: { kind: "Name", value: "businessDays" } },
           {
             kind: "Field",
-            alias: { kind: "Name", value: "logs" },
-            name: { kind: "Name", value: "dailyAttendanceLogs" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "orderBy" },
-                value: {
-                  kind: "ObjectValue",
-                  fields: [
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "datetime" },
-                      value: { kind: "EnumValue", value: "ASC" },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "__typename" } },
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                { kind: "Field", name: { kind: "Name", value: "datetime" } },
-                { kind: "Field", name: { kind: "Name", value: "state" } },
-                { kind: "Field", name: { kind: "Name", value: "memo" } },
-              ],
-            },
+            name: { kind: "Name", value: "plannedWorkingHoursLower" },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "plannedWorkingHoursUpper" },
           },
         ],
       },
     },
   ],
-} as unknown as DocumentNode<FragDailyAttendanceFragment, unknown>;
-export const GetAttendanceDocument = {
+} as unknown as DocumentNode<FragMonthlyPlanFragment, unknown>;
+export const GetMonthlyPlanDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "query",
-      name: { kind: "Name", value: "getAttendance" },
+      name: { kind: "Name", value: "getMonthlyPlan" },
       variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "date" } },
-          type: {
-            kind: "NonNullType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "date" } },
-          },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "groupId" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "String" },
-            },
-          },
-        },
         {
           kind: "VariableDefinition",
           variable: {
@@ -4772,192 +4675,6 @@ export const GetAttendanceDocument = {
               kind: "NamedType",
               name: { kind: "Name", value: "String" },
             },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            alias: { kind: "Name", value: "day" },
-            name: { kind: "Name", value: "businessDailyAttendance" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "where" },
-                value: {
-                  kind: "ObjectValue",
-                  fields: [
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "date" },
-                      value: {
-                        kind: "ObjectValue",
-                        fields: [
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "_eq" },
-                            value: {
-                              kind: "Variable",
-                              name: { kind: "Name", value: "date" },
-                            },
-                          },
-                        ],
-                      },
-                    },
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "_and" },
-                      value: {
-                        kind: "ObjectValue",
-                        fields: [
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "groupId" },
-                            value: {
-                              kind: "ObjectValue",
-                              fields: [
-                                {
-                                  kind: "ObjectField",
-                                  name: { kind: "Name", value: "_eq" },
-                                  value: {
-                                    kind: "Variable",
-                                    name: { kind: "Name", value: "groupId" },
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "_and" },
-                            value: {
-                              kind: "ObjectValue",
-                              fields: [
-                                {
-                                  kind: "ObjectField",
-                                  name: { kind: "Name", value: "userId" },
-                                  value: {
-                                    kind: "ObjectValue",
-                                    fields: [
-                                      {
-                                        kind: "ObjectField",
-                                        name: { kind: "Name", value: "_eq" },
-                                        value: {
-                                          kind: "Variable",
-                                          name: {
-                                            kind: "Name",
-                                            value: "userId",
-                                          },
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                {
-                  kind: "FragmentSpread",
-                  name: { kind: "Name", value: "fragDailyAttendance" },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "fragDailyAttendance" },
-      typeCondition: {
-        kind: "NamedType",
-        name: { kind: "Name", value: "BusinessDailyAttendance" },
-      },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "__typename" } },
-          { kind: "Field", name: { kind: "Name", value: "id" } },
-          { kind: "Field", name: { kind: "Name", value: "date" } },
-          { kind: "Field", name: { kind: "Name", value: "startDatetime" } },
-          { kind: "Field", name: { kind: "Name", value: "endDatetime" } },
-          { kind: "Field", name: { kind: "Name", value: "breakSecond" } },
-          {
-            kind: "Field",
-            alias: { kind: "Name", value: "logs" },
-            name: { kind: "Name", value: "dailyAttendanceLogs" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "orderBy" },
-                value: {
-                  kind: "ObjectValue",
-                  fields: [
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "datetime" },
-                      value: { kind: "EnumValue", value: "ASC" },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "__typename" } },
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                { kind: "Field", name: { kind: "Name", value: "datetime" } },
-                { kind: "Field", name: { kind: "Name", value: "state" } },
-                { kind: "Field", name: { kind: "Name", value: "memo" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<GetAttendanceQuery, GetAttendanceQueryVariables>;
-export const GetAttendanceOfMonthDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "getAttendanceOfMonth" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "fromDate" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "date" } },
-          },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "toDate" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "date" } },
           },
         },
         {
@@ -4974,143 +4691,10 @@ export const GetAttendanceOfMonthDocument = {
             },
           },
         },
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "groupId" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "String" },
-            },
-          },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "userId" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "String" },
-            },
-          },
-        },
       ],
       selectionSet: {
         kind: "SelectionSet",
         selections: [
-          {
-            kind: "Field",
-            alias: { kind: "Name", value: "days" },
-            name: { kind: "Name", value: "businessDailyAttendance" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "where" },
-                value: {
-                  kind: "ObjectValue",
-                  fields: [
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "date" },
-                      value: {
-                        kind: "ObjectValue",
-                        fields: [
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "_gte" },
-                            value: {
-                              kind: "Variable",
-                              name: { kind: "Name", value: "fromDate" },
-                            },
-                          },
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "_lte" },
-                            value: {
-                              kind: "Variable",
-                              name: { kind: "Name", value: "toDate" },
-                            },
-                          },
-                        ],
-                      },
-                    },
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "_and" },
-                      value: {
-                        kind: "ObjectValue",
-                        fields: [
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "groupId" },
-                            value: {
-                              kind: "ObjectValue",
-                              fields: [
-                                {
-                                  kind: "ObjectField",
-                                  name: { kind: "Name", value: "_eq" },
-                                  value: {
-                                    kind: "Variable",
-                                    name: { kind: "Name", value: "groupId" },
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "_and" },
-                            value: {
-                              kind: "ObjectValue",
-                              fields: [
-                                {
-                                  kind: "ObjectField",
-                                  name: { kind: "Name", value: "userId" },
-                                  value: {
-                                    kind: "ObjectValue",
-                                    fields: [
-                                      {
-                                        kind: "ObjectField",
-                                        name: { kind: "Name", value: "_eq" },
-                                        value: {
-                                          kind: "Variable",
-                                          name: {
-                                            kind: "Name",
-                                            value: "userId",
-                                          },
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                {
-                  kind: "FragmentSpread",
-                  name: { kind: "Name", value: "fragDailyAttendance" },
-                },
-              ],
-            },
-          },
           {
             kind: "Field",
             alias: { kind: "Name", value: "monthlyPlan" },
@@ -5189,56 +4773,6 @@ export const GetAttendanceOfMonthDocument = {
     },
     {
       kind: "FragmentDefinition",
-      name: { kind: "Name", value: "fragDailyAttendance" },
-      typeCondition: {
-        kind: "NamedType",
-        name: { kind: "Name", value: "BusinessDailyAttendance" },
-      },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "__typename" } },
-          { kind: "Field", name: { kind: "Name", value: "id" } },
-          { kind: "Field", name: { kind: "Name", value: "date" } },
-          { kind: "Field", name: { kind: "Name", value: "startDatetime" } },
-          { kind: "Field", name: { kind: "Name", value: "endDatetime" } },
-          { kind: "Field", name: { kind: "Name", value: "breakSecond" } },
-          {
-            kind: "Field",
-            alias: { kind: "Name", value: "logs" },
-            name: { kind: "Name", value: "dailyAttendanceLogs" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "orderBy" },
-                value: {
-                  kind: "ObjectValue",
-                  fields: [
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "datetime" },
-                      value: { kind: "EnumValue", value: "ASC" },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "__typename" } },
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                { kind: "Field", name: { kind: "Name", value: "datetime" } },
-                { kind: "Field", name: { kind: "Name", value: "state" } },
-                { kind: "Field", name: { kind: "Name", value: "memo" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
       name: { kind: "Name", value: "fragMonthlyPlan" },
       typeCondition: {
         kind: "NamedType",
@@ -5263,7 +4797,4 @@ export const GetAttendanceOfMonthDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  GetAttendanceOfMonthQuery,
-  GetAttendanceOfMonthQueryVariables
->;
+} as unknown as DocumentNode<GetMonthlyPlanQuery, GetMonthlyPlanQueryVariables>;

@@ -1,4 +1,8 @@
-import { FontAwesome5, MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  FontAwesome5,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { Stack, Tabs } from "expo-router";
 
 /**
@@ -40,7 +44,11 @@ const Layout = () => (
         options={{
           title: "月次計画",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="calendar-edit" size={24} color={color} />
+            <MaterialCommunityIcons
+              name="calendar-edit"
+              size={24}
+              color={color}
+            />
           ),
           href: "/business/timecard/monthly-plan",
         }}
