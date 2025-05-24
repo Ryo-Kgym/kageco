@@ -63,6 +63,11 @@ export const paths = {
         }: { baseDate: string; userId: string; groupId: string }) =>
           `${API_ROOT}/business/attendOrLeaveWork?baseDate=${baseDate}&userId=${userId}&groupId=${groupId}`,
       },
+      monthlyPlan: {
+        post: () => `${API_ROOT}/business/monthlyPlan`,
+        get: ({ userId, yearMonth }: { userId: string; yearMonth: string }) =>
+          `${API_ROOT}/business/monthlyPlan?userId=${userId}&yearMonth=${yearMonth}`,
+      },
     },
   },
 } as const;

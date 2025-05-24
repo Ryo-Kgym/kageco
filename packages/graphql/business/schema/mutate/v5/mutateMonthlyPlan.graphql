@@ -1,0 +1,21 @@
+mutation insertMonthlyPlan($input: BusinessMonthlyPlanInsertInput!) {
+  insertBusinessMonthlyPlanOne(object: $input) {
+    id
+    userId
+    yearMonth
+    businessDays
+    plannedWorkingHoursLower
+    plannedWorkingHoursUpper
+  }
+}
+
+mutation updateMonthlyPlan($id: String!, $set: BusinessMonthlyPlanSetInput!) {
+  updateBusinessMonthlyPlanByPk(pkColumns: { id: $id }, _set: $set) {
+    id
+    userId
+    yearMonth
+    businessDays
+    plannedWorkingHoursUpper
+    plannedWorkingHoursUpper
+  }
+}

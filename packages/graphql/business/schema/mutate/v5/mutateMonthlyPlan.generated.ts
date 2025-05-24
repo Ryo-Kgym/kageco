@@ -4599,178 +4599,59 @@ export type HouseholdTransferCategoryAggregateBoolExpCount = {
   predicate: IntComparisonExp;
 };
 
-export type GetAttendanceQueryVariables = Types.Exact<{
-  date: Types.Scalars["date"];
-  groupId: Types.Scalars["String"];
-  userId: Types.Scalars["String"];
+export type InsertMonthlyPlanMutationVariables = Types.Exact<{
+  input: Types.BusinessMonthlyPlanInsertInput;
 }>;
 
-export type GetAttendanceQuery = {
-  __typename?: "query_root";
-  day: Array<{
-    __typename: "BusinessDailyAttendance";
+export type InsertMonthlyPlanMutation = {
+  __typename?: "mutation_root";
+  insertBusinessMonthlyPlanOne: {
+    __typename?: "BusinessMonthlyPlan";
     id: string;
-    date: YYYY_MM_DD;
-    startDatetime: YYYY_MM_DD_HH_MM_SS;
-    endDatetime: YYYY_MM_DD_HH_MM_SS;
-    breakSecond: number;
-    logs: Array<{
-      __typename: "BusinessDailyAttendanceLog";
-      id: string;
-      datetime: YYYY_MM_DD_HH_MM_SS;
-      state: string;
-      memo: string | null;
-    }>;
-  }>;
-};
-
-export type GetAttendanceOfMonthQueryVariables = Types.Exact<{
-  fromDate: Types.Scalars["date"];
-  toDate: Types.Scalars["date"];
-  yearMonth: Types.Scalars["bpchar"];
-  groupId: Types.Scalars["String"];
-  userId: Types.Scalars["String"];
-}>;
-
-export type GetAttendanceOfMonthQuery = {
-  __typename?: "query_root";
-  days: Array<{
-    __typename: "BusinessDailyAttendance";
-    id: string;
-    date: YYYY_MM_DD;
-    startDatetime: YYYY_MM_DD_HH_MM_SS;
-    endDatetime: YYYY_MM_DD_HH_MM_SS;
-    breakSecond: number;
-    logs: Array<{
-      __typename: "BusinessDailyAttendanceLog";
-      id: string;
-      datetime: YYYY_MM_DD_HH_MM_SS;
-      state: string;
-      memo: string | null;
-    }>;
-  }>;
-  monthlyPlan: Array<{
-    __typename: "BusinessMonthlyPlan";
-    id: string;
+    userId: string;
     yearMonth: string;
     businessDays: number;
     plannedWorkingHoursLower: number;
     plannedWorkingHoursUpper: number;
-  }>;
+  } | null;
 };
 
-export type FragDailyAttendanceFragment = {
-  __typename: "BusinessDailyAttendance";
-  id: string;
-  date: YYYY_MM_DD;
-  startDatetime: YYYY_MM_DD_HH_MM_SS;
-  endDatetime: YYYY_MM_DD_HH_MM_SS;
-  breakSecond: number;
-  logs: Array<{
-    __typename: "BusinessDailyAttendanceLog";
+export type UpdateMonthlyPlanMutationVariables = Types.Exact<{
+  id: Types.Scalars["String"];
+  set: Types.BusinessMonthlyPlanSetInput;
+}>;
+
+export type UpdateMonthlyPlanMutation = {
+  __typename?: "mutation_root";
+  updateBusinessMonthlyPlanByPk: {
+    __typename?: "BusinessMonthlyPlan";
     id: string;
-    datetime: YYYY_MM_DD_HH_MM_SS;
-    state: string;
-    memo: string | null;
-  }>;
+    userId: string;
+    yearMonth: string;
+    businessDays: number;
+    plannedWorkingHoursUpper: number;
+  } | null;
 };
 
-export const FragDailyAttendanceFragmentDoc = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "fragDailyAttendance" },
-      typeCondition: {
-        kind: "NamedType",
-        name: { kind: "Name", value: "BusinessDailyAttendance" },
-      },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "__typename" } },
-          { kind: "Field", name: { kind: "Name", value: "id" } },
-          { kind: "Field", name: { kind: "Name", value: "date" } },
-          { kind: "Field", name: { kind: "Name", value: "startDatetime" } },
-          { kind: "Field", name: { kind: "Name", value: "endDatetime" } },
-          { kind: "Field", name: { kind: "Name", value: "breakSecond" } },
-          {
-            kind: "Field",
-            alias: { kind: "Name", value: "logs" },
-            name: { kind: "Name", value: "dailyAttendanceLogs" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "orderBy" },
-                value: {
-                  kind: "ObjectValue",
-                  fields: [
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "datetime" },
-                      value: { kind: "EnumValue", value: "ASC" },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "__typename" } },
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                { kind: "Field", name: { kind: "Name", value: "datetime" } },
-                { kind: "Field", name: { kind: "Name", value: "state" } },
-                { kind: "Field", name: { kind: "Name", value: "memo" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<FragDailyAttendanceFragment, unknown>;
-export const GetAttendanceDocument = {
+export const InsertMonthlyPlanDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "getAttendance" },
+      operation: "mutation",
+      name: { kind: "Name", value: "insertMonthlyPlan" },
       variableDefinitions: [
         {
           kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "date" } },
-          type: {
-            kind: "NonNullType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "date" } },
-          },
-        },
-        {
-          kind: "VariableDefinition",
           variable: {
             kind: "Variable",
-            name: { kind: "Name", value: "groupId" },
+            name: { kind: "Name", value: "input" },
           },
           type: {
             kind: "NonNullType",
             type: {
               kind: "NamedType",
-              name: { kind: "Name", value: "String" },
-            },
-          },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "userId" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "String" },
+              name: { kind: "Name", value: "BusinessMonthlyPlanInsertInput" },
             },
           },
         },
@@ -4780,490 +4661,136 @@ export const GetAttendanceDocument = {
         selections: [
           {
             kind: "Field",
-            alias: { kind: "Name", value: "day" },
-            name: { kind: "Name", value: "businessDailyAttendance" },
+            name: { kind: "Name", value: "insertBusinessMonthlyPlanOne" },
             arguments: [
               {
                 kind: "Argument",
-                name: { kind: "Name", value: "where" },
+                name: { kind: "Name", value: "object" },
                 value: {
-                  kind: "ObjectValue",
-                  fields: [
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "date" },
-                      value: {
-                        kind: "ObjectValue",
-                        fields: [
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "_eq" },
-                            value: {
-                              kind: "Variable",
-                              name: { kind: "Name", value: "date" },
-                            },
-                          },
-                        ],
-                      },
-                    },
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "_and" },
-                      value: {
-                        kind: "ObjectValue",
-                        fields: [
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "groupId" },
-                            value: {
-                              kind: "ObjectValue",
-                              fields: [
-                                {
-                                  kind: "ObjectField",
-                                  name: { kind: "Name", value: "_eq" },
-                                  value: {
-                                    kind: "Variable",
-                                    name: { kind: "Name", value: "groupId" },
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "_and" },
-                            value: {
-                              kind: "ObjectValue",
-                              fields: [
-                                {
-                                  kind: "ObjectField",
-                                  name: { kind: "Name", value: "userId" },
-                                  value: {
-                                    kind: "ObjectValue",
-                                    fields: [
-                                      {
-                                        kind: "ObjectField",
-                                        name: { kind: "Name", value: "_eq" },
-                                        value: {
-                                          kind: "Variable",
-                                          name: {
-                                            kind: "Name",
-                                            value: "userId",
-                                          },
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
+                  kind: "Variable",
+                  name: { kind: "Name", value: "input" },
                 },
               },
             ],
             selectionSet: {
               kind: "SelectionSet",
               selections: [
-                {
-                  kind: "FragmentSpread",
-                  name: { kind: "Name", value: "fragDailyAttendance" },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "fragDailyAttendance" },
-      typeCondition: {
-        kind: "NamedType",
-        name: { kind: "Name", value: "BusinessDailyAttendance" },
-      },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "__typename" } },
-          { kind: "Field", name: { kind: "Name", value: "id" } },
-          { kind: "Field", name: { kind: "Name", value: "date" } },
-          { kind: "Field", name: { kind: "Name", value: "startDatetime" } },
-          { kind: "Field", name: { kind: "Name", value: "endDatetime" } },
-          { kind: "Field", name: { kind: "Name", value: "breakSecond" } },
-          {
-            kind: "Field",
-            alias: { kind: "Name", value: "logs" },
-            name: { kind: "Name", value: "dailyAttendanceLogs" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "orderBy" },
-                value: {
-                  kind: "ObjectValue",
-                  fields: [
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "datetime" },
-                      value: { kind: "EnumValue", value: "ASC" },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "__typename" } },
                 { kind: "Field", name: { kind: "Name", value: "id" } },
-                { kind: "Field", name: { kind: "Name", value: "datetime" } },
-                { kind: "Field", name: { kind: "Name", value: "state" } },
-                { kind: "Field", name: { kind: "Name", value: "memo" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<GetAttendanceQuery, GetAttendanceQueryVariables>;
-export const GetAttendanceOfMonthDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "getAttendanceOfMonth" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "fromDate" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "date" } },
-          },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "toDate" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "date" } },
-          },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "yearMonth" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "bpchar" },
-            },
-          },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "groupId" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "String" },
-            },
-          },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "userId" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "String" },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            alias: { kind: "Name", value: "days" },
-            name: { kind: "Name", value: "businessDailyAttendance" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "where" },
-                value: {
-                  kind: "ObjectValue",
-                  fields: [
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "date" },
-                      value: {
-                        kind: "ObjectValue",
-                        fields: [
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "_gte" },
-                            value: {
-                              kind: "Variable",
-                              name: { kind: "Name", value: "fromDate" },
-                            },
-                          },
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "_lte" },
-                            value: {
-                              kind: "Variable",
-                              name: { kind: "Name", value: "toDate" },
-                            },
-                          },
-                        ],
-                      },
-                    },
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "_and" },
-                      value: {
-                        kind: "ObjectValue",
-                        fields: [
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "groupId" },
-                            value: {
-                              kind: "ObjectValue",
-                              fields: [
-                                {
-                                  kind: "ObjectField",
-                                  name: { kind: "Name", value: "_eq" },
-                                  value: {
-                                    kind: "Variable",
-                                    name: { kind: "Name", value: "groupId" },
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "_and" },
-                            value: {
-                              kind: "ObjectValue",
-                              fields: [
-                                {
-                                  kind: "ObjectField",
-                                  name: { kind: "Name", value: "userId" },
-                                  value: {
-                                    kind: "ObjectValue",
-                                    fields: [
-                                      {
-                                        kind: "ObjectField",
-                                        name: { kind: "Name", value: "_eq" },
-                                        value: {
-                                          kind: "Variable",
-                                          name: {
-                                            kind: "Name",
-                                            value: "userId",
-                                          },
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
+                { kind: "Field", name: { kind: "Name", value: "userId" } },
+                { kind: "Field", name: { kind: "Name", value: "yearMonth" } },
                 {
-                  kind: "FragmentSpread",
-                  name: { kind: "Name", value: "fragDailyAttendance" },
+                  kind: "Field",
+                  name: { kind: "Name", value: "businessDays" },
                 },
-              ],
-            },
-          },
-          {
-            kind: "Field",
-            alias: { kind: "Name", value: "monthlyPlan" },
-            name: { kind: "Name", value: "businessMonthlyPlan" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "where" },
-                value: {
-                  kind: "ObjectValue",
-                  fields: [
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "userId" },
-                      value: {
-                        kind: "ObjectValue",
-                        fields: [
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "_eq" },
-                            value: {
-                              kind: "Variable",
-                              name: { kind: "Name", value: "userId" },
-                            },
-                          },
-                        ],
-                      },
-                    },
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "_and" },
-                      value: {
-                        kind: "ObjectValue",
-                        fields: [
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "yearMonth" },
-                            value: {
-                              kind: "ObjectValue",
-                              fields: [
-                                {
-                                  kind: "ObjectField",
-                                  name: { kind: "Name", value: "_eq" },
-                                  value: {
-                                    kind: "Variable",
-                                    name: { kind: "Name", value: "yearMonth" },
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "limit" },
-                value: { kind: "IntValue", value: "1" },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
                 {
-                  kind: "FragmentSpread",
-                  name: { kind: "Name", value: "fragMonthlyPlan" },
+                  kind: "Field",
+                  name: { kind: "Name", value: "plannedWorkingHoursLower" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "plannedWorkingHoursUpper" },
                 },
               ],
             },
-          },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "fragDailyAttendance" },
-      typeCondition: {
-        kind: "NamedType",
-        name: { kind: "Name", value: "BusinessDailyAttendance" },
-      },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "__typename" } },
-          { kind: "Field", name: { kind: "Name", value: "id" } },
-          { kind: "Field", name: { kind: "Name", value: "date" } },
-          { kind: "Field", name: { kind: "Name", value: "startDatetime" } },
-          { kind: "Field", name: { kind: "Name", value: "endDatetime" } },
-          { kind: "Field", name: { kind: "Name", value: "breakSecond" } },
-          {
-            kind: "Field",
-            alias: { kind: "Name", value: "logs" },
-            name: { kind: "Name", value: "dailyAttendanceLogs" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "orderBy" },
-                value: {
-                  kind: "ObjectValue",
-                  fields: [
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "datetime" },
-                      value: { kind: "EnumValue", value: "ASC" },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "__typename" } },
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                { kind: "Field", name: { kind: "Name", value: "datetime" } },
-                { kind: "Field", name: { kind: "Name", value: "state" } },
-                { kind: "Field", name: { kind: "Name", value: "memo" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "fragMonthlyPlan" },
-      typeCondition: {
-        kind: "NamedType",
-        name: { kind: "Name", value: "BusinessMonthlyPlan" },
-      },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "__typename" } },
-          { kind: "Field", name: { kind: "Name", value: "id" } },
-          { kind: "Field", name: { kind: "Name", value: "yearMonth" } },
-          { kind: "Field", name: { kind: "Name", value: "businessDays" } },
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "plannedWorkingHoursLower" },
-          },
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "plannedWorkingHoursUpper" },
           },
         ],
       },
     },
   ],
 } as unknown as DocumentNode<
-  GetAttendanceOfMonthQuery,
-  GetAttendanceOfMonthQueryVariables
+  InsertMonthlyPlanMutation,
+  InsertMonthlyPlanMutationVariables
+>;
+export const UpdateMonthlyPlanDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "updateMonthlyPlan" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "set" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "BusinessMonthlyPlanSetInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "updateBusinessMonthlyPlanByPk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "pkColumns" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "id" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "_set" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "set" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "userId" } },
+                { kind: "Field", name: { kind: "Name", value: "yearMonth" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "businessDays" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "plannedWorkingHoursUpper" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "plannedWorkingHoursUpper" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  UpdateMonthlyPlanMutation,
+  UpdateMonthlyPlanMutationVariables
 >;

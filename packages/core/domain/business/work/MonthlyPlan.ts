@@ -20,4 +20,16 @@ export class MonthlyPlan {
   get workSecondUpper() {
     return this.workHoursUpper * 60 * 60;
   }
+
+  static of(occupancyRate: number) {
+    const businessDays = 20;
+    const basicWorkHours = 8 * businessDays * occupancyRate;
+    const buffer = businessDays * occupancyRate;
+
+    return new MonthlyPlan({
+      businessDays,
+      workHoursLower: basicWorkHours - buffer,
+      workHoursUpper: basicWorkHours + buffer,
+    });
+  }
 }
