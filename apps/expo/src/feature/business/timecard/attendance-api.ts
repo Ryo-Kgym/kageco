@@ -53,6 +53,7 @@ export const fetchAttendanceByDate = async (
 ): Promise<{
   lastState: AttendanceState;
   baseDateLogs: Array<AttendanceLog>;
+  totalWorkSecond: number;
   monthlyPlanned: MonthlyPlanned | null;
   remaining: Remaining;
 }> => {

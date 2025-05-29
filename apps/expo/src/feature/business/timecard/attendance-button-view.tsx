@@ -21,16 +21,17 @@ export const AttendanceButtonView = () => {
     useState<AttendanceState>("attend");
   // ボタンの無効化状態を管理するstate
   const [isLoading, setIsLoading] = useState(false);
-  // 当日の勤怠ログを管理するstate
-  const [attendanceLogs, setAttendanceLogs] = useState<AttendanceLog[]>([]);
-  // 月次予定・実績データを管理するstate
-  const [monthlyPlanned, setMonthlyPlanned] = useState<
-    MonthlyPlanned | undefined
-  >();
-  // 残り勤務情報を管理するstate
-  const [remaining, setRemaining] = useState<Remaining | undefined>();
 
-  // 初期状態を取得する
+  const [monthlyState, setMonthlyState] = useState<{
+    attendanceLogs: AttendanceLog[];
+    totalWorkSecond: number;
+    monthlyPlanned?: MonthlyPlanned;
+    remaining?: Remaining;
+  }>({
+    attendanceLogs: [],
+    totalWorkSecond: 0,
+  });
+
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     // 初期状態を取得する処理
@@ -43,9 +44,12 @@ export const AttendanceButtonView = () => {
         const data = await fetchAttendanceByDate(baseDate, userId, groupId);
 
         setAttendanceState(data.lastState);
-        setAttendanceLogs(data.baseDateLogs);
-        setMonthlyPlanned(data.monthlyPlanned ?? undefined);
-        setRemaining(data.remaining);
+        setMonthlyState({
+          attendanceLogs: data.baseDateLogs,
+          totalWorkSecond: data.totalWorkSecond,
+          monthlyPlanned: data.monthlyPlanned ?? undefined,
+          remaining: data.remaining,
+        });
       } catch (error) {
         console.error("Error fetching initial state:", error);
         // 初期状態の取得に失敗した場合はデフォルト値を使用
@@ -77,9 +81,12 @@ export const AttendanceButtonView = () => {
         userId,
         groupId,
       );
-      setAttendanceLogs(updatedData.baseDateLogs);
-      setMonthlyPlanned(updatedData.monthlyPlanned ?? undefined);
-      setRemaining(updatedData.remaining);
+      setMonthlyState({
+        attendanceLogs: updatedData.baseDateLogs,
+        totalWorkSecond: updatedData.totalWorkSecond,
+        monthlyPlanned: updatedData.monthlyPlanned ?? undefined,
+        remaining: updatedData.remaining,
+      });
     } catch (error) {
       console.error("Error:", error);
       Alert.alert("エラー", "出勤・退勤の記録に失敗しました");
@@ -107,14 +114,12 @@ export const AttendanceButtonView = () => {
           </Text>
         </TouchableOpacity>
       </View>
+      <AttendanceLogsView logs={monthlyState.attendanceLogs} />
 
-      {/* 勤怠ログ一覧を表示 */}
-      <AttendanceLogsView logs={attendanceLogs} />
-
-      {/* 月次予定・実績を表示 */}
       <MonthlyPlannedView
-        monthlyPlanned={monthlyPlanned}
-        remaining={remaining}
+        totalWorkSecond={monthlyState.totalWorkSecond}
+        monthlyPlanned={monthlyState.monthlyPlanned}
+        remaining={monthlyState.remaining}
       />
     </View>
   );
@@ -126,17 +131,17 @@ export const AttendanceButtonView = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    padding: 8,
     backgroundColor: "#f5f5f5",
     color: "#333",
   },
   buttonContainer: {
-    marginBottom: 24,
+    marginBottom: 8,
     alignItems: "center",
   },
   attendanceButton: {
     width: "80%",
-    height: 80,
+    height: 70,
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
