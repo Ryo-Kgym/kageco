@@ -1,18 +1,17 @@
 import { StyleSheet, Text, View } from "react-native";
 import type { MonthlyPlanned, Remaining } from "./types";
 
-/**
- * 月次予定・実績表示コンポーネント
- */
-interface MonthlyPlannedViewProps {
+type Props = {
+  totalWorkSecond: number;
   monthlyPlanned: MonthlyPlanned | undefined;
   remaining: Remaining | undefined;
-}
+};
 
 export const MonthlyPlannedView = ({
+  totalWorkSecond,
   monthlyPlanned,
   remaining,
-}: MonthlyPlannedViewProps) => {
+}: Props) => {
   if (!monthlyPlanned) {
     return (
       <View style={styles.container}>
@@ -38,13 +37,15 @@ export const MonthlyPlannedView = ({
     <View style={styles.container}>
       <Text style={styles.title}>今月の予定・実績</Text>
 
+      <Text style={styles.subtitle}>予定</Text>
+
       <View style={styles.infoRow}>
-        <Text style={styles.label}>営業日数:</Text>
+        <Text style={styles.label}>稼働日数:</Text>
         <Text style={styles.value}>{monthlyPlanned.businessDays}日</Text>
       </View>
 
       <View style={styles.infoRow}>
-        <Text style={styles.label}>予定勤務時間:</Text>
+        <Text style={styles.label}>労働時間:</Text>
         <Text style={styles.value}>
           {formatHoursAndMinutes(monthlyPlanned.workHoursLower)}
           {" 〜 "}
@@ -58,7 +59,14 @@ export const MonthlyPlannedView = ({
           <Text style={styles.subtitle}>実績</Text>
 
           <View style={styles.infoRow}>
-            <Text style={styles.label}>残り営業日数:</Text>
+            <Text style={styles.label}>合計労働時間:</Text>
+            <Text style={styles.value}>
+              {formatSecondsToHoursAndMinutes(totalWorkSecond)}
+            </Text>
+          </View>
+
+          <View style={styles.infoRow}>
+            <Text style={styles.label}>残り稼働日数:</Text>
             <Text style={styles.value}>{remaining.businessDays}日</Text>
           </View>
 
@@ -91,7 +99,7 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: "#fff",
     borderRadius: 8,
-    marginBottom: 16,
+    marginBottom: 12,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
