@@ -76,8 +76,8 @@ export const MonthlySummaryForm: FC<Props> = ({
               await saveCategoryIds(form.categoryIds);
               await saveAccountIds(form.accountIds);
               prependParamAndPush({
-                from: convertToYmd(form.fromDate),
-                to: convertToYmd(form.toDate),
+                fromDate: convertToYmd(form.fromDate),
+                toDate: convertToYmd(form.toDate),
               });
             }}
             type={"save"}
