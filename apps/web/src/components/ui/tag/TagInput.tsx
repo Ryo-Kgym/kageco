@@ -1,6 +1,6 @@
 "use client";
 
-import { type FC, useState } from "react";
+import type { FC } from "react";
 
 import { FieldContainer } from "../v4/FieldContainer";
 import { Tag } from "./Tag";
@@ -34,8 +34,6 @@ export const TagInputCore: FC<Props> = ({
   onChange: setSelected,
   data,
 }) => {
-  const [openSelect, setOpenSelect] = useState(false);
-
   const dataObject = Object.fromEntries(
     data.map((tag) => [
       tag.value,
@@ -44,13 +42,8 @@ export const TagInputCore: FC<Props> = ({
   );
 
   return (
-    <div className={styles.module} onMouseLeave={() => setOpenSelect(false)}>
-      <button
-        type="button"
-        className={styles.input}
-        onMouseOver={() => setOpenSelect(true)}
-        onFocus={() => setOpenSelect(true)}
-      >
+    <div className={styles.module}>
+      <button type="button" className={styles.input}>
         {selected.map((tag) => (
           <Tag
             key={tag}
@@ -59,26 +52,24 @@ export const TagInputCore: FC<Props> = ({
           />
         ))}
       </button>
-      {openSelect && (
-        <ul className={styles.selector}>
-          {data.map((tag) => (
-            <li key={tag.value}>
-              <TagInputCheckbox
-                id={tag.value}
-                label={tag.label}
-                checked={selected.includes(tag.value)}
-                onChange={() => {
-                  if (selected.includes(tag.value)) {
-                    setSelected(selected.filter((t) => t !== tag.value));
-                  } else {
-                    setSelected([...selected, tag.value]);
-                  }
-                }}
-              />
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul className={styles.selector}>
+        {data.map((tag) => (
+          <li key={tag.value}>
+            <TagInputCheckbox
+              id={tag.value}
+              label={tag.label}
+              checked={selected.includes(tag.value)}
+              onChange={() => {
+                if (selected.includes(tag.value)) {
+                  setSelected(selected.filter((t) => t !== tag.value));
+                } else {
+                  setSelected([...selected, tag.value]);
+                }
+              }}
+            />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

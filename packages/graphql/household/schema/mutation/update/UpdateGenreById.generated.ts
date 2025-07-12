@@ -634,6 +634,37 @@ export type BusinessMonthlyPlanBoolExp = {
   yearMonth: InputMaybe<BpcharComparisonExp>;
 };
 
+/** unique or primary key constraints on table "business.monthly_plan" */
+export type BusinessMonthlyPlanConstraint =
+  /** unique or primary key constraint on columns "id" */
+  | "monthly_plan_pkey"
+  /** unique or primary key constraint on columns "user_id", "year_month" */
+  | "monthly_plan_user_id_year_month_key";
+
+/** input type for incrementing numeric columns in table "business.monthly_plan" */
+export type BusinessMonthlyPlanIncInput = {
+  businessDays: InputMaybe<Scalars["Int"]>;
+  plannedWorkingHoursLower: InputMaybe<Scalars["numeric"]>;
+  plannedWorkingHoursUpper: InputMaybe<Scalars["numeric"]>;
+};
+
+/** input type for inserting data into table "business.monthly_plan" */
+export type BusinessMonthlyPlanInsertInput = {
+  businessDays: InputMaybe<Scalars["Int"]>;
+  id: InputMaybe<Scalars["String"]>;
+  plannedWorkingHoursLower: InputMaybe<Scalars["numeric"]>;
+  plannedWorkingHoursUpper: InputMaybe<Scalars["numeric"]>;
+  userId: InputMaybe<Scalars["String"]>;
+  yearMonth: InputMaybe<Scalars["bpchar"]>;
+};
+
+/** on_conflict condition type for table "business.monthly_plan" */
+export type BusinessMonthlyPlanOnConflict = {
+  constraint: BusinessMonthlyPlanConstraint;
+  updateColumns: Array<BusinessMonthlyPlanUpdateColumn>;
+  where: InputMaybe<BusinessMonthlyPlanBoolExp>;
+};
+
 /** Ordering options when selecting data from "business.monthly_plan". */
 export type BusinessMonthlyPlanOrderBy = {
   businessDays: InputMaybe<OrderBy>;
@@ -642,6 +673,11 @@ export type BusinessMonthlyPlanOrderBy = {
   plannedWorkingHoursUpper: InputMaybe<OrderBy>;
   userId: InputMaybe<OrderBy>;
   yearMonth: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: business.monthly_plan */
+export type BusinessMonthlyPlanPkColumnsInput = {
+  id: Scalars["String"];
 };
 
 /** select columns of table "business.monthly_plan" */
@@ -659,6 +695,16 @@ export type BusinessMonthlyPlanSelectColumn =
   /** column name */
   | "yearMonth";
 
+/** input type for updating data in table "business.monthly_plan" */
+export type BusinessMonthlyPlanSetInput = {
+  businessDays: InputMaybe<Scalars["Int"]>;
+  id: InputMaybe<Scalars["String"]>;
+  plannedWorkingHoursLower: InputMaybe<Scalars["numeric"]>;
+  plannedWorkingHoursUpper: InputMaybe<Scalars["numeric"]>;
+  userId: InputMaybe<Scalars["String"]>;
+  yearMonth: InputMaybe<Scalars["bpchar"]>;
+};
+
 /** Streaming cursor of the table "business_monthly_plan" */
 export type BusinessMonthlyPlanStreamCursorInput = {
   /** Stream column input with initial value */
@@ -675,6 +721,30 @@ export type BusinessMonthlyPlanStreamCursorValueInput = {
   plannedWorkingHoursUpper: InputMaybe<Scalars["numeric"]>;
   userId: InputMaybe<Scalars["String"]>;
   yearMonth: InputMaybe<Scalars["bpchar"]>;
+};
+
+/** update columns of table "business.monthly_plan" */
+export type BusinessMonthlyPlanUpdateColumn =
+  /** column name */
+  | "businessDays"
+  /** column name */
+  | "id"
+  /** column name */
+  | "plannedWorkingHoursLower"
+  /** column name */
+  | "plannedWorkingHoursUpper"
+  /** column name */
+  | "userId"
+  /** column name */
+  | "yearMonth";
+
+export type BusinessMonthlyPlanUpdates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc: InputMaybe<BusinessMonthlyPlanIncInput>;
+  /** sets the columns of the filtered rows to the given values */
+  _set: InputMaybe<BusinessMonthlyPlanSetInput>;
+  /** filter the rows which have to be updated */
+  where: BusinessMonthlyPlanBoolExp;
 };
 
 /** ordering argument of a cursor */

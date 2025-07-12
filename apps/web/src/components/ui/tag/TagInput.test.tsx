@@ -6,16 +6,6 @@ import { describe, expect, test } from "vitest";
 import { TagInput } from "./TagInput";
 
 describe("TagInput", () => {
-  test("ホバーすると、セレクトボックスが表示される。さらに、アンホバーすると、セレクトボックスが非表示になる。", async () => {
-    render(<TestTagInput />);
-
-    expect(document.querySelector("ul")).not.toBeInTheDocument();
-    await userEvent.hover(screen.getByRole("button"));
-    expect(document.querySelector("ul")).toBeInTheDocument();
-    await userEvent.unhover(screen.getByRole("button"));
-    expect(document.querySelector("ul")).not.toBeInTheDocument();
-  });
-
   test("選択したものが入力欄に表示される。さらに、選択中のものをクリックすると、入力欄から取り除かれる", async () => {
     render(<TestTagInput />);
 

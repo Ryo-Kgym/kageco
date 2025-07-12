@@ -19,7 +19,11 @@ query getAllDetailView(
           }
         }
       }
-      orderBy: { settlementDate: DESC, withdrawalDate: DESC }
+      orderBy: {
+        settlementDate: DESC
+        withdrawalDate: DESC
+        account: { displayOrder: ASC }
+      }
     ) {
       ...fragAllDetailView
     }
@@ -38,7 +42,11 @@ query getAllDetailView(
               }
             }
           }
-          orderBy: { settlementDate: DESC, withdrawalDate: DESC }
+          orderBy: {
+            settlementDate: DESC
+            withdrawalDate: DESC
+            account: { displayOrder: ASC }
+          }
         ) {
           ...fragAllDetailView
         }

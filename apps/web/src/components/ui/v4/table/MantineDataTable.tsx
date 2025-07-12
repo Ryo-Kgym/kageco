@@ -25,6 +25,7 @@ export type DataTableProps<R extends object> = {
   onSelect?: (selectedRecords: DataTableRowType<R>[]) => void;
   height?: string;
   recordsPerPage?: number;
+  rowClassName?: (record: DataTableRowType<R>) => string;
 };
 
 export const MantineDataTable = <R extends object>({
@@ -34,6 +35,7 @@ export const MantineDataTable = <R extends object>({
   onSelect,
   height = "85vh",
   recordsPerPage = 30,
+  rowClassName,
 }: DataTableProps<R>) => {
   const [page, setPage] = useState(1);
   const [selectedRecords, setSelectedRecords] = useState<DataTableRowType<R>[]>(
@@ -116,9 +118,14 @@ export const MantineDataTable = <R extends object>({
       onRowClick={
         onRowClick ? (record) => onRowClick(record.record) : undefined
       }
-      rowClassName={
-        onRowClick ? "cursor-pointer hover:bg-gray-100" : "hover:bg-gray-100"
-      }
+      rowClassName={(record) => {
+        const baseClass = onRowClick
+          ? "cursor-pointer hover:bg-gray-100"
+          : "hover:bg-gray-100";
+
+        // カスタムのrowClassNameが提供されている場合はそれを使用
+        return rowClassName ? rowClassName(record) : baseClass;
+      }}
       selectedRecords={selectedRecords}
       onSelectedRecordsChange={setSelectedRecords}
     />

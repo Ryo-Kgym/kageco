@@ -6,11 +6,15 @@ query getDetailsByAccountId(
   account: householdAccountByPk(id: $accountId) {
     __typename
     id
-    dailies: dailyDetails(where: { date: { _gte: $fromDate, _lte: $toDate } }) {
+    dailies: dailyDetails(
+      where: { date: { _gte: $fromDate, _lte: $toDate } }
+      orderBy: { date: DESC, category: { displayOrder: ASC } }
+    ) {
       ...fragDailyDetail
     }
     credits: creditCardSummaries(
       where: { withdrawalDate: { _gte: $fromDate, _lte: $toDate } }
+      orderBy: { withdrawalDate: ASC }
     ) {
       __typename
       id

@@ -1,6 +1,7 @@
+import { convertToYmd } from "@/util/date/convertToYmd";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-import { convertToYmd } from "@/util/date/convertToYmd";
 import { errorPopup, successPopup } from "../../../function/successPopup";
 import { useNavigation } from "../../../routing/client/useNavigation";
 import { registerDailyDetail } from "../../../useServer/household/daily_detail/registerDailyDetail";
@@ -14,6 +15,7 @@ export const RegisterDailyDetailContainer = ({ date }: { date: Date }) => {
   });
 
   const { refresh } = useNavigation();
+  const searchParams = useSearchParams();
 
   const [isPosting, setIsPosting] = useState(false);
   const [templateId, setTemplateId] = useState("");
@@ -63,7 +65,7 @@ export const RegisterDailyDetailContainer = ({ date }: { date: Date }) => {
 
   return (
     <RegisterDailyDetailPresenter
-      form={form}
+      form={{ ...form, accountId: searchParams.get("accountId") ?? "" }}
       templateId={templateId}
       setTemplateId={setTemplateId}
       onTemplateSelect={handleTemplateSelect}

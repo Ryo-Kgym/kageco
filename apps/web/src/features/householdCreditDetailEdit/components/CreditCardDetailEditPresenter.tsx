@@ -80,6 +80,9 @@ export const CreditCardDetailEditPresenter = ({
       <Button onClick={onClickUpdate} label={"更新"} type={"modify"} />
       <Button onClick={onClickReset} label={"リセット"} type={"reset"} />
     </div>
+    <Frame>
+      <div>ID: {display.id}</div>
+    </Frame>
   </div>
 );
 
