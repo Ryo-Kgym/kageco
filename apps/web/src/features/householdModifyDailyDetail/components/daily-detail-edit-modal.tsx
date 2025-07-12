@@ -3,7 +3,7 @@ import { Tab } from "../../../components/ui";
 import { LinkFreeeForDailyDetail } from "../../household-link-freee/components/link-freee-for-daily-detail";
 import { CutDailyDetail } from "./CutDailyDetail";
 import { DuplicateDailyDetail } from "./DuplicateDailyDetail";
-import { ModifyDailyDetail } from "./ModifyDailyDetail";
+import { ModifyDailyDetail } from "./modify-daily-detail";
 
 export const DailyDetailEditModal = ({
   id,

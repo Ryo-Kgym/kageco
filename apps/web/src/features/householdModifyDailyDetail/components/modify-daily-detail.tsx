@@ -135,6 +135,9 @@ export const ModifyDailyDetail = ({
         <Button type={"reset"} label={"リセット"} onClick={resetForm} />
         <Button type={"dangerous"} label={"削除"} onClick={deleteClick} />
       </div>
+      <Field>
+        <div>ID: {id}</div>
+      </Field>
     </div>
   );
 };
