@@ -2,6 +2,7 @@ import { YYYYmmDD } from "@/util/date/date";
 import type { FormEvent } from "react";
 import { useEffect, useState } from "react";
 import { errorPopup, successPopup } from "../../../function/successPopup";
+import { useNavigation } from "../../../routing/client/useNavigation";
 import type {
   CreditDetailEditDisplayState,
   CreditDetailEditFormState,
@@ -64,6 +65,7 @@ export const useStateFreeeRecord = (params: {
     }
     setRecord(newRecord);
   };
+  const { refresh } = useNavigation();
 
   // メッセージ定義
   const successMessage = "freeeへのデータ送信が完了しました";
@@ -83,6 +85,7 @@ export const useStateFreeeRecord = (params: {
     try {
       await submitDealActions({ ...record, fromWalletableType });
       successPopup(successMessage);
+      refresh();
       onClose();
     } catch (error) {
       console.error("Error submitting data:", error);
