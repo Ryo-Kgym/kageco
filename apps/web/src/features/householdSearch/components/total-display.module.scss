@@ -1,0 +1,28 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* equivalent to spacing="xs" */
+}
+
+.group {
+  display: flex;
+  justify-content: space-between; /* equivalent to position="apart" */
+  align-items: center;
+  width: 100%;
+}
+
+.text {
+  font-size: 0.875rem; /* equivalent to size="sm" */
+}
+
+.bold {
+  font-weight: 700; /* equivalent to weight={700} */
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}

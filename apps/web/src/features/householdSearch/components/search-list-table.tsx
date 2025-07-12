@@ -1,13 +1,17 @@
 "use client";
 
-import { type FC, useState } from "react";
+import { type FC, useCallback, useEffect } from "react";
+import { useState } from "react";
 
 import { FormatPrice } from "../../../components/molecules/FormatPrice";
+import { DraggableModal } from "../../../components/ui/Modal/draggable-modal";
 import { TagGroup } from "../../../components/ui/tag/TagGroup";
 import { DataTable } from "../../../components/ui/v4/table";
+import { IocomeType } from "../../../domain/model/household/IocomeType";
 import { CreditCardDetailEditModal } from "../../householdCreditDetailEdit/components/credit-card-detail-edit-model";
 import { DailyDetailEditModal } from "../../householdModifyDailyDetail/components/daily-detail-edit-modal";
 import type { SearchRow } from "../types/searchRow";
+import { TotalDisplay } from "./total-display";
 
 type Props = {
   records: SearchRow[];
@@ -18,8 +22,20 @@ export const SearchListTable: FC<Props> = ({ records }) => {
     { id: string; type: "daily" | "credit" } | undefined
   >(undefined);
 
+  const [total, setTotal] = useState({
+    income: 0,
+    outcome: 0,
+  });
+
+  useEffect(() => {
+    console.log(total);
+  }, [total]);
+
   return (
     <>
+      <DraggableModal title="合計" width={250}>
+        <TotalDisplay income={total.income} outcome={total.outcome} />
+      </DraggableModal>
       <DataTable
         columns={[
           { accessor: "settlementDate", title: "決済日", width: 120 },
@@ -48,7 +64,7 @@ export const SearchListTable: FC<Props> = ({ records }) => {
               return (
                 <>
                   {record.freeeLinked && (
-                    <span className={"text-blue-600 font-bold mr-2"}>
+                    <span className={"mr-2 font-bold text-blue-600"}>
                       freee連携済み
                     </span>
                   )}
@@ -94,6 +110,22 @@ export const SearchListTable: FC<Props> = ({ records }) => {
             id: detail.id,
           });
         }}
+        onSelect={useCallback(
+          (records: { iocomeType: IocomeType; amount: number }[]) => {
+            const calcTotal = (iocomeType: IocomeType) => {
+              return records
+                .filter((rec) => rec.iocomeType === iocomeType)
+                .map((rec) => rec.amount)
+                .reduce((acc, cur) => acc + cur, 0);
+            };
+
+            setTotal({
+              income: calcTotal(IocomeType.Income),
+              outcome: calcTotal(IocomeType.Outcome),
+            });
+          },
+          [],
+        )}
       />
       {detail && detail.type === "daily" && (
         <DailyDetailEditModal
