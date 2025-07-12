@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { errorPopup, successPopup } from "../../../function/successPopup";
 import { registerTransfer } from "../../../hooks/household/transfer/registerTransfer";
+import { useNavigation } from "../../../routing/client/useNavigation";
 import { TransferPresenter } from "./TransferPresenter";
 
 export const TransferContainer = ({ date }: { date: Date }) => {
@@ -18,6 +19,7 @@ export const TransferContainer = ({ date }: { date: Date }) => {
     sendAccountId !== null &&
     receiveAccountId !== null &&
     amount !== 0;
+  const { refresh } = useNavigation();
 
   const registerHandler = async () => {
     try {
@@ -29,6 +31,7 @@ export const TransferContainer = ({ date }: { date: Date }) => {
         memo: memo,
       });
       clearHandler();
+      refresh();
       successPopup("振替を登録しました。");
     } catch (e) {
       errorPopup("振替の登録に失敗しました。");
