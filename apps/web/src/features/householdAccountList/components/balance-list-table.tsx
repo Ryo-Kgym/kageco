@@ -1,9 +1,10 @@
 "use client";
 
+import { convertToYmd } from "@/util/date/convertToYmd";
 import type { AccountBalance } from "features/householdAccountList/types/accountBalance";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-import { convertToYmd } from "@/util/date/convertToYmd";
 import { Total } from "../../../components/molecules/Total";
 import { Button } from "../../../components/ui/button/v5";
 import { AccountMultipleSelect } from "../../../components/ui/select/AccountMultipleSelect";
@@ -28,6 +29,7 @@ export const BalanceListTable = ({
 }) => {
   const { prependParamAndPush } = useNavigation();
   const { push } = useRouter();
+  const searchParams = useSearchParams();
 
   const [form, setForm] = useState<{
     fromDate: Date | null;
@@ -48,7 +50,7 @@ export const BalanceListTable = ({
       >
         <DateInput
           label={"From"}
-          value={fromDate}
+          value={form.fromDate}
           setValue={(d) => {
             setForm((prev) => ({
               ...prev,
@@ -58,7 +60,7 @@ export const BalanceListTable = ({
         />
         <DateInput
           label={"To"}
-          value={toDate}
+          value={form.toDate}
           setValue={(d) => {
             setForm((prev) => ({
               ...prev,
@@ -78,15 +80,15 @@ export const BalanceListTable = ({
         <Button
           label={"検索"}
           onClick={async () => {
-            const fromDateQuery =
-              form.fromDate && `fromDate=${convertToYmd(form.fromDate)}`;
-            const toDateQuery =
-              form.toDate && `toDate=${convertToYmd(form.toDate)}`;
             await saveAccountIds(form.accountIds);
 
-            push(
-              `?${[fromDateQuery, toDateQuery].filter((noop) => noop).join("&")}`,
-            );
+            const newSearchParams = new URLSearchParams(searchParams);
+            form.fromDate &&
+              newSearchParams.set("fromDate", convertToYmd(form.fromDate));
+            form.toDate &&
+              newSearchParams.set("toDate", convertToYmd(form.toDate));
+
+            push(`?${newSearchParams}`);
           }}
           type={"save"}
         />

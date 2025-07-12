@@ -3,7 +3,7 @@ import { YYYYmmDD } from "@/util/date/date";
 import { convertToYmd } from "@/util/date/convertToYmd";
 import { findAccountIds } from "../../../persistence/browser/server/findAccountIds";
 import { fetchBalanceList } from "../server/fetchBalanceList";
-import { BalanceListTable } from "./BalanceListTable";
+import { BalanceListTable } from "./balance-list-table";
 
 export const BalanceListTableServer = async ({
   fromDate = new YYYYmmDD("2019-01-01"),

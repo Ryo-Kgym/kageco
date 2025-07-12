@@ -1,6 +1,6 @@
 import { type YYYY_MM_DD, YYYYmmDD } from "@/util/date/date";
 
-import { BalanceListTableServer } from "../../../../../features/householdAccountList/components/BalanceListTableServer";
+import { BalanceListTableServer } from "../../../../../features/householdAccountList/components/balance-list-table-server";
 
 const Page = async ({
   searchParams,
