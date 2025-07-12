@@ -1,0 +1,8 @@
+.same-account-id {
+  background-color: #f0f8ff; /* Light blue background for rows with the same accountId */
+}
+
+/* When hovering over rows with the same accountId, use a slightly darker shade */
+.same-account-id:hover {
+  background-color: #e6f2ff;
+}

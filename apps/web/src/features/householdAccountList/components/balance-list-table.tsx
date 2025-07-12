@@ -3,7 +3,8 @@
 import { convertToYmd } from "@/util/date/convertToYmd";
 import type { AccountBalance } from "features/householdAccountList/types/accountBalance";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import styles from "./balance-list-table.module.scss";
 
 import { Total } from "../../../components/molecules/Total";
 import { Button } from "../../../components/ui/button/v5";
@@ -95,6 +96,7 @@ export const BalanceListTable = ({
       </div>
       <DataTable
         columns={[
+          { accessor: "id", title: "ID", hidden: true },
           { accessor: "accountName", title: "アカウント", width: "50%" },
           {
             accessor: "balance",
@@ -109,6 +111,13 @@ export const BalanceListTable = ({
           prependParamAndPush({ accountId: record.id });
         }}
         height="50vh"
+        rowClassName={({ id }) => {
+          const baseClass = "cursor-pointer hover:bg-gray-100";
+          // 同じaccountIdを持つレコードに特別なクラスを適用
+          return searchParams.get("accountId") === id
+            ? `${baseClass} ${styles["same-account-id"]}`
+            : baseClass;
+        }}
       />
       <Total total={total} />
     </>
