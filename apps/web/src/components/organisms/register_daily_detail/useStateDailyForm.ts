@@ -16,7 +16,7 @@ export const useStateDailyForm = (params: { date: Date }) => {
     setForm({ ...initialDailyDetailForm, date: params.date });
   };
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  // biome-ignore lint/correctness/useExhaustiveDependencies: searchParams is stable; intentionally omitting 'form' and 'params.date' to avoid unnecessary reruns.
   useEffect(() => {
     if (searchParams.get("accountId")) {
       setForm(prevForm => ({
