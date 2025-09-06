@@ -19,10 +19,10 @@ export const useStateDailyForm = (params: { date: Date }) => {
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (searchParams.get("accountId")) {
-      setForm({
-        ...form,
+      setForm(prevForm => ({
+        ...prevForm,
         accountId: searchParams.get("accountId") ?? "",
-      });
+      }));
     }
   }, [searchParams]);
 
