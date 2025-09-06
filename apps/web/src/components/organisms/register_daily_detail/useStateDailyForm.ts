@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
-import {
-  type DailyDetailForm,
-  initialDailyDetailForm,
-} from "./dailyDetailForm";
+import type { DailyDetailForm } from "./dailyDetailForm";
+import { initialDailyDetailForm } from "./dailyDetailForm";
 
 export const useStateDailyForm = (params: { date: Date }) => {
   const [form, setForm] = useState<DailyDetailForm>({
@@ -11,9 +10,21 @@ export const useStateDailyForm = (params: { date: Date }) => {
     date: params.date,
   });
 
+  const searchParams = useSearchParams();
+
   const resetForm = () => {
     setForm({ ...initialDailyDetailForm, date: params.date });
   };
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    if (searchParams.get("accountId")) {
+      setForm({
+        ...form,
+        accountId: searchParams.get("accountId") ?? "",
+      });
+    }
+  }, [searchParams]);
 
   return { form, setForm, resetForm };
 };

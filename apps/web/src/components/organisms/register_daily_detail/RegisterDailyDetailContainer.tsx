@@ -65,7 +65,7 @@ export const RegisterDailyDetailContainer = ({ date }: { date: Date }) => {
 
   return (
     <RegisterDailyDetailPresenter
-      form={{ ...form, accountId: searchParams.get("accountId") ?? "" }}
+      form={form}
       templateId={templateId}
       setTemplateId={setTemplateId}
       onTemplateSelect={handleTemplateSelect}
