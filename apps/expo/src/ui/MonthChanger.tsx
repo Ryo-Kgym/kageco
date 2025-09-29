@@ -18,7 +18,7 @@ export const MonthChanger = ({
   return (
     <View className={"flex flex-row items-center justify-between px-10"}>
       <AntDesign
-        name="banckward"
+        name="backward"
         size={24}
         color="black"
         onPress={() => changeBaseDate(baseDate, -1)}
