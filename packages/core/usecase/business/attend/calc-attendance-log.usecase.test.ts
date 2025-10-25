@@ -1,7 +1,7 @@
 import { TZDateTime, YYYYmmDD } from "@/util/date/date";
 import { describe, expect, test, vi } from "vitest";
 
-import { CalcAttendanceLogUsecase } from "./CalcAttendanceLogUsecase";
+import { CalcAttendanceLogUsecase } from "./calc-attendance-log.usecase";
 
 vi.mock("../../gateway/attend/AttendanceGateway");
 
@@ -40,7 +40,7 @@ describe("CalcAttendanceLogUsecase", () => {
       findBy: () =>
         Promise.resolve({
           dailyAttendanceId: "1",
-          datetime: new YYYYmmDD("2021-01-01T10:00:00Z"),
+          datetime: new YYYYmmDD("2021-01-01"),
           state: "leave",
           startDatetime: new TZDateTime("2021-01-01T09:00:00Z"),
           endDatetime: new TZDateTime("2021-01-01T10:00:00Z"),
