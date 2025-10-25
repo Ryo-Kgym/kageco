@@ -15,6 +15,10 @@ type Output = {
   };
 };
 
+type AttendanceLog = Awaited<
+  ReturnType<FindAttendanceLogGateway["findByLogId"]>
+>["log"];
+
 export class FixAttendLogUsecase implements BusinessUsecase<Input, Output> {
   constructor(
     private readonly findAttendanceLogGateway: FindAttendanceLogGateway,
@@ -25,12 +29,20 @@ export class FixAttendLogUsecase implements BusinessUsecase<Input, Output> {
     const { log, dailyLogs, attendance } =
       await this.findAttendanceLogGateway.findByLogId(input.attendanceLogId);
 
-    // 修正対象のログの前のログを算出する。nullの場合あり
-    // 修正対象のログの後のログを算出する。nullの場合あり
+    const prevLog = this.findPrevLog(log, dailyLogs);
+    const nextLog = this.fundNextLog(log, dailyLogs);
 
-    // 修正対象のログの前のログが存在する場合、修正後の日時が前のログの日時よりも大きいことを検証する。NGの場合、エラー
+    if (prevLog && prevLog.datetime > input.datetime) {
+      throw new Error(
+        "修正後の日時が前のログよりも小さいです。大きくなるように指定してください。",
+      );
+    }
 
-    // 修正対象のログの後のログが存在する場合、修正後の日時が後のログの日時よりも大きいことを検証する。NGの場合、エラー
+    if (nextLog && nextLog.datetime < input.datetime) {
+      throw new Error(
+        "修正後の日時が後のログよりも大きいです。小さくなるように指定してください。",
+      );
+    }
 
     // 修正後の日時を使って、startDatetime, endDatetime, breakSecondを再度計算する
     // TODO
@@ -58,5 +70,19 @@ export class FixAttendLogUsecase implements BusinessUsecase<Input, Output> {
         breakSecond: 0,
       },
     };
+  }
+
+  private findPrevLog(
+    log: AttendanceLog,
+    logs: AttendanceLog[],
+  ): AttendanceLog | null {
+    return logs.find((l) => l.datetime < log.datetime) ?? null;
+  }
+
+  private fundNextLog(
+    log: AttendanceLog,
+    logs: AttendanceLog[],
+  ): AttendanceLog | null {
+    return logs.find((l) => log.datetime < l.datetime) ?? null;
   }
 }
