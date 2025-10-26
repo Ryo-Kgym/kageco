@@ -12,11 +12,11 @@ import {
 } from "react-native";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
 import { useSaveUserId } from "~/hooks/user/useSaveUserId";
+import { EditableDateTime } from "~/ui/editable/EditableDateTime";
 import { attendOrLeaveWork, fetchAttendanceByDate } from "./attendance-api";
 import { AttendanceLogsView } from "./attendance-logs-view";
 import { MonthlyPlannedView } from "./monthly-planned-view";
 import type { AttendanceLog, MonthlyPlanned, Remaining } from "./types";
-import { EditableDateTime } from "~/ui/editable/EditableDateTime";
 
 /**
  * 出勤・退勤ボタンのUI表示コンポーネント
@@ -229,9 +229,11 @@ export const AttendanceButtonView = () => {
             <View style={styles.modalRow}>
               <Text style={styles.modalLabel}>日時</Text>
               <EditableDateTime
-                value={editableDateTime ? new Date(editableDateTime) : undefined}
-                setValue={(d) => setEditableDateTime(d ? d.toISOString() : '')}
-                loadingValue={editableDateTime || '読み込み中'}
+                value={
+                  editableDateTime ? new Date(editableDateTime) : undefined
+                }
+                setValue={(d) => setEditableDateTime(d ? d.toISOString() : "")}
+                loadingValue={editableDateTime || "読み込み中"}
                 disabled={false}
               />
             </View>
