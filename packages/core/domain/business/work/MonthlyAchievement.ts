@@ -1,4 +1,4 @@
-import type { DayAttendance } from "../attend/DayAttendance";
+import type { DailyAttendance } from "../attend/daily-attendance";
 
 export class MonthlyAchievement {
   readonly businessDays: number;
@@ -12,7 +12,7 @@ export class MonthlyAchievement {
     this.workedSeconds = params.workedSeconds;
   }
 
-  static of(days: DayAttendance[]): MonthlyAchievement {
+  static of(days: DailyAttendance[]): MonthlyAchievement {
     const businessDays = days.filter(
       (day) => day.workSecond !== undefined,
     ).length;

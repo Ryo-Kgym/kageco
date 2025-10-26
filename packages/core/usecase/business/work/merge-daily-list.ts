@@ -1,6 +1,6 @@
 import type { TZDateTime, YYYYmmDD } from "@/util/date/date";
 
-import { DayAttendance } from "../../../domain/business/attend/DayAttendance";
+import { DailyAttendance } from "../../../domain/business/attend/daily-attendance";
 import { WorkTime } from "../../../domain/business/work/WorkTime";
 import { DayOfWeekFactory } from "../../../domain/date/DayOfWeekFactory";
 
@@ -16,12 +16,12 @@ export const mergeDailyList = (
     endDatetime: TZDateTime;
     breakSecond: number;
   }[],
-): DayAttendance[] =>
+): DailyAttendance[] =>
   monthlyList.map((date) => {
     const matched = days.find((day) => day.date.equals(date));
 
     if (!matched) {
-      return new DayAttendance({
+      return new DailyAttendance({
         date,
         dayOfWeek: DayOfWeekFactory.of(date),
         startDatetime: undefined,
@@ -31,7 +31,7 @@ export const mergeDailyList = (
       });
     }
 
-    return new DayAttendance({
+    return new DailyAttendance({
       date,
       dayOfWeek: DayOfWeekFactory.of(date),
       startDatetime: matched.startDatetime,

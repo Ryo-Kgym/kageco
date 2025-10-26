@@ -2,7 +2,7 @@ import type { TZDateTime, YYYYmmDD } from "@/util/date/date";
 
 import type { DayOfWeek } from "../../date/dayOfWeek";
 
-export class DayAttendance {
+export class DailyAttendance {
   readonly date: YYYYmmDD;
   readonly dayOfWeek: DayOfWeek;
   readonly startDatetime: TZDateTime | undefined;
