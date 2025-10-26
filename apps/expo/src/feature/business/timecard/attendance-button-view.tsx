@@ -1,19 +1,11 @@
 import { convertToYmd } from "@/util/date/convertToYmd";
 import type { AttendanceState } from "@/util/domain/business/timecard/attendance-state";
 import { useEffect, useState } from "react";
-import {
-  Alert,
-  Modal,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
 import { useSaveUserId } from "~/hooks/user/useSaveUserId";
-import { EditableDateTime } from "~/ui/editable/EditableDateTime";
 import { attendOrLeaveWork, fetchAttendanceByDate } from "./attendance-api";
+import { AttendanceEditModal } from "./attendance-edit-modal";
 import { AttendanceLogsView } from "./attendance-logs-view";
 import { MonthlyPlannedView } from "./monthly-planned-view";
 import type { AttendanceLog, MonthlyPlanned, Remaining } from "./types";
@@ -208,64 +200,16 @@ export const AttendanceButtonView = () => {
         remaining={monthlyState.remaining}
       />
 
-      {/* 編集モーダル */}
-      <Modal
+      <AttendanceEditModal
         visible={isModalVisible}
-        transparent
-        animationType="fade"
-        onRequestClose={handleCloseModal}
-      >
-        <View style={styles.modalBackdrop}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>勤怠ログの編集</Text>
-
-            <View style={styles.modalRow}>
-              <Text style={styles.modalLabel}>種別</Text>
-              <Text style={styles.modalValue}>
-                {selectedLog?.state === "attend" ? "出勤" : "退勤"}
-              </Text>
-            </View>
-
-            <View style={styles.modalRow}>
-              <Text style={styles.modalLabel}>日時</Text>
-              <EditableDateTime
-                value={
-                  editableDateTime ? new Date(editableDateTime) : undefined
-                }
-                setValue={(d) => setEditableDateTime(d ? d.toISOString() : "")}
-                loadingValue={editableDateTime || "読み込み中"}
-                disabled={false}
-              />
-            </View>
-
-            <View style={styles.modalRow}>
-              <Text style={styles.modalLabel}>メモ</Text>
-              <TextInput
-                style={[styles.input, styles.memoInput]}
-                value={editableMemo}
-                onChangeText={setEditableMemo}
-                placeholder="メモを入力"
-                multiline
-              />
-            </View>
-
-            <View style={styles.modalButtons}>
-              <TouchableOpacity
-                style={[styles.smallButton, styles.secondaryButton]}
-                onPress={handleCloseModal}
-              >
-                <Text style={styles.smallButtonText}>閉じる</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.smallButton, styles.primaryButton]}
-                onPress={handleUpdate}
-              >
-                <Text style={styles.smallButtonText}>更新</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
+        selectedLog={selectedLog}
+        editableDateTime={editableDateTime}
+        setEditableDateTime={setEditableDateTime}
+        editableMemo={editableMemo}
+        setEditableMemo={setEditableMemo}
+        onClose={handleCloseModal}
+        onUpdate={handleUpdate}
+      />
     </View>
   );
 };
