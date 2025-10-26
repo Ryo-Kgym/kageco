@@ -1,7 +1,7 @@
 import type { TZDateTime, YYYYmmDD } from "@/util/date/date";
 
 import { DailyAttendance } from "../../../domain/business/attend/daily-attendance";
-import { WorkTime } from "../../../domain/business/work/WorkTime";
+import { WorkTime } from "../../../domain/business/work/work-time";
 import { DayOfWeekFactory } from "../../../domain/date/DayOfWeekFactory";
 
 /**

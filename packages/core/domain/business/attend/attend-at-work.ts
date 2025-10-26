@@ -9,10 +9,10 @@ export class AttendAtWork {
 
   attend(attendTime: TZDateTime) {
     const breakMilliSecond =
-      attendTime.getTime() - this.lastLeaveTime.getTime();
+      attendTime.getTimeSecond() - this.lastLeaveTime.getTimeSecond();
 
     return {
-      breakSecond: Math.floor(breakMilliSecond / 1000),
+      breakSecond: Math.floor(breakMilliSecond),
     };
   }
 }
