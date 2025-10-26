@@ -34,7 +34,7 @@ export class FixAttendLogUsecase implements BusinessUsecase<Input, Output> {
       await this.findAttendanceLogGateway.findByLogId(input.attendanceLogId);
 
     const prevLog = this.findPrevLog(log, dailyLogs);
-    const nextLog = this.fundNextLog(log, dailyLogs);
+    const nextLog = this.findNextLog(log, dailyLogs);
 
     if (prevLog && prevLog.datetime > input.datetime) {
       throw new ModifiedDateTimeIsBeforePreviousLogException();
@@ -82,7 +82,7 @@ export class FixAttendLogUsecase implements BusinessUsecase<Input, Output> {
     return logs.find((l) => l.datetime < log.datetime) ?? null;
   }
 
-  private fundNextLog(
+  private findNextLog(
     log: AttendanceLog,
     logs: AttendanceLog[],
   ): AttendanceLog | null {

@@ -104,3 +104,28 @@ export const fetchMonthlyAttendance = async (
 
   return await response.json();
 };
+
+/**
+ * 勤怠ログを修正する
+ * @param attendanceLogId ログID
+ * @param datetime ISO(UTC, 秒精度, 末尾Z) 例: 2025-10-26T15:30:00Z
+ * @param memo メモ（未入力時は null 推奨）
+ */
+export const fixAttendLog = async (
+  attendanceLogId: string,
+  datetime: string,
+  memo: string | null,
+): Promise<{ dailyAttendance: { date: string; breakSecond: number } }> => {
+  const response = await fetch(paths.api.business.fixAttendLog.post(), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ attendanceLogId, datetime, memo }),
+  });
+
+  if (!response.ok) {
+    const msg = await response.text().catch(() => "");
+    throw new Error(`勤怠ログの修正に失敗しました: ${msg}`);
+  }
+
+  return await response.json();
+};

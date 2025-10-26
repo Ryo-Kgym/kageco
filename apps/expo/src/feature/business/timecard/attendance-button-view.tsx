@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
 import { useSaveUserId } from "~/hooks/user/useSaveUserId";
-import { attendOrLeaveWork, fetchAttendanceByDate } from "./attendance-api";
+import {
+  attendOrLeaveWork,
+  fetchAttendanceByDate,
+  fixAttendLog,
+} from "./attendance-api";
 import { AttendanceEditModal } from "./attendance-edit-modal";
 import { AttendanceLogsView } from "./attendance-logs-view";
 import { MonthlyPlannedView } from "./monthly-planned-view";
@@ -142,13 +146,38 @@ export const AttendanceButtonView = () => {
     setIsModalVisible(false);
   };
 
-  /**
-   * 更新ボタン（現時点ではアクション未実装）
-   * TODO: API連携して勤怠ログの更新を行う
-   */
-  const handleUpdate = () => {
-    // ここではまだアクション不要
-    // 例：console.log('更新', { editableDateTime, editableMemo, selectedLog });
+  const handleUpdate = async () => {
+    if (!selectedLog) {
+      return;
+    }
+    try {
+      await fixAttendLog(
+        selectedLog.id,
+        editableDateTime,
+        editableMemo ? editableMemo : null,
+      );
+      // 成功したら当日のデータを再取得して画面を更新
+      const baseDate = convertToYmd(now);
+      const updatedData = await fetchAttendanceByDate(
+        baseDate,
+        userId,
+        groupId,
+      );
+      setMonthlyState({
+        attendanceLogs: updatedData.baseDateLogs,
+        totalWorkSecond: updatedData.totalWorkSecond,
+        monthlyPlanned: updatedData.monthlyPlanned ?? undefined,
+        remaining: updatedData.remaining,
+      });
+
+      // モーダルを閉じる
+      setIsModalVisible(false);
+    } catch (e) {
+      console.error("fixAttendLog error:", e);
+      Alert.alert("エラー", "勤怠ログの更新に失敗しました");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
