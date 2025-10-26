@@ -1,15 +1,19 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
-import type { AttendanceLog } from "./types";
-import { formatTime } from "./utils";
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import type { AttendanceLog } from './types';
+import { formatTime } from './utils';
 
 /**
  * 勤怠ログ一覧表示コンポーネント
  */
 interface AttendanceLogsViewProps {
   logs: AttendanceLog[];
+  /**
+   * 行タップ時に親へ選択ログを通知するコールバック
+   */
+  onItemPress?: (log: AttendanceLog) => void;
 }
 
-export const AttendanceLogsView = ({ logs }: AttendanceLogsViewProps) => {
+export const AttendanceLogsView = ({ logs, onItemPress }: AttendanceLogsViewProps) => {
   if (!logs?.length) {
     return (
       <View style={styles.container}>
@@ -25,24 +29,28 @@ export const AttendanceLogsView = ({ logs }: AttendanceLogsViewProps) => {
         data={logs}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.logItem}>
+          <TouchableOpacity
+            style={styles.logItem}
+            onPress={() => onItemPress?.(item)}
+            activeOpacity={0.7}
+          >
             <View style={styles.stateContainer}>
               <View
                 style={[
                   styles.stateIndicator,
-                  item.state === "attend"
+                  item.state === 'attend'
                     ? styles.attendIndicator
                     : styles.leaveIndicator,
                 ]}
               />
               <Text style={styles.stateText}>
-                {item.state === "attend" ? "出勤" : "退勤"}
+                {item.state === 'attend' ? '出勤' : '退勤'}
               </Text>
             </View>
             <Text style={styles.timeText}>
               {formatTime(item.datetime.tzDateTime)}
             </Text>
-          </View>
+          </TouchableOpacity>
         )}
         style={styles.list}
       />

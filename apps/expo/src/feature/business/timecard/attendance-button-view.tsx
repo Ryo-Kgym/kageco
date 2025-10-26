@@ -1,13 +1,22 @@
 import { convertToYmd } from "@/util/date/convertToYmd";
 import type { AttendanceState } from "@/util/domain/business/timecard/attendance-state";
 import { useEffect, useState } from "react";
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Modal,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
 import { useSaveUserId } from "~/hooks/user/useSaveUserId";
 import { attendOrLeaveWork, fetchAttendanceByDate } from "./attendance-api";
 import { AttendanceLogsView } from "./attendance-logs-view";
 import { MonthlyPlannedView } from "./monthly-planned-view";
 import type { AttendanceLog, MonthlyPlanned, Remaining } from "./types";
+import { EditableDateTime } from "~/ui/editable/EditableDateTime";
 
 /**
  * 出勤・退勤ボタンのUI表示コンポーネント
@@ -21,6 +30,12 @@ export const AttendanceButtonView = () => {
     useState<AttendanceState>("attend");
   // ボタンの無効化状態を管理するstate
   const [isLoading, setIsLoading] = useState(false);
+
+  // モーダル関連の状態
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [selectedLog, setSelectedLog] = useState<AttendanceLog | null>(null);
+  const [editableDateTime, setEditableDateTime] = useState<string>("");
+  const [editableMemo, setEditableMemo] = useState<string>("");
 
   const [monthlyState, setMonthlyState] = useState<{
     attendanceLogs: AttendanceLog[];
@@ -117,6 +132,33 @@ export const AttendanceButtonView = () => {
     }
   };
 
+  /**
+   * ログ行タップ時のハンドラ
+   * 子要素（AttendanceLogsView）から渡されるログを保持し、モーダルを開く
+   */
+  const handleLogPress = (log: AttendanceLog) => {
+    setSelectedLog(log);
+    setEditableDateTime(log.datetime.tzDateTime);
+    setEditableMemo(log.memo ?? "");
+    setIsModalVisible(true);
+  };
+
+  /**
+   * モーダルを閉じる
+   */
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+  };
+
+  /**
+   * 更新ボタン（現時点ではアクション未実装）
+   * TODO: API連携して勤怠ログの更新を行う
+   */
+  const handleUpdate = () => {
+    // ここではまだアクション不要
+    // 例：console.log('更新', { editableDateTime, editableMemo, selectedLog });
+  };
+
   return (
     <View style={styles.container}>
       {/* 日付ナビゲーション */}
@@ -155,13 +197,73 @@ export const AttendanceButtonView = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      <AttendanceLogsView logs={monthlyState.attendanceLogs} />
+      <AttendanceLogsView
+        logs={monthlyState.attendanceLogs}
+        onItemPress={handleLogPress}
+      />
 
       <MonthlyPlannedView
         totalWorkSecond={monthlyState.totalWorkSecond}
         monthlyPlanned={monthlyState.monthlyPlanned}
         remaining={monthlyState.remaining}
       />
+
+      {/* 編集モーダル */}
+      <Modal
+        visible={isModalVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={handleCloseModal}
+      >
+        <View style={styles.modalBackdrop}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalTitle}>勤怠ログの編集</Text>
+
+            <View style={styles.modalRow}>
+              <Text style={styles.modalLabel}>種別</Text>
+              <Text style={styles.modalValue}>
+                {selectedLog?.state === "attend" ? "出勤" : "退勤"}
+              </Text>
+            </View>
+
+            <View style={styles.modalRow}>
+              <Text style={styles.modalLabel}>日時</Text>
+              <EditableDateTime
+                value={editableDateTime ? new Date(editableDateTime) : undefined}
+                setValue={(d) => setEditableDateTime(d ? d.toISOString() : '')}
+                loadingValue={editableDateTime || '読み込み中'}
+                disabled={false}
+              />
+            </View>
+
+            <View style={styles.modalRow}>
+              <Text style={styles.modalLabel}>メモ</Text>
+              <TextInput
+                style={[styles.input, styles.memoInput]}
+                value={editableMemo}
+                onChangeText={setEditableMemo}
+                placeholder="メモを入力"
+                multiline
+              />
+            </View>
+
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={[styles.smallButton, styles.secondaryButton]}
+                onPress={handleCloseModal}
+              >
+                <Text style={styles.smallButtonText}>閉じる</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.smallButton, styles.primaryButton]}
+                onPress={handleUpdate}
+              >
+                <Text style={styles.smallButtonText}>更新</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -228,5 +330,73 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 24,
     fontWeight: "bold",
+  },
+  // モーダル関連
+  modalBackdrop: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 16,
+  },
+  modalContainer: {
+    width: "100%",
+    maxWidth: 520,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    padding: 16,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#333",
+    marginBottom: 12,
+  },
+  modalRow: {
+    marginBottom: 12,
+  },
+  modalLabel: {
+    fontSize: 14,
+    color: "#666",
+    marginBottom: 6,
+  },
+  modalValue: {
+    fontSize: 16,
+    color: "#333",
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    fontSize: 16,
+    color: "#333",
+    backgroundColor: "#fafafa",
+  },
+  memoInput: {
+    minHeight: 80,
+    textAlignVertical: "top",
+  },
+  modalButtons: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    gap: 8,
+  },
+  smallButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 6,
+  },
+  primaryButton: {
+    backgroundColor: "#1976D2",
+  },
+  secondaryButton: {
+    backgroundColor: "#9E9E9E",
+  },
+  smallButtonText: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "600",
   },
 });
