@@ -1,5 +1,7 @@
 import type { TZDateTime, YYYYmmDD } from "@/util/date/date";
 import { DailyAttendance } from "../../../domain/business/attend/daily-attendance";
+import { ModifiedDateTimeIsAfterNextLogException } from "../../../exception/business/attend/modified-date-time-is-after-next-log.exception";
+import { ModifiedDateTimeIsBeforePreviousLogException } from "../../../exception/business/attend/modified-date-time-is-before-previous-log.exception";
 import type { FindAttendanceLogGateway } from "../../../gateway/business/attend/find-attendance-log.gateway";
 import type { UpdateAttendanceLogGateway } from "../../../gateway/business/attend/update-attendance-log.gateway";
 import type { BusinessUsecase } from "../BusinessUsecase";
@@ -35,25 +37,21 @@ export class FixAttendLogUsecase implements BusinessUsecase<Input, Output> {
     const nextLog = this.fundNextLog(log, dailyLogs);
 
     if (prevLog && prevLog.datetime > input.datetime) {
-      throw new Error(
-        "修正後の日時が前のログよりも小さいです。大きくなるように指定してください。",
-      );
+      throw new ModifiedDateTimeIsBeforePreviousLogException();
     }
 
     if (nextLog && nextLog.datetime < input.datetime) {
-      throw new Error(
-        "修正後の日時が後のログよりも大きいです。小さくなるように指定してください。",
-      );
+      throw new ModifiedDateTimeIsAfterNextLogException();
     }
 
     const recalc = DailyAttendance.replaceAndCreate({
       dailyLogs,
-      replace: log,
+      replace: {
+        id: input.attendanceLogId,
+        state: log.state,
+        datetime: input.datetime,
+      },
     });
-    // TODO
-    const breakSecond = 0;
-    const startDatetime = input.datetime;
-    const endDatetime = input.datetime;
 
     await this.updateAttendanceLogGateway.update({
       log: {
@@ -64,15 +62,15 @@ export class FixAttendLogUsecase implements BusinessUsecase<Input, Output> {
       attendance: {
         id: attendance.id,
         breakSecond: recalc.breakSecond,
-        startDatetime,
-        endDatetime,
+        startDatetime: recalc.startDatetime,
+        endDatetime: recalc.endDatetime,
       },
     });
 
     return {
       dailyAttendance: {
         date: attendance.date,
-        breakSecond: 0,
+        breakSecond: recalc.breakSecond,
       },
     };
   }
