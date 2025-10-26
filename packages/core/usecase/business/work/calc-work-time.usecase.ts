@@ -1,9 +1,12 @@
 import type { TZDateTime, YYYY_MM, YYYYmmDD } from "@/util/date/date";
 
 import type { AttendanceState } from "@/util/domain/business/timecard/attendance-state";
-import type { DailyAttendance } from "../../../domain/business/attend/daily-attendance";
-import { MonthlyAchievement } from "../../../domain/business/work/MonthlyAchievement";
-import { MonthlyRemaining } from "../../../domain/business/work/MonthlyRemaining";
+import type {
+  DailyAttendance,
+  ScheduledAttendance,
+} from "../../../domain/business/attend/daily-attendance";
+import { MonthlyAchievement } from "../../../domain/business/work/monthly-achievement";
+import { MonthlyRemaining } from "../../../domain/business/work/monthly-remaining";
 import type { CreateMonthlyPlanGateway } from "../../../gateway/business/work/create-monthly-plan.gateway";
 import type { FindAttendanceGateway } from "../../../gateway/business/work/find-attendance.gateway";
 import type { BusinessUsecase } from "../BusinessUsecase";
@@ -83,7 +86,7 @@ type CalcWorkTimeInput = {
 
 type CalcWorkTimeOutput = {
   yearMonth: YYYY_MM;
-  days: DailyAttendance[];
+  days: (DailyAttendance | ScheduledAttendance)[];
   lastState: AttendanceState;
   baseDateLogs: AttendanceLog[];
   totalWorkSecond: number;

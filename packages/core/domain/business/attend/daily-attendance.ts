@@ -14,18 +14,18 @@ interface DailyLog {
 export class DailyAttendance {
   readonly date: YYYYmmDD;
   readonly dayOfWeek: DayOfWeek;
-  readonly startDatetime: TZDateTime | undefined;
-  readonly endDatetime: TZDateTime | undefined;
-  readonly breakSecond: number | undefined;
-  readonly workSecond: number | undefined;
+  readonly startDatetime: TZDateTime;
+  readonly endDatetime: TZDateTime;
+  readonly breakSecond: number;
+  readonly workSecond: number;
 
   constructor(params: {
     date: YYYYmmDD;
     dayOfWeek: DayOfWeek;
-    startDatetime: TZDateTime | undefined;
-    endDatetime: TZDateTime | undefined;
-    breakSecond: number | undefined;
-    workSecond: number | undefined;
+    startDatetime: TZDateTime;
+    endDatetime: TZDateTime;
+    breakSecond: number;
+    workSecond: number;
   }) {
     this.date = params.date;
     this.dayOfWeek = params.dayOfWeek;
@@ -95,5 +95,22 @@ export class DailyAttendance {
         endDatetime: agg.endDatetime,
       }).calcWorkSecond(agg.breakSecond),
     });
+  }
+}
+
+export class ScheduledAttendance {
+  readonly date: YYYYmmDD;
+  readonly dayOfWeek: DayOfWeek;
+  readonly startDatetime: undefined;
+  readonly endDatetime: undefined;
+  readonly breakSecond: undefined;
+  readonly workSecond: undefined;
+
+  constructor(params: {
+    date: YYYYmmDD;
+    dayOfWeek: DayOfWeek;
+  }) {
+    this.date = params.date;
+    this.dayOfWeek = params.dayOfWeek;
   }
 }

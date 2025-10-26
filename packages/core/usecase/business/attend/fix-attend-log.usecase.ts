@@ -1,4 +1,5 @@
 import type { TZDateTime, YYYYmmDD } from "@/util/date/date";
+import { DailyAttendance } from "../../../domain/business/attend/daily-attendance";
 import type { FindAttendanceLogGateway } from "../../../gateway/business/attend/find-attendance-log.gateway";
 import type { UpdateAttendanceLogGateway } from "../../../gateway/business/attend/update-attendance-log.gateway";
 import type { BusinessUsecase } from "../BusinessUsecase";
@@ -45,7 +46,10 @@ export class FixAttendLogUsecase implements BusinessUsecase<Input, Output> {
       );
     }
 
-    // 修正後の日時を使って、startDatetime, endDatetime, breakSecondを再度計算する
+    const recalc = DailyAttendance.replaceAndCreate({
+      dailyLogs,
+      replace: log,
+    });
     // TODO
     const breakSecond = 0;
     const startDatetime = input.datetime;
@@ -59,7 +63,7 @@ export class FixAttendLogUsecase implements BusinessUsecase<Input, Output> {
       },
       attendance: {
         id: attendance.id,
-        breakSecond,
+        breakSecond: recalc.breakSecond,
         startDatetime,
         endDatetime,
       },
