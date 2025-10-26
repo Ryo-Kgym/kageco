@@ -70,3 +70,8 @@ export type BusinessMonthlyPlanSetInput = {
   plannedWorkingHoursLower: number;
   plannedWorkingHoursUpper: number;
 };
+
+export type BusinessDailyAttendanceLogSetInput = {
+  memo: string | null;
+  datetime: YYYY_MM_DD_HH_MM_SS;
+};

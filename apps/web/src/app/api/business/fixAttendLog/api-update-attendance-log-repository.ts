@@ -1,9 +1,10 @@
 import type { UpdateAttendanceLogGateway } from "@/core/gateway/business/attend/update-attendance-log.gateway";
-// GraphQL: 日次勤怠の更新（既存の生成済みDocumentを使用）
-import { UpdateDailyAttendanceDocument } from "@v3/graphql/business/schema/mutate/v5/mutateDailyAttendance.generated";
+import {
+  UpdateDailyAttendanceDocument,
+  UpdateDailyAttendanceLogDocument,
+} from "@v3/graphql/business/schema/mutate/v5/mutateDailyAttendance.generated";
 
 import { execMutation } from "../../../../persistence/database/server/execMutation";
-import { UpdateDailyAttendanceLogDocument } from "./update-daily-attendance-log-document";
 
 export class ApiUpdateAttendanceLogRepository
   implements UpdateAttendanceLogGateway

@@ -2,18 +2,19 @@ import type { FindAttendanceLogGateway } from "@/core/gateway/business/attend/fi
 import type { YYYY_MM_DD, YYYY_MM_DD_HH_MM_SS } from "@/util/date/date";
 import { TZDateTime, YYYYmmDD } from "@/util/date/date";
 
+import type { AttendanceState } from "@/util/domain/business/timecard/attendance-state";
+import { GetAttendanceLogByIdDocument } from "@v3/graphql/business/schema/query/v5/queryDailyAttendance.generated";
 import { execQuery } from "../../../../persistence/database/server/execQuery";
-import { GetAttendanceLogByPkDocument } from "./get-attendance-log-by-pk-document";
 
 export class ApiFindAttendanceLogRepository
   implements FindAttendanceLogGateway
 {
   async findByLogId(attendanceLogId: string) {
-    const { data } = await execQuery(GetAttendanceLogByPkDocument, {
+    const { data } = await execQuery(GetAttendanceLogByIdDocument, {
       id: attendanceLogId,
     });
 
-    const row = data.businessDailyAttendanceLogByPk;
+    const row = data.log;
     if (!row || !row.dailyAttendance) {
       throw new Error("Attendance log not found");
     }
@@ -23,14 +24,14 @@ export class ApiFindAttendanceLogRepository
     return {
       log: {
         id: row.id,
-        state: row.state,
+        state: row.state as AttendanceState,
         memo: row.memo,
         datetime: new TZDateTime(row.datetime as YYYY_MM_DD_HH_MM_SS),
       },
       dailyLogs: daily.logs
         .map((l) => ({
           id: l.id,
-          state: l.state,
+          state: l.state as AttendanceState,
           memo: l.memo,
           datetime: new TZDateTime(l.datetime as YYYY_MM_DD_HH_MM_SS),
         }))
