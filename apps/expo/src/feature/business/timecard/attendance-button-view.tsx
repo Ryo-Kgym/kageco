@@ -15,7 +15,7 @@ import type { AttendanceLog, MonthlyPlanned, Remaining } from "./types";
 export const AttendanceButtonView = () => {
   const { userId } = useSaveUserId();
   const { groupId } = useSaveGroupId();
-  const now = new Date();
+  const [now, setNow] = useState<Date>(new Date());
 
   const [attendanceState, setAttendanceState] =
     useState<AttendanceState>("attend");
@@ -32,7 +32,7 @@ export const AttendanceButtonView = () => {
     totalWorkSecond: 0,
   });
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  // 日付・ユーザー・グループの変更時に状態を取得する
   useEffect(() => {
     // 初期状態を取得する処理
     const fetchInitialState = async () => {
@@ -61,7 +61,29 @@ export const AttendanceButtonView = () => {
     if (userId && groupId) {
       fetchInitialState();
     }
-  }, [userId, groupId]);
+  }, [userId, groupId, now]);
+
+  /**
+   * 前の日へ移動する
+   */
+  const handlePrevDay = () => {
+    if (isLoading) return;
+    setNow(
+      (prev) =>
+        new Date(prev.getFullYear(), prev.getMonth(), prev.getDate() - 1),
+    );
+  };
+
+  /**
+   * 次の日へ移動する
+   */
+  const handleNextDay = () => {
+    if (isLoading) return;
+    setNow(
+      (prev) =>
+        new Date(prev.getFullYear(), prev.getMonth(), prev.getDate() + 1),
+    );
+  };
 
   // 出勤・退勤ボタンのクリックハンドラ
   const handleAttendanceButtonClick = async () => {
@@ -97,6 +119,25 @@ export const AttendanceButtonView = () => {
 
   return (
     <View style={styles.container}>
+      {/* 日付ナビゲーション */}
+      <View style={styles.navContainer}>
+        <TouchableOpacity
+          style={[styles.navButton, isLoading && styles.disabledButton]}
+          onPress={handlePrevDay}
+          disabled={isLoading}
+        >
+          <Text style={styles.navButtonText}>{"＜ 前の日"}</Text>
+        </TouchableOpacity>
+        <Text style={styles.dateText}>{convertToYmd(now)}</Text>
+        <TouchableOpacity
+          style={[styles.navButton, isLoading && styles.disabledButton]}
+          onPress={handleNextDay}
+          disabled={isLoading}
+        >
+          <Text style={styles.navButtonText}>{"次の日 ＞"}</Text>
+        </TouchableOpacity>
+      </View>
+
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={[
@@ -133,6 +174,29 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 8,
     backgroundColor: "#f5f5f5",
+    color: "#333",
+  },
+  navContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 12,
+    paddingHorizontal: 8,
+  },
+  navButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    backgroundColor: "#2196F3",
+    borderRadius: 6,
+  },
+  navButtonText: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "600",
+  },
+  dateText: {
+    fontSize: 16,
+    fontWeight: "600",
     color: "#333",
   },
   buttonContainer: {
