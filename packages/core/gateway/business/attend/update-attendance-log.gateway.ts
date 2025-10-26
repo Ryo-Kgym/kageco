@@ -1,15 +1,17 @@
+import type { TZDateTime } from "@/util/date/date";
+
 export interface UpdateAttendanceLogGateway {
   update: (params: {
     log: {
       id: string;
       memo: string | null;
-      datetime: Date;
+      datetime: TZDateTime;
     };
     attendance: {
       id: string;
       breakSecond: number;
-      startDatetime: Date;
-      endDatetime: Date;
+      startDatetime: TZDateTime;
+      endDatetime: TZDateTime;
     };
   }) => Promise<{ count: number }>;
 }

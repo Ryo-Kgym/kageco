@@ -1,10 +1,11 @@
+import type { TZDateTime, YYYYmmDD } from "@/util/date/date";
 import type { AttendanceState } from "@/util/domain/business/timecard/attendance-state";
 
 type AttendanceLog = {
   id: string;
   state: AttendanceState;
   memo: string | null;
-  datetime: Date;
+  datetime: TZDateTime;
 };
 
 export interface FindAttendanceLogGateway {
@@ -13,10 +14,10 @@ export interface FindAttendanceLogGateway {
     dailyLogs: AttendanceLog[];
     attendance: {
       id: string;
-      date: Date;
+      date: YYYYmmDD;
       breakSecond: number;
-      startDatetime: Date;
-      endDatetime: Date;
+      startDatetime: TZDateTime;
+      endDatetime: TZDateTime;
     };
   }>;
 }

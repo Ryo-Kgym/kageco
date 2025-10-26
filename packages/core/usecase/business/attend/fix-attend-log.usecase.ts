@@ -1,16 +1,17 @@
+import type { TZDateTime, YYYYmmDD } from "@/util/date/date";
 import type { FindAttendanceLogGateway } from "../../../gateway/business/attend/find-attendance-log.gateway";
 import type { UpdateAttendanceLogGateway } from "../../../gateway/business/attend/update-attendance-log.gateway";
 import type { BusinessUsecase } from "../BusinessUsecase";
 
 type Input = {
   attendanceLogId: string;
-  datetime: Date;
+  datetime: TZDateTime;
   memo: string | null;
 };
 
 type Output = {
   dailyAttendance: {
-    date: Date;
+    date: YYYYmmDD;
     breakSecond: number;
   };
 };
