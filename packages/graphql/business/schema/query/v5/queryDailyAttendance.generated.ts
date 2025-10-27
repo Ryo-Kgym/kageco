@@ -435,6 +435,11 @@ export type BusinessDailyAttendanceLogOrderBy = {
   state: InputMaybe<OrderBy>;
 };
 
+/** primary key columns input for table: business.daily_attendance_log */
+export type BusinessDailyAttendanceLogPkColumnsInput = {
+  id: Scalars["String"];
+};
+
 /** select columns of table "business.daily_attendance_log" */
 export type BusinessDailyAttendanceLogSelectColumn =
   /** column name */
@@ -447,6 +452,12 @@ export type BusinessDailyAttendanceLogSelectColumn =
   | "memo"
   /** column name */
   | "state";
+
+/** input type for updating data in table "business.daily_attendance_log" */
+export type BusinessDailyAttendanceLogSetInput = {
+  datetime: InputMaybe<Scalars["timestamptz"]>;
+  memo: InputMaybe<Scalars["String"]>;
+};
 
 /** Streaming cursor of the table "business_daily_attendance_log" */
 export type BusinessDailyAttendanceLogStreamCursorInput = {
@@ -465,10 +476,19 @@ export type BusinessDailyAttendanceLogStreamCursorValueInput = {
   state: InputMaybe<Scalars["String"]>;
 };
 
-/** placeholder for update columns of table "business.daily_attendance_log" (current role has no relevant permissions) */
+/** update columns of table "business.daily_attendance_log" */
 export type BusinessDailyAttendanceLogUpdateColumn =
-  /** placeholder (do not use) */
-  "_PLACEHOLDER";
+  /** column name */
+  | "datetime"
+  /** column name */
+  | "memo";
+
+export type BusinessDailyAttendanceLogUpdates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set: InputMaybe<BusinessDailyAttendanceLogSetInput>;
+  /** filter the rows which have to be updated */
+  where: BusinessDailyAttendanceLogBoolExp;
+};
 
 /** order by max() on columns of table "business.daily_attendance" */
 export type BusinessDailyAttendanceMaxOrderBy = {
@@ -4659,6 +4679,36 @@ export type GetAttendanceOfMonthQuery = {
   }>;
 };
 
+export type GetAttendanceLogByIdQueryVariables = Types.Exact<{
+  id: Types.Scalars["String"];
+}>;
+
+export type GetAttendanceLogByIdQuery = {
+  __typename?: "query_root";
+  log: {
+    __typename: "BusinessDailyAttendanceLog";
+    id: string;
+    state: string;
+    memo: string | null;
+    datetime: YYYY_MM_DD_HH_MM_SS;
+    dailyAttendance: {
+      __typename: "BusinessDailyAttendance";
+      id: string;
+      date: YYYY_MM_DD;
+      startDatetime: YYYY_MM_DD_HH_MM_SS;
+      endDatetime: YYYY_MM_DD_HH_MM_SS;
+      breakSecond: number;
+      logs: Array<{
+        __typename: "BusinessDailyAttendanceLog";
+        id: string;
+        datetime: YYYY_MM_DD_HH_MM_SS;
+        state: string;
+        memo: string | null;
+      }>;
+    };
+  } | null;
+};
+
 export type FragDailyAttendanceFragment = {
   __typename: "BusinessDailyAttendance";
   id: string;
@@ -5266,4 +5316,123 @@ export const GetAttendanceOfMonthDocument = {
 } as unknown as DocumentNode<
   GetAttendanceOfMonthQuery,
   GetAttendanceOfMonthQueryVariables
+>;
+export const GetAttendanceLogByIdDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "getAttendanceLogById" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            alias: { kind: "Name", value: "log" },
+            name: { kind: "Name", value: "businessDailyAttendanceLogByPk" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "__typename" } },
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "state" } },
+                { kind: "Field", name: { kind: "Name", value: "memo" } },
+                { kind: "Field", name: { kind: "Name", value: "datetime" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "dailyAttendance" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "FragmentSpread",
+                        name: { kind: "Name", value: "fragDailyAttendance" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "fragDailyAttendance" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "BusinessDailyAttendance" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "__typename" } },
+          { kind: "Field", name: { kind: "Name", value: "id" } },
+          { kind: "Field", name: { kind: "Name", value: "date" } },
+          { kind: "Field", name: { kind: "Name", value: "startDatetime" } },
+          { kind: "Field", name: { kind: "Name", value: "endDatetime" } },
+          { kind: "Field", name: { kind: "Name", value: "breakSecond" } },
+          {
+            kind: "Field",
+            alias: { kind: "Name", value: "logs" },
+            name: { kind: "Name", value: "dailyAttendanceLogs" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "orderBy" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "datetime" },
+                      value: { kind: "EnumValue", value: "ASC" },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "__typename" } },
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "datetime" } },
+                { kind: "Field", name: { kind: "Name", value: "state" } },
+                { kind: "Field", name: { kind: "Name", value: "memo" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetAttendanceLogByIdQuery,
+  GetAttendanceLogByIdQueryVariables
 >;

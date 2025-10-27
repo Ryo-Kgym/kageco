@@ -1,7 +1,7 @@
 import { TZDateTime, YYYYmmDD } from "@/util/date/date";
 import { describe, expect, test } from "vitest";
 
-import { DayAttendance } from "../../../domain/business/attend/DayAttendance";
+import { DailyAttendance } from "../../../domain/business/attend/daily-attendance";
 import { mergeDailyList } from "./merge-daily-list";
 
 describe("mergeDailyList", () => {
@@ -22,7 +22,7 @@ describe("mergeDailyList", () => {
     // Assert
     expect(result).toHaveLength(1);
     expect(result[0]).toEqual(
-      new DayAttendance({
+      new DailyAttendance({
         date: new YYYYmmDD("2023-01-01"),
         dayOfWeek: "sun",
         startDatetime: undefined,
@@ -52,7 +52,7 @@ describe("mergeDailyList", () => {
     // Assert
     expect(result).toHaveLength(1);
     expect(result[0]).toEqual(
-      new DayAttendance({
+      new DailyAttendance({
         date: new YYYYmmDD("2023-01-02"),
         dayOfWeek: "mon",
         startDatetime: new TZDateTime("2023-01-02T09:00:00Z"),
@@ -95,7 +95,7 @@ describe("mergeDailyList", () => {
 
     // 2023-01-03 (出勤データあり)
     expect(result[0]).toEqual(
-      new DayAttendance({
+      new DailyAttendance({
         date: new YYYYmmDD("2023-01-03"),
         dayOfWeek: "tue",
         startDatetime: new TZDateTime("2023-01-03T09:00:00Z"),
@@ -107,7 +107,7 @@ describe("mergeDailyList", () => {
 
     // 2023-01-04 (出勤データなし)
     expect(result[1]).toEqual(
-      new DayAttendance({
+      new DailyAttendance({
         date: new YYYYmmDD("2023-01-04"),
         dayOfWeek: "wed",
         startDatetime: undefined,
@@ -119,7 +119,7 @@ describe("mergeDailyList", () => {
 
     // 2023-01-05 (出勤データあり)
     expect(result[2]).toEqual(
-      new DayAttendance({
+      new DailyAttendance({
         date: new YYYYmmDD("2023-01-05"),
         dayOfWeek: "thu",
         startDatetime: new TZDateTime("2023-01-05T10:00:00Z"),

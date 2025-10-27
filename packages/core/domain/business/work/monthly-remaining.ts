@@ -1,5 +1,5 @@
-import type { MonthlyAchievement } from "./MonthlyAchievement";
 import type { MonthlyPlan } from "./MonthlyPlan";
+import type { MonthlyAchievement } from "./monthly-achievement";
 
 export class MonthlyRemaining {
   readonly businessDays: number;

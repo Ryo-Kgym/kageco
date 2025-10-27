@@ -435,6 +435,11 @@ export type BusinessDailyAttendanceLogOrderBy = {
   state: InputMaybe<OrderBy>;
 };
 
+/** primary key columns input for table: business.daily_attendance_log */
+export type BusinessDailyAttendanceLogPkColumnsInput = {
+  id: Scalars["String"];
+};
+
 /** select columns of table "business.daily_attendance_log" */
 export type BusinessDailyAttendanceLogSelectColumn =
   /** column name */
@@ -447,6 +452,12 @@ export type BusinessDailyAttendanceLogSelectColumn =
   | "memo"
   /** column name */
   | "state";
+
+/** input type for updating data in table "business.daily_attendance_log" */
+export type BusinessDailyAttendanceLogSetInput = {
+  datetime: InputMaybe<Scalars["timestamptz"]>;
+  memo: InputMaybe<Scalars["String"]>;
+};
 
 /** Streaming cursor of the table "business_daily_attendance_log" */
 export type BusinessDailyAttendanceLogStreamCursorInput = {
@@ -465,10 +476,19 @@ export type BusinessDailyAttendanceLogStreamCursorValueInput = {
   state: InputMaybe<Scalars["String"]>;
 };
 
-/** placeholder for update columns of table "business.daily_attendance_log" (current role has no relevant permissions) */
+/** update columns of table "business.daily_attendance_log" */
 export type BusinessDailyAttendanceLogUpdateColumn =
-  /** placeholder (do not use) */
-  "_PLACEHOLDER";
+  /** column name */
+  | "datetime"
+  /** column name */
+  | "memo";
+
+export type BusinessDailyAttendanceLogUpdates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set: InputMaybe<BusinessDailyAttendanceLogSetInput>;
+  /** filter the rows which have to be updated */
+  where: BusinessDailyAttendanceLogBoolExp;
+};
 
 /** order by max() on columns of table "business.daily_attendance" */
 export type BusinessDailyAttendanceMaxOrderBy = {

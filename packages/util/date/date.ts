@@ -93,8 +93,12 @@ export class TZDateTime {
     return this.tzDateTime;
   }
 
-  getTime() {
+  getTimeMilliSecond() {
     return new Date(this.tzDateTime).getTime();
+  }
+
+  getTimeSecond() {
+    return new Date(this.tzDateTime).getTime() / 1000;
   }
 
   parseDate() {

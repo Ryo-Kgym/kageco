@@ -16,9 +16,9 @@ export class WorkTime {
   }
 
   calcWorkSecond(breakSecond: number) {
-    const workPeriodSecondForDay =
-      Math.floor(this.endDatetime.getTime() - this.startDatetime.getTime()) /
-      1000;
+    const workPeriodSecondForDay = Math.floor(
+      this.endDatetime.getTimeSecond() - this.startDatetime.getTimeSecond(),
+    );
 
     return workPeriodSecondForDay - breakSecond;
   }

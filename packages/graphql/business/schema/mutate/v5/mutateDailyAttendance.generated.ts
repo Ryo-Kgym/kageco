@@ -435,6 +435,11 @@ export type BusinessDailyAttendanceLogOrderBy = {
   state: InputMaybe<OrderBy>;
 };
 
+/** primary key columns input for table: business.daily_attendance_log */
+export type BusinessDailyAttendanceLogPkColumnsInput = {
+  id: Scalars["String"];
+};
+
 /** select columns of table "business.daily_attendance_log" */
 export type BusinessDailyAttendanceLogSelectColumn =
   /** column name */
@@ -447,6 +452,12 @@ export type BusinessDailyAttendanceLogSelectColumn =
   | "memo"
   /** column name */
   | "state";
+
+/** input type for updating data in table "business.daily_attendance_log" */
+export type BusinessDailyAttendanceLogSetInput = {
+  datetime: InputMaybe<Scalars["timestamptz"]>;
+  memo: InputMaybe<Scalars["String"]>;
+};
 
 /** Streaming cursor of the table "business_daily_attendance_log" */
 export type BusinessDailyAttendanceLogStreamCursorInput = {
@@ -465,10 +476,19 @@ export type BusinessDailyAttendanceLogStreamCursorValueInput = {
   state: InputMaybe<Scalars["String"]>;
 };
 
-/** placeholder for update columns of table "business.daily_attendance_log" (current role has no relevant permissions) */
+/** update columns of table "business.daily_attendance_log" */
 export type BusinessDailyAttendanceLogUpdateColumn =
-  /** placeholder (do not use) */
-  "_PLACEHOLDER";
+  /** column name */
+  | "datetime"
+  /** column name */
+  | "memo";
+
+export type BusinessDailyAttendanceLogUpdates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set: InputMaybe<BusinessDailyAttendanceLogSetInput>;
+  /** filter the rows which have to be updated */
+  where: BusinessDailyAttendanceLogBoolExp;
+};
 
 /** order by max() on columns of table "business.daily_attendance" */
 export type BusinessDailyAttendanceMaxOrderBy = {
@@ -4608,6 +4628,16 @@ export type InsertDailyAttendanceLogMutation = {
   insert: { __typename?: "BusinessDailyAttendanceLog"; id: string } | null;
 };
 
+export type UpdateDailyAttendanceLogMutationVariables = Types.Exact<{
+  id: Types.Scalars["String"];
+  set: Types.BusinessDailyAttendanceLogSetInput;
+}>;
+
+export type UpdateDailyAttendanceLogMutation = {
+  __typename?: "mutation_root";
+  update: { __typename?: "BusinessDailyAttendanceLog"; id: string } | null;
+};
+
 export type InsertDailyAttendanceMutationVariables = Types.Exact<{
   object: Types.BusinessDailyAttendanceInsertInput;
 }>;
@@ -4687,6 +4717,92 @@ export const InsertDailyAttendanceLogDocument = {
 } as unknown as DocumentNode<
   InsertDailyAttendanceLogMutation,
   InsertDailyAttendanceLogMutationVariables
+>;
+export const UpdateDailyAttendanceLogDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "updateDailyAttendanceLog" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "set" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: {
+                kind: "Name",
+                value: "BusinessDailyAttendanceLogSetInput",
+              },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            alias: { kind: "Name", value: "update" },
+            name: {
+              kind: "Name",
+              value: "updateBusinessDailyAttendanceLogByPk",
+            },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "pkColumns" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "id" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "id" },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "_set" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "set" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  UpdateDailyAttendanceLogMutation,
+  UpdateDailyAttendanceLogMutationVariables
 >;
 export const InsertDailyAttendanceDocument = {
   kind: "Document",

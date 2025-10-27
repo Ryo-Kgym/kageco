@@ -35,6 +35,19 @@ query getAttendanceOfMonth(
   }
 }
 
+query getAttendanceLogById($id: String!) {
+  log: businessDailyAttendanceLogByPk(id: $id) {
+    __typename
+    id
+    state
+    memo
+    datetime
+    dailyAttendance {
+      ...fragDailyAttendance
+    }
+  }
+}
+
 fragment fragDailyAttendance on BusinessDailyAttendance {
   __typename
   id

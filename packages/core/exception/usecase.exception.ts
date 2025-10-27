@@ -8,4 +8,4 @@ export abstract class UsecaseException extends Error {
   }
 }
 
-type ExceptionType = "CREATE_FAILURE";
+type ExceptionType = "CREATE_FAILURE" | "INVALID_VALUE";

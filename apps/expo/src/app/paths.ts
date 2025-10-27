@@ -63,6 +63,9 @@ export const paths = {
         }: { baseDate: string; userId: string; groupId: string }) =>
           `${API_ROOT}/business/attendOrLeaveWork?baseDate=${baseDate}&userId=${userId}&groupId=${groupId}`,
       },
+      fixAttendLog: {
+        post: () => `${API_ROOT}/business/fixAttendLog`,
+      },
       monthlyPlan: {
         post: () => `${API_ROOT}/business/monthlyPlan`,
         get: ({ userId, yearMonth }: { userId: string; yearMonth: string }) =>
@@ -72,4 +75,4 @@ export const paths = {
   },
 } as const;
 
-const API_ROOT = `${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api/`;
+const API_ROOT = `${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api`;
