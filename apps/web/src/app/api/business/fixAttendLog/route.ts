@@ -17,56 +17,55 @@ import { ApiUpdateAttendanceLogRepository } from "./api-update-attendance-log-re
  *   { dailyAttendance: { date: 'YYYY-MM-DD', breakSecond: number } }
  */
 export async function POST(request: Request) {
-  console.log(request);
-  // try {
-  //   const body = await request.json();
-  //   const { attendanceLogId, datetime, memo } = body ?? {};
-  //
-  //   if (!attendanceLogId || typeof attendanceLogId !== "string") {
-  //     return NextResponse.json(
-  //       { error: "attendanceLogId is required" },
-  //       { status: 400 },
-  //     );
-  //   }
-  //
-  //   if (!datetime || typeof datetime !== "string") {
-  //     return NextResponse.json(
-  //       { error: "datetime is required" },
-  //       { status: 400 },
-  //     );
-  //   }
-  //
-  //   // 簡易な形式チェック（末尾ZのISO）。厳密な検証はTZDateTimeの責務外
-  //   if (!isYyyyMmDdHhMmSs(datetime)) {
-  //     return NextResponse.json(
-  //       { error: "datetime must be in ISO UTC format (YYYY-MM-DDTHH:mm:ssZ)" },
-  //       { status: 400 },
-  //     );
-  //   }
-  //
-  //   const findRepo = new ApiFindAttendanceLogRepository();
-  //   const updateRepo = new ApiUpdateAttendanceLogRepository();
-  //   const usecase = new FixAttendLogUsecase(findRepo, updateRepo);
-  //
-  //   const output = await usecase.handle({
-  //     attendanceLogId,
-  //     datetime: new TZDateTime(datetime),
-  //     memo: typeof memo === "string" ? memo : (memo ?? null),
-  //   });
-  //
-  //   return NextResponse.json({
-  //     dailyAttendance: {
-  //       date: output.dailyAttendance.date.toString(),
-  //       breakSecond: output.dailyAttendance.breakSecond,
-  //     },
-  //   });
-  // } catch (error) {
-  //   console.error("Error in fixAttendLog API:", error);
-  //   return NextResponse.json(
-  //     { error: "Failed to fix attendance log" },
-  //     { status: 500 },
-  //   );
-  // }
+  try {
+    const body = await request.json();
+    const { attendanceLogId, datetime, memo } = body;
+
+    if (!attendanceLogId || typeof attendanceLogId !== "string") {
+      return NextResponse.json(
+        { error: "attendanceLogId is required" },
+        { status: 400 },
+      );
+    }
+
+    if (!datetime || typeof datetime !== "string") {
+      return NextResponse.json(
+        { error: "datetime is required" },
+        { status: 400 },
+      );
+    }
+
+    // 簡易な形式チェック（末尾ZのISO）。厳密な検証はTZDateTimeの責務外
+    if (!isYyyyMmDdHhMmSs(datetime)) {
+      return NextResponse.json(
+        { error: "datetime must be in ISO UTC format (YYYY-MM-DDTHH:mm:ssZ)" },
+        { status: 400 },
+      );
+    }
+
+    const findRepo = new ApiFindAttendanceLogRepository();
+    const updateRepo = new ApiUpdateAttendanceLogRepository();
+    const usecase = new FixAttendLogUsecase(findRepo, updateRepo);
+
+    const output = await usecase.handle({
+      attendanceLogId,
+      datetime: new TZDateTime(datetime),
+      memo: typeof memo === "string" ? memo : (memo ?? null),
+    });
+
+    return NextResponse.json({
+      dailyAttendance: {
+        date: output.dailyAttendance.date.toString(),
+        breakSecond: output.dailyAttendance.breakSecond,
+      },
+    });
+  } catch (error) {
+    console.error("Error in fixAttendLog API:", error);
+    return NextResponse.json(
+      { error: "Failed to fix attendance log" },
+      { status: 500 },
+    );
+  }
 }
 
 const isYyyyMmDdHhMmSs = (
@@ -76,5 +75,5 @@ const isYyyyMmDdHhMmSs = (
 };
 
 export async function GET(request: Request) {
-  throw new Error("Not implemented");
+  return NextResponse.json({ ok: false }, { status: 404 });
 }

@@ -35,7 +35,7 @@ export class ApiUpdateAttendanceLogRepository
     await execMutation(UpdateDailyAttendanceDocument, {
       id: params.attendance.id,
       set: {
-        breakSecond: params.attendance.breakSecond,
+        breakSecond: Math.trunc(params.attendance.breakSecond),
         startDatetime: params.attendance.startDatetime.toString(),
         endDatetime: params.attendance.endDatetime.toString(),
       },
