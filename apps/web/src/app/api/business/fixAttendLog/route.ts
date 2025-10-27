@@ -38,7 +38,9 @@ export async function POST(request: Request) {
     // 簡易な形式チェック（末尾ZのISO）。厳密な検証はTZDateTimeの責務外
     if (!isYyyyMmDdHhMmSs(datetime)) {
       return NextResponse.json(
-        { error: "datetime must be in ISO UTC format (YYYY-MM-DDTHH:mm:ssZ)" },
+        {
+          error: `datetime must be in ISO UTC format (YYYY-MM-DDTHH:mm:ssZ). Received: ${datetime}`,
+        },
         { status: 400 },
       );
     }

@@ -75,4 +75,4 @@ export const paths = {
   },
 } as const;
 
-const API_ROOT = `${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api/`;
+const API_ROOT = `${process.env.EXPO_PUBLIC_NEXT_API_ENDPOINT_ROOT ?? ""}/api`;

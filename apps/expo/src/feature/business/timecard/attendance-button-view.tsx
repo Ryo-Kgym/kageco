@@ -1,4 +1,5 @@
 import { convertToYmd } from "@/util/date/convertToYmd";
+import { formatToYmdhms } from "@/util/date/format-to-ymdhms";
 import type { AttendanceState } from "@/util/domain/business/timecard/attendance-state";
 import { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -151,9 +152,11 @@ export const AttendanceButtonView = () => {
       return;
     }
     try {
+      setIsLoading(true); // ローディング状態を設定
+
       await fixAttendLog(
         selectedLog.id,
-        editableDateTime,
+        formatToYmdhms(new Date(editableDateTime)),
         editableMemo ? editableMemo : null,
       );
       // 成功したら当日のデータを再取得して画面を更新
