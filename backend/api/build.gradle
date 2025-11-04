@@ -6,7 +6,7 @@ plugins {
 	id 'org.asciidoctor.jvm.convert' version '3.3.2'
 }
 
-group = 'kageco.backend.api'
+group = 'kageco.api'
 version = '0.0.1-SNAPSHOT'
 description = 'api'
 
