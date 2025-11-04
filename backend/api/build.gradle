@@ -56,3 +56,12 @@ tasks.named('asciidoctor') {
 	inputs.dir snippetsDir
 	dependsOn test
 }
+
+tasks.register('local') {
+	group = 'application'
+	description = 'Run the application with local profile'
+	doFirst {
+		bootRun.args = ['--spring.profiles.active=local']
+	}
+	finalizedBy bootRun
+}
