@@ -1,14 +1,15 @@
 package kageco.api.controller.dto;
 
 import java.util.List;
-
 import lombok.Builder;
-import lombok.Value;
+import lombok.Data;
+import io.swagger.v3.oas.annotations.media.Schema;
 
+@Data
 @Builder
-@Value
+@Schema(description = "グループ一覧取得レスポンス")
 public class GetGroupsResponse {
 
-    List<GetGroupsGroup> groups;
-
+    @Schema(description = "グループのリスト")
+    private List<GetGroupsGroup> groups;
 }
