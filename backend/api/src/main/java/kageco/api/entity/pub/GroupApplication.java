@@ -1,4 +1,4 @@
-package kageco.api.entity;
+package kageco.api.entity.pub;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,8 +15,8 @@ import jakarta.validation.constraints.Size;
 @Getter
 @Setter
 @Entity
-@Table(name = "dashboard_setting_args", schema = "household")
-public class DashboardSettingArg {
+@Table(name = "group_application", schema = "public")
+public class GroupApplication {
     @Id
     @Size(max = 26)
     @Column(name = "id", nullable = false, length = 26)
@@ -24,17 +24,12 @@ public class DashboardSettingArg {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "setting_id", nullable = false)
-    private DashboardSetting setting;
+    @JoinColumn(name = "group_id", nullable = false)
+    private Group group;
 
-    @Size(max = 32)
     @NotNull
-    @Column(name = "type", nullable = false, length = 32)
-    private String type;
-
-    @Size(max = 32)
-    @NotNull
-    @Column(name = "value", nullable = false, length = 32)
-    private String value;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "application_id", nullable = false)
+    private Application application;
 
 }

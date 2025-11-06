@@ -1,8 +1,9 @@
-package kageco.api.entity;
+package kageco.api.entity.pub;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.hibernate.annotations.ColumnDefault;
 import lombok.Getter;
 import lombok.Setter;
 import jakarta.persistence.Column;
@@ -16,8 +17,8 @@ import jakarta.validation.constraints.Size;
 @Getter
 @Setter
 @Entity
-@Table(name = "\"group\"", schema = "public")
-public class Group {
+@Table(name = "application", schema = "public")
+public class Application {
     @Id
     @Size(max = 26)
     @Column(name = "id", nullable = false, length = 26)
@@ -28,13 +29,16 @@ public class Group {
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @OneToMany(mappedBy = "group")
-    private Set<Affiliation> affiliations = new LinkedHashSet<>();
+    @ColumnDefault("true")
+    @Column(name = "valid_flag")
+    private Boolean validFlag;
 
-    @OneToMany(mappedBy = "group")
-    private Set<App> apps = new LinkedHashSet<>();
+    @Size(max = 128)
+    @NotNull
+    @Column(name = "top_url", nullable = false, length = 128)
+    private String topUrl;
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "application")
     private Set<GroupApplication> groupApplications = new LinkedHashSet<>();
 
 }

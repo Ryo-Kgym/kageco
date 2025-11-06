@@ -1,4 +1,4 @@
-package kageco.api.entity;
+package kageco.api.entity.pub;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

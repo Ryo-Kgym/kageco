@@ -1,4 +1,4 @@
-package kageco.api.entity;
+package kageco.api.entity.household;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -17,6 +17,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import kageco.api.entity.pub.Group;
 
 @Getter
 @Setter

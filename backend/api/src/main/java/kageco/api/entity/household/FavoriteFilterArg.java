@@ -1,4 +1,4 @@
-package kageco.api.entity;
+package kageco.api.entity.household;
 
 import lombok.Getter;
 import lombok.Setter;

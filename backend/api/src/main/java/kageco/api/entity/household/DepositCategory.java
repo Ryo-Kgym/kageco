@@ -1,4 +1,4 @@
-package kageco.api.entity;
+package kageco.api.entity.household;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,33 +8,31 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import kageco.api.entity.pub.Group;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "affiliation", schema = "public")
-public class Affiliation {
+@Table(name = "deposit_category", schema = "household")
+public class DepositCategory {
     @Id
     @Size(max = 26)
-    @Column(name = "id", nullable = false, length = 26)
-    private String id;
+    @Column(name = "category_id", nullable = false, length = 26)
+    private String categoryId;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @MapsId
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "group_id", nullable = false)
     private Group group;
-
-    @Size(max = 16)
-    @NotNull
-    @Column(name = "group_role", nullable = false, length = 16)
-    private String groupRole;
 
 }

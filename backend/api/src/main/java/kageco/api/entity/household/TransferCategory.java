@@ -1,4 +1,4 @@
-package kageco.api.entity;
+package kageco.api.entity.household;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +13,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import kageco.api.entity.pub.Group;
 
 @Getter
 @Setter

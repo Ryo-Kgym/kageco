@@ -1,4 +1,4 @@
-package kageco.api.entity;
+package kageco.api.entity.business;
 
 import java.time.OffsetDateTime;
 

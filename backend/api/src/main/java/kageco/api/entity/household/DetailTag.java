@@ -1,4 +1,4 @@
-package kageco.api.entity;
+package kageco.api.entity.household;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;

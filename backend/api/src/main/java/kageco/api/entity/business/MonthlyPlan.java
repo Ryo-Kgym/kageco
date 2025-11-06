@@ -1,4 +1,4 @@
-package kageco.api.entity;
+package kageco.api.entity.business;
 
 import java.math.BigDecimal;
 
@@ -16,6 +16,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import kageco.api.entity.pub.User;
 
 @Getter
 @Setter

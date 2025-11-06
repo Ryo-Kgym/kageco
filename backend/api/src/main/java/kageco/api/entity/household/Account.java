@@ -1,4 +1,4 @@
-package kageco.api.entity;
+package kageco.api.entity.household;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -8,17 +8,21 @@ import lombok.Getter;
 import lombok.Setter;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import kageco.api.entity.pub.Group;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "application", schema = "public")
-public class Application {
+@Table(name = "account", schema = "household")
+public class Account {
     @Id
     @Size(max = 26)
     @Column(name = "id", nullable = false, length = 26)
@@ -33,12 +37,19 @@ public class Application {
     @Column(name = "valid_flag")
     private Boolean validFlag;
 
-    @Size(max = 128)
     @NotNull
-    @Column(name = "top_url", nullable = false, length = 128)
-    private String topUrl;
+    @Column(name = "display_order", nullable = false)
+    private Integer displayOrder;
 
-    @OneToMany(mappedBy = "application")
-    private Set<GroupApplication> groupApplications = new LinkedHashSet<>();
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "group_id", nullable = false)
+    private Group group;
+
+    @OneToMany(mappedBy = "account")
+    private Set<CreditCardSummary> creditCardSummaries = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "account")
+    private Set<DailyDetail> dailyDetails = new LinkedHashSet<>();
 
 }

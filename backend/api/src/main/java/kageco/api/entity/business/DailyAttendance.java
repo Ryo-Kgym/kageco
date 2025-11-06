@@ -1,4 +1,4 @@
-package kageco.api.entity;
+package kageco.api.entity.business;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
@@ -20,6 +20,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import kageco.api.entity.pub.Group;
+import kageco.api.entity.pub.User;
 
 @Getter
 @Setter
