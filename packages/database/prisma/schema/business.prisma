@@ -1,0 +1,39 @@
+model daily_attendance {
+  id                   String                 @id @db.VarChar
+  user_id              String                 @db.VarChar
+  group_id             String                 @db.VarChar
+  date                 DateTime               @db.Date
+  break_second         Int                    @default(0)
+  start_datetime       DateTime               @db.Timestamptz(6)
+  end_datetime         DateTime               @db.Timestamptz(6)
+  year_month           String?                @db.VarChar(7)
+  group                group                  @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  user                 user                   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  daily_attendance_log daily_attendance_log[]
+
+  @@schema("business")
+}
+
+model daily_attendance_log {
+  id                  String           @id @db.VarChar
+  daily_attendance_id String           @db.VarChar
+  state               String           @db.VarChar
+  memo                String?          @db.VarChar
+  datetime            DateTime         @db.Timestamptz(6)
+  daily_attendance    daily_attendance @relation(fields: [daily_attendance_id], references: [id], onDelete: Cascade)
+
+  @@schema("business")
+}
+
+model monthly_plan {
+  id                          String  @id @db.VarChar
+  user_id                     String  @db.VarChar
+  year_month                  String  @db.VarChar(7)
+  planned_working_hours_lower Decimal @db.Decimal
+  planned_working_hours_upper Decimal @db.Decimal
+  business_days               Int
+  user                        user    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, year_month])
+  @@schema("business")
+}
