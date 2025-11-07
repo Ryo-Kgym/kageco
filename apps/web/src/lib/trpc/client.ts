@@ -1,3 +1,4 @@
+// @ts-ignore
 import type { AppRouter } from "@kageco/trpc";
 import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
 

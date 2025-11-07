@@ -9,7 +9,6 @@
     "biome:format": "biome format --write ./src",
     "biome:lint": "biome lint ./src",
     "biome:check": "biome check ./src",
-    "typecheck": "tsc --noEmit",
     "test": "vitest --run",
     "test:watch": "vitest"
   },
