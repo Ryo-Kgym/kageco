@@ -50,10 +50,10 @@ export class DailyAttendance {
         }
         return log;
       })
-      .sort(
-        (a, b) =>
-          a.datetime.getTimeMilliSecond() - b.datetime.getTimeMilliSecond(),
-      ) as [DailyLog, ...DailyLog[]];
+      .sort((a, b) => a.datetime.getTimeMilliSecond() - b.datetime.getTimeMilliSecond()) as [
+      DailyLog,
+      ...DailyLog[],
+    ];
 
     const agg = replacedLogs.reduce(
       (acc, cur, i) => {
@@ -70,8 +70,7 @@ export class DailyAttendance {
           endDatetime: cur.datetime,
           prevDatetime: cur.datetime,
           breakSecond:
-            acc.breakSecond +
-            (cur.datetime.getTimeSecond() - acc.prevDatetime.getTimeSecond()),
+            acc.breakSecond + (cur.datetime.getTimeSecond() - acc.prevDatetime.getTimeSecond()),
         };
       },
       {

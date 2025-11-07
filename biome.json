@@ -29,7 +29,12 @@
   },
   "formatter": {
     "enabled": true,
-    "indentStyle": "space"
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 100,
+    "attributePosition": "auto"
   },
   "organizeImports": {
     "enabled": true
@@ -38,14 +43,24 @@
     "enabled": true,
     "rules": {
       "recommended": true,
+      "suspicious": {
+        "noExplicitAny": "warn",
+        "noArrayIndexKey": "warn"
+      },
       "style": {
+        "noNonNullAssertion": "warn",
+        "useTemplate": "error",
         "useImportType": "off"
       },
       "correctness": {
-        "noUnknownFunction": "off"
+        "noUnknownFunction": "off",
+        "useExhaustiveDependencies": "warn"
       },
       "complexity": {
         "noForEach": "off"
+      },
+      "a11y": {
+        "useKeyWithClickEvents": "off"
       },
       "performance": {
         "noAccumulatingSpread": "off"
@@ -54,7 +69,23 @@
   },
   "javascript": {
     "formatter": {
-      "quoteStyle": "double"
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "trailingCommas": "all",
+      "semicolons": "always",
+      "arrowParentheses": "always",
+      "bracketSpacing": true,
+      "bracketSameLine": false,
+      "quoteStyle": "double",
+      "attributePosition": "auto"
+    },
+    "parser": {
+      "unsafeParameterDecoratorsEnabled": true
+    }
+  },
+  "json": {
+    "formatter": {
+      "trailingCommas": "none"
     }
   }
 }
