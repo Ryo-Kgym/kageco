@@ -23,8 +23,7 @@
       "packages/graphql/public/index.ts",
       "packages/graphql/public/type.ts",
       "packages/graphql/**/*.generated.ts",
-      "packages/type/date/date.ts",
-      "tooling/prettier/index.js"
+      "packages/type/date/date.ts"
     ]
   },
   "formatter": {

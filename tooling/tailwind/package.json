@@ -18,10 +18,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@acme/prettier-config": "workspace:^",
     "@acme/tsconfig": "workspace:^",
-    "prettier": "^3.6.2",
     "typescript": "^5.9.3"
-  },
-  "prettier": "@acme/prettier-config"
+  }
 }

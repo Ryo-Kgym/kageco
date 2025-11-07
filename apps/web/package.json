@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "version": "3.0.0",
+  "version": "5.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -68,7 +68,6 @@
     "zustand": "^4.5.7"
   },
   "devDependencies": {
-    "@acme/prettier-config": "workspace:^",
     "@acme/tailwind-config": "workspace:^",
     "@acme/tsconfig": "workspace:^",
     "@testing-library/jest-dom": "^6.9.1",
@@ -84,11 +83,9 @@
     "@vitejs/plugin-react": "^4.7.0",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
-    "prettier": "^3.6.2",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.9.3",
     "vite": "6.3.4",
     "vitest": "^3.2.4"
-  },
-  "prettier": "@acme/prettier-config"
+  }
 }

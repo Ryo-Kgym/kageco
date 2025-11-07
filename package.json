@@ -4,7 +4,7 @@
   "engines": {
     "node": ">=20.10"
   },
-  "packageManager": "pnpm@10.2.0",
+  "packageManager": "pnpm@10.20.0",
   "scripts": {
     "build": "turbo build",
     "clean": "git clean -xdf node_modules",
@@ -18,13 +18,10 @@
     "biome:lint": "biome lint"
   },
   "devDependencies": {
-    "@acme/prettier-config": "workspace:^",
     "@biomejs/biome": "^1.9.4",
     "@turbo/gen": "^2.5.8",
     "husky": "^8.0.3",
-    "prettier": "^3.6.2",
     "turbo": "^2.5.8",
     "typescript": "^5.9.3"
-  },
-  "prettier": "@acme/prettier-config"
+  }
 }

@@ -7,20 +7,16 @@
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
     "typecheck": "tsc",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
     "with-env": "dotenv -e ../../.env --",
     "test": "vitest --run",
     "test:watch": "vitest"
   },
   "devDependencies": {
-    "@acme/prettier-config": "workspace:^",
     "@acme/tsconfig": "workspace:^",
-    "prettier": "^3.6.2",
     "typescript": "^5.9.3",
     "vite": "6.3.4",
     "vitest": "^3.2.4"
   },
-  "prettier": "@acme/prettier-config",
   "dependencies": {
     "dayjs": "^1.11.18"
   }
