@@ -1,7 +1,5 @@
 package kageco.api.entity.household;
 
-import lombok.Getter;
-import lombok.Setter;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,26 +11,29 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
 import kageco.api.entity.pub.Group;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "deposit_category", schema = "household")
 public class DepositCategory {
-    @Id
-    @Size(max = 26)
-    @Column(name = "category_id", nullable = false, length = 26)
-    private String categoryId;
+  @Id
+  @Size(max = 26)
+  @Column(name = "category_id", nullable = false, length = 26)
+  private String categoryId;
 
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
+  @MapsId
+  @OneToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "category_id", nullable = false)
+  private Category category;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "group_id", nullable = false)
-    private Group group;
-
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "group_id", nullable = false)
+  private Group group;
 }

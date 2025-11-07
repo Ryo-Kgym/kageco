@@ -1,9 +1,5 @@
 package kageco.api.entity.pub;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import lombok.Getter;
-import lombok.Setter;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,23 +9,28 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import lombok.Getter;
+import lombok.Setter;
+
 @Getter
 @Setter
 @Entity
 @Table(name = "app", schema = "public")
 public class App {
-    @Id
-    @Column(name = "id", nullable = false, length = Integer.MAX_VALUE)
-    private String id;
+  @Id
+  @Column(name = "id", nullable = false, length = Integer.MAX_VALUE)
+  private String id;
 
-    @NotNull
-    @Column(name = "name", nullable = false, length = Integer.MAX_VALUE)
-    private String name;
+  @NotNull
+  @Column(name = "name", nullable = false, length = Integer.MAX_VALUE)
+  private String name;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "group_id", nullable = false)
-    private Group group;
-
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @OnDelete(action = OnDeleteAction.RESTRICT)
+  @JoinColumn(name = "group_id", nullable = false)
+  private Group group;
 }
