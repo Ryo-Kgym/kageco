@@ -11,8 +11,7 @@ import { useSaveUserId } from "~/hooks/user/useSaveUserId";
 export const useSplitCreditCardDetail = () => {
   const [originalUpdateResult, originalUpdateMutation] =
     useUpdateCreditCardDetailAmountByIdMutation();
-  const [splitInsertResult, splitInsertMutation] =
-    useCreateCreditCardDetailMutation();
+  const [splitInsertResult, splitInsertMutation] = useCreateCreditCardDetailMutation();
   const { generateId } = useGenerateId();
   const { userId } = useSaveUserId();
   const { groupId } = useSaveGroupId();

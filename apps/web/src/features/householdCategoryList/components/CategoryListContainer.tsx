@@ -21,29 +21,21 @@ export const CategoryListContainer: FC<Props> = ({ categoryList }) => {
   const { push } = useRouter();
 
   const tablePropsList: TableProps[] =
-    categoryList.map(
-      ({
-        id: categoryId,
-        categoryName,
-        displayOrder,
-        validFlag,
-        genreName,
-      }) => ({
-        keyPrefix: "category",
-        columns: [
-          { value: categoryName },
-          { value: genreName },
-          {
-            value: <ValidityStatus value={validFlag ?? true} />,
-            align: "center",
-          },
-          { value: displayOrder, align: "right" },
-        ],
-        onClick: () => {
-          push(`/household/setting/category/edit/${categoryId}`);
+    categoryList.map(({ id: categoryId, categoryName, displayOrder, validFlag, genreName }) => ({
+      keyPrefix: "category",
+      columns: [
+        { value: categoryName },
+        { value: genreName },
+        {
+          value: <ValidityStatus value={validFlag ?? true} />,
+          align: "center",
         },
-      }),
-    ) ?? [];
+        { value: displayOrder, align: "right" },
+      ],
+      onClick: () => {
+        push(`/household/setting/category/edit/${categoryId}`);
+      },
+    })) ?? [];
 
   return <CategoryListPresenter tablePropsList={tablePropsList} />;
 };

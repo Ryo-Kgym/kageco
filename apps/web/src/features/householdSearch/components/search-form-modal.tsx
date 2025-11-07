@@ -23,32 +23,20 @@ type Props = {
   onClose: () => void;
   form: SearchFormFormState;
   setForm: (
-    form:
-      | SearchFormFormState
-      | ((prev: SearchFormFormState) => SearchFormFormState),
+    form: SearchFormFormState | ((prev: SearchFormFormState) => SearchFormFormState),
   ) => void;
   onSearch: (query: string) => void;
 };
 
-export const SearchFormModal: FC<Props> = ({
-  isOpen,
-  onClose,
-  form,
-  setForm,
-  onSearch,
-}) => {
+export const SearchFormModal: FC<Props> = ({ isOpen, onClose, form, setForm, onSearch }) => {
   const handleSearch = async () => {
-    const fromDateQuery =
-      form.fromDate && `fromDate=${convertToYmd(form.fromDate)}`;
+    const fromDateQuery = form.fromDate && `fromDate=${convertToYmd(form.fromDate)}`;
     const toDateQuery = form.toDate && `toDate=${convertToYmd(form.toDate)}`;
-    const tagIdsQuery =
-      form.tags.length && `tag=${form.tags.map((tag) => `${tag}`).join(",")}`;
+    const tagIdsQuery = form.tags.length && `tag=${form.tags.map((tag) => `${tag}`).join(",")}`;
     await saveCategoryIds(form.categoryIds);
     await saveAccountIds(form.accountIds);
 
-    onSearch(
-      `?${[fromDateQuery, toDateQuery, tagIdsQuery].filter((noop) => noop).join("&")}`,
-    );
+    onSearch(`?${[fromDateQuery, toDateQuery, tagIdsQuery].filter((noop) => noop).join("&")}`);
   };
 
   return (

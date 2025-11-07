@@ -16,8 +16,7 @@ export const RegisterTransferContainer = ({
 
   const { registerTransfer } = useRegisterTransfer();
 
-  const registerable =
-    typeof amount === "number" && amount > 0 && fromAccountId !== toAccountId;
+  const registerable = typeof amount === "number" && amount > 0 && fromAccountId !== toAccountId;
 
   const resetHandler = () => {
     setDate(initialDate);

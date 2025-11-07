@@ -29,9 +29,7 @@ query getDetailsByCategory(
     }
     withdrawalCreditCardDetails: creditCardDetails(
       where: {
-        creditCardSummary: {
-          withdrawalDate: { _gte: $fromDate, _lte: $toDate }
-        }
+        creditCardSummary: { withdrawalDate: { _gte: $fromDate, _lte: $toDate } }
         _and: { iocomeType: { _in: $iocomeType } }
       }
     ) {

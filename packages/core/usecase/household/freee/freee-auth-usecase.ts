@@ -1,9 +1,7 @@
 import type { FreeeAuthGateway } from "../../../gateway/freee/freee-auth-gateway";
 import type { HouseholdUsecase } from "../HouseholdUsecase";
 
-export class FreeeAuthUsecase
-  implements HouseholdUsecase<FreeeAuthInput, FreeeAuthOutput>
-{
+export class FreeeAuthUsecase implements HouseholdUsecase<FreeeAuthInput, FreeeAuthOutput> {
   private readonly freeeAuthGateway: FreeeAuthGateway;
 
   constructor(freeeAuthGateway: FreeeAuthGateway) {
@@ -13,9 +11,7 @@ export class FreeeAuthUsecase
   async handle(input: FreeeAuthInput): Promise<FreeeAuthOutput> {
     switch (input.type) {
       case "getAuthUrl": {
-        const authUrlResult = this.freeeAuthGateway.getAuthorizationUrl(
-          input.redirectUri,
-        );
+        const authUrlResult = this.freeeAuthGateway.getAuthorizationUrl(input.redirectUri);
         return {
           type: "authUrl",
           url: authUrlResult.url,
@@ -40,9 +36,7 @@ export class FreeeAuthUsecase
         };
       }
       case "refreshToken": {
-        const refreshResponse = await this.freeeAuthGateway.refreshAccessToken(
-          input.refreshToken,
-        );
+        const refreshResponse = await this.freeeAuthGateway.refreshAccessToken(input.refreshToken);
         return {
           type: "token",
           accessToken: refreshResponse.access_token,

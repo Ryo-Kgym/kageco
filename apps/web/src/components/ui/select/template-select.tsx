@@ -46,12 +46,10 @@ export const TemplateSelect = ({
     }
   };
 
-  const templateData: SelectProps<string>["data"] = templates.map(
-    (template) => ({
-      label: template.name,
-      value: template.id,
-    }),
-  );
+  const templateData: SelectProps<string>["data"] = templates.map((template) => ({
+    label: template.name,
+    value: template.id,
+  }));
 
   return (
     <Select

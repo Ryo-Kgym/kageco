@@ -84,20 +84,10 @@ export async function POST(request: Request) {
   try {
     // Parse request body
     const body = await request.json();
-    const {
-      businessDays,
-      id,
-      plannedWorkingHoursLower,
-      plannedWorkingHoursUpper,
-    } = body;
+    const { businessDays, id, plannedWorkingHoursLower, plannedWorkingHoursUpper } = body;
 
     // Validate required parameters
-    if (
-      !businessDays ||
-      !id ||
-      !plannedWorkingHoursLower ||
-      !plannedWorkingHoursUpper
-    ) {
+    if (!businessDays || !id || !plannedWorkingHoursLower || !plannedWorkingHoursUpper) {
       return NextResponse.json(
         {
           error:
@@ -137,10 +127,7 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("Error in updateMonthlyPlan API:", error);
-    return NextResponse.json(
-      { error: "Failed to update monthly plan" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "Failed to update monthly plan" }, { status: 500 });
   }
 }
 
@@ -221,9 +208,6 @@ export async function GET(request: Request) {
     });
   } catch (error) {
     console.error("Error in getMonthlyPlan API:", error);
-    return NextResponse.json(
-      { error: "Failed to get monthly plan" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "Failed to get monthly plan" }, { status: 500 });
   }
 }

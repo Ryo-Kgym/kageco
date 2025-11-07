@@ -17,13 +17,11 @@ export class TrpcRouter {
       user: this.userRouter.userRouter,
       group: this.groupRouter.groupRouter,
       // 共通エンドポイント
-      hello: procedure
-        .input(z.object({ name: z.string() }))
-        .query(({ input }) => {
-          return {
-            greeting: `メインからこんにちは ${input.name}さん！`,
-          };
-        }),
+      hello: procedure.input(z.object({ name: z.string() })).query(({ input }) => {
+        return {
+          greeting: `メインからこんにちは ${input.name}さん！`,
+        };
+      }),
     });
   }
 }

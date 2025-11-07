@@ -9,16 +9,12 @@ import { FileImportColumnMapping } from "./setting/FileImportColumnMapping";
 import { FileImportSetting } from "./setting/FileImportSetting";
 
 export const FileImportClient: FC = () => {
-  const [importFileType, setImportFileType] =
-    useState<ImportFileType>("creditCsv");
+  const [importFileType, setImportFileType] = useState<ImportFileType>("creditCsv");
 
   return (
     <div className={"flex"}>
       <div className={"h-full w-48 space-y-10 p-2"}>
-        <FileTypeInput
-          importFileType={importFileType}
-          setFileType={setImportFileType}
-        />
+        <FileTypeInput importFileType={importFileType} setFileType={setImportFileType} />
         <FileImportSetting />
         <FileImportColumnMapping importFileType={importFileType} />
       </div>

@@ -47,9 +47,7 @@ const useTagListZustand = create<State & Actions>()(
     getTagList: () => Object.values(get().tagListObject),
     setTagList: (value) =>
       set((state) => {
-        state.tagListObject = Object.fromEntries(
-          value.map((tag) => [tag.id, tag]),
-        );
+        state.tagListObject = Object.fromEntries(value.map((tag) => [tag.id, tag]));
       }),
     setTag: (tag) =>
       set((state) => {

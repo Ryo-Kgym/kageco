@@ -20,11 +20,8 @@ export const BalanceListContainer = () => {
     data?.account.map((account) => ({
       id: account.id,
       name: account.accountName,
-      balance:
-        (account.allDetailViewsAggregate?.aggregate?.sum
-          ?.signedAmount as number) ?? 0,
-      redirectHandler: () =>
-        push(paths.household.detailListByAccount({ accountId: account.id })),
+      balance: (account.allDetailViewsAggregate?.aggregate?.sum?.signedAmount as number) ?? 0,
+      redirectHandler: () => push(paths.household.detailListByAccount({ accountId: account.id })),
     })) ?? [];
   return <BalanceListPresenter accounts={accounts} />;
 };

@@ -5,10 +5,7 @@ import { YYYYmmDD } from "@/util/date/date";
 import { errorPopup, successPopup } from "../../../function/successPopup";
 import { submitDealActions } from "../../householdModifyDailyDetail/actions/submit-deal-actions";
 import type { UnifiedRecord } from "../../householdModifyDailyDetail/types/unified-record";
-import type {
-  CreditDetailEditDisplayState,
-  CreditDetailEditFormState,
-} from "../types/type";
+import type { CreditDetailEditDisplayState, CreditDetailEditFormState } from "../types/type";
 
 export const useStateFreeeRecord = (params: {
   formData: CreditDetailEditFormState | undefined;
@@ -70,10 +67,7 @@ export const useStateFreeeRecord = (params: {
   const successMessage = "freeeへのデータ送信が完了しました";
 
   // フォーム送信ハンドラ
-  const handleSubmit = async (
-    fromWalletableType: string,
-    e: FormEvent<HTMLFormElement>,
-  ) => {
+  const handleSubmit = async (fromWalletableType: string, e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!record) {

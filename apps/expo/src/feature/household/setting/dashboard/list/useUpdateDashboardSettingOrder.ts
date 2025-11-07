@@ -1,8 +1,7 @@
 import { useUpdateDashboardSettingOrderMutation } from "@v3/graphql/household";
 
 export const useUpdateDashboardSettingOrder = () => {
-  const [, updateDashboardSettingOrder] =
-    useUpdateDashboardSettingOrderMutation();
+  const [, updateDashboardSettingOrder] = useUpdateDashboardSettingOrderMutation();
 
   const updateOrder = async (data: { settingId: string }[]) => {
     try {

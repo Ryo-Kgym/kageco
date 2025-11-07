@@ -30,11 +30,9 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
   const { buildable, header, body } = useBuildTable(loadFile);
   const { message } = useMessage(loadFile);
   const { processCsv, isProcessing } = useProcessQuotedCsv();
-  const { removeColumnFromCsv, isProcessing: isRemovingColumn } =
-    useRemoveColumn();
+  const { removeColumnFromCsv, isProcessing: isRemovingColumn } = useRemoveColumn();
   const [columnToRemove, setColumnToRemove] = useState<string>("");
-  const { importFileRowAware, clearImportFileRowAware } =
-    useImportFileRowAware();
+  const { importFileRowAware, clearImportFileRowAware } = useImportFileRowAware();
 
   const total =
     Object.values(importFileRowAware).reduce((acc, cur) => {
@@ -54,9 +52,7 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
       errorPopup("ファイルを読み込んでください");
       return;
     }
-    if (
-      Object.values(importFileRowAware).some((v) => !v.genreId || !v.categoryId)
-    ) {
+    if (Object.values(importFileRowAware).some((v) => !v.genreId || !v.categoryId)) {
       errorPopup("読み込んだ明細のうち、未入力な項目があります");
       return;
     }
@@ -80,9 +76,7 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
       setLoadFile("");
     } catch (e) {
       console.error(e);
-      errorPopup(
-        "登録に失敗しました。コンソールを開いて内容を確認してください。",
-      );
+      errorPopup("登録に失敗しました。コンソールを開いて内容を確認してください。");
     }
   };
 
@@ -95,11 +89,7 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
     <div className={"space-y-5"}>
       <div className={"flex flex-row items-center space-x-5"}>
         <DatePicker value={withdrawalDate} onChange={setWithdrawalDate} />
-        <AccountSelect
-          accountId={accountId}
-          onChange={setAccountId}
-          withLabel
-        />
+        <AccountSelect accountId={accountId} onChange={setAccountId} withLabel />
         <FileInput onChange={onChange} />
       </div>
       <div className="space-y-2">
@@ -130,18 +120,13 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
                     const columnIndex = Number.parseInt(columnToRemove, 10);
                     if (!Number.isNaN(columnIndex) && columnIndex >= 1) {
                       // 1始まりの列番号を0始まりのインデックスに変換
-                      const processed = removeColumnFromCsv(
-                        loadFile,
-                        columnIndex - 1,
-                      );
+                      const processed = removeColumnFromCsv(loadFile, columnIndex - 1);
                       setLoadFile(processed);
                       setColumnToRemove("");
                     }
                   }
                 }}
-                disabled={
-                  isRemovingColumn || !loadFile || columnToRemove === ""
-                }
+                disabled={isRemovingColumn || !loadFile || columnToRemove === ""}
                 type="dangerous"
               />
             </div>

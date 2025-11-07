@@ -27,9 +27,7 @@ export const TotalDisplay: FC<TotalDisplayProps> = ({ income, outcome }) => {
       </Group>
       <Group className={styles.group}>
         <Text className={`${styles.text} ${styles.bold}`}>合計:</Text>
-        <Text
-          className={`${styles.text} ${styles.bold} ${total >= 0 ? styles.green : styles.red}`}
-        >
+        <Text className={`${styles.text} ${styles.bold} ${total >= 0 ? styles.green : styles.red}`}>
           {total.toLocaleString()}円
         </Text>
       </Group>

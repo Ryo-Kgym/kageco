@@ -22,15 +22,14 @@ export const QuotationSelect = ({
   );
 };
 
-const lineBreakCodeArray: Record<string, { value: Quotation; label: string }> =
-  {
-    doubleQuotation: {
-      value: '"',
-      label: "ダブルクォーテーション",
-    },
-    singleQuotation: {
-      value: "'",
-      label: "シングルクォーテーション",
-    },
-    none: { value: "", label: "なし" },
-  };
+const lineBreakCodeArray: Record<string, { value: Quotation; label: string }> = {
+  doubleQuotation: {
+    value: '"',
+    label: "ダブルクォーテーション",
+  },
+  singleQuotation: {
+    value: "'",
+    label: "シングルクォーテーション",
+  },
+  none: { value: "", label: "なし" },
+};

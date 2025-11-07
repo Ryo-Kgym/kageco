@@ -1,8 +1,4 @@
-import {
-  FontAwesome5,
-  MaterialCommunityIcons,
-  MaterialIcons,
-} from "@expo/vector-icons";
+import { FontAwesome5, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { Stack, Tabs } from "expo-router";
 
 /**
@@ -23,9 +19,7 @@ const Layout = () => (
         name="button/index"
         options={{
           title: "出退勤",
-          tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="clock" size={24} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <FontAwesome5 name="clock" size={24} color={color} />,
           href: "/business/timecard/button",
         }}
       />
@@ -44,11 +38,7 @@ const Layout = () => (
         options={{
           title: "月次計画",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="calendar-edit"
-              size={24}
-              color={color}
-            />
+            <MaterialCommunityIcons name="calendar-edit" size={24} color={color} />
           ),
           href: "/business/timecard/monthly-plan",
         }}

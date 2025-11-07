@@ -23,9 +23,7 @@ type Props = {
   }[];
 };
 
-export const CreditHistoryListContainer: FC<Props> = ({
-  creditHistoryList,
-}) => {
+export const CreditHistoryListContainer: FC<Props> = ({ creditHistoryList }) => {
   const { push } = useRouter();
 
   const showDetailPage = (summaryId: string) => {
@@ -42,10 +40,7 @@ export const CreditHistoryListContainer: FC<Props> = ({
       },
       {
         value: (
-          <FormatPrice
-            price={history.totalAmount as number}
-            iocomeType={IocomeType.Outcome}
-          />
+          <FormatPrice price={history.totalAmount as number} iocomeType={IocomeType.Outcome} />
         ),
         align: "right",
       },

@@ -5,13 +5,11 @@ import { procedure, router } from "../trpc/trpc";
 @Injectable()
 export class UserRouter {
   userRouter = router({
-    hello: procedure
-      .input(z.object({ name: z.string() }))
-      .query(({ input }) => {
-        return {
-          greeting: `ユーザーからこんにちは ${input.name}さん！`,
-        };
-      }),
+    hello: procedure.input(z.object({ name: z.string() })).query(({ input }) => {
+      return {
+        greeting: `ユーザーからこんにちは ${input.name}さん！`,
+      };
+    }),
 
     getUsers: procedure.query(async () => {
       return [

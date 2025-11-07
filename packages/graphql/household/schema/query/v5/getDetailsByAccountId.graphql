@@ -1,8 +1,4 @@
-query getDetailsByAccountId(
-  $fromDate: date!
-  $toDate: date!
-  $accountId: String!
-) {
+query getDetailsByAccountId($fromDate: date!, $toDate: date!, $accountId: String!) {
   account: householdAccountByPk(id: $accountId) {
     __typename
     id

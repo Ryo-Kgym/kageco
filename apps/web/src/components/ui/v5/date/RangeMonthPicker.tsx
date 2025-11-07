@@ -12,19 +12,14 @@ export const RangeMonthPicker = ({
   label?: string;
   defaultValue?: [NullableDate, NullableDate];
 }) => {
-  const [value, setValue] =
-    useState<[NullableDate, NullableDate]>(defaultValue);
+  const [value, setValue] = useState<[NullableDate, NullableDate]>(defaultValue);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const [fromFirstDayOfMonth, toFirstDayOfMonth] = value;
 
     const toLastDayOfMonth = toFirstDayOfMonth
-      ? new Date(
-          toFirstDayOfMonth.getFullYear(),
-          toFirstDayOfMonth.getMonth() + 1,
-          0,
-        )
+      ? new Date(toFirstDayOfMonth.getFullYear(), toFirstDayOfMonth.getMonth() + 1, 0)
       : null;
 
     void onChange([fromFirstDayOfMonth, toLastDayOfMonth]);

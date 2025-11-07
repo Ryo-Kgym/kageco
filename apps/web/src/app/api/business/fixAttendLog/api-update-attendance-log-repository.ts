@@ -6,9 +6,7 @@ import {
 
 import { execMutation } from "../../../../persistence/database/server/execMutation";
 
-export class ApiUpdateAttendanceLogRepository
-  implements UpdateAttendanceLogGateway
-{
+export class ApiUpdateAttendanceLogRepository implements UpdateAttendanceLogGateway {
   async update(params: {
     log: {
       id: string;

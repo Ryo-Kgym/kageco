@@ -40,9 +40,7 @@ export const DailyDetailEditModal = ({
           value: "freee",
           label: "freee連携",
           icon: null,
-          contents: (
-            <LinkFreeeForDailyDetail id={id} onClose={onCloseHandler} />
-          ),
+          contents: <LinkFreeeForDailyDetail id={id} onClose={onCloseHandler} />,
         },
       ]}
     />

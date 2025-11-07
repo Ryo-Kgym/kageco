@@ -61,26 +61,16 @@ export const fetchWatchTableData = async ({
 
   return {
     records,
-    incomeTotal: calcTotal(records, IocomeType.Income, [
-      data?.transfer?.incomeCategoryId ?? "",
-    ]),
-    outcomeTotal: calcTotal(records, IocomeType.Outcome, [
-      data?.transfer?.outcomeCategoryId ?? "",
-    ]),
+    incomeTotal: calcTotal(records, IocomeType.Income, [data?.transfer?.incomeCategoryId ?? ""]),
+    outcomeTotal: calcTotal(records, IocomeType.Outcome, [data?.transfer?.outcomeCategoryId ?? ""]),
   };
 };
 
 const getLastDateOfMonth = (date: Date) => {
-  return new YYYYmmDD(
-    convertToYmd(new Date(date.getFullYear(), date.getMonth() + 1, 0)),
-  );
+  return new YYYYmmDD(convertToYmd(new Date(date.getFullYear(), date.getMonth() + 1, 0)));
 };
 
-const calcTotal = (
-  records: ChartDetailTableRow[],
-  type: IocomeType,
-  ignoreIds: string[],
-) => {
+const calcTotal = (records: ChartDetailTableRow[], type: IocomeType, ignoreIds: string[]) => {
   return records
     .filter((rec) => rec.iocomeType === type)
     .filter((rec) => !ignoreIds.includes(rec.categoryId))

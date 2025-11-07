@@ -21,10 +21,9 @@ export const CutDailyDetail = ({
   id: string;
   onClose: () => void;
 }) => {
-  const { loading, form, setForm, initData, cutAfter, setCutAfterInit } =
-    useStateCutDailyDetail({
-      id,
-    });
+  const { loading, form, setForm, initData, cutAfter, setCutAfterInit } = useStateCutDailyDetail({
+    id,
+  });
 
   const updateButtonDisabled = form?.amount === 0 || cutAfter.amount < 0;
   const { refresh } = useNavigation();
@@ -72,21 +71,9 @@ export const CutDailyDetail = ({
             onChange={() => undefined}
             disabled
           />
-          <AccountSelect
-            accountId={initData.accountId}
-            onChange={() => undefined}
-            disabled
-          />
-          <AmountInput
-            value={initData.amount}
-            onChange={() => undefined}
-            disabled
-          />
-          <MemoTextArea
-            memo={initData.memo}
-            setMemo={() => undefined}
-            disabled
-          />
+          <AccountSelect accountId={initData.accountId} onChange={() => undefined} disabled />
+          <AmountInput value={initData.amount} onChange={() => undefined} disabled />
+          <MemoTextArea memo={initData.memo} setMemo={() => undefined} disabled />
         </div>
         <div className={"w-32 items-center justify-items-center text-center"}>
           <div>{"->"}</div>
@@ -111,16 +98,8 @@ export const CutDailyDetail = ({
             onChange={() => undefined}
             disabled
           />
-          <AccountSelect
-            accountId={initData.accountId}
-            onChange={() => undefined}
-            disabled
-          />
-          <AmountInput
-            value={cutAfter.amount}
-            onChange={() => undefined}
-            disabled
-          />
+          <AccountSelect accountId={initData.accountId} onChange={() => undefined} disabled />
+          <AmountInput value={cutAfter.amount} onChange={() => undefined} disabled />
           <MemoTextArea
             memo={cutAfter.memo}
             setMemo={(v) => setCutAfterInit({ ...cutAfter, memo: v })}
@@ -152,19 +131,9 @@ export const CutDailyDetail = ({
             categoryId={form.categoryId}
             onChange={(v) => setForm({ ...form, categoryId: v })}
           />
-          <AccountSelect
-            accountId={initData.accountId}
-            onChange={() => undefined}
-            disabled
-          />
-          <AmountInput
-            value={form.amount}
-            onChange={(v) => setForm({ ...form, amount: v })}
-          />
-          <MemoTextArea
-            memo={form.memo}
-            setMemo={(v) => setForm({ ...form, memo: v })}
-          />
+          <AccountSelect accountId={initData.accountId} onChange={() => undefined} disabled />
+          <AmountInput value={form.amount} onChange={(v) => setForm({ ...form, amount: v })} />
+          <MemoTextArea memo={form.memo} setMemo={(v) => setForm({ ...form, memo: v })} />
         </div>
       </div>
       <div className={"grid grid-cols-2 justify-items-center"}>

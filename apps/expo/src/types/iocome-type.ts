@@ -4,9 +4,7 @@ const iocomeTypeMap = {
 } as const;
 
 export type IocomeType = keyof typeof iocomeTypeMap;
-export const iocomeTypeArray = Object.keys(iocomeTypeMap).map(
-  (key) => key as IocomeType,
-);
+export const iocomeTypeArray = Object.keys(iocomeTypeMap).map((key) => key as IocomeType);
 
 export const getLabel = (iocomeType: IocomeType) => {
   return iocomeTypeMap[iocomeType].label;

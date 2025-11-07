@@ -8,10 +8,7 @@
  * @param defaultValue デフォルト値（日付がnullの場合に返す値）
  * @returns 時間:分:秒形式の文字列
  */
-export const formatTime = (
-  date: string | null | undefined,
-  defaultValue = "-",
-): string => {
+export const formatTime = (date: string | null | undefined, defaultValue = "-"): string => {
   if (!date) return defaultValue;
 
   const dateObj = new Date(date);
@@ -27,10 +24,7 @@ export const formatTime = (
  * @param defaultValue デフォルト値（秒数が0以下の場合に返す値）
  * @returns 時間:分形式の文字列
  */
-export const formatSeconds = (
-  seconds: number | undefined,
-  defaultValue = "-",
-): string => {
+export const formatSeconds = (seconds: number | undefined, defaultValue = "-"): string => {
   if (!seconds || seconds <= 0) return defaultValue;
 
   const hours = Math.floor(seconds / 3600);
@@ -45,10 +39,7 @@ export const formatSeconds = (
  * @param defaultValue デフォルト値（秒数が0以下の場合に返す値）
  * @returns 分の文字列
  */
-export const formatMinutes = (
-  seconds: number | undefined,
-  defaultValue = "-",
-): string => {
+export const formatMinutes = (seconds: number | undefined, defaultValue = "-"): string => {
   if (!seconds || seconds <= 0) return defaultValue;
 
   const minutes = Math.floor(seconds / 60);

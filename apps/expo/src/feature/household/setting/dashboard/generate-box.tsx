@@ -3,9 +3,7 @@ import type { IocomeType } from "~/types/iocome-type";
 import { featureSetting } from "./feature-setting";
 import type { ArgsMapType, SettingProps } from "./type";
 
-export const generateBox = (
-  settingPropsList: SettingProps[],
-): React.ReactNode[] =>
+export const generateBox = (settingPropsList: SettingProps[]): React.ReactNode[] =>
   settingPropsList.map(({ feature, argsMap, id }, index) => {
     const { component: Component, argsTypes } = featureSetting[feature];
     const props = {};
@@ -93,8 +91,7 @@ const appendProps = ({
   parseToProps: (argsMapType: ArgsMapType) => unknown;
 }) => {
   const argsMapType = argsMap.filter((arg) => arg.type === key)?.[0];
-  if (!argsMapType)
-    throw new Error(`${key} type is required for settingId: ${settingId}`);
+  if (!argsMapType) throw new Error(`${key} type is required for settingId: ${settingId}`);
 
   return Object.defineProperty(props, key, {
     value: parseToProps(argsMapType),

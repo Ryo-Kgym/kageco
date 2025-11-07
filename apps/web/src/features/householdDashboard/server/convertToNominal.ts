@@ -24,9 +24,7 @@ export const convertToNominal = (data: GetDetailsByCategoryQuery): Nominal => {
   let total = 0;
   const details = categories
     .map((categoryId) => {
-      const filtered = mergedDetails.filter(
-        (d) => d.category.id === categoryId,
-      );
+      const filtered = mergedDetails.filter((d) => d.category.id === categoryId);
       const categoryName = filtered[0]?.category.name ?? "";
       const amount = filtered.reduce((acc, cur) => acc + cur.amount, 0);
 

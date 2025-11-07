@@ -8,8 +8,7 @@ export const FavoriteFilterArgValueInput = <O,>({
   option,
 }: {
   argKey: FavoriteFilterArgKey;
-} & FavoriteFilterArgValueInputProps<O>) =>
-  inputMap[argKey].Component({ value, setValue, option });
+} & FavoriteFilterArgValueInputProps<O>) => inputMap[argKey].Component({ value, setValue, option });
 
 const inputMap: {
   [key in FavoriteFilterArgKey]: {

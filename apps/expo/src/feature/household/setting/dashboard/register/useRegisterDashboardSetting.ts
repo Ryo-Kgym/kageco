@@ -3,19 +3,14 @@ import {
   useInsertDashboardSettingMutation,
 } from "@v3/graphql/household";
 
-import type {
-  ArgsMapType,
-  Feature,
-} from "~/feature/household/setting/dashboard/type";
+import type { ArgsMapType, Feature } from "~/feature/household/setting/dashboard/type";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
 import { useGenerateId } from "~/hooks/id/useGenerateId";
 import { useSaveUserId } from "~/hooks/user/useSaveUserId";
 
 export const useRegisterDashboardSetting = () => {
-  const [insertSettingResult, insertSetting] =
-    useInsertDashboardSettingMutation();
-  const [insertSettingArgsResult, insertSettingArgs] =
-    useInsertDashboardSettingArgsMutation();
+  const [insertSettingResult, insertSetting] = useInsertDashboardSettingMutation();
+  const [insertSettingArgsResult, insertSettingArgs] = useInsertDashboardSettingArgsMutation();
   const { userId } = useSaveUserId();
   const { groupId } = useSaveGroupId();
   const { generateId } = useGenerateId();

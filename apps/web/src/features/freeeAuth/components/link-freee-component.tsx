@@ -9,10 +9,7 @@ import { errorPopup, successPopup } from "../../../function/successPopup";
 import { saveCookie } from "../../../persistence/browser/client/cookie";
 import { saveFreeeAuth } from "../../../persistence/browser/client/freee-auth";
 import { useNavigation } from "../../../routing/client/useNavigation";
-import {
-  getAuthorizationUrl,
-  getTokenWithCode,
-} from "../../freee/actions/freee-auth-actions";
+import { getAuthorizationUrl, getTokenWithCode } from "../../freee/actions/freee-auth-actions";
 import { useFreeeAuth } from "../../freee/hooks/use-freee-auth";
 import { FreeeAuthCodeInput } from "./freee-auth-code-input";
 import { FreeeAuthenticated } from "./freee-authenticated";
@@ -32,9 +29,9 @@ export const LinkFreeeComponent: FC<PropsWithChildren> = ({ children }) => {
   const router = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
   const [authCode, setAuthCode] = useState("");
-  const [authFlowState, setAuthFlowState] = useState<
-    "initial" | "url_opened" | "token_obtained"
-  >("initial");
+  const [authFlowState, setAuthFlowState] = useState<"initial" | "url_opened" | "token_obtained">(
+    "initial",
+  );
   const searchParams = useSearchParams();
   // マスク表示の状態を計算
   const showMask = isTokenProcessing || isLoading;
@@ -90,9 +87,7 @@ export const LinkFreeeComponent: FC<PropsWithChildren> = ({ children }) => {
         // 認証状態を更新
         setIsAuthenticated(true);
       } else {
-        errorPopup(
-          "トークンの取得に失敗しました。認可コードが正しいか確認してください。",
-        );
+        errorPopup("トークンの取得に失敗しました。認可コードが正しいか確認してください。");
       }
     } catch (error) {
       console.error("Error getting token with code:", error);
@@ -115,10 +110,7 @@ export const LinkFreeeComponent: FC<PropsWithChildren> = ({ children }) => {
 
     if (isAuthenticated) {
       return (
-        <FreeeAuthenticated
-          handleLogoutClick={handleLogoutClick}
-          isLoading={isLoading}
-        >
+        <FreeeAuthenticated handleLogoutClick={handleLogoutClick} isLoading={isLoading}>
           {children}
         </FreeeAuthenticated>
       );
@@ -135,12 +127,7 @@ export const LinkFreeeComponent: FC<PropsWithChildren> = ({ children }) => {
       );
     }
 
-    return (
-      <FreeeInitialState
-        handleAuthClick={handleAuthClick}
-        isLoading={isLoading}
-      />
-    );
+    return <FreeeInitialState handleAuthClick={handleAuthClick} isLoading={isLoading} />;
   };
 
   // LoadingMaskでラップして返す

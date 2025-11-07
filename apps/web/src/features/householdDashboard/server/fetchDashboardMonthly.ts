@@ -22,9 +22,7 @@ export type Nominal = {
   }[];
 };
 
-export const fetchDashboardMonthly = async (
-  params: DashboardComponentProps,
-): Promise<Results> => {
+export const fetchDashboardMonthly = async (params: DashboardComponentProps): Promise<Results> => {
   const { group } = await findUser();
   const { firstDay, lastDay } = buildParams(params);
 

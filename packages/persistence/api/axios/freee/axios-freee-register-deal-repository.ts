@@ -96,11 +96,7 @@ type DealRequestBody = {
     | Array<{
         amount: number;
         from_walletable_id: number;
-        from_walletable_type:
-          | "bank_account"
-          | "credit_card"
-          | "wallet"
-          | "private_account_item";
+        from_walletable_type: "bank_account" | "credit_card" | "wallet" | "private_account_item";
         date: string;
       }>
     | undefined;

@@ -2,10 +2,7 @@ import { GenreType } from "../../../domain/model/household/GenreType";
 import { IocomeType } from "../../../domain/model/household/IocomeType";
 import type { CategoryChartData } from "../types";
 
-export const sortByTotal = (
-  data: CategoryChartData,
-  targetMonth: Date,
-): string[] => {
+export const sortByTotal = (data: CategoryChartData, targetMonth: Date): string[] => {
   const yearMonth = targetMonth.toISOString().slice(0, 7); // yyyy-mm
 
   return Object.entries(data)

@@ -84,10 +84,8 @@ export const BalanceListTable = ({
             await saveAccountIds(form.accountIds);
 
             const newSearchParams = new URLSearchParams(searchParams);
-            form.fromDate &&
-              newSearchParams.set("fromDate", convertToYmd(form.fromDate));
-            form.toDate &&
-              newSearchParams.set("toDate", convertToYmd(form.toDate));
+            form.fromDate && newSearchParams.set("fromDate", convertToYmd(form.fromDate));
+            form.toDate && newSearchParams.set("toDate", convertToYmd(form.toDate));
 
             push(`?${newSearchParams}`);
           }}

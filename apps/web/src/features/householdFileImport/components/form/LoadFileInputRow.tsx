@@ -15,11 +15,7 @@ type Props = {
   rowNumber: number;
 };
 
-export const LoadFileInputRow: FC<Props> = ({
-  importFileType,
-  item,
-  rowNumber,
-}) => {
+export const LoadFileInputRow: FC<Props> = ({ importFileType, item, rowNumber }) => {
   const [genreId, setGenreId] = useState<string | null>(null);
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const [memo, setMemo] = useState<string>("");
@@ -59,11 +55,7 @@ export const LoadFileInputRow: FC<Props> = ({
           setImportFileRowAware(rowNumber, {
             date: new Date(item[mapping.date - 1] ?? ""),
             amount: Number(
-              item[
-                iocomeType === IocomeType.Income
-                  ? mapping.income - 1
-                  : mapping.outcome - 1
-              ],
+              item[iocomeType === IocomeType.Income ? mapping.income - 1 : mapping.outcome - 1],
             ),
             memo: memo,
             genreId: genreId ?? "",
@@ -136,12 +128,7 @@ export const LoadFileInputRow: FC<Props> = ({
         )
         .concat(
           <Table.BodyTd key={`memo-${rowNumber}`}>
-            <MemoTextArea
-              memo={memo}
-              setMemo={setMemo}
-              noLabel
-              disabled={hasNull}
-            />
+            <MemoTextArea memo={memo} setMemo={setMemo} noLabel disabled={hasNull} />
           </Table.BodyTd>,
         )}
     </>

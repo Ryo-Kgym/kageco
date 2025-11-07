@@ -32,12 +32,7 @@ const Page = async ({
     return date ? new YYYYmmDD(date) : undefined;
   };
 
-  return (
-    <MonthlySummaryServer
-      fromDate={convertToDate(fromDate)}
-      toDate={convertToDate(toDate)}
-    />
-  );
+  return <MonthlySummaryServer fromDate={convertToDate(fromDate)} toDate={convertToDate(toDate)} />;
 };
 
 export default Page;

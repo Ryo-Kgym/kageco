@@ -36,39 +36,21 @@ export const CategoryAddPresenter = ({
 }) => (
   <div className={"w-full p-2"}>
     <FieldFrame title={"カテゴリ名"}>
-      <GenreNameTextInput
-        genreName={inputCategoryName}
-        setGenreName={setInputCategoryName}
-      />
+      <GenreNameTextInput genreName={inputCategoryName} setGenreName={setInputCategoryName} />
     </FieldFrame>
     <FieldFrame title={"収支区分"}>
-      <IocomeTypeSegment
-        iocomeType={inputIocomeType}
-        onChange={setInputIocomeType}
-      />
+      <IocomeTypeSegment iocomeType={inputIocomeType} onChange={setInputIocomeType} />
     </FieldFrame>
     <FieldFrame title={"ジャンル"}>
-      <GenreSelect
-        genreId={inputGenreId}
-        onChange={setInputGenreId}
-        iocomeType={inputIocomeType}
-      />
+      <GenreSelect genreId={inputGenreId} onChange={setInputGenreId} iocomeType={inputIocomeType} />
     </FieldFrame>
     <FieldFrame title={"有効・無効"}>
       <ValiditySegment isValid={inputIsValid} onChange={setInputIsValid} />
     </FieldFrame>
     <FieldFrame title={"表示順"}>
-      <DisplayOrderInput
-        value={inputDisplayOrder}
-        onChange={setInputDisplayOrder}
-      />
+      <DisplayOrderInput value={inputDisplayOrder} onChange={setInputDisplayOrder} />
     </FieldFrame>
 
-    <Button
-      onClick={registerHandler}
-      type={"add"}
-      label={"登録"}
-      disabled={!registerable}
-    />
+    <Button onClick={registerHandler} type={"add"} label={"登録"} disabled={!registerable} />
   </div>
 );

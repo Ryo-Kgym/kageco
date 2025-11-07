@@ -6,11 +6,4 @@ export const ButtonDelete = ({
 }: {
   deleteHandler: () => void;
   disabled?: boolean;
-}) => (
-  <Button
-    title={"削除"}
-    onPress={deleteHandler}
-    disabled={disabled}
-    color={"#FF0000"}
-  />
-);
+}) => <Button title={"削除"} onPress={deleteHandler} disabled={disabled} color={"#FF0000"} />;

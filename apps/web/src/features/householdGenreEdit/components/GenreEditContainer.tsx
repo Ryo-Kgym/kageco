@@ -16,12 +16,8 @@ export const GenreEditContainer = ({ genreId }: { genreId: string }) => {
   const [genreData, setGenreData] = useState<GenreData | null>(null);
   const [loading, setLoading] = useState(true);
   const [inputGenreName, setInputGenreName] = useState<string>("");
-  const [inputGenreType, setInputGenreType] = useState<GenreType>(
-    GenreType.FIXED,
-  );
-  const [inputIocomeType, setInputIocomeType] = useState<IocomeType>(
-    IocomeType.Income,
-  );
+  const [inputGenreType, setInputGenreType] = useState<GenreType>(GenreType.FIXED);
+  const [inputIocomeType, setInputIocomeType] = useState<IocomeType>(IocomeType.Income);
   const [inputIsValid, setInputIsValid] = useState<boolean>(true);
   const [inputDisplayOrder, setInputDisplayOrder] = useState<number | "">(0);
 

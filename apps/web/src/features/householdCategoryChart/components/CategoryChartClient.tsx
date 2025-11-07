@@ -59,9 +59,7 @@ export const CategoryChartClient: FC<Props> = ({
           onChange={async ([fromDate, toDate]) => {
             await new Promise((resolve) => setTimeout(resolve, 1000));
             prependParamAndPush({
-              fromDate: (fromDate ?? defaultFromDate).toLocaleDateString(
-                "sv-SE",
-              ),
+              fromDate: (fromDate ?? defaultFromDate).toLocaleDateString("sv-SE"),
               toDate: (toDate ?? defaultToDate).toLocaleDateString("sv-SE"),
             });
           }}
@@ -78,8 +76,7 @@ export const CategoryChartClient: FC<Props> = ({
       <CategoryChart
         categories={categories.map((categoryId, index) => ({
           categoryId,
-          categoryName:
-            categoryChartData[categoryId]?.categoryName ?? "unknown",
+          categoryName: categoryChartData[categoryId]?.categoryName ?? "unknown",
           color: colors.random(index),
         }))}
         data={makeChartData()}

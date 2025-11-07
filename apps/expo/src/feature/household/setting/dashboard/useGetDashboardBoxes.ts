@@ -3,13 +3,7 @@ import { useGetDashboardSettingQuery } from "@v3/graphql/household";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
 import { useSaveUserId } from "~/hooks/user/useSaveUserId";
 import { generateBox } from "./generate-box";
-import type {
-  ArgsMapType,
-  ArgsType,
-  Feature,
-  GenreParamType,
-  IocomeParamType,
-} from "./type";
+import type { ArgsMapType, ArgsType, Feature, GenreParamType, IocomeParamType } from "./type";
 
 export const useGetDashboardBoxes = () => {
   const { userId } = useSaveUserId();

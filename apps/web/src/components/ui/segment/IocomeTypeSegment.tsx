@@ -9,19 +9,8 @@ type Props = {
   disabled?: boolean;
 };
 
-export const IocomeTypeSegment: FC<Props> = ({
-  iocomeType,
-  onChange,
-  disabled = false,
-}) => {
-  return (
-    <Segment
-      value={iocomeType}
-      onChange={onChange}
-      disabled={disabled}
-      data={data}
-    />
-  );
+export const IocomeTypeSegment: FC<Props> = ({ iocomeType, onChange, disabled = false }) => {
+  return <Segment value={iocomeType} onChange={onChange} disabled={disabled} data={data} />;
 };
 const data = [
   { value: IocomeType.Income, label: "収入" },

@@ -12,12 +12,7 @@ type ModalPresenterProps = {
   size?: string;
 };
 
-export const MantineModal = ({
-  opened,
-  onClose,
-  children,
-  size = "75%",
-}: ModalPresenterProps) => {
+export const MantineModal = ({ opened, onClose, children, size = "75%" }: ModalPresenterProps) => {
   const isMobile = useMediaQuery("(max-width: 50em)");
   return (
     <Modal opened={opened} onClose={onClose} size={size} fullScreen={isMobile}>

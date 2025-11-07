@@ -20,9 +20,9 @@ export const ChartDetailTableClient = ({
   incomeTotal: number;
   outcomeTotal: number;
 }) => {
-  const [detail, setDetail] = useState<
-    { id: string; type: "daily" | "credit" } | undefined
-  >(undefined);
+  const [detail, setDetail] = useState<{ id: string; type: "daily" | "credit" } | undefined>(
+    undefined,
+  );
 
   return (
     <>
@@ -67,11 +67,7 @@ export const ChartDetailTableClient = ({
               return (
                 <div>
                   {tags.map((tag) => (
-                    <Tag
-                      key={tag.value}
-                      label={tag.label}
-                      colorCode={tag.colorCode}
-                    />
+                    <Tag key={tag.value} label={tag.label} colorCode={tag.colorCode} />
                   ))}
                   {memo}
                 </div>

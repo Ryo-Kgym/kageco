@@ -8,11 +8,7 @@ import { useRouter } from "next/navigation";
 
 import type { RoutingTabsProps } from "../RoutingTabs";
 
-export const MantineRoutingTabs = ({
-  defaultValue,
-  tabs,
-  children,
-}: RoutingTabsProps) => {
+export const MantineRoutingTabs = ({ defaultValue, tabs, children }: RoutingTabsProps) => {
   const { push } = useRouter();
 
   return (

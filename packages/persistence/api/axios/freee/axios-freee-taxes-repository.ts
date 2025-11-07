@@ -1,10 +1,7 @@
 import type { FreeeTaxesGateway } from "@/core/gateway/freee/freee-taxes-gateway";
 import { AxiosFreeeRepository } from "./axios-freee-repository";
 
-export class AxiosFreeeTaxesRepository
-  extends AxiosFreeeRepository
-  implements FreeeTaxesGateway
-{
+export class AxiosFreeeTaxesRepository extends AxiosFreeeRepository implements FreeeTaxesGateway {
   getAll: FreeeTaxesGateway["getAll"] = async () => {
     try {
       return await super.axiosGet({

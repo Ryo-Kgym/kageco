@@ -5,11 +5,7 @@ import { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
 import { useSaveUserId } from "~/hooks/user/useSaveUserId";
-import {
-  attendOrLeaveWork,
-  fetchAttendanceByDate,
-  fixAttendLog,
-} from "./attendance-api";
+import { attendOrLeaveWork, fetchAttendanceByDate, fixAttendLog } from "./attendance-api";
 import { AttendanceEditModal } from "./attendance-edit-modal";
 import { AttendanceLogsView } from "./attendance-logs-view";
 import { MonthlyPlannedView } from "./monthly-planned-view";
@@ -23,8 +19,7 @@ export const AttendanceButtonView = () => {
   const { groupId } = useSaveGroupId();
   const [now, setNow] = useState<Date>(new Date());
 
-  const [attendanceState, setAttendanceState] =
-    useState<AttendanceState>("attend");
+  const [attendanceState, setAttendanceState] = useState<AttendanceState>("attend");
   // ボタンの無効化状態を管理するstate
   const [isLoading, setIsLoading] = useState(false);
 
@@ -80,10 +75,7 @@ export const AttendanceButtonView = () => {
    */
   const handlePrevDay = () => {
     if (isLoading) return;
-    setNow(
-      (prev) =>
-        new Date(prev.getFullYear(), prev.getMonth(), prev.getDate() - 1),
-    );
+    setNow((prev) => new Date(prev.getFullYear(), prev.getMonth(), prev.getDate() - 1));
   };
 
   /**
@@ -91,10 +83,7 @@ export const AttendanceButtonView = () => {
    */
   const handleNextDay = () => {
     if (isLoading) return;
-    setNow(
-      (prev) =>
-        new Date(prev.getFullYear(), prev.getMonth(), prev.getDate() + 1),
-    );
+    setNow((prev) => new Date(prev.getFullYear(), prev.getMonth(), prev.getDate() + 1));
   };
 
   // 出勤・退勤ボタンのクリックハンドラ
@@ -110,11 +99,7 @@ export const AttendanceButtonView = () => {
 
       // 勤怠ログを更新するために再取得する
       const baseDate = convertToYmd(now);
-      const updatedData = await fetchAttendanceByDate(
-        baseDate,
-        userId,
-        groupId,
-      );
+      const updatedData = await fetchAttendanceByDate(baseDate, userId, groupId);
       setMonthlyState({
         attendanceLogs: updatedData.baseDateLogs,
         totalWorkSecond: updatedData.totalWorkSecond,
@@ -161,11 +146,7 @@ export const AttendanceButtonView = () => {
       );
       // 成功したら当日のデータを再取得して画面を更新
       const baseDate = convertToYmd(now);
-      const updatedData = await fetchAttendanceByDate(
-        baseDate,
-        userId,
-        groupId,
-      );
+      const updatedData = await fetchAttendanceByDate(baseDate, userId, groupId);
       setMonthlyState({
         attendanceLogs: updatedData.baseDateLogs,
         totalWorkSecond: updatedData.totalWorkSecond,
@@ -208,23 +189,16 @@ export const AttendanceButtonView = () => {
         <TouchableOpacity
           style={[
             styles.attendanceButton,
-            attendanceState === "leave"
-              ? styles.attendButton
-              : styles.leaveButton,
+            attendanceState === "leave" ? styles.attendButton : styles.leaveButton,
             isLoading && styles.disabledButton,
           ]}
           onPress={handleAttendanceButtonClick}
           disabled={isLoading}
         >
-          <Text style={styles.buttonText}>
-            {attendanceState === "leave" ? "出勤" : "退勤"}
-          </Text>
+          <Text style={styles.buttonText}>{attendanceState === "leave" ? "出勤" : "退勤"}</Text>
         </TouchableOpacity>
       </View>
-      <AttendanceLogsView
-        logs={monthlyState.attendanceLogs}
-        onItemPress={handleLogPress}
-      />
+      <AttendanceLogsView logs={monthlyState.attendanceLogs} onItemPress={handleLogPress} />
 
       <MonthlyPlannedView
         totalWorkSecond={monthlyState.totalWorkSecond}

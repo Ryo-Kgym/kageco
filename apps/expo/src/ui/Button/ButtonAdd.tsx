@@ -6,11 +6,4 @@ export const ButtonAdd = ({
 }: {
   addHandler: () => void;
   disabled?: boolean;
-}) => (
-  <Button
-    title={"追加"}
-    onPress={addHandler}
-    disabled={disabled}
-    color={"#17c117"}
-  />
-);
+}) => <Button title={"追加"} onPress={addHandler} disabled={disabled} color={"#17c117"} />;

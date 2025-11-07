@@ -35,9 +35,7 @@ export const CalendarPresenter = ({
       scrollEnabled={false}
       renderItem={(week) => (
         <View className={"w-[14.4%] border-b border-r border-gray-300"}>
-          <Text className={`text-center ${week.item.color}`}>
-            {week.item.label}
-          </Text>
+          <Text className={`text-center ${week.item.color}`}>{week.item.label}</Text>
         </View>
       )}
     />
@@ -57,9 +55,7 @@ export const CalendarPresenter = ({
           }}
         >
           <View className={"h-full w-full"}>
-            <Text className={"text-gray-600"}>
-              {day.item.date.toISOString().slice(8, 10)}
-            </Text>
+            <Text className={"text-gray-600"}>{day.item.date.toISOString().slice(8, 10)}</Text>
             <Text className={"text-right text-xs text-green-500"}>
               {!day.item.totalDisabled && day.item.income.toLocaleString()}
             </Text>

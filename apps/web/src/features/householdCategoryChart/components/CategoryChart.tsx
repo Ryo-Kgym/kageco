@@ -48,14 +48,7 @@ export const CategoryChart: FC<Props> = ({ categories, data, onClick }) => {
             dataKey={category.categoryName}
             stroke={category.color}
             label={({ x, y, stroke, value }) => (
-              <text
-                x={x}
-                y={y}
-                dy={-4}
-                fill={stroke}
-                fontSize={10}
-                textAnchor="middle"
-              >
+              <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">
                 {Number(value).toLocaleString()}
               </text>
             )}

@@ -26,9 +26,7 @@ export const FileImportSetting: FC = () => {
       <Section title={"変換後エンコード"}>
         <EncodingSelect
           value={importFileSettings.encodingTo}
-          setValue={(value) =>
-            setImportFileSettings({ ...importFileSettings, encodingTo: value })
-          }
+          setValue={(value) => setImportFileSettings({ ...importFileSettings, encodingTo: value })}
         />
       </Section>
       <Section title={"タイプ"}>
@@ -56,9 +54,7 @@ export const FileImportSetting: FC = () => {
       <Section title={"区切り文字"}>
         <SplitterSelect
           value={importFileSettings.splitter}
-          setValue={(value) =>
-            setImportFileSettings({ ...importFileSettings, splitter: value })
-          }
+          setValue={(value) => setImportFileSettings({ ...importFileSettings, splitter: value })}
         />
       </Section>
     </div>

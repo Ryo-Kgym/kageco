@@ -12,17 +12,14 @@ export class AxiosFreeeRepository {
   protected async axiosGet(params: {
     endpointSuffix: `/${string}`;
   }) {
-    const response = await axios.get(
-      `${this.baseUrl}${params.endpointSuffix}`,
-      {
-        headers: {
-          accept: "application/json",
-          Authorization: `Bearer ${this.accessToken}`,
-          "Content-Type": "application/json",
-          "X-Api-Version": "2020-06-15",
-        },
+    const response = await axios.get(`${this.baseUrl}${params.endpointSuffix}`, {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${this.accessToken}`,
+        "Content-Type": "application/json",
+        "X-Api-Version": "2020-06-15",
       },
-    );
+    });
 
     return response.data;
   }

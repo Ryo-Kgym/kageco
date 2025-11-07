@@ -34,9 +34,7 @@ export const MonthlyBox = ({ month }: { month: Date }) => {
         </View>
         <View className={"flex-row items-center"}>
           <Text className={"text-center"}>差引</Text>
-          <Text className={"w-40 text-right text-lg"}>
-            {balance.toLocaleString()}
-          </Text>
+          <Text className={"w-40 text-right text-lg"}>{balance.toLocaleString()}</Text>
         </View>
       </View>
     </DashboardFrame>

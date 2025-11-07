@@ -1,7 +1,6 @@
 import type { ImportFileType } from "./importFileType";
 
-export type ImportFileColumn =
-  keyof (typeof importFileFields)[keyof typeof importFileFields];
+export type ImportFileColumn = keyof (typeof importFileFields)[keyof typeof importFileFields];
 
 export const importFileFields: Record<
   ImportFileType,

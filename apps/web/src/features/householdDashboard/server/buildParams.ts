@@ -10,23 +10,17 @@ export const buildParams = (
   },
 ) => {
   const month = monthSchema.parse(
-    Number(
-      params.dashboardSettingArgs.find((arg) => arg.type === "month")?.value,
-    ),
+    Number(params.dashboardSettingArgs.find((arg) => arg.type === "month")?.value),
   );
 
   const targetMonth = params.targetMonth ?? new Date();
   targetMonth.setMonth(targetMonth.getMonth() + month);
 
   const firstDay = new YYYYmmDD(
-    convertToYmd(
-      new Date(targetMonth.getFullYear(), targetMonth.getMonth(), 1),
-    ),
+    convertToYmd(new Date(targetMonth.getFullYear(), targetMonth.getMonth(), 1)),
   );
   const lastDay = new YYYYmmDD(
-    convertToYmd(
-      new Date(targetMonth.getFullYear(), targetMonth.getMonth() + 1, 0),
-    ),
+    convertToYmd(new Date(targetMonth.getFullYear(), targetMonth.getMonth() + 1, 0)),
   );
 
   return {

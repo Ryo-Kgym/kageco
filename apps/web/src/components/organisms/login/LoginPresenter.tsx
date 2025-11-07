@@ -20,9 +20,7 @@ export const LoginPresenter = ({
   </div>
 );
 
-const Title = () => (
-  <h1 className="font-serif text-6xl font-bold text-yellow-400">Home Helper</h1>
-);
+const Title = () => <h1 className="font-serif text-6xl font-bold text-yellow-400">Home Helper</h1>;
 
 const ButtonArea = ({ children }: { children: ReactNode }) => (
   <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">

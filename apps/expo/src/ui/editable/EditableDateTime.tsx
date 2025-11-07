@@ -37,12 +37,7 @@ export const EditableDateTime = ({
 
   return (
     <View className={"rounded bg-gray-200"}>
-      <Button
-        title={formatTitle(value)}
-        onPress={show}
-        color={"#444444"}
-        disabled={disabled}
-      />
+      <Button title={formatTitle(value)} onPress={show} color={"#444444"} disabled={disabled} />
       <DateTimePickerModal
         date={value}
         textColor={"#000"}

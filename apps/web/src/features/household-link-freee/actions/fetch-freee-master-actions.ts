@@ -19,9 +19,7 @@ export const fetchFreeeMasterActions = async () => {
     };
   }
 
-  const accountItemsRepository = new AxiosFreeeAccountItemsRepository(
-    freeeAuth,
-  );
+  const accountItemsRepository = new AxiosFreeeAccountItemsRepository(freeeAuth);
   const taxRepository = new AxiosFreeeTaxesRepository(freeeAuth);
   const walletableRepository = new AxiosFreeeWalletablesRepository(freeeAuth);
   const partnerRepository = new AxiosFreeePartnersRepository(freeeAuth);

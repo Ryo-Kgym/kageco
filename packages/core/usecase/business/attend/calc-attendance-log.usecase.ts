@@ -9,9 +9,7 @@ import type { BusinessUsecase } from "../BusinessUsecase";
 export class CalcAttendanceLogUsecase
   implements BusinessUsecase<CalcAttendanceLogInput, CalcAttendanceLogOutput>
 {
-  constructor(
-    private readonly attendanceGateway: FindLastAttendanceLogGateway,
-  ) {
+  constructor(private readonly attendanceGateway: FindLastAttendanceLogGateway) {
     this.attendanceGateway = attendanceGateway;
   }
 

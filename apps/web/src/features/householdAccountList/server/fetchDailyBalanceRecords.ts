@@ -62,6 +62,4 @@ export const fetchDailyBalanceRecords = async (params: {
 };
 
 const totalRecords = (records: DailyBalanceRow[], iocomeType: IocomeType) =>
-  records
-    .filter((c) => c.iocomeType === iocomeType)
-    .reduce((a, b) => a + b.amount, 0);
+  records.filter((c) => c.iocomeType === iocomeType).reduce((a, b) => a + b.amount, 0);

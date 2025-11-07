@@ -13,17 +13,10 @@ query getAllDetailView(
         settlementDate: { _gte: $fromDate }
         _and: {
           settlementDate: { _lte: $toDate }
-          _and: {
-            accountId: { _in: $accountIds }
-            _and: { categoryId: { _in: $categoryIds } }
-          }
+          _and: { accountId: { _in: $accountIds }, _and: { categoryId: { _in: $categoryIds } } }
         }
       }
-      orderBy: {
-        settlementDate: DESC
-        withdrawalDate: DESC
-        account: { displayOrder: ASC }
-      }
+      orderBy: { settlementDate: DESC, withdrawalDate: DESC, account: { displayOrder: ASC } }
     ) {
       ...fragAllDetailView
     }
@@ -36,17 +29,10 @@ query getAllDetailView(
             settlementDate: { _gte: $fromDate }
             _and: {
               settlementDate: { _lte: $toDate }
-              _and: {
-                accountId: { _in: $accountIds }
-                _and: { categoryId: { _in: $categoryIds } }
-              }
+              _and: { accountId: { _in: $accountIds }, _and: { categoryId: { _in: $categoryIds } } }
             }
           }
-          orderBy: {
-            settlementDate: DESC
-            withdrawalDate: DESC
-            account: { displayOrder: ASC }
-          }
+          orderBy: { settlementDate: DESC, withdrawalDate: DESC, account: { displayOrder: ASC } }
         ) {
           ...fragAllDetailView
         }

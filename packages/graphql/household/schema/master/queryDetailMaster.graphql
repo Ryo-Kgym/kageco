@@ -1,27 +1,18 @@
 query getDetailMaster($groupId: String!) {
   group: groupByPk(id: $groupId) {
     id
-    accounts(
-      where: { validFlag: { _eq: true } }
-      orderBy: { displayOrder: ASC }
-    ) {
+    accounts(where: { validFlag: { _eq: true } }, orderBy: { displayOrder: ASC }) {
       id
       name
     }
     incomeGenres: genres(
-      where: {
-        iocomeType: { _eq: "INCOME" }
-        _and: { validFlag: { _eq: true } }
-      }
+      where: { iocomeType: { _eq: "INCOME" }, _and: { validFlag: { _eq: true } } }
       orderBy: { displayOrder: ASC }
     ) {
       ...genreFrag
     }
     outcomeGenres: genres(
-      where: {
-        iocomeType: { _eq: "OUTCOME" }
-        _and: { validFlag: { _eq: true } }
-      }
+      where: { iocomeType: { _eq: "OUTCOME" }, _and: { validFlag: { _eq: true } } }
       orderBy: { displayOrder: ASC }
     ) {
       ...genreFrag
@@ -49,10 +40,7 @@ fragment genreFrag on HouseholdGenre {
   name
   iocomeType
   genreType
-  categories(
-    where: { validFlag: { _eq: true } }
-    orderBy: { displayOrder: ASC }
-  ) {
+  categories(where: { validFlag: { _eq: true } }, orderBy: { displayOrder: ASC }) {
     id
     name
   }

@@ -6,19 +6,8 @@ type Props = {
   onChange: (_: GenreType) => void;
   disabled?: boolean;
 };
-export const GenreTypeSegment = ({
-  genreType,
-  onChange,
-  disabled = false,
-}: Props) => {
-  return (
-    <Segment
-      value={genreType}
-      onChange={onChange}
-      data={data}
-      disabled={disabled}
-    />
-  );
+export const GenreTypeSegment = ({ genreType, onChange, disabled = false }: Props) => {
+  return <Segment value={genreType} onChange={onChange} data={data} disabled={disabled} />;
 };
 
 const data = [

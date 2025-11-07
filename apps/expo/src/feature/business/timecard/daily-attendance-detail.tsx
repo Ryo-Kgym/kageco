@@ -1,11 +1,4 @@
-import {
-  Modal,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import type { DayAttendance } from "./types";
 import { formatMinutes, formatSeconds, formatTime } from "./utils";
 
@@ -18,11 +11,7 @@ interface DailyAttendanceDetailProps {
 /**
  * 日毎の勤怠詳細を表示するコンポーネント
  */
-export const DailyAttendanceDetail = ({
-  day,
-  onClose,
-  visible,
-}: DailyAttendanceDetailProps) => {
+export const DailyAttendanceDetail = ({ day, onClose, visible }: DailyAttendanceDetailProps) => {
   // デバッグログ
   console.log("DailyAttendanceDetail - day:", JSON.stringify(day, null, 2));
   console.log(
@@ -31,17 +20,10 @@ export const DailyAttendanceDetail = ({
   );
 
   // 日付を整形
-  const formattedDate = day.date
-    .toString()
-    .replace(/(\d{4})-(\d{2})-(\d{2})/, "$1年$2月$3日");
+  const formattedDate = day.date.toString().replace(/(\d{4})-(\d{2})-(\d{2})/, "$1年$2月$3日");
 
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={visible}
-      onRequestClose={onClose}
-    >
+    <Modal animationType="slide" transparent={true} visible={visible} onRequestClose={onClose}>
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text style={styles.modalTitle}>
@@ -59,23 +41,17 @@ export const DailyAttendanceDetail = ({
 
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>退勤時間:</Text>
-              <Text style={styles.infoValue}>
-                {formatTime(day?.endDatetime?.tzDateTime, "-")}
-              </Text>
+              <Text style={styles.infoValue}>{formatTime(day?.endDatetime?.tzDateTime, "-")}</Text>
             </View>
 
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>休憩時間:</Text>
-              <Text style={styles.infoValue}>
-                {formatMinutes(day.breakSecond)}分
-              </Text>
+              <Text style={styles.infoValue}>{formatMinutes(day.breakSecond)}分</Text>
             </View>
 
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>勤務時間:</Text>
-              <Text style={styles.infoValue}>
-                {formatSeconds(day.workSecond)}
-              </Text>
+              <Text style={styles.infoValue}>{formatSeconds(day.workSecond)}</Text>
             </View>
           </View>
 
@@ -86,12 +62,8 @@ export const DailyAttendanceDetail = ({
               <ScrollView style={styles.logsList}>
                 {day.logs.map((log, index) => (
                   <View key={log.id} style={styles.logItem}>
-                    <Text style={styles.logTime}>
-                      {formatTime(log.datetime.tzDateTime)}
-                    </Text>
-                    <Text style={styles.logState}>
-                      {log.state === "attend" ? "出勤" : "退勤"}
-                    </Text>
+                    <Text style={styles.logTime}>{formatTime(log.datetime.tzDateTime)}</Text>
+                    <Text style={styles.logState}>{log.state === "attend" ? "出勤" : "退勤"}</Text>
                     {log.memo && <Text style={styles.logMemo}>{log.memo}</Text>}
                   </View>
                 ))}

@@ -14,9 +14,7 @@ export const fetchCreditCardDetailById = async (id: string) => {
   const initData = {
     // biome-ignore lint/style/noNonNullAssertion: <explanation>
     date: data?.creditCardDetail?.date!,
-    iocomeType:
-      (data?.creditCardDetail?.genre?.iocomeType as IocomeType) ??
-      IocomeType.Income,
+    iocomeType: (data?.creditCardDetail?.genre?.iocomeType as IocomeType) ?? IocomeType.Income,
     genreId: data?.creditCardDetail?.genre?.id ?? "",
     categoryId: data?.creditCardDetail?.category?.id ?? "",
     amount: Number(data?.creditCardDetail?.amount) ?? "",

@@ -48,10 +48,7 @@ export const TableContainer = ({
     </Table.Tr>
   );
 
-  const generateRow = (
-    { keyPrefix, onClick, columns }: TableProps,
-    i: number,
-  ) => (
+  const generateRow = ({ keyPrefix, onClick, columns }: TableProps, i: number) => (
     <Table.Tr
       key={keyPrefix + i}
       onClick={onClick ?? (() => undefined)}

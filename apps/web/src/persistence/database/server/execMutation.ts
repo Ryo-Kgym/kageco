@@ -14,9 +14,7 @@ export const execMutation = async <
   variables: V,
 ) => {
   const { getClient } = registerUrql(makeClient);
-  const { data, error } = await getClient()
-    .mutation(mutation, variables)
-    .toPromise();
+  const { data, error } = await getClient().mutation(mutation, variables).toPromise();
 
   if (error) {
     throw error;

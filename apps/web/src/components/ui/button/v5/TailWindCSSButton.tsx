@@ -2,12 +2,7 @@ import type { ComponentProps } from "react";
 
 import type { ButtonProps } from "../props";
 
-export const TailWindCSSButton = ({
-  label,
-  onClick,
-  disabled,
-  type,
-}: ButtonProps) => {
+export const TailWindCSSButton = ({ label, onClick, disabled, type }: ButtonProps) => {
   const { enableBgColor, hoverBgColor, activeBgColor } = typeAttribute[type];
   const bgColor = disabled
     ? "bg-gray-400 cursor-not-allowed"

@@ -42,19 +42,12 @@ export const TransferPresenter = ({
     <div className={"flex items-center justify-items-center space-x-2"}>
       <AccountSelect accountId={sendAccountId} onChange={setSendAccountId} />
       <div>{"=>"}</div>
-      <AccountSelect
-        accountId={receiveAccountId}
-        onChange={setReceiveAccountId}
-      />
+      <AccountSelect accountId={receiveAccountId} onChange={setReceiveAccountId} />
     </div>
     <AmountInput value={amount} onChange={setAmount} />
     <MemoTextArea memo={memo} setMemo={setMemo} />
     <div className={"grid grid-cols-2 justify-items-center"}>
-      <Button
-        type={"register"}
-        onClick={registerHandler}
-        disabled={!isRegisterable}
-      />
+      <Button type={"register"} onClick={registerHandler} disabled={!isRegisterable} />
       <Button type={"clear"} onClick={clearHandler} />
     </div>
   </div>

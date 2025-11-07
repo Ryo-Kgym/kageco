@@ -21,15 +21,9 @@ describe("getYear", () => {
     const year = getYear();
     expect(year).toEqual({
       year: new Date().getFullYear(),
-      firstDayOfYear: new Date(
-        `${new Date().getFullYear()}-01-01T00:00:00.000Z`,
-      ),
-      lastDayOfYear: new Date(
-        `${new Date().getFullYear()}-12-31T00:00:00.000Z`,
-      ),
-      lastDateNotGreaterThanToday: new Date(
-        `${new Date().getFullYear()}-04-03T00:00:00.000Z`,
-      ),
+      firstDayOfYear: new Date(`${new Date().getFullYear()}-01-01T00:00:00.000Z`),
+      lastDayOfYear: new Date(`${new Date().getFullYear()}-12-31T00:00:00.000Z`),
+      lastDateNotGreaterThanToday: new Date(`${new Date().getFullYear()}-04-03T00:00:00.000Z`),
       lastYear: new Date(`${new Date().getFullYear() - 1}-01-01T00:00:00.000Z`),
     });
   });

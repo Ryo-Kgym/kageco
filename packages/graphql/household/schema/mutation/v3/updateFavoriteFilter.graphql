@@ -1,8 +1,5 @@
 mutation updateFavoriteFilter($filterId: String!, $name: String!) {
-  updateHouseholdFavoriteFilterByPk(
-    pkColumns: { id: $filterId }
-    _set: { name: $name }
-  ) {
+  updateHouseholdFavoriteFilterByPk(pkColumns: { id: $filterId }, _set: { name: $name }) {
     __typename
     id
   }

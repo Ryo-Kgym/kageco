@@ -13,13 +13,7 @@ const Page = async ({
 }) => {
   const { fromDate, toDate, accountId } = await searchParams;
 
-  return (
-    <AccountDetailTableServer
-      fromDate={fromDate}
-      toDate={toDate}
-      accountId={accountId}
-    />
-  );
+  return <AccountDetailTableServer fromDate={fromDate} toDate={toDate} accountId={accountId} />;
 };
 
 export default Page;

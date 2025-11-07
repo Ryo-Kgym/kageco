@@ -29,8 +29,7 @@ export const FavoriteFilterBox = ({ filterId }: { filterId: string }) => {
     filter: (d) => categoryIdList.includes(d.categoryId),
   });
 
-  const loading =
-    income.categoryTotal.length === 0 && outcome.categoryTotal.length === 0;
+  const loading = income.categoryTotal.length === 0 && outcome.categoryTotal.length === 0;
 
   if (loading) {
     return null;
@@ -80,12 +79,8 @@ const IocomeBox = ({ categoryTotal }: { categoryTotal: WithAmountType[] }) => (
         <View key={i.toString()} className={"flex-row items-center"}>
           <Text className={"w-[4%] text-xs"}>{i + 1}</Text>
           <View className={"w-11/12 flex-row items-center justify-between"}>
-            <Text className={"text-md text-gray-500"}>
-              {c.categoryName.slice(0, 7)}
-            </Text>
-            <Text className={"text-right text-lg"}>
-              {c.amount.toLocaleString()}
-            </Text>
+            <Text className={"text-md text-gray-500"}>{c.categoryName.slice(0, 7)}</Text>
+            <Text className={"text-right text-lg"}>{c.amount.toLocaleString()}</Text>
           </View>
         </View>
       ))}

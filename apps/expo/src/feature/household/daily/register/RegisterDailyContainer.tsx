@@ -20,11 +20,7 @@ export const RegisterDailyContainer = ({
   const { registerDaily } = useRegisterDaily();
 
   const registerable =
-    typeof amount === "number" &&
-    !!genreId &&
-    !!categoryId &&
-    !!accountId &&
-    !!date;
+    typeof amount === "number" && !!genreId && !!categoryId && !!accountId && !!date;
 
   const resetHandler = () => {
     setDate(initialDate);

@@ -3,10 +3,7 @@ import {
   useUpdateDashboardSettingMutation,
 } from "@v3/graphql/household";
 
-import type {
-  ArgsMapType,
-  Feature,
-} from "~/feature/household/setting/dashboard/type";
+import type { ArgsMapType, Feature } from "~/feature/household/setting/dashboard/type";
 import { useGenerateId } from "~/hooks/id/useGenerateId";
 
 export const useEditDashboardSetting = () => {

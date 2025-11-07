@@ -15,9 +15,7 @@ export const YearlyCategoryRankList = ({ year }: { year: Date }) => {
   const [iocomeType, setIocomeType] = useState<IocomeType>("INCOME");
   const { push } = useRouter();
 
-  const { firstDayOfYear, lastDateNotGreaterThanToday } = getYear(
-    new Date(filterYear, 0, 1, 9),
-  );
+  const { firstDayOfYear, lastDateNotGreaterThanToday } = getYear(new Date(filterYear, 0, 1, 9));
   const { categoryTotal } = useGetCategoryTotal({
     fromDate: firstDayOfYear,
     toDate: lastDateNotGreaterThanToday,
@@ -50,11 +48,7 @@ export const YearlyCategoryRankList = ({ year }: { year: Date }) => {
               )
             }
           >
-            <View
-              className={
-                "flex-row items-center border-b border-b-gray-300 py-2"
-              }
-            >
+            <View className={"flex-row items-center border-b border-b-gray-300 py-2"}>
               <Text
                 className={"w-1/12 text-right text-sm text-gray-600"}
                 style={{ paddingRight: 4 }}
@@ -62,13 +56,8 @@ export const YearlyCategoryRankList = ({ year }: { year: Date }) => {
                 {index + 1}
               </Text>
               <View className={"w-11/12 flex-row items-center justify-between"}>
-                <Text className={"text-xl text-gray-600"}>
-                  {item.categoryName}
-                </Text>
-                <Text
-                  className={"text-right text-xl"}
-                  style={{ paddingRight: 12 }}
-                >
+                <Text className={"text-xl text-gray-600"}>{item.categoryName}</Text>
+                <Text className={"text-right text-xl"} style={{ paddingRight: 12 }}>
                   {item.amount.toLocaleString()}
                 </Text>
               </View>

@@ -26,14 +26,12 @@ export const calculateCategoryFrequency = (
   });
 
   // カテゴリ情報と使用回数を結合
-  const categoryFrequencies: CategoryFrequency[] = categories.map(
-    (category) => ({
-      id: category.id,
-      categoryName: category.categoryName,
-      frequency: categoryCounts[category.id] || 0,
-      displayOrder: category.displayOrder,
-    }),
-  );
+  const categoryFrequencies: CategoryFrequency[] = categories.map((category) => ({
+    id: category.id,
+    categoryName: category.categoryName,
+    frequency: categoryCounts[category.id] || 0,
+    displayOrder: category.displayOrder,
+  }));
 
   // 使用回数の多い順にソート
   return categoryFrequencies.sort((a, b) => b.frequency - a.frequency);

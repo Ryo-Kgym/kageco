@@ -22,11 +22,7 @@ export type RegisterDealDto = {
   payments: Array<{
     amount: number;
     fromWalletableId: number;
-    fromWalletableType:
-      | "bank_account"
-      | "credit_card"
-      | "wallet"
-      | "private_account_item";
+    fromWalletableType: "bank_account" | "credit_card" | "wallet" | "private_account_item";
     date: string;
   }> | null;
   // 領収書ID

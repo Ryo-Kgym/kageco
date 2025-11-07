@@ -6,9 +6,7 @@ import type { DashboardComponentProps } from "../types/dashboardFC";
 
 type DataType = Awaited<ReturnType<typeof fetchDashboardMonthly>>;
 
-export const useDashboardMonthly = (
-  params: DashboardComponentProps,
-): LoadingData<DataType> => {
+export const useDashboardMonthly = (params: DashboardComponentProps): LoadingData<DataType> => {
   const [data, setData] = useState<DataType>();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>

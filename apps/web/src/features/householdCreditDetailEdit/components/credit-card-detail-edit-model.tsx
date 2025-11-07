@@ -10,11 +10,7 @@ type Props = ComponentProps<typeof CreditCardDetailEditContainer> & {
   onCloseHandler: () => void;
 };
 
-export const CreditCardDetailEditModal: FC<Props> = ({
-  id,
-  isOpen,
-  onCloseHandler,
-}) => {
+export const CreditCardDetailEditModal: FC<Props> = ({ id, isOpen, onCloseHandler }) => {
   return (
     <Modal opened={isOpen} onClose={onCloseHandler}>
       <Tab
@@ -24,17 +20,13 @@ export const CreditCardDetailEditModal: FC<Props> = ({
             value: "creditCard",
             label: "変更",
             icon: null,
-            contents: (
-              <CreditCardDetailEditContainer id={id} onClose={onCloseHandler} />
-            ),
+            contents: <CreditCardDetailEditContainer id={id} onClose={onCloseHandler} />,
           },
           {
             value: "freee",
             label: "freee連携",
             icon: null,
-            contents: (
-              <LinkFreeeForCreditCardDetail id={id} onClose={onCloseHandler} />
-            ),
+            contents: <LinkFreeeForCreditCardDetail id={id} onClose={onCloseHandler} />,
           },
         ]}
       />

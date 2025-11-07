@@ -65,10 +65,7 @@ export const useStateFreeeRecord = (params: {
   const successMessage = "freeeへのデータ送信が完了しました";
 
   // フォーム送信ハンドラ
-  const handleSubmit = async (
-    fromWalletableType: string,
-    e: FormEvent<HTMLFormElement>,
-  ) => {
+  const handleSubmit = async (fromWalletableType: string, e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!record) {

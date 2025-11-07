@@ -1,19 +1,11 @@
-mutation insertDailyAttendanceLog(
-  $object: BusinessDailyAttendanceLogInsertInput!
-) {
+mutation insertDailyAttendanceLog($object: BusinessDailyAttendanceLogInsertInput!) {
   insert: insertBusinessDailyAttendanceLogOne(object: $object) {
     id
   }
 }
 
-mutation updateDailyAttendanceLog(
-  $id: String!
-  $set: BusinessDailyAttendanceLogSetInput!
-) {
-  update: updateBusinessDailyAttendanceLogByPk(
-    pkColumns: { id: $id }
-    _set: $set
-  ) {
+mutation updateDailyAttendanceLog($id: String!, $set: BusinessDailyAttendanceLogSetInput!) {
+  update: updateBusinessDailyAttendanceLogByPk(pkColumns: { id: $id }, _set: $set) {
     id
   }
 }
@@ -24,14 +16,8 @@ mutation insertDailyAttendance($object: BusinessDailyAttendanceInsertInput!) {
   }
 }
 
-mutation updateDailyAttendance(
-  $id: String!
-  $set: BusinessDailyAttendanceSetInput!
-) {
-  update: updateBusinessDailyAttendanceByPk(
-    pkColumns: { id: $id }
-    _set: $set
-  ) {
+mutation updateDailyAttendance($id: String!, $set: BusinessDailyAttendanceSetInput!) {
+  update: updateBusinessDailyAttendanceByPk(pkColumns: { id: $id }, _set: $set) {
     id
   }
 }

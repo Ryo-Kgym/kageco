@@ -9,9 +9,7 @@ import { CategoryAddPresenter } from "./CategoryAddPresenter";
 
 export const CategoryAddContainer = () => {
   const [inputCategoryName, setInputCategoryName] = useState<string>("");
-  const [inputIocomeType, setInputIocomeType] = useState<IocomeType>(
-    IocomeType.Income,
-  );
+  const [inputIocomeType, setInputIocomeType] = useState<IocomeType>(IocomeType.Income);
   const [inputGenreId, setInputGenreId] = useState<string | null>("");
   const [inputIsValid, setInputIsValid] = useState<boolean>(true);
   const [inputDisplayOrder, setInputDisplayOrder] = useState<number | "">(0);

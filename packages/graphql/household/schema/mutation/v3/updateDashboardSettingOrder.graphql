@@ -1,8 +1,5 @@
 mutation updateDashboardSettingOrder($settingId: String!, $order: Int!) {
-  updateHouseholdDashboardSettingByPk(
-    pkColumns: { id: $settingId }
-    _set: { order: $order }
-  ) {
+  updateHouseholdDashboardSettingByPk(pkColumns: { id: $settingId }, _set: { order: $order }) {
     id
     __typename
   }

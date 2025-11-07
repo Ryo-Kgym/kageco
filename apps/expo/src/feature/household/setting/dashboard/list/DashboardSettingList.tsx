@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import type { RenderItemParams } from "react-native-draggable-flatlist";
-import DraggableFlatList, {
-  ScaleDecorator,
-} from "react-native-draggable-flatlist";
+import DraggableFlatList, { ScaleDecorator } from "react-native-draggable-flatlist";
 
 import { AddButton, Modal, UpdateButton } from "~/ui";
 import { useGetDashboardBoxes } from "../../dashboard/useGetDashboardBoxes";
@@ -41,12 +39,7 @@ export const DashboardSettingList = () => {
     }
   };
 
-  const renderItem = ({
-    item,
-    drag,
-    isActive,
-    getIndex,
-  }: RenderItemParams<SettingProps>) => (
+  const renderItem = ({ item, drag, isActive, getIndex }: RenderItemParams<SettingProps>) => (
     <ScaleDecorator>
       <TouchableOpacity
         onLongPress={drag}

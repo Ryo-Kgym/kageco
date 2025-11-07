@@ -18,9 +18,9 @@ type Props = {
 };
 
 export const SearchListTable: FC<Props> = ({ records }) => {
-  const [detail, setDetail] = useState<
-    { id: string; type: "daily" | "credit" } | undefined
-  >(undefined);
+  const [detail, setDetail] = useState<{ id: string; type: "daily" | "credit" } | undefined>(
+    undefined,
+  );
 
   const [total, setTotal] = useState({
     income: 0,
@@ -46,12 +46,7 @@ export const SearchListTable: FC<Props> = ({ records }) => {
             textAlign: "right",
             width: 100,
             render: (record) => {
-              return (
-                <FormatPrice
-                  iocomeType={record.iocomeType}
-                  price={record.amount}
-                />
-              );
+              return <FormatPrice iocomeType={record.iocomeType} price={record.amount} />;
             },
           },
           { accessor: "genreName", title: "ジャンル" },
@@ -64,9 +59,7 @@ export const SearchListTable: FC<Props> = ({ records }) => {
               return (
                 <>
                   {record.freeeLinked && (
-                    <span className={"mr-2 font-bold text-blue-600"}>
-                      freee連携済み
-                    </span>
+                    <span className={"mr-2 font-bold text-blue-600"}>freee連携済み</span>
                   )}
                   <TagGroup tags={record.tags} />
                   {record.memo}
@@ -110,22 +103,19 @@ export const SearchListTable: FC<Props> = ({ records }) => {
             id: detail.id,
           });
         }}
-        onSelect={useCallback(
-          (records: { iocomeType: IocomeType; amount: number }[]) => {
-            const calcTotal = (iocomeType: IocomeType) => {
-              return records
-                .filter((rec) => rec.iocomeType === iocomeType)
-                .map((rec) => rec.amount)
-                .reduce((acc, cur) => acc + cur, 0);
-            };
+        onSelect={useCallback((records: { iocomeType: IocomeType; amount: number }[]) => {
+          const calcTotal = (iocomeType: IocomeType) => {
+            return records
+              .filter((rec) => rec.iocomeType === iocomeType)
+              .map((rec) => rec.amount)
+              .reduce((acc, cur) => acc + cur, 0);
+          };
 
-            setTotal({
-              income: calcTotal(IocomeType.Income),
-              outcome: calcTotal(IocomeType.Outcome),
-            });
-          },
-          [],
-        )}
+          setTotal({
+            income: calcTotal(IocomeType.Income),
+            outcome: calcTotal(IocomeType.Outcome),
+          });
+        }, [])}
       />
       {detail && detail.type === "daily" && (
         <DailyDetailEditModal

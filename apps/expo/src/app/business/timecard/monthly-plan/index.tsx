@@ -39,12 +39,9 @@ export default function MonthlyPlanPage() {
     }
 
     try {
-      const response = await fetch(
-        paths.api.business.monthlyPlan.get({ userId, yearMonth }),
-        {
-          method: "GET",
-        },
-      );
+      const response = await fetch(paths.api.business.monthlyPlan.get({ userId, yearMonth }), {
+        method: "GET",
+      });
 
       const data = await response.json();
 
@@ -174,9 +171,7 @@ export default function MonthlyPlanPage() {
         onPress={updateMonthlyPlan}
         disabled={isLoading}
       >
-        <Text style={styles.buttonText}>
-          {isLoading ? "更新中..." : "更新する"}
-        </Text>
+        <Text style={styles.buttonText}>{isLoading ? "更新中..." : "更新する"}</Text>
       </TouchableOpacity>
     </View>
   );

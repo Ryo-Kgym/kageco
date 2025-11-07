@@ -31,13 +31,7 @@ export function TableFilter({
   };
 
   return (
-    <Popover
-      opened={opened}
-      onChange={setOpened}
-      position="bottom"
-      withArrow
-      shadow="md"
-    >
+    <Popover opened={opened} onChange={setOpened} position="bottom" withArrow shadow="md">
       <Popover.Target>
         <ActionIcon
           variant={hasFilter ? "filled" : "subtle"}

@@ -19,9 +19,7 @@ type Output = {
   };
 };
 
-type AttendanceLog = Awaited<
-  ReturnType<FindAttendanceLogGateway["findByLogId"]>
->["log"];
+type AttendanceLog = Awaited<ReturnType<FindAttendanceLogGateway["findByLogId"]>>["log"];
 
 export class FixAttendLogUsecase implements BusinessUsecase<Input, Output> {
   constructor(
@@ -30,8 +28,9 @@ export class FixAttendLogUsecase implements BusinessUsecase<Input, Output> {
   ) {}
 
   async handle(input: Input): Promise<Output> {
-    const { log, dailyLogs, attendance } =
-      await this.findAttendanceLogGateway.findByLogId(input.attendanceLogId);
+    const { log, dailyLogs, attendance } = await this.findAttendanceLogGateway.findByLogId(
+      input.attendanceLogId,
+    );
 
     const prevLog = this.findPrevLog(log, dailyLogs);
     const nextLog = this.findNextLog(log, dailyLogs);
@@ -75,17 +74,11 @@ export class FixAttendLogUsecase implements BusinessUsecase<Input, Output> {
     };
   }
 
-  private findPrevLog(
-    log: AttendanceLog,
-    logs: AttendanceLog[],
-  ): AttendanceLog | null {
+  private findPrevLog(log: AttendanceLog, logs: AttendanceLog[]): AttendanceLog | null {
     return logs.find((l) => l.datetime < log.datetime) ?? null;
   }
 
-  private findNextLog(
-    log: AttendanceLog,
-    logs: AttendanceLog[],
-  ): AttendanceLog | null {
+  private findNextLog(log: AttendanceLog, logs: AttendanceLog[]): AttendanceLog | null {
     return logs.find((l) => log.datetime < l.datetime) ?? null;
   }
 }

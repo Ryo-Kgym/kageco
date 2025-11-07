@@ -1,11 +1,7 @@
 import { FieldContainer } from "../FieldContainer";
 import type { FieldValueProps } from "../property";
 
-export const MultiTextInput = ({
-  label,
-  value,
-  setValue,
-}: FieldValueProps<string>) => {
+export const MultiTextInput = ({ label, value, setValue }: FieldValueProps<string>) => {
   return (
     <FieldContainer label={label}>
       <textarea

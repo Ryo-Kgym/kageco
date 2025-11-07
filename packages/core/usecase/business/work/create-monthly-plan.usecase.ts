@@ -18,9 +18,7 @@ export class CreateMonthlyPlanUsecase
           workHoursLower: input.monthlyPlan.plannedWorkingHoursLower,
           workHoursUpper: input.monthlyPlan.plannedWorkingHoursUpper,
         })
-      : await this.createMonthlyPlanGateway.createMonthlyPlan(
-          MonthlyPlan.of(1.0),
-        );
+      : await this.createMonthlyPlanGateway.createMonthlyPlan(MonthlyPlan.of(1.0));
 
     if (!plan) {
       throw new CreateFailureException("monthly-plan");

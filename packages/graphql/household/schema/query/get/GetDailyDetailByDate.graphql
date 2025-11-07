@@ -1,11 +1,5 @@
-query GetDailyDetailByDate(
-  $fromDate: date!
-  $toDate: date!
-  $groupId: String!
-) {
-  dailies: dailyDetailByDate(
-    args: { from_date: $fromDate, to_date: $toDate, group_id: $groupId }
-  ) {
+query GetDailyDetailByDate($fromDate: date!, $toDate: date!, $groupId: String!) {
+  dailies: dailyDetailByDate(args: { from_date: $fromDate, to_date: $toDate, group_id: $groupId }) {
     ...fragDailyDetail
   }
 }

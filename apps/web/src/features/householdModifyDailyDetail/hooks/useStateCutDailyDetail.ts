@@ -7,9 +7,7 @@ export const useStateCutDailyDetail = (params: { id: string }) => {
   const [before, setBefore] = useState<DailyDetail>();
   const [after, setAfter] = useState<DailyDetail>();
 
-  const [cutAfterInit, setCutAfterInit] = useState<
-    Pick<DailyDetail, "amount" | "memo">
-  >({
+  const [cutAfterInit, setCutAfterInit] = useState<Pick<DailyDetail, "amount" | "memo">>({
     amount: 0,
     memo: "",
   });

@@ -30,37 +30,28 @@ export const GenreListContainer: FC<Props> = ({ genreList }) => {
   const { push } = useRouter();
 
   const tablePropsList: TableProps[] =
-    genreList.map(
-      ({
-        id: genreId,
-        genreName,
-        genreType,
-        iocomeType,
-        displayOrder,
-        validFlag,
-      }) => ({
-        keyPrefix: "genre",
-        columns: [
-          { value: genreName },
-          {
-            value: getGenreTypeLabel(genreType as GenreType),
-            align: "center",
-          },
-          {
-            value: getIocomeTypeLabel(iocomeType as IocomeType),
-            align: "center",
-          },
-          {
-            value: <ValidityStatus value={validFlag ?? true} />,
-            align: "center",
-          },
-          { value: displayOrder, align: "right" },
-        ],
-        onClick: () => {
-          push(`/household/setting/genre/edit/${genreId}`);
+    genreList.map(({ id: genreId, genreName, genreType, iocomeType, displayOrder, validFlag }) => ({
+      keyPrefix: "genre",
+      columns: [
+        { value: genreName },
+        {
+          value: getGenreTypeLabel(genreType as GenreType),
+          align: "center",
         },
-      }),
-    ) ?? [];
+        {
+          value: getIocomeTypeLabel(iocomeType as IocomeType),
+          align: "center",
+        },
+        {
+          value: <ValidityStatus value={validFlag ?? true} />,
+          align: "center",
+        },
+        { value: displayOrder, align: "right" },
+      ],
+      onClick: () => {
+        push(`/household/setting/genre/edit/${genreId}`);
+      },
+    })) ?? [];
 
   return <GenreListPresenter tablePropsList={tablePropsList} />;
 };

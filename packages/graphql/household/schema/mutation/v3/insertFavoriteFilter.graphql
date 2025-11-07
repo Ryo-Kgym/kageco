@@ -1,11 +1,5 @@
-mutation insertFavoriteFilter(
-  $filterId: String!
-  $name: String!
-  $groupId: String!
-) {
-  insertHouseholdFavoriteFilterOne(
-    object: { id: $filterId, name: $name, groupId: $groupId }
-  ) {
+mutation insertFavoriteFilter($filterId: String!, $name: String!, $groupId: String!) {
+  insertHouseholdFavoriteFilterOne(object: { id: $filterId, name: $name, groupId: $groupId }) {
     id
   }
 }

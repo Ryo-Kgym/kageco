@@ -38,10 +38,7 @@ export const useFreeeAuth = () => {
       setIsTokenProcessing(true);
 
       const accessToken = getCookieValue<string>("freeeAccessToken", false);
-      const refreshTokenValue = getCookieValue<string>(
-        "freeeRefreshToken",
-        false,
-      );
+      const refreshTokenValue = getCookieValue<string>("freeeRefreshToken", false);
 
       // 有効なアクセストークンがある場合はそれを返す
       if (isFreeeAuthenticated()) {

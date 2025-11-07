@@ -4,9 +4,7 @@ import type { GenreType } from "../../../domain/model/household/GenreType";
 import type { IocomeType } from "../../../domain/model/household/IocomeType";
 import type { CategoryChartData } from "../types";
 
-export const convertToCategoryChartData = (
-  data: ChartDataQuery,
-): CategoryChartData => {
+export const convertToCategoryChartData = (data: ChartDataQuery): CategoryChartData => {
   const params = aggregateCategoryData(data);
 
   return Object.entries(params).reduce<CategoryChartData>((acc, [, cur]) => {
@@ -55,8 +53,7 @@ export const convertToCategoryChartData = (
         isTransfer: cur.isTransfer,
         monthlyTotal: {
           ...acc[cur.categoryId]?.monthlyTotal,
-          [cur.yearMonth]:
-            (acc[cur.categoryId]?.monthlyTotal[cur.yearMonth] ?? 0) + cur.total,
+          [cur.yearMonth]: (acc[cur.categoryId]?.monthlyTotal[cur.yearMonth] ?? 0) + cur.total,
         },
       },
     };
@@ -66,9 +63,7 @@ export const convertToCategoryChartData = (
 /**
  * @private
  */
-export const aggregateCategoryData = (
-  data: ChartDataQuery,
-): AggregateCategoryDataType =>
+export const aggregateCategoryData = (data: ChartDataQuery): AggregateCategoryDataType =>
   data?.detailView.reduce<AggregateCategoryDataType>((acc, cur) => {
     const yearMonth = cur.settlementDate?.slice(0, 7);
     const amount = cur.amount ?? 0;

@@ -24,9 +24,7 @@ export const useGetCreditCardSummaryById = ({
       ? new Date(data?.creditCardSummary?.withdrawalDate)
       : undefined,
     genre: {
-      name: getCreditCardName(
-        data?.creditCardSummary?.creditCard as CreditCard,
-      ),
+      name: getCreditCardName(data?.creditCardSummary?.creditCard as CreditCard),
       iocomeType: getCreditCardIocomeType(),
     },
     category: { name: getCreditCardIocomeType() },

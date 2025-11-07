@@ -1,7 +1,5 @@
 mutation deleteDashboardSetting($settingId: String!) {
-  deleteHouseholdDashboardSettingArgs(
-    where: { settingId: { _eq: $settingId } }
-  ) {
+  deleteHouseholdDashboardSettingArgs(where: { settingId: { _eq: $settingId } }) {
     returning {
       id
       __typename

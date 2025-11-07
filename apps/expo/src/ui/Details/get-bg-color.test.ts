@@ -12,10 +12,7 @@ describe("getBgColor", () => {
     { type: undefined, expected: "" },
   ];
 
-  it.each(testData)(
-    "$type のとき、$expected が返る。",
-    ({ type, expected }) => {
-      expect(getBgColor(type)).toBe(expected);
-    },
-  );
+  it.each(testData)("$type のとき、$expected が返る。", ({ type, expected }) => {
+    expect(getBgColor(type)).toBe(expected);
+  });
 });

@@ -1,7 +1,4 @@
-import type {
-  FreeeAuthGateway,
-  FreeeAuthResponse,
-} from "@/core/gateway/freee/freee-auth-gateway";
+import type { FreeeAuthGateway, FreeeAuthResponse } from "@/core/gateway/freee/freee-auth-gateway";
 import axios from "axios";
 
 export class AxiosFreeeAuthRepository implements FreeeAuthGateway {
@@ -44,15 +41,12 @@ export class AxiosFreeeAuthRepository implements FreeeAuthGateway {
    */
   private generateRandomState(): string {
     // 十分な長さのランダムな文字列を生成
-    const characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let result = "";
     const length = 32; // 十分な長さ
 
     for (let i = 0; i < length; i++) {
-      result += characters.charAt(
-        Math.floor(Math.random() * characters.length),
-      );
+      result += characters.charAt(Math.floor(Math.random() * characters.length));
     }
 
     return result;
@@ -64,10 +58,7 @@ export class AxiosFreeeAuthRepository implements FreeeAuthGateway {
    * @param redirectUri 認証リクエストで使用したのと同じリダイレクトURI
    * @returns アクセストークンを含む認証レスポンス
    */
-  async getAccessToken(
-    code: string,
-    redirectUri: string,
-  ): Promise<FreeeAuthResponse> {
+  async getAccessToken(code: string, redirectUri: string): Promise<FreeeAuthResponse> {
     try {
       const response = await axios.post<FreeeAuthResponse>(
         `${this.baseUrl}/public_api/token`,

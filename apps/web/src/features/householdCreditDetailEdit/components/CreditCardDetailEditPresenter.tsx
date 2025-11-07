@@ -9,10 +9,7 @@ import { CategorySelect } from "../../../components/ui/select/CategorySelect";
 import { GenreSelect } from "../../../components/ui/select/GenreSelect";
 import { TagInputWrapper } from "../../../components/ui/tag/TagInputWrapper";
 import type { IocomeType } from "../../../domain/model/household/IocomeType";
-import type {
-  CreditDetailEditDisplayState,
-  CreditDetailEditFormState,
-} from "../types/type";
+import type { CreditDetailEditDisplayState, CreditDetailEditFormState } from "../types/type";
 
 export const CreditCardDetailEditPresenter = ({
   formData,
@@ -45,11 +42,7 @@ export const CreditCardDetailEditPresenter = ({
       />
     </Frame>
     <Frame>
-      <IocomeTypeSegment
-        iocomeType={display.iocomeType}
-        onChange={setIocomeType}
-        disabled
-      />
+      <IocomeTypeSegment iocomeType={display.iocomeType} onChange={setIocomeType} disabled />
     </Frame>
     <Frame>
       <GenreSelect
@@ -86,6 +79,4 @@ export const CreditCardDetailEditPresenter = ({
   </div>
 );
 
-const Frame = ({ children }: { children: ReactNode }) => (
-  <div className={"py-2"}>{children}</div>
-);
+const Frame = ({ children }: { children: ReactNode }) => <div className={"py-2"}>{children}</div>;

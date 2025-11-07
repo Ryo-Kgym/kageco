@@ -14,9 +14,7 @@ import { CreateMonthlyPlanUsecase } from "./create-monthly-plan.usecase";
 import { makeDaysOfMonth } from "./makeDaysOfMonth";
 import { mergeDailyList } from "./merge-daily-list";
 
-export class CalcWorkTimeUsecase
-  implements BusinessUsecase<CalcWorkTimeInput, CalcWorkTimeOutput>
-{
+export class CalcWorkTimeUsecase implements BusinessUsecase<CalcWorkTimeInput, CalcWorkTimeOutput> {
   constructor(
     private findAttendanceGateway: FindAttendanceGateway,
     private createMonthlyPlanGateway: CreateMonthlyPlanGateway,
@@ -43,14 +41,9 @@ export class CalcWorkTimeUsecase
     const baseDateLastLog = baseDateLogs.slice(-1)[0];
     const lastState = (baseDateLastLog?.state ?? "leave") as AttendanceState;
 
-    const totalWorkSecond = mergedDailyList.reduce(
-      (acc, day) => acc + (day.workSecond ?? 0),
-      0,
-    );
+    const totalWorkSecond = mergedDailyList.reduce((acc, day) => acc + (day.workSecond ?? 0), 0);
 
-    const createMonthlyPlanUsecase = new CreateMonthlyPlanUsecase(
-      this.createMonthlyPlanGateway,
-    );
+    const createMonthlyPlanUsecase = new CreateMonthlyPlanUsecase(this.createMonthlyPlanGateway);
     const plan = await createMonthlyPlanUsecase.handle({
       monthlyPlan,
     });

@@ -1,10 +1,4 @@
-import {
-  Keyboard,
-  KeyboardAvoidingView,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { Keyboard, KeyboardAvoidingView, Text, TouchableWithoutFeedback, View } from "react-native";
 
 import type { IocomeType } from "~/types/iocome-type";
 import {

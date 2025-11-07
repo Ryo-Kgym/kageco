@@ -5,10 +5,7 @@ type Style = "YYYY-MM-DD HH:mm:ss";
  * 現在サポートするスタイルは 'YYYY-MM-DD HH:mm:ss' のみ。
  * Expo/React Native 環境でも動作するよう、Intl や外部ライブラリは使用しない。
  */
-export const formatToJst = (
-  date: Date,
-  style: Style = "YYYY-MM-DD HH:mm:ss",
-): Style => {
+export const formatToJst = (date: Date, style: Style = "YYYY-MM-DD HH:mm:ss"): Style => {
   // JST は UTC+9。基準となる UTC 時間に 9 時間を加算し、UTC 系 getter で取得する。
   const jpDate = new Date(date.getTime() + 9 * 60 * 60 * 1000);
 

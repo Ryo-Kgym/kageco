@@ -27,9 +27,7 @@ export type ProgressInfo =
  * カテゴリを使用頻度順に並び替えるサーバーアクション
  * ストリーミングレスポンスを使用して進捗情報をリアルタイムで返す
  */
-export async function sortCategoriesByFrequencyAction(): Promise<
-  ReadableStream<ProgressInfo>
-> {
+export async function sortCategoriesByFrequencyAction(): Promise<ReadableStream<ProgressInfo>> {
   console.log("[sortCategoriesByFrequencyAction] 開始");
 
   // ストリームを作成
@@ -40,16 +38,12 @@ export async function sortCategoriesByFrequencyAction(): Promise<
   (async () => {
     try {
       // リポジトリのインスタンスを作成
-      console.log(
-        "[sortCategoriesByFrequencyAction] リポジトリのインスタンスを作成",
-      );
+      console.log("[sortCategoriesByFrequencyAction] リポジトリのインスタンスを作成");
       const categoryRepository = new CategoryRepository();
 
       // 進捗コールバック関数
       const onProgress = async (current: number, total: number) => {
-        console.log(
-          `[sortCategoriesByFrequencyAction] 進捗: ${current}/${total}`,
-        );
+        console.log(`[sortCategoriesByFrequencyAction] 進捗: ${current}/${total}`);
         await writer.write({
           type: "progress",
           current,
@@ -64,17 +58,11 @@ export async function sortCategoriesByFrequencyAction(): Promise<
         getRecentDetails: () => categoryRepository.getRecentDetails(),
         getAllCategories: () => categoryRepository.getAllCategories(),
         updateCategoryDisplayOrder: (categoryId, displayOrder) =>
-          categoryRepository.updateCategoryDisplayOrder(
-            categoryId,
-            displayOrder,
-          ),
+          categoryRepository.updateCategoryDisplayOrder(categoryId, displayOrder),
         onProgress,
       });
 
-      console.log(
-        "[sortCategoriesByFrequencyAction] 完了",
-        result.sortedCategories.length,
-      );
+      console.log("[sortCategoriesByFrequencyAction] 完了", result.sortedCategories.length);
 
       // 完了メッセージを送信
       await writer.write({
@@ -88,10 +76,7 @@ export async function sortCategoriesByFrequencyAction(): Promise<
       // エラーメッセージを送信
       await writer.write({
         type: "error",
-        message:
-          error instanceof Error
-            ? error.message
-            : "カテゴリの並び替えに失敗しました",
+        message: error instanceof Error ? error.message : "カテゴリの並び替えに失敗しました",
       });
     } finally {
       // ストリームを閉じる

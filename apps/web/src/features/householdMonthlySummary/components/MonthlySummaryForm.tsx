@@ -20,12 +20,7 @@ type Props = {
   accountIds: string[];
 };
 
-export const MonthlySummaryForm: FC<Props> = ({
-  fromDate,
-  toDate,
-  categoryIds,
-  accountIds,
-}) => {
+export const MonthlySummaryForm: FC<Props> = ({ fromDate, toDate, categoryIds, accountIds }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [form, setForm] = useState<Form>({
     fromDate,

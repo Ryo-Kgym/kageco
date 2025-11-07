@@ -24,9 +24,7 @@ export const fetchMonthlySummaryRecords = async (
 
   const convertToRecords = (iocomeType: IocomeType) =>
     data.categories
-      .filter(
-        (category) => category.genre.iocomeType === (iocomeType as string),
-      )
+      .filter((category) => category.genre.iocomeType === (iocomeType as string))
       .map((category) => {
         const yyyyMMGroupedDetails = category.details.reduce(
           (acc, detail) => {
@@ -43,10 +41,7 @@ export const fetchMonthlySummaryRecords = async (
           {} as Record<YYYY_MM, number>,
         );
 
-        const total = Object.values(yyyyMMGroupedDetails).reduce(
-          (acc, amount) => acc + amount,
-          0,
-        );
+        const total = Object.values(yyyyMMGroupedDetails).reduce((acc, amount) => acc + amount, 0);
 
         return {
           id: category.id,
@@ -59,9 +54,7 @@ export const fetchMonthlySummaryRecords = async (
       .filter((record) => record.total !== 0)
       .sort((a, b) => b.total - a.total);
 
-  const convertToTotalRecord = (
-    records: ReturnType<typeof convertToRecords>,
-  ) => {
+  const convertToTotalRecord = (records: ReturnType<typeof convertToRecords>) => {
     const monthlyTotal = records.reduce(
       (acc, record) => {
         Object.entries(record).forEach(([key, value]) => {
@@ -86,10 +79,7 @@ export const fetchMonthlySummaryRecords = async (
       id: "total",
       categoryName: "合計",
       iocomeType: records[0]?.iocomeType ?? IocomeType.Income,
-      total: Object.values(monthlyTotal).reduce(
-        (acc, amount) => acc + amount,
-        0,
-      ),
+      total: Object.values(monthlyTotal).reduce((acc, amount) => acc + amount, 0),
     } as RowAttribute;
   };
 
@@ -99,11 +89,7 @@ export const fetchMonthlySummaryRecords = async (
   const columns = Object.fromEntries(
     Object.keys(convertToTotalRecord(incomeRecords))
       .filter(
-        (key) =>
-          key !== "id" &&
-          key !== "categoryName" &&
-          key !== "total" &&
-          key !== "iocomeType",
+        (key) => key !== "id" && key !== "categoryName" && key !== "total" && key !== "iocomeType",
       )
       .sort()
       .map((key) => [key, { title: key }]),
@@ -112,9 +98,6 @@ export const fetchMonthlySummaryRecords = async (
   return {
     columns,
     details: [...incomeRecords, ...outcomeRecords],
-    total: [
-      convertToTotalRecord(incomeRecords),
-      convertToTotalRecord(outcomeRecords),
-    ],
+    total: [convertToTotalRecord(incomeRecords), convertToTotalRecord(outcomeRecords)],
   };
 };

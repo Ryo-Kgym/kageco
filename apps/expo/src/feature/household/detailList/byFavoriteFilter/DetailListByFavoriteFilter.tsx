@@ -54,8 +54,7 @@ export const DetailListByFavoriteFilter = ({
         categoryName: d.category.name,
         genreName: d.genre.name,
         iocomeType: d.genre.iocomeType,
-        redirectHandler: () =>
-          push(paths.household.creditCardDetail({ id: d.id })),
+        redirectHandler: () => push(paths.household.creditCardDetail({ id: d.id })),
         memo: d.memo,
         type: "creditCardDetail" as const,
       })),

@@ -57,19 +57,16 @@ export const CalendarContainer = ({ baseDate }: { baseDate: Date }) => {
     const { incomeTotal, outcomeTotal } = getDetailsByDate(day);
     return {
       date: day,
-      isToday:
-        day.toISOString().slice(0, 10) === today.toISOString().slice(0, 10),
+      isToday: day.toISOString().slice(0, 10) === today.toISOString().slice(0, 10),
       isThisMonth: day.getMonth() === baseDate.getMonth(),
-      isSelectedDate:
-        baseDate.toISOString().slice(0, 10) === day.toISOString().slice(0, 10),
+      isSelectedDate: baseDate.toISOString().slice(0, 10) === day.toISOString().slice(0, 10),
       income: incomeTotal,
       outcome: outcomeTotal,
       totalDisabled: incomeTotal === 0 && outcomeTotal === 0,
     };
   });
 
-  const changeHandler = (date: Date) =>
-    push(paths.household.calendar({ date }));
+  const changeHandler = (date: Date) => push(paths.household.calendar({ date }));
 
   if (!details) {
     return null;
@@ -77,11 +74,7 @@ export const CalendarContainer = ({ baseDate }: { baseDate: Date }) => {
 
   return (
     <>
-      <CalendarPresenter
-        baseDate={baseDate}
-        changeHandler={changeHandler}
-        days={days}
-      />
+      <CalendarPresenter baseDate={baseDate} changeHandler={changeHandler} days={days} />
       <Total income={incomeTotal} outcome={outcomeTotal} />
       <View className={"h-[38vh]"}>
         <Details details={details} />

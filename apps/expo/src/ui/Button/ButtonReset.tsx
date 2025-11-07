@@ -6,11 +6,4 @@ export const ButtonReset = ({
 }: {
   resetHandler: () => void;
   disabled?: boolean;
-}) => (
-  <Button
-    title={"リセット"}
-    onPress={resetHandler}
-    disabled={disabled}
-    color={"#000000"}
-  />
-);
+}) => <Button title={"リセット"} onPress={resetHandler} disabled={disabled} color={"#000000"} />;

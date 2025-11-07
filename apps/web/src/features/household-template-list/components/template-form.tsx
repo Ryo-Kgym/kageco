@@ -32,8 +32,7 @@ export const TemplateForm: FC<Props> = ({ onComplete }) => {
   } = useTemplateForm();
   const { refresh } = useNavigation();
 
-  const isDisabled =
-    !form.name || !form.genreId || !form.categoryId || !form.accountId;
+  const isDisabled = !form.name || !form.genreId || !form.categoryId || !form.accountId;
 
   const handleRegister = async () => {
     try {
@@ -53,25 +52,13 @@ export const TemplateForm: FC<Props> = ({ onComplete }) => {
   return (
     <div className={"grid w-full grid-cols-1"}>
       <Field>
-        <TextInput
-          label="テンプレート名"
-          value={form.name}
-          setValue={setName}
-          required
-        />
+        <TextInput label="テンプレート名" value={form.name} setValue={setName} required />
       </Field>
       <Field>
-        <IocomeTypeSegment
-          iocomeType={form.iocomeType}
-          onChange={setIocomeType}
-        />
+        <IocomeTypeSegment iocomeType={form.iocomeType} onChange={setIocomeType} />
       </Field>
       <Field>
-        <GenreSelect
-          iocomeType={form.iocomeType}
-          genreId={form.genreId}
-          onChange={setGenreId}
-        />
+        <GenreSelect iocomeType={form.iocomeType} genreId={form.genreId} onChange={setGenreId} />
       </Field>
       <Field>
         <CategorySelect
@@ -90,12 +77,7 @@ export const TemplateForm: FC<Props> = ({ onComplete }) => {
         <MemoTextArea memo={form.memo} setMemo={setMemo} />
       </Field>
       <div className={"grid grid-cols-2 justify-items-center"}>
-        <Button
-          type={"add"}
-          onClick={handleRegister}
-          label={"登録"}
-          disabled={isDisabled}
-        />
+        <Button type={"add"} onClick={handleRegister} label={"登録"} disabled={isDisabled} />
         <Button type={"back"} onClick={resetForm} label={"クリア"} />
       </div>
     </div>

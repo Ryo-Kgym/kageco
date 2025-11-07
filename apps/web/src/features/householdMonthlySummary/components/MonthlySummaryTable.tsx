@@ -97,17 +97,12 @@ export const MonthlySummaryTable: FC<Props> = ({
                   <FormatPrice price={income} iocomeType={IocomeType.Income} />
                 </div>
                 <div style={{ textAlign: "right" }}>
-                  <FormatPrice
-                    price={outcome}
-                    iocomeType={IocomeType.Outcome}
-                  />
+                  <FormatPrice price={outcome} iocomeType={IocomeType.Outcome} />
                 </div>
                 <div style={{ textAlign: "right" }}>
                   <FormatPrice
                     price={income - outcome}
-                    iocomeType={
-                      income > outcome ? IocomeType.Income : IocomeType.Outcome
-                    }
+                    iocomeType={income > outcome ? IocomeType.Income : IocomeType.Outcome}
                   />
                 </div>
               </div>
@@ -119,9 +114,7 @@ export const MonthlySummaryTable: FC<Props> = ({
           title: "合計",
           width: 100,
           textAlign: "right",
-          render: ({ total, iocomeType }) => (
-            <FormatPrice price={total} iocomeType={iocomeType} />
-          ),
+          render: ({ total, iocomeType }) => <FormatPrice price={total} iocomeType={iocomeType} />,
           footer: (() => {
             const income = incomeTotal ? incomeTotal.total : 0;
             const outcome = outcomeTotal ? outcomeTotal.total : 0;
@@ -131,17 +124,12 @@ export const MonthlySummaryTable: FC<Props> = ({
                   <FormatPrice price={income} iocomeType={IocomeType.Income} />
                 </div>
                 <div style={{ textAlign: "right" }}>
-                  <FormatPrice
-                    price={outcome}
-                    iocomeType={IocomeType.Outcome}
-                  />
+                  <FormatPrice price={outcome} iocomeType={IocomeType.Outcome} />
                 </div>
                 <div style={{ textAlign: "right" }}>
                   <FormatPrice
                     price={income - outcome}
-                    iocomeType={
-                      income > outcome ? IocomeType.Income : IocomeType.Outcome
-                    }
+                    iocomeType={income > outcome ? IocomeType.Income : IocomeType.Outcome}
                   />
                 </div>
               </div>

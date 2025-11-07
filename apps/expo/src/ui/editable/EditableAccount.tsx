@@ -5,11 +5,7 @@ import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
 import type { EditableProps } from "~/ui/editable/editable-props";
 import { Picker } from "../Picker";
 
-export const EditableAccount = ({
-  value,
-  setValue,
-  disabled = false,
-}: EditableProps<string>) => {
+export const EditableAccount = ({ value, setValue, disabled = false }: EditableProps<string>) => {
   const { groupId } = useSaveGroupId();
   const [{ data }] = useGetValidAccountsQuery({
     variables: {

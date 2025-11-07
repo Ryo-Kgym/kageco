@@ -2,18 +2,13 @@ import { useEffect, useState } from "react";
 
 import { YYYYmmDD } from "@/util/date/date";
 import { IocomeType } from "../../../domain/model/household/IocomeType";
-import type {
-  CreditDetailEditDisplayState,
-  CreditDetailEditFormState,
-} from "../types/type";
+import type { CreditDetailEditDisplayState, CreditDetailEditFormState } from "../types/type";
 import { fetchCreditCardDetailById } from "../useServer/fetchCreditCardDetailById";
 
 export const useStateCreditDetail = ({ id }: { id: string }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [formData, setFormData] = useState<
-    CreditDetailEditFormState | undefined
-  >(undefined);
+  const [formData, setFormData] = useState<CreditDetailEditFormState | undefined>(undefined);
   const [display, setDisplay] = useState<CreditDetailEditDisplayState>({
     id: "",
     date: new Date(),

@@ -21,18 +21,12 @@ const Page = async ({
   switch (type) {
     case "category": {
       return (
-        <CategoryChartServer
-          fromDate={convertToDate(fromDate)}
-          toDate={convertToDate(toDate)}
-        />
+        <CategoryChartServer fromDate={convertToDate(fromDate)} toDate={convertToDate(toDate)} />
       );
     }
     default: {
       return (
-        <BalanceChartPageServer
-          fromDate={convertToDate(fromDate)}
-          toDate={convertToDate(toDate)}
-        />
+        <BalanceChartPageServer fromDate={convertToDate(fromDate)} toDate={convertToDate(toDate)} />
       );
     }
   }

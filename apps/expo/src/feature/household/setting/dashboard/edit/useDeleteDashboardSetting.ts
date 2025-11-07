@@ -1,8 +1,7 @@
 import { useDeleteDashboardSettingMutation } from "@v3/graphql/household";
 
 export const useDeleteDashboardSetting = () => {
-  const [{ error }, deleteDashboardSettingMutation] =
-    useDeleteDashboardSettingMutation();
+  const [{ error }, deleteDashboardSettingMutation] = useDeleteDashboardSettingMutation();
 
   const deleteDashboardSetting = async (settingId: string) => {
     try {

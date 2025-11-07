@@ -11,8 +11,7 @@ export const useGetTransferCategory = () => {
     },
     requestPolicy: "cache-first",
   });
-  const { incomeCategory, outcomeCategory } =
-    transferCategoryData?.transferCategory ?? {};
+  const { incomeCategory, outcomeCategory } = transferCategoryData?.transferCategory ?? {};
 
   return {
     incomeCategory: {

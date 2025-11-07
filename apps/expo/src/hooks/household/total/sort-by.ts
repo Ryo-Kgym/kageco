@@ -5,10 +5,7 @@ type sortKey = "amount";
 export const sortBy: Record<
   sortKey,
   {
-    [orientation in "asc" | "desc"]: (
-      a: WithAmountType,
-      b: WithAmountType,
-    ) => number;
+    [orientation in "asc" | "desc"]: (a: WithAmountType, b: WithAmountType) => number;
   }
 > = {
   amount: {

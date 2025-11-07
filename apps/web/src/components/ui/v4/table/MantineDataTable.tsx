@@ -38,9 +38,7 @@ export const MantineDataTable = <R extends object>({
   rowClassName,
 }: DataTableProps<R>) => {
   const [page, setPage] = useState(1);
-  const [selectedRecords, setSelectedRecords] = useState<DataTableRowType<R>[]>(
-    [],
-  );
+  const [selectedRecords, setSelectedRecords] = useState<DataTableRowType<R>[]>([]);
   const {
     filteredRecords: filteredDefaultRecords,
     filterValues,
@@ -48,9 +46,7 @@ export const MantineDataTable = <R extends object>({
     clearFilter,
   } = useTableFilter<R>(defaultRecords);
 
-  const [records, setRecords] = useState(
-    filteredDefaultRecords?.slice(0, recordsPerPage),
-  );
+  const [records, setRecords] = useState(filteredDefaultRecords?.slice(0, recordsPerPage));
 
   // ページが変更されたとき、またはフィルターが変更されたときにレコードを更新
   useEffect(() => {
@@ -110,18 +106,12 @@ export const MantineDataTable = <R extends object>({
       paginationSize="md"
       loadingText="読み込み中..."
       noRecordsText="データがありません"
-      paginationText={({ from, to, totalRecords }) =>
-        `${totalRecords}件中 ${from}〜${to}件を表示`
-      }
+      paginationText={({ from, to, totalRecords }) => `${totalRecords}件中 ${from}〜${to}件を表示`}
       paginationActiveBackgroundColor="green"
       paginationActiveTextColor="#e6e348"
-      onRowClick={
-        onRowClick ? (record) => onRowClick(record.record) : undefined
-      }
+      onRowClick={onRowClick ? (record) => onRowClick(record.record) : undefined}
       rowClassName={(record) => {
-        const baseClass = onRowClick
-          ? "cursor-pointer hover:bg-gray-100"
-          : "hover:bg-gray-100";
+        const baseClass = onRowClick ? "cursor-pointer hover:bg-gray-100" : "hover:bg-gray-100";
 
         // カスタムのrowClassNameが提供されている場合はそれを使用
         return rowClassName ? rowClassName(record) : baseClass;

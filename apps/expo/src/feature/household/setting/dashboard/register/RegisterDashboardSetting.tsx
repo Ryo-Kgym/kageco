@@ -15,8 +15,7 @@ export const RegisterDashboardSetting = ({
   registerAfterHandler?: () => void;
 }) => {
   const [feature, setFeature] = useState<Feature>("balance");
-  const [argsMapTypes, setArgsMapTypes] =
-    useState<ArgsMapType[]>(defaultArgsMapTypes);
+  const [argsMapTypes, setArgsMapTypes] = useState<ArgsMapType[]>(defaultArgsMapTypes);
   const { registerDashboardSetting } = useRegisterDashboardSetting();
 
   const registerHandler = async () => {

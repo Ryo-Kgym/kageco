@@ -13,12 +13,12 @@ import { Modal, RegisterButton } from "~/ui";
 export const FavoriteFilterList = () => {
   const [registerVisible, setRegisterVisible] = useState(false);
   const [editVisible, setEditVisible] = useState(false);
-  const [editFilter, setEditFilter] = useState<
-    ComponentProps<typeof EditFavoriteFilter>["filter"]
-  >({
-    id: "",
-    name: "",
-  });
+  const [editFilter, setEditFilter] = useState<ComponentProps<typeof EditFavoriteFilter>["filter"]>(
+    {
+      id: "",
+      name: "",
+    },
+  );
 
   const { push } = useRouter();
   const { groupId } = useSaveGroupId();
@@ -70,10 +70,7 @@ export const FavoriteFilterList = () => {
         <RegisterFavoriteFilter />
       </Modal>
       <Modal visible={editVisible} setVisible={setEditVisible}>
-        <EditFavoriteFilter
-          filter={editFilter}
-          updateAfterHandler={() => setEditVisible(false)}
-        />
+        <EditFavoriteFilter filter={editFilter} updateAfterHandler={() => setEditVisible(false)} />
       </Modal>
     </View>
   );

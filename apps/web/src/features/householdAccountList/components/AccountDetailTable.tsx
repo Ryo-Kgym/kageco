@@ -47,10 +47,7 @@ export const AccountDetailTable = ({
             width: "10%",
             textAlign: "right",
             render: ({ amount, iocomeType }) => (
-              <FormatPrice
-                price={amount}
-                iocomeType={iocomeType as IocomeType}
-              />
+              <FormatPrice price={amount} iocomeType={iocomeType as IocomeType} />
             ),
           },
           {

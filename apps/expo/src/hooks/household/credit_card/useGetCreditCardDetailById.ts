@@ -12,9 +12,7 @@ export const useGetCreditCardDetailById = ({ id }: { id: string }) => {
 
   const creditCardDetail: CreditCardDetail = {
     id: data?.creditCardDetail?.id ?? "",
-    date: data?.creditCardDetail?.date
-      ? new Date(data?.creditCardDetail?.date)
-      : undefined,
+    date: data?.creditCardDetail?.date ? new Date(data?.creditCardDetail?.date) : undefined,
     account: data?.creditCardDetail?.summary.account ?? { id: "", name: "" },
     amount: (data?.creditCardDetail?.amount as number) ?? 0,
     category: data?.creditCardDetail?.category ?? { id: "", name: "" },

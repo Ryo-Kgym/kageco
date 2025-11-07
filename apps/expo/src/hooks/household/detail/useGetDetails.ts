@@ -15,10 +15,7 @@ import { calcTotal } from "./calc-total";
 export const useGetDetails = <T extends DetailBase>({
   fromDate,
   toDate,
-  converter: {
-    daily: dailyConverter,
-    creditCardSummary: creditCardSummaryConverter,
-  },
+  converter: { daily: dailyConverter, creditCardSummary: creditCardSummaryConverter },
   filter = {
     term: {
       income: () => true,
@@ -53,18 +50,12 @@ export const useGetDetails = <T extends DetailBase>({
     const details: T[] = [
       // 日次明細
       ...dailyDetailList
-        .filter(
-          (d) =>
-            d.date?.toISOString().slice(0, 10) ===
-            date.toISOString().slice(0, 10),
-        )
+        .filter((d) => d.date?.toISOString().slice(0, 10) === date.toISOString().slice(0, 10))
         .map(dailyConverter),
       // クレジットカードサマリ
       ...creditCardSummaryList
         .filter(
-          (d) =>
-            d.withdrawalDate?.toISOString().slice(0, 10) ===
-            date.toISOString().slice(0, 10),
+          (d) => d.withdrawalDate?.toISOString().slice(0, 10) === date.toISOString().slice(0, 10),
         )
         .map(creditCardSummaryConverter),
     ];

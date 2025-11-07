@@ -22,10 +22,7 @@ export const LineBreakCodeSelect = ({
   );
 };
 
-const lineBreakCodeArray: Record<
-  string,
-  { value: LineBreakCode; label: string }
-> = {
+const lineBreakCodeArray: Record<string, { value: LineBreakCode; label: string }> = {
   lf: {
     value: "\n",
     label: "LF ( ¥n )",

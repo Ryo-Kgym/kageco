@@ -22,17 +22,11 @@ export async function POST(request: Request) {
     const { attendanceLogId, datetime, memo } = body;
 
     if (!attendanceLogId || typeof attendanceLogId !== "string") {
-      return NextResponse.json(
-        { error: "attendanceLogId is required" },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "attendanceLogId is required" }, { status: 400 });
     }
 
     if (!datetime || typeof datetime !== "string") {
-      return NextResponse.json(
-        { error: "datetime is required" },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "datetime is required" }, { status: 400 });
     }
 
     // 簡易な形式チェック（末尾ZのISO）。厳密な検証はTZDateTimeの責務外
@@ -63,16 +57,11 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("Error in fixAttendLog API:", error);
-    return NextResponse.json(
-      { error: "Failed to fix attendance log" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "Failed to fix attendance log" }, { status: 500 });
   }
 }
 
-const isYyyyMmDdHhMmSs = (
-  datetime: string,
-): datetime is YYYY_MM_DD_HH_MM_SS => {
+const isYyyyMmDdHhMmSs = (datetime: string): datetime is YYYY_MM_DD_HH_MM_SS => {
   return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/.test(datetime);
 };
 

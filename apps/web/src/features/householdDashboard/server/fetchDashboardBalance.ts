@@ -26,8 +26,7 @@ export const fetchDashboardBalance = async ({
 
   const accounts = data.account;
   const cash = accounts.reduce((acc, account) => {
-    const amount =
-      account.allDetailViewsAggregate.aggregate?.sum?.signedAmount ?? 0;
+    const amount = account.allDetailViewsAggregate.aggregate?.sum?.signedAmount ?? 0;
     return acc + amount;
   }, 0);
 

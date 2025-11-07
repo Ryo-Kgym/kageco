@@ -4,11 +4,7 @@ import { execMutation } from "../../database/server/execMutation";
 import { findUser } from "../server/find-user";
 import { sessionKeyBuilder } from "../sessionKeyBuilder";
 
-export const insertConditionSession = async (
-  key: string,
-  value: string[],
-  dataType: string,
-) => {
+export const insertConditionSession = async (key: string, value: string[], dataType: string) => {
   const { group } = await findUser();
 
   await execMutation(InsertConditionSessionDocument, {

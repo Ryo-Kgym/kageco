@@ -11,9 +11,7 @@ export const EditableAmount = ({
 }: EditableProps<number | null>) => (
   <FiledFrame>
     {disabled ? (
-      <Text className={"text-right text-xl text-gray-400"}>
-        {value?.toLocaleString()}
-      </Text>
+      <Text className={"text-right text-xl text-gray-400"}>{value?.toLocaleString()}</Text>
     ) : (
       <TextInput
         className={"text-right text-xl"}

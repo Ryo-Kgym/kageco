@@ -5,10 +5,7 @@ type YearPickerPresenterProps = {
   setYear: (_: Date | null) => void;
 };
 
-export const YearPickerPresenter = ({
-  year,
-  setYear,
-}: YearPickerPresenterProps) => {
+export const YearPickerPresenter = ({ year, setYear }: YearPickerPresenterProps) => {
   return (
     <YearPickerInput
       label="YEAR"

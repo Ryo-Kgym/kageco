@@ -1,8 +1,4 @@
-mutation updateDashboardSetting(
-  $settingId: String!
-  $feature: String!
-  $order: Int!
-) {
+mutation updateDashboardSetting($settingId: String!, $feature: String!, $order: Int!) {
   updateDashboardSetting: updateHouseholdDashboardSettingByPk(
     pkColumns: { id: $settingId }
     _set: { feature: $feature, order: $order }

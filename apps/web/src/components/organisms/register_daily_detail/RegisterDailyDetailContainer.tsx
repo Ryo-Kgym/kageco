@@ -26,12 +26,7 @@ export const RegisterDailyDetailContainer = ({ date }: { date: Date }) => {
     const accountIdIsInvalid = !form.accountId;
     const amountIsInvalid = !form.amount;
 
-    return (
-      genreIdIsInvalid ||
-      categoryIdIsInvalid ||
-      accountIdIsInvalid ||
-      amountIsInvalid
-    );
+    return genreIdIsInvalid || categoryIdIsInvalid || accountIdIsInvalid || amountIsInvalid;
   };
 
   const registerClickHandler = async () => {
@@ -78,9 +73,7 @@ export const RegisterDailyDetailContainer = ({ date }: { date: Date }) => {
           categoryId: "",
         })
       }
-      setGenreId={(value) =>
-        setForm({ ...form, genreId: value ?? "", categoryId: "" })
-      }
+      setGenreId={(value) => setForm({ ...form, genreId: value ?? "", categoryId: "" })}
       setCategoryId={(v) => setForm({ ...form, categoryId: v ?? "" })}
       setAccountId={(v) => setForm({ ...form, accountId: v ?? "" })}
       setAmount={(v) => setForm({ ...form, amount: v })}

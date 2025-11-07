@@ -35,8 +35,7 @@ export const MonthlyCalendar = () => {
 
   // 勤怠データの状態
   const [loading, setLoading] = useState(false);
-  const [attendanceData, setAttendanceData] =
-    useState<MonthlyAttendanceData | null>(null);
+  const [attendanceData, setAttendanceData] = useState<MonthlyAttendanceData | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // 選択された日の状態
@@ -117,17 +116,11 @@ export const MonthlyCalendar = () => {
     <View style={styles.calendarContainer}>
       {/* 月切り替えナビゲーション */}
       <View style={styles.navigation}>
-        <TouchableOpacity
-          onPress={() => changeMonth(-1)}
-          style={styles.navButton}
-        >
+        <TouchableOpacity onPress={() => changeMonth(-1)} style={styles.navButton}>
           <Text style={styles.navButtonText}>前月</Text>
         </TouchableOpacity>
         <Text style={styles.monthTitle}>{`${year}年${month + 1}月`}</Text>
-        <TouchableOpacity
-          onPress={() => changeMonth(1)}
-          style={styles.navButton}
-        >
+        <TouchableOpacity onPress={() => changeMonth(1)} style={styles.navButton}>
           <Text style={styles.navButtonText}>翌月</Text>
         </TouchableOpacity>
       </View>
@@ -182,18 +175,10 @@ export const MonthlyCalendar = () => {
                 <Text style={[styles.dayCell, { color: day.dayOfWeekColor }]}>
                   {getDayOfWeekJapanese(day.dayOfWeek)}
                 </Text>
-                <Text style={styles.cell}>
-                  {formatTime(day.startDatetime, "")}
-                </Text>
-                <Text style={styles.cell}>
-                  {formatTime(day.endDatetime, "")}
-                </Text>
-                <Text style={styles.cell}>
-                  {formatSeconds(day.workSecond, "")}
-                </Text>
-                <Text style={styles.cell}>
-                  {formatMinutes(day.breakSecond, "")}
-                </Text>
+                <Text style={styles.cell}>{formatTime(day.startDatetime, "")}</Text>
+                <Text style={styles.cell}>{formatTime(day.endDatetime, "")}</Text>
+                <Text style={styles.cell}>{formatSeconds(day.workSecond, "")}</Text>
+                <Text style={styles.cell}>{formatMinutes(day.breakSecond, "")}</Text>
               </TouchableOpacity>
             );
           })}

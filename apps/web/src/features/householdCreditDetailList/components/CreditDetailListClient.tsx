@@ -16,11 +16,7 @@ type Props = {
   summary: ComponentProps<typeof CreditSummaryTable>;
   details: CreditDetailRow[];
 };
-export const CreditDetailListClient: FC<Props> = ({
-  creditCardSummaryId,
-  summary,
-  details,
-}) => {
+export const CreditDetailListClient: FC<Props> = ({ creditCardSummaryId, summary, details }) => {
   const { push } = useRouter();
 
   const tableProps: TableProps[] =
@@ -34,20 +30,14 @@ export const CreditDetailListClient: FC<Props> = ({
         },
         { value: detail.categoryName },
         {
-          value: (
-            <FormatPrice iocomeType={detail.iocomeType} price={detail.amount} />
-          ),
+          value: <FormatPrice iocomeType={detail.iocomeType} price={detail.amount} />,
           align: "right",
         },
         {
           value: (
             <div className={"flex items-center"}>
               {detail.tags.map((tag) => (
-                <Tag
-                  key={tag.value}
-                  label={tag.label}
-                  colorCode={tag.colorCode}
-                />
+                <Tag key={tag.value} label={tag.label} colorCode={tag.colorCode} />
               ))}
               <span>{detail.memo}</span>
             </div>

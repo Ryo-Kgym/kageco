@@ -19,10 +19,7 @@ query getValidCategoryByGenreId($groupId: String!, $genreId: String!) {
     __typename
     id
     name
-    categories(
-      where: { validFlag: { _eq: true } }
-      orderBy: { displayOrder: ASC }
-    ) {
+    categories(where: { validFlag: { _eq: true } }, orderBy: { displayOrder: ASC }) {
       __typename
       id
       name

@@ -13,10 +13,7 @@ export class MonthlyRemaining {
     this.workSecondsLower = params.workSecondsLower;
   }
 
-  static of(
-    plan: MonthlyPlan,
-    achievement: MonthlyAchievement,
-  ): MonthlyRemaining {
+  static of(plan: MonthlyPlan, achievement: MonthlyAchievement): MonthlyRemaining {
     const businessDays = plan.businessDays - achievement.businessDays;
     const workSecondsLower = plan.workSecondLower - achievement.workedSeconds;
 

@@ -119,10 +119,7 @@ export const ModifyDailyDetail = ({
         />
       </Field>
       <Field>
-        <MemoTextArea
-          memo={form.memo}
-          setMemo={(value) => setForm({ ...form, memo: value })}
-        />
+        <MemoTextArea memo={form.memo} setMemo={(value) => setForm({ ...form, memo: value })} />
       </Field>
       <Field>
         <TagInputWrapper

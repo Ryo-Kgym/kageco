@@ -23,10 +23,9 @@ export const DuplicateDailyDetail = ({
   id: string;
   onClose: () => void;
 }) => {
-  const { loading, form, setForm, initState, resetForm } =
-    useStateDuplicateDailyDetail({
-      id,
-    });
+  const { loading, form, setForm, initState, resetForm } = useStateDuplicateDailyDetail({
+    id,
+  });
   const { refresh } = useNavigation();
 
   const registerClick = async () => {
@@ -107,10 +106,7 @@ export const DuplicateDailyDetail = ({
         />
       </Field>
       <Field>
-        <MemoTextArea
-          memo={form.memo}
-          setMemo={(value) => setForm({ ...form, memo: value })}
-        />
+        <MemoTextArea memo={form.memo} setMemo={(value) => setForm({ ...form, memo: value })} />
       </Field>
       <div className={"flex justify-items-center"}>
         <Button type={"create"} label={"登録"} onClick={registerClick} />

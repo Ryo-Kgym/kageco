@@ -28,11 +28,7 @@ export const AddFavoriteFilterArg = ({ filterId }: { filterId: string }) => {
     <View>
       <Text>Key</Text>
       <FavoriteFilterArgKeyPicker value={key} setValue={setKey} />
-      <FavoriteFilterArgValueInput
-        argKey={key}
-        value={value}
-        setValue={setValue}
-      />
+      <FavoriteFilterArgValueInput argKey={key} value={value} setValue={setValue} />
       <RegisterButton registerHandler={addHandler} />
     </View>
   );

@@ -6,10 +6,7 @@ import { TextInput } from "../../../components/ui/textInput/TextInput";
 import { DateInput } from "../../../components/ui/v4/dateInput/DateInput";
 import { errorPopup, successPopup } from "../../../function/successPopup";
 import { useStateCreditSummary } from "../hooks/useStateCreditSummary";
-import type {
-  SummaryDisplayState,
-  SummaryFormState,
-} from "../types/summaryProps";
+import type { SummaryDisplayState, SummaryFormState } from "../types/summaryProps";
 import { modifyCreditSummary } from "../useServer/modifyCreditSummary";
 import styles from "./CreditSummaryTable.module.scss";
 

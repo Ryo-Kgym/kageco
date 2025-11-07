@@ -5,10 +5,7 @@ query GetAllCategoryListWithCriteria(
   $categoryNotIn: [String!] = []
 ) {
   genres: householdGenre(
-    where: {
-      validFlag: { _in: $validCategoryIn }
-      _and: { iocomeType: { _in: $iocomeTypeIn } }
-    }
+    where: { validFlag: { _in: $validCategoryIn }, _and: { iocomeType: { _in: $iocomeTypeIn } } }
     orderBy: { displayOrder: ASC }
   ) {
     id
@@ -18,10 +15,7 @@ query GetAllCategoryListWithCriteria(
     validFlag
     displayOrder
     categories(
-      where: {
-        validFlag: { _in: $validGenreIn }
-        _and: { id: { _nin: $categoryNotIn } }
-      }
+      where: { validFlag: { _in: $validGenreIn }, _and: { id: { _nin: $categoryNotIn } } }
       orderBy: { displayOrder: ASC }
     ) {
       id

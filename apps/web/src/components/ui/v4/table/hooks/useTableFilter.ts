@@ -4,9 +4,7 @@ import { useCallback, useMemo, useState } from "react";
 
 export type FilterState = Record<string, string>;
 
-export function useTableFilter<R extends object>(
-  records: ({ id: string } & R)[],
-) {
+export function useTableFilter<R extends object>(records: ({ id: string } & R)[]) {
   const [filterValues, setFilterValues] = useState<FilterState>({});
 
   const updateFilter = useCallback((key: string, value: string) => {

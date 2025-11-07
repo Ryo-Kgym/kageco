@@ -1,7 +1,5 @@
 query GetRecentDetails($groupId: String!, $startDate: date!) {
-  householdAllDetailView(
-    where: { groupId: { _eq: $groupId }, date: { _gte: $startDate } }
-  ) {
+  householdAllDetailView(where: { groupId: { _eq: $groupId }, date: { _gte: $startDate } }) {
     id
     categoryId
   }

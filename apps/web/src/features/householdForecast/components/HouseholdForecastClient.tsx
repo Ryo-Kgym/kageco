@@ -51,9 +51,7 @@ export const HouseholdForecastClient: FC<Props> = ({ forecastData }) => {
               <span className={styles.label}>収支:</span>
               <span
                 className={
-                  forecastData.currentMonth.balance >= 0
-                    ? styles.positive
-                    : styles.negative
+                  forecastData.currentMonth.balance >= 0 ? styles.positive : styles.negative
                 }
               >
                 {formatCurrency(forecastData.currentMonth.balance)}
@@ -67,9 +65,7 @@ export const HouseholdForecastClient: FC<Props> = ({ forecastData }) => {
           <div className={styles.cardContent}>
             <div className={styles.row}>
               <span className={styles.label}>収入:</span>
-              <span className={styles.income}>
-                {formatCurrency(forecastData.nextMonth.income)}
-              </span>
+              <span className={styles.income}>{formatCurrency(forecastData.nextMonth.income)}</span>
             </div>
             <div className={styles.row}>
               <span className={styles.label}>支出:</span>
@@ -80,11 +76,7 @@ export const HouseholdForecastClient: FC<Props> = ({ forecastData }) => {
             <div className={styles.row}>
               <span className={styles.label}>収支:</span>
               <span
-                className={
-                  forecastData.nextMonth.balance >= 0
-                    ? styles.positive
-                    : styles.negative
-                }
+                className={forecastData.nextMonth.balance >= 0 ? styles.positive : styles.negative}
               >
                 {formatCurrency(forecastData.nextMonth.balance)}
               </span>
@@ -111,9 +103,7 @@ export const HouseholdForecastClient: FC<Props> = ({ forecastData }) => {
               <span className={styles.label}>収支:</span>
               <span
                 className={
-                  forecastData.nextThreeMonths.balance >= 0
-                    ? styles.positive
-                    : styles.negative
+                  forecastData.nextThreeMonths.balance >= 0 ? styles.positive : styles.negative
                 }
               >
                 {formatCurrency(forecastData.nextThreeMonths.balance)}
@@ -141,9 +131,7 @@ export const HouseholdForecastClient: FC<Props> = ({ forecastData }) => {
               <span className={styles.label}>収支:</span>
               <span
                 className={
-                  forecastData.nextSixMonths.balance >= 0
-                    ? styles.positive
-                    : styles.negative
+                  forecastData.nextSixMonths.balance >= 0 ? styles.positive : styles.negative
                 }
               >
                 {formatCurrency(forecastData.nextSixMonths.balance)}

@@ -21,10 +21,7 @@ export async function POST(request: Request) {
 
     // Validate required parameters
     if (!userId || !groupId) {
-      return NextResponse.json(
-        { error: "userId and groupId are required" },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "userId and groupId are required" }, { status: 400 });
     }
 
     // Current date and time
@@ -86,10 +83,7 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("Error in attendOrLeaveWork API:", error);
-    return NextResponse.json(
-      { error: "Failed to process attendance request" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "Failed to process attendance request" }, { status: 500 });
   }
 }
 
@@ -103,25 +97,16 @@ export async function GET(request: Request) {
 
     // 必須パラメータの検証
     if (!baseDate) {
-      return NextResponse.json(
-        { error: "baseDate is required" },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "baseDate is required" }, { status: 400 });
     }
 
     if (!userId || !groupId) {
-      return NextResponse.json(
-        { error: "userId and groupId are required" },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "userId and groupId are required" }, { status: 400 });
     }
 
     // 日付形式の検証
     if (!/^\d{4}-\d{2}-\d{2}$/.test(baseDate)) {
-      return NextResponse.json(
-        { error: "baseDate must be in YYYY-MM-DD format" },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "baseDate must be in YYYY-MM-DD format" }, { status: 400 });
     }
 
     // 勤怠データを取得
@@ -131,9 +116,6 @@ export async function GET(request: Request) {
     return NextResponse.json(attendanceData);
   } catch (error) {
     console.error("Error in attendOrLeaveWork GET API:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch attendance data" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "Failed to fetch attendance data" }, { status: 500 });
   }
 }

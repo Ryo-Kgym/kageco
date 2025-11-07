@@ -24,10 +24,6 @@ export const AccountDetailTableServer = async ({
   });
 
   return (
-    <AccountDetailTable
-      records={records}
-      incomeTotal={incomeTotal}
-      outcomeTotal={outcomeTotal}
-    />
+    <AccountDetailTable records={records} incomeTotal={incomeTotal} outcomeTotal={outcomeTotal} />
   );
 };

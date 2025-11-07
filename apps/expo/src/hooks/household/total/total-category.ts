@@ -14,9 +14,7 @@ export const totalCategory = <T extends WithAmountType>({
 }): WithAmountType[] => {
   const categoryList = details
     .filter(filter)
-    .filter(
-      (x, i, arr) => arr.findIndex((y) => y.categoryId === x.categoryId) === i,
-    )
+    .filter((x, i, arr) => arr.findIndex((y) => y.categoryId === x.categoryId) === i)
     .map(
       ({ categoryId, categoryName }) =>
         ({

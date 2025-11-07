@@ -85,9 +85,7 @@ describe("CalcWorkTimeUsecase", () => {
     expect(findAttendanceGatewayMock.findBy).toHaveBeenCalledTimes(1);
 
     // CreateMonthlyPlanUsecaseが正しく作成されたことを確認
-    expect(CreateMonthlyPlanUsecase).toHaveBeenCalledWith(
-      createMonthlyPlanGatewayMock,
-    );
+    expect(CreateMonthlyPlanUsecase).toHaveBeenCalledWith(createMonthlyPlanGatewayMock);
 
     // 結果の検証
     expect(result).toEqual(
@@ -155,9 +153,7 @@ describe("CalcWorkTimeUsecase", () => {
     expect(findAttendanceGatewayMock.findBy).toHaveBeenCalledTimes(1);
 
     // CreateMonthlyPlanUsecaseが正しく作成されたことを確認
-    expect(CreateMonthlyPlanUsecase).toHaveBeenCalledWith(
-      createMonthlyPlanGatewayMock,
-    );
+    expect(CreateMonthlyPlanUsecase).toHaveBeenCalledWith(createMonthlyPlanGatewayMock);
 
     // 結果の検証
     expect(result.monthlyPlanned).toEqual({

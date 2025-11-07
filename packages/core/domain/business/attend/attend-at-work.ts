@@ -8,8 +8,7 @@ export class AttendAtWork {
   }
 
   attend(attendTime: TZDateTime) {
-    const breakMilliSecond =
-      attendTime.getTimeSecond() - this.lastLeaveTime.getTimeSecond();
+    const breakMilliSecond = attendTime.getTimeSecond() - this.lastLeaveTime.getTimeSecond();
 
     return {
       breakSecond: Math.floor(breakMilliSecond),

@@ -34,18 +34,10 @@ export const ReactNativePicker = <T,>({
                 (disabled && d.value === value),
             )
             .map((d) => (
-              <Picker.Item
-                key={String(d.value)}
-                label={d.label}
-                value={d.value}
-              />
+              <Picker.Item key={String(d.value)} label={d.label} value={d.value} />
             ))}
         </Picker>
-        {typeof description === "string" ? (
-          <Text>{description}</Text>
-        ) : (
-          description
-        )}
+        {typeof description === "string" ? <Text>{description}</Text> : description}
       </Modal>
     </>
   );

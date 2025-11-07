@@ -92,11 +92,7 @@ export const SortFrequentlyUsedCategoriesButton: FC = () => {
       {isPending && message && (
         <div
           className={`mt-4 p-2 rounded ${
-            isSuccess === null
-              ? "bg-gray-100"
-              : isSuccess
-                ? "bg-green-100"
-                : "bg-red-100"
+            isSuccess === null ? "bg-gray-100" : isSuccess ? "bg-green-100" : "bg-red-100"
           }`}
         >
           <p className="text-sm">{message}</p>

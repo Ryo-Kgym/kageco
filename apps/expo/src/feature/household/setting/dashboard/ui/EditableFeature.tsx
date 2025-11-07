@@ -8,15 +8,6 @@ const featureOptions = Object.keys(featureMap).map((f) => ({
   value: f as Feature,
 }));
 
-export const EditableFeature = ({
-  value,
-  setValue,
-  disabled,
-}: EditableProps<Feature>) => (
-  <Picker
-    value={value}
-    setValue={setValue}
-    data={featureOptions}
-    disabled={disabled}
-  />
+export const EditableFeature = ({ value, setValue, disabled }: EditableProps<Feature>) => (
+  <Picker value={value} setValue={setValue} data={featureOptions} disabled={disabled} />
 );

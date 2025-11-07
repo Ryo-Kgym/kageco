@@ -1,10 +1,9 @@
 import { Picker } from "~/ui/Picker";
 import type { FavoriteFilterArgValueInputComponent } from "../FavoriteFilterArgValueInput";
 
-export const YearInput: FavoriteFilterArgValueInputComponent = ({
-  value,
-  setValue,
-}) => <Picker value={value} setValue={setValue} data={generateYearData()} />;
+export const YearInput: FavoriteFilterArgValueInputComponent = ({ value, setValue }) => (
+  <Picker value={value} setValue={setValue} data={generateYearData()} />
+);
 
 const generateYearData = () => {
   const range = { min: -5, max: 0 };

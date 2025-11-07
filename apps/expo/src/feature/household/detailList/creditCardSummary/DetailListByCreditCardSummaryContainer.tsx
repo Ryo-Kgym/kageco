@@ -23,8 +23,7 @@ export const DetailListByCreditCardSummaryContainer = ({
     memo: detail.memo,
     amount: detail.amount,
     iocomeType: detail.genre.iocomeType,
-    redirectHandler: () =>
-      push(paths.household.creditCardDetail({ id: detail.id })),
+    redirectHandler: () => push(paths.household.creditCardDetail({ id: detail.id })),
   }));
 
   return <Details details={details} />;

@@ -8,12 +8,7 @@ export type Feature =
   | "setting"
   | "reload";
 
-export type ArgsType =
-  | "year"
-  | "month"
-  | "genreType"
-  | "iocomeType"
-  | "filterId";
+export type ArgsType = "year" | "month" | "genreType" | "iocomeType" | "filterId";
 
 export type GenreParamType = "FLC" | "FXD" | "ALL";
 

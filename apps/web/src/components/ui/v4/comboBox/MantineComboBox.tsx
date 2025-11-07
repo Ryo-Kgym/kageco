@@ -3,17 +3,9 @@ import { type FC, useMemo } from "react";
 
 import type { ComboBoxProps } from "./index";
 
-export const MantineComboBox: FC<ComboBoxProps> = ({
-  value,
-  setValue,
-  data,
-  label,
-}) => {
+export const MantineComboBox: FC<ComboBoxProps> = ({ value, setValue, data, label }) => {
   const labelMap = useMemo(
-    () =>
-      Object.fromEntries(
-        Object.values(data).flatMap((v) => v.map((w) => [w.value, w.label])),
-      ),
+    () => Object.fromEntries(Object.values(data).flatMap((v) => v.map((w) => [w.value, w.label]))),
     [data],
   );
 
@@ -24,9 +16,7 @@ export const MantineComboBox: FC<ComboBoxProps> = ({
 
   const handleValueSelect = (val: string) =>
     setValue((current) =>
-      current.includes(val)
-        ? current.filter((v) => v !== val)
-        : [...current, val],
+      current.includes(val) ? current.filter((v) => v !== val) : [...current, val],
     );
 
   const handleValueRemove = (val: string) =>
@@ -38,11 +28,7 @@ export const MantineComboBox: FC<ComboBoxProps> = ({
         <PillsInput onClick={() => combobox.openDropdown()} label={label}>
           <Pill.Group>
             {value.map((v) => (
-              <Pill
-                key={v}
-                withRemoveButton
-                onRemove={() => handleValueRemove(v)}
-              >
+              <Pill key={v} withRemoveButton onRemove={() => handleValueRemove(v)}>
                 {labelMap[v]}
               </Pill>
             ))}

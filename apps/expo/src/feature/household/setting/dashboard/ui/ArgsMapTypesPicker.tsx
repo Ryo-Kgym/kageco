@@ -1,9 +1,6 @@
 import { Text } from "react-native";
 
-import type {
-  ArgsMapType,
-  ArgsType,
-} from "~/feature/household/setting/dashboard/type";
+import type { ArgsMapType, ArgsType } from "~/feature/household/setting/dashboard/type";
 import { Picker } from "~/ui/Picker";
 import { usePickerSetting } from "./usePickerSetting";
 

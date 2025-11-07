@@ -5,11 +5,7 @@ type Props = {
   onChange: (_: boolean) => void;
   disabled?: boolean;
 };
-export const ValiditySegment = ({
-  isValid,
-  onChange,
-  disabled = false,
-}: Props) => {
+export const ValiditySegment = ({ isValid, onChange, disabled = false }: Props) => {
   return (
     <Segment
       value={String(isValid)}

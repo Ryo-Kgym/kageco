@@ -1,10 +1,4 @@
-import {
-  Keyboard,
-  KeyboardAvoidingView,
-  Text,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { Keyboard, KeyboardAvoidingView, Text, TouchableWithoutFeedback, View } from "react-native";
 
 import type { IocomeType } from "~/types/iocome-type";
 import {
@@ -61,11 +55,7 @@ export const EditDailyPresenter = ({
       <View className={"gap-3"}>
         <View>
           <Text>日付</Text>
-          <EditableDate
-            value={date.value}
-            setValue={date.setValue}
-            loadingValue={"-"}
-          />
+          <EditableDate value={date.value} setValue={date.setValue} loadingValue={"-"} />
         </View>
         <View>
           <Text>タイプ</Text>

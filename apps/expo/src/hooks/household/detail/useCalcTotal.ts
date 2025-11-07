@@ -36,12 +36,8 @@ export const useCalcTotal = ({
     },
     filter: {
       term: {
-        income: (d) =>
-          d.categoryId !==
-          transData?.transferCategory?.incomeCategory.categoryId,
-        outcome: (d) =>
-          d.categoryId !==
-          transData?.transferCategory?.outcomeCategory.categoryId,
+        income: (d) => d.categoryId !== transData?.transferCategory?.incomeCategory.categoryId,
+        outcome: (d) => d.categoryId !== transData?.transferCategory?.outcomeCategory.categoryId,
       },
     },
   });

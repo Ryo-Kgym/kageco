@@ -6,11 +6,4 @@ export const ButtonUpdate = ({
 }: {
   updateHandler: () => void;
   disabled?: boolean;
-}) => (
-  <Button
-    title={"更新"}
-    onPress={updateHandler}
-    disabled={disabled}
-    color={"#0000FF"}
-  />
-);
+}) => <Button title={"更新"} onPress={updateHandler} disabled={disabled} color={"#0000FF"} />;

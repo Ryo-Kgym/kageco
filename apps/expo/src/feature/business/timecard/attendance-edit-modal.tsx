@@ -1,12 +1,5 @@
 import { useMemo } from "react";
-import {
-  Modal,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { EditableDateTime } from "~/ui/editable/EditableDateTime";
 import type { AttendanceLog } from "./types";
 
@@ -41,12 +34,7 @@ export const AttendanceEditModal = ({
   );
 
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="fade"
-      onRequestClose={onClose}
-    >
+    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       <View style={styles.modalBackdrop}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalTitle}>勤怠ログの編集</Text>
@@ -86,10 +74,7 @@ export const AttendanceEditModal = ({
             >
               <Text style={styles.smallButtonText}>閉じる</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.smallButton, styles.primaryButton]}
-              onPress={onUpdate}
-            >
+            <TouchableOpacity style={[styles.smallButton, styles.primaryButton]} onPress={onUpdate}>
               <Text style={styles.smallButtonText}>更新</Text>
             </TouchableOpacity>
           </View>

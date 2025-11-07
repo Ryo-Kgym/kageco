@@ -1,7 +1,4 @@
-mutation updateCreditSummary(
-  $id: String!
-  $form: HouseholdCreditCardSummarySetInput!
-) {
+mutation updateCreditSummary($id: String!, $form: HouseholdCreditCardSummarySetInput!) {
   updateCreditCardSummary: updateHouseholdCreditCardSummaryByPk(
     pkColumns: { id: $id }
     _set: $form

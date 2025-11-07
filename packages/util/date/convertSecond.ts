@@ -1,7 +1,4 @@
-export const convertSecondToMinute = (
-  second: number | undefined,
-  alternativeValue = "",
-) => {
+export const convertSecondToMinute = (second: number | undefined, alternativeValue = "") => {
   if (second === undefined) {
     return {
       minute: undefined,
@@ -19,10 +16,7 @@ export const convertSecondToMinute = (
   };
 };
 
-export const convertSecondToHour = (
-  second: number | undefined,
-  alternativeValue = "",
-) => {
+export const convertSecondToHour = (second: number | undefined, alternativeValue = "") => {
   if (second === undefined) {
     return {
       hour: undefined,

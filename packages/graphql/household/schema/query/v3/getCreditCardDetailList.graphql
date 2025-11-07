@@ -1,13 +1,6 @@
-query getCreditCardDetailList(
-  $fromDate: date!
-  $toDate: date!
-  $groupId: String!
-) {
+query getCreditCardDetailList($fromDate: date!, $toDate: date!, $groupId: String!) {
   creditCardDetails: householdCreditCardDetail(
-    where: {
-      date: { _gte: $fromDate, _lte: $toDate }
-      _and: { groupId: { _eq: $groupId } }
-    }
+    where: { date: { _gte: $fromDate, _lte: $toDate }, _and: { groupId: { _eq: $groupId } } }
   ) {
     ...fragCreditCardDetail
   }

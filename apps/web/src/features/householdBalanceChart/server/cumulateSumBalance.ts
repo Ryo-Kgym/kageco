@@ -10,8 +10,7 @@ export const cumulateSumBalance = (data: SumBalance) => {
       }
     >
   >((acc, [yearMonth, value]) => {
-    const prevCumulative =
-      acc[Object.keys(acc).pop() ?? ""]?.cumulativeCash ?? 0;
+    const prevCumulative = acc[Object.keys(acc).pop() ?? ""]?.cumulativeCash ?? 0;
     const prevAssets = acc[Object.keys(acc).pop() ?? ""]?.cumulativeAssets ?? 0;
     return {
       ...acc,

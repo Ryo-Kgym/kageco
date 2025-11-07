@@ -138,9 +138,7 @@ export const ModalTableSelect = ({
             if (typeof subItem === "string") {
               return subItem.toLowerCase().includes(searchQuery.toLowerCase());
             }
-            return subItem.label
-              .toLowerCase()
-              .includes(searchQuery.toLowerCase());
+            return subItem.label.toLowerCase().includes(searchQuery.toLowerCase());
           });
 
           // Return the group with filtered items if any match
@@ -176,10 +174,7 @@ export const ModalTableSelect = ({
       } else if ("items" in item) {
         // ComboboxItemGroup
         items.push(
-          <div
-            key={`group-${item.group}`}
-            className={`${styles.groupHeader} ${styles.fullWidth}`}
-          >
+          <div key={`group-${item.group}`} className={`${styles.groupHeader} ${styles.fullWidth}`}>
             {item.group}
           </div>,
         );
@@ -253,10 +248,7 @@ export const ModalTableSelect = ({
             className={styles.searchInput}
           />
         </div>
-        <div
-          className={styles.tableContainer}
-          style={{ height: `${calculateModalHeight()}px` }}
-        >
+        <div className={styles.tableContainer} style={{ height: `${calculateModalHeight()}px` }}>
           <div
             className={styles.gridContainer}
             style={{

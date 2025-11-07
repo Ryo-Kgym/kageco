@@ -62,8 +62,7 @@ export const useGetCategoryTotal = ({
       d.categoryId !== data?.group?.transfer?.outcomeCategoryId,
   }).sort(sort);
 
-  const calcTotal = () =>
-    categoryTotal.reduce((acc, cur) => acc + cur.amount, 0);
+  const calcTotal = () => categoryTotal.reduce((acc, cur) => acc + cur.amount, 0);
 
   return {
     categoryTotal,

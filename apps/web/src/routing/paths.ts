@@ -26,8 +26,7 @@ export const paths = {
       }: {
         creditCardSummaryId: string;
         creditDetailId: string;
-      }) =>
-        `/household/creditCard/${creditCardSummaryId}/edit/${creditDetailId}`,
+      }) => `/household/creditCard/${creditCardSummaryId}/edit/${creditDetailId}`,
       add: ({ creditCardSummaryId }: { creditCardSummaryId: string }) =>
         `/household/creditCard/${creditCardSummaryId}/add`,
     },

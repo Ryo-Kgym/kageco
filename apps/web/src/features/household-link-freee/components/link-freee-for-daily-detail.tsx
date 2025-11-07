@@ -49,19 +49,14 @@ export const LinkFreeeForDailyDetail: FC<Props> = ({ id, onClose }) => {
             <div className={styles.card}>
               {/* 基本情報 */}
               <div className={styles.formField}>
-                <label
-                  htmlFor="issueDate"
-                  className={`${styles.formLabel} ${styles.required}`}
-                >
+                <label htmlFor="issueDate" className={`${styles.formLabel} ${styles.required}`}>
                   発生日
                 </label>
                 <input
                   id="issueDate"
                   type="date"
                   value={record.issueDate}
-                  onChange={(e) =>
-                    handleRecordChange("issueDate", e.target.value)
-                  }
+                  onChange={(e) => handleRecordChange("issueDate", e.target.value)}
                   className={styles.input}
                   required
                 />
@@ -119,10 +114,7 @@ export const LinkFreeeForDailyDetail: FC<Props> = ({ id, onClose }) => {
               </div>
 
               <div className={styles.formField}>
-                <label
-                  htmlFor="amount"
-                  className={`${styles.formLabel} ${styles.required}`}
-                >
+                <label htmlFor="amount" className={`${styles.formLabel} ${styles.required}`}>
                   金額
                 </label>
                 <input
@@ -143,28 +135,21 @@ export const LinkFreeeForDailyDetail: FC<Props> = ({ id, onClose }) => {
                   id="description"
                   type="text"
                   value={record.description}
-                  onChange={(e) =>
-                    handleRecordChange("description", e.target.value)
-                  }
+                  onChange={(e) => handleRecordChange("description", e.target.value)}
                   className={styles.input}
                 />
               </div>
 
               {/* 支払情報 */}
               <div className={styles.formField}>
-                <label
-                  htmlFor="paymentAmount"
-                  className={`${styles.formLabel} ${styles.required}`}
-                >
+                <label htmlFor="paymentAmount" className={`${styles.formLabel} ${styles.required}`}>
                   支払金額
                 </label>
                 <input
                   id="paymentAmount"
                   type="number"
                   value={record.paymentAmount}
-                  onChange={(e) =>
-                    handleRecordChange("paymentAmount", e.target.value)
-                  }
+                  onChange={(e) => handleRecordChange("paymentAmount", e.target.value)}
                   className={styles.input}
                   required
                 />
@@ -188,19 +173,14 @@ export const LinkFreeeForDailyDetail: FC<Props> = ({ id, onClose }) => {
               </div>
 
               <div className={styles.formField}>
-                <label
-                  htmlFor="paymentDate"
-                  className={`${styles.formLabel} ${styles.required}`}
-                >
+                <label htmlFor="paymentDate" className={`${styles.formLabel} ${styles.required}`}>
                   支払日
                 </label>
                 <input
                   id="paymentDate"
                   type="date"
                   value={record.paymentDate}
-                  onChange={(e) =>
-                    handleRecordChange("paymentDate", e.target.value)
-                  }
+                  onChange={(e) => handleRecordChange("paymentDate", e.target.value)}
                   className={styles.input}
                   required
                 />

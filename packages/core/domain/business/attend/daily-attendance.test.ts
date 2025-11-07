@@ -26,9 +26,7 @@ describe("DailyAttendance", () => {
         state: "leave",
         datetime: new TZDateTime("2025-10-19T16:00:00Z"),
       },
-    ] satisfies Parameters<
-      typeof DailyAttendance.replaceAndCreate
-    >[0]["dailyLogs"];
+    ] satisfies Parameters<typeof DailyAttendance.replaceAndCreate>[0]["dailyLogs"];
 
     const staticExpect = {
       date: new YYYYmmDD("2025-10-19"),

@@ -9,9 +9,7 @@ export const MonthChanger = ({
   changeHandler: (date: Date) => void;
 }) => {
   const changeBaseDate = (date: Date, addMonth?: number) => {
-    const addedDate = new Date(
-      date.setMonth(date.getMonth() + (addMonth ?? 0)),
-    );
+    const addedDate = new Date(date.setMonth(date.getMonth() + (addMonth ?? 0)));
     changeHandler(addedDate);
   };
 

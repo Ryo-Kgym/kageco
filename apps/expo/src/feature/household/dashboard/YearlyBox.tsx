@@ -6,11 +6,7 @@ import { useCalcTotal } from "~/hooks/household/detail/useCalcTotal";
 import { DashboardFrame } from "./DashboardFrame";
 
 export const YearlyBox = ({ year }: { year: Date }) => {
-  const {
-    firstDayOfYear,
-    lastDateNotGreaterThanToday,
-    year: yearNum,
-  } = getYear(year);
+  const { firstDayOfYear, lastDateNotGreaterThanToday, year: yearNum } = getYear(year);
 
   const { calcTotal } = useCalcTotal({
     fromDate: firstDayOfYear,
@@ -39,9 +35,7 @@ export const YearlyBox = ({ year }: { year: Date }) => {
         </View>
         <View className={"flex-row items-center"}>
           <Text className={"text-center"}>差引</Text>
-          <Text className={"w-40 text-right text-lg"}>
-            {balance.toLocaleString()}
-          </Text>
+          <Text className={"w-40 text-right text-lg"}>{balance.toLocaleString()}</Text>
         </View>
       </View>
     </DashboardFrame>

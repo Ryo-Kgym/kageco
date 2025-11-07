@@ -1,10 +1,4 @@
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import type { AttendanceLog } from "./types";
 import { formatTime } from "./utils";
 
@@ -19,10 +13,7 @@ interface AttendanceLogsViewProps {
   onItemPress?: (log: AttendanceLog) => void;
 }
 
-export const AttendanceLogsView = ({
-  logs,
-  onItemPress,
-}: AttendanceLogsViewProps) => {
+export const AttendanceLogsView = ({ logs, onItemPress }: AttendanceLogsViewProps) => {
   if (!logs?.length) {
     return (
       <View style={styles.container}>
@@ -47,18 +38,12 @@ export const AttendanceLogsView = ({
               <View
                 style={[
                   styles.stateIndicator,
-                  item.state === "attend"
-                    ? styles.attendIndicator
-                    : styles.leaveIndicator,
+                  item.state === "attend" ? styles.attendIndicator : styles.leaveIndicator,
                 ]}
               />
-              <Text style={styles.stateText}>
-                {item.state === "attend" ? "出勤" : "退勤"}
-              </Text>
+              <Text style={styles.stateText}>{item.state === "attend" ? "出勤" : "退勤"}</Text>
             </View>
-            <Text style={styles.timeText}>
-              {formatTime(item.datetime.tzDateTime)}
-            </Text>
+            <Text style={styles.timeText}>{formatTime(item.datetime.tzDateTime)}</Text>
           </TouchableOpacity>
         )}
         style={styles.list}

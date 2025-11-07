@@ -1,7 +1,4 @@
-import type {
-  ArgsType,
-  Feature,
-} from "~/feature/household/setting/dashboard/type";
+import type { ArgsType, Feature } from "~/feature/household/setting/dashboard/type";
 
 export const featureMap: {
   [feature in Feature]: {

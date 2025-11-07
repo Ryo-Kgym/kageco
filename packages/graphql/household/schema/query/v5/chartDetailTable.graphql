@@ -1,19 +1,11 @@
-query chartDetailTableFilterWithdrawalDate(
-  $groupId: String!
-  $fromDate: date!
-  $toDate: date!
-) {
+query chartDetailTableFilterWithdrawalDate($groupId: String!, $fromDate: date!, $toDate: date!) {
   detailView: householdAllDetailView(
     where: {
       groupId: { _eq: $groupId }
       withdrawalDate: { _gte: $fromDate }
       _and: { withdrawalDate: { _lte: $toDate } }
     }
-    orderBy: [
-      { withdrawalDate: ASC }
-      { settlementDate: ASC }
-      { category: { displayOrder: ASC } }
-    ]
+    orderBy: [{ withdrawalDate: ASC }, { settlementDate: ASC }, { category: { displayOrder: ASC } }]
   ) {
     ...fragAllDetailView
   }
@@ -22,22 +14,14 @@ query chartDetailTableFilterWithdrawalDate(
   }
 }
 
-query chartDetailTableFilterSettlementDate(
-  $groupId: String!
-  $fromDate: date!
-  $toDate: date!
-) {
+query chartDetailTableFilterSettlementDate($groupId: String!, $fromDate: date!, $toDate: date!) {
   detailView: householdAllDetailView(
     where: {
       groupId: { _eq: $groupId }
       settlementDate: { _gte: $fromDate }
       _and: { settlementDate: { _lte: $toDate } }
     }
-    orderBy: [
-      { settlementDate: ASC }
-      { withdrawalDate: ASC }
-      { category: { displayOrder: ASC } }
-    ]
+    orderBy: [{ settlementDate: ASC }, { withdrawalDate: ASC }, { category: { displayOrder: ASC } }]
   ) {
     ...fragAllDetailView
   }

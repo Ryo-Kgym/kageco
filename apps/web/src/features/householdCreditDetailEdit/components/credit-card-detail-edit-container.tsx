@@ -18,14 +18,10 @@ type Props = {
   onClose?: () => void;
 };
 
-export const CreditCardDetailEditContainer: FC<Props> = ({
-  id,
-  onClose = () => undefined,
-}) => {
-  const { formData, setFormData, initializeForm, display } =
-    useStateCreditDetail({
-      id,
-    });
+export const CreditCardDetailEditContainer: FC<Props> = ({ id, onClose = () => undefined }) => {
+  const { formData, setFormData, initializeForm, display } = useStateCreditDetail({
+    id,
+  });
 
   const { refresh } = useNavigation();
 

@@ -97,16 +97,12 @@ describe("FreeeAuthUsecase", () => {
     });
 
     // Verify the gateway method was called with the correct parameters
-    expect(mockFreeeAuthGateway.refreshAccessToken).toHaveBeenCalledWith(
-      "test-refresh-token",
-    );
+    expect(mockFreeeAuthGateway.refreshAccessToken).toHaveBeenCalledWith("test-refresh-token");
   });
 
   test("無効なタイプの入力の場合、「Invalid input type」エラーが発生すること", async () => {
     const usecase = new FreeeAuthUsecase(mockFreeeAuthGateway);
     // @ts-expect-error Testing invalid input
-    await expect(usecase.handle({ type: "invalid" })).rejects.toThrow(
-      "Invalid input type",
-    );
+    await expect(usecase.handle({ type: "invalid" })).rejects.toThrow("Invalid input type");
   });
 });

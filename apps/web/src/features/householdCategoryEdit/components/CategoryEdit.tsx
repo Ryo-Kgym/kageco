@@ -21,9 +21,7 @@ export const CategoryEdit = ({ categoryId }: { categoryId: string }) => {
   const [categoryData, setCategoryData] = useState<CategoryData | null>(null);
   const [loading, setLoading] = useState(true);
   const [inputCategoryName, setInputCategoryName] = useState<string>("");
-  const [inputIocomeType, setInputIocomeType] = useState<IocomeType>(
-    IocomeType.Income,
-  );
+  const [inputIocomeType, setInputIocomeType] = useState<IocomeType>(IocomeType.Income);
   const [inputGenreId, setInputGenreId] = useState<string | null>("");
   const [inputIsValid, setInputIsValid] = useState<boolean>(true);
   const [inputDisplayOrder, setInputDisplayOrder] = useState<number | "">(0);
@@ -85,16 +83,10 @@ export const CategoryEdit = ({ categoryId }: { categoryId: string }) => {
   return (
     <div className={"w-full p-2"}>
       <Frame title={"カテゴリ名"}>
-        <GenreNameTextInput
-          genreName={inputCategoryName}
-          setGenreName={setInputCategoryName}
-        />
+        <GenreNameTextInput genreName={inputCategoryName} setGenreName={setInputCategoryName} />
       </Frame>
       <Frame title={"収支区分"}>
-        <IocomeTypeSegment
-          iocomeType={inputIocomeType}
-          onChange={setInputIocomeType}
-        />
+        <IocomeTypeSegment iocomeType={inputIocomeType} onChange={setInputIocomeType} />
       </Frame>
       <Frame title={"ジャンル"}>
         <GenreSelect
@@ -107,10 +99,7 @@ export const CategoryEdit = ({ categoryId }: { categoryId: string }) => {
         <ValiditySegment isValid={inputIsValid} onChange={setInputIsValid} />
       </Frame>
       <Frame title={"表示順"}>
-        <DisplayOrderInput
-          value={inputDisplayOrder}
-          onChange={setInputDisplayOrder}
-        />
+        <DisplayOrderInput value={inputDisplayOrder} onChange={setInputDisplayOrder} />
       </Frame>
 
       <Button onClick={updateHandler} type={"modify"} label={"更新"} />

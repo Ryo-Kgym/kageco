@@ -22,11 +22,7 @@ interface LoadingMaskProps {
  * 画面全体をマスクするローディングコンポーネント
  * トークン取得やリダイレクト中など、ユーザー操作を一時的にブロックしたい場合に使用
  */
-export const LoadingMask: FC<LoadingMaskProps> = ({
-  isLoading,
-  children,
-  message,
-}) => {
+export const LoadingMask: FC<LoadingMaskProps> = ({ isLoading, children, message }) => {
   return (
     <div className="relative">
       {children}

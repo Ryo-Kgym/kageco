@@ -7,11 +7,7 @@ type Props = {
   remaining: Remaining | undefined;
 };
 
-export const MonthlyPlannedView = ({
-  totalWorkSecond,
-  monthlyPlanned,
-  remaining,
-}: Props) => {
+export const MonthlyPlannedView = ({ totalWorkSecond, monthlyPlanned, remaining }: Props) => {
   if (!monthlyPlanned) {
     return (
       <View style={styles.container}>
@@ -60,9 +56,7 @@ export const MonthlyPlannedView = ({
 
           <View style={styles.infoRow}>
             <Text style={styles.label}>合計労働時間:</Text>
-            <Text style={styles.value}>
-              {formatSecondsToHoursAndMinutes(totalWorkSecond)}
-            </Text>
+            <Text style={styles.value}>{formatSecondsToHoursAndMinutes(totalWorkSecond)}</Text>
           </View>
 
           <View style={styles.infoRow}>
@@ -80,9 +74,7 @@ export const MonthlyPlannedView = ({
           <View style={styles.infoRow}>
             <Text style={styles.label}>推奨日次勤務時間:</Text>
             <Text style={styles.value}>
-              {formatSecondsToHoursAndMinutes(
-                remaining.recommendedDailyWorkSecond,
-              )}
+              {formatSecondsToHoursAndMinutes(remaining.recommendedDailyWorkSecond)}
             </Text>
           </View>
         </>

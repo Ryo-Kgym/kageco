@@ -15,9 +15,7 @@ export const FavoriteFilterDetail = ({ filterId }: { filterId: string }) => {
 
   const [addVisible, setAddVisible] = useState(false);
   const [editVisible, setEditVisible] = useState(false);
-  const [editArg, setEditArg] = useState<
-    ComponentProps<typeof EditFavoriteFilterArg>["arg"]
-  >({
+  const [editArg, setEditArg] = useState<ComponentProps<typeof EditFavoriteFilterArg>["arg"]>({
     id: "",
     key: "categoryId",
     value: "",

@@ -4,14 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const {
-      code,
-      redirectUri,
-      clientId,
-      clientSecret,
-      grantType,
-      refreshToken,
-    } = body;
+    const { code, redirectUri, clientId, clientSecret, grantType, refreshToken } = body;
 
     const baseUrl = "https://accounts.secure.freee.co.jp";
 
@@ -27,16 +20,11 @@ export async function POST(request: Request) {
       params.append("grant_type", "refresh_token");
       params.append("refresh_token", refreshToken);
     } else {
-      return NextResponse.json(
-        { error: "Invalid grant type" },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "Invalid grant type" }, { status: 400 });
     }
 
     const endpoint =
-      grantType === "authorization_code"
-        ? `${baseUrl}/public_api/token`
-        : `${baseUrl}/api/1/token`;
+      grantType === "authorization_code" ? `${baseUrl}/public_api/token` : `${baseUrl}/api/1/token`;
 
     const response = await axios.post(endpoint, params, {
       headers: {

@@ -13,12 +13,5 @@ export const EditableIocomeType = ({
     label: getLabel(value),
   }));
 
-  return (
-    <SegmentedControl
-      value={value}
-      setValue={setValue}
-      data={data}
-      disabled={disabled}
-    />
-  );
+  return <SegmentedControl value={value} setValue={setValue} data={data} disabled={disabled} />;
 };

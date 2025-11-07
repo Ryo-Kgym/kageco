@@ -30,10 +30,7 @@ const buildItemName = (params: Props["items"][number]) => {
   switch (params.feature) {
     case "monthly": {
       const month =
-        Number(
-          params.dashboardSettingArgs.find((arg) => arg.type === "month")
-            ?.value,
-        ) ?? 0;
+        Number(params.dashboardSettingArgs.find((arg) => arg.type === "month")?.value) ?? 0;
       const targetDate = new Date();
       targetDate.setMonth(targetDate.getMonth() + month);
 

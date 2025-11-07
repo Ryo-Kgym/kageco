@@ -45,31 +45,19 @@ export const GenreEditPresenter = ({
 }) => (
   <div className={"w-full p-2"}>
     <FrameDiv title={"ジャンル名"}>
-      <GenreNameTextInput
-        genreName={inputGenreName}
-        setGenreName={setInputGenreName}
-      />
+      <GenreNameTextInput genreName={inputGenreName} setGenreName={setInputGenreName} />
     </FrameDiv>
     <FrameDiv title={"ジャンル区分"}>
-      <GenreTypeSegment
-        genreType={inputGenreType}
-        onChange={setInputGenreType}
-      />
+      <GenreTypeSegment genreType={inputGenreType} onChange={setInputGenreType} />
     </FrameDiv>
     <FrameDiv title={"収支区分"}>
-      <IocomeTypeSegment
-        iocomeType={inputIocomeType}
-        onChange={setInputIocomeType}
-      />
+      <IocomeTypeSegment iocomeType={inputIocomeType} onChange={setInputIocomeType} />
     </FrameDiv>
     <FrameDiv title={"有効・無効"}>
       <ValiditySegment isValid={inputIsValid} onChange={setInputIsValid} />
     </FrameDiv>
     <FrameDiv title={"表示順"}>
-      <DisplayOrderInput
-        value={inputDisplayOrder}
-        onChange={setInputDisplayOrder}
-      />
+      <DisplayOrderInput value={inputDisplayOrder} onChange={setInputDisplayOrder} />
     </FrameDiv>
     <FrameDiv title={"登録済みのカテゴリ"}>
       <div className={"grid grid-cols-3 text-gray-500"}>

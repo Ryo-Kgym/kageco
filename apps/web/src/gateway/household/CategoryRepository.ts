@@ -23,10 +23,7 @@ export type Category = {
 export interface ICategoryRepository {
   getRecentDetails(): Promise<CategoryDetail[]>;
   getAllCategories(): Promise<Category[]>;
-  updateCategoryDisplayOrder(
-    categoryId: string,
-    displayOrder: number,
-  ): Promise<void>;
+  updateCategoryDisplayOrder(categoryId: string, displayOrder: number): Promise<void>;
 }
 
 /**
@@ -56,9 +53,7 @@ export class CategoryRepository implements ICategoryRepository {
         groupId: group.id,
         startDate: startDateStr,
       });
-      console.log(
-        `[CategoryRepository] 明細取得完了: ${data.householdAllDetailView.length}件`,
-      );
+      console.log(`[CategoryRepository] 明細取得完了: ${data.householdAllDetailView.length}件`);
 
       return data.householdAllDetailView.map((detail) => ({
         id: detail.id as string,
@@ -85,9 +80,7 @@ export class CategoryRepository implements ICategoryRepository {
       const { data } = await execQuery(GetAllCategoriesDocument, {
         groupId: group.id,
       });
-      console.log(
-        `[CategoryRepository] カテゴリ取得完了: ${data.householdCategory.length}件`,
-      );
+      console.log(`[CategoryRepository] カテゴリ取得完了: ${data.householdCategory.length}件`);
 
       return data.householdCategory.map((category) => ({
         id: category.id,
@@ -103,31 +96,21 @@ export class CategoryRepository implements ICategoryRepository {
   /**
    * カテゴリの表示順を更新する
    */
-  async updateCategoryDisplayOrder(
-    categoryId: string,
-    displayOrder: number,
-  ): Promise<void> {
+  async updateCategoryDisplayOrder(categoryId: string, displayOrder: number): Promise<void> {
     console.log(
       `[CategoryRepository] updateCategoryDisplayOrder 開始: ID=${categoryId}, 表示順=${displayOrder}`,
     );
     try {
-      console.log(
-        "[CategoryRepository] GraphQLミューテーション実行: UpdateCategoryDisplayOrder",
-      );
+      console.log("[CategoryRepository] GraphQLミューテーション実行: UpdateCategoryDisplayOrder");
       // 注意: 実際の実装では、生成されたGraphQLドキュメントを使用します
       // 一時的に型エラーを回避するためのモック
       await execMutation(UpdateCategoryDisplayOrderDocument, {
         categoryId,
         displayOrder,
       });
-      console.log(
-        `[CategoryRepository] カテゴリ表示順更新完了: ID=${categoryId}`,
-      );
+      console.log(`[CategoryRepository] カテゴリ表示順更新完了: ID=${categoryId}`);
     } catch (error) {
-      console.error(
-        `[CategoryRepository] カテゴリ表示順更新エラー: ID=${categoryId}`,
-        error,
-      );
+      console.error(`[CategoryRepository] カテゴリ表示順更新エラー: ID=${categoryId}`, error);
       throw new Error("カテゴリの表示順の更新に失敗しました");
     }
   }

@@ -7,17 +7,11 @@ export const calcTotal = <T extends DetailBase>(
 ) => {
   const incomeTotal = data
     .filter(incomeFilter ?? (() => true))
-    .reduce(
-      (acc, cur) => (cur.iocomeType === "INCOME" ? acc + cur.amount : acc),
-      0,
-    );
+    .reduce((acc, cur) => (cur.iocomeType === "INCOME" ? acc + cur.amount : acc), 0);
 
   const outcomeTotal = data
     .filter(outcomeFilter ?? (() => true))
-    .reduce(
-      (acc, cur) => (cur.iocomeType === "OUTCOME" ? acc + cur.amount : acc),
-      0,
-    );
+    .reduce((acc, cur) => (cur.iocomeType === "OUTCOME" ? acc + cur.amount : acc), 0);
 
   const balance = incomeTotal - outcomeTotal;
 

@@ -7,9 +7,7 @@ import { TagInput } from "./TagInput";
 
 type Props = {
   values: ComponentProps<typeof TagInput>["data"][number]["value"][];
-  onChange: (
-    values: ComponentProps<typeof TagInput>["data"][number]["value"][],
-  ) => void;
+  onChange: (values: ComponentProps<typeof TagInput>["data"][number]["value"][]) => void;
   label?: string;
 };
 
@@ -22,7 +20,5 @@ export const TagInputWrapper: FC<Props> = ({ values, onChange, label }) => {
     setData(getTags());
   }, []);
 
-  return (
-    <TagInput values={values} onChange={onChange} data={data} label={label} />
-  );
+  return <TagInput values={values} onChange={onChange} data={data} label={label} />;
 };

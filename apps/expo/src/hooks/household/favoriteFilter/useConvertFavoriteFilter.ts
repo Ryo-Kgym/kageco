@@ -20,9 +20,7 @@ export const useConvertFavoriteFilter = (filterId: string) => {
 };
 
 const convertCategoryIdList = (data: GetFavoriteFilterQuery | undefined) =>
-  data?.filter?.args
-    .filter((f) => f.key === "categoryId")
-    .map((f) => f.value) ?? [];
+  data?.filter?.args.filter((f) => f.key === "categoryId").map((f) => f.value) ?? [];
 
 const convertDate = (data: GetFavoriteFilterQuery | undefined) => {
   const year = data?.filter?.args.find((f) => f.key === "year")?.value;

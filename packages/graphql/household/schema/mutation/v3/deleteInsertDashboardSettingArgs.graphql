@@ -10,9 +10,7 @@ mutation deleteInsertDashboardSettingArgs(
       __typename
     }
   }
-  insertDashboardSettingArgs: insertHouseholdDashboardSettingArgs(
-    objects: $objects
-  ) {
+  insertDashboardSettingArgs: insertHouseholdDashboardSettingArgs(objects: $objects) {
     returning {
       id
       __typename

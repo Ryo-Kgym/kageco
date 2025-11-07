@@ -46,11 +46,7 @@ export const TablePresenter = ({
       >
         <Table.Thead className={"top-0 bg-white"}>{headerTr}</Table.Thead>
         <Table.Tbody>{tbody}</Table.Tbody>
-        {tfoot && (
-          <Table.Tfoot className={"sticky bottom-0 bg-white"}>
-            {tfoot}
-          </Table.Tfoot>
-        )}
+        {tfoot && <Table.Tfoot className={"sticky bottom-0 bg-white"}>{tfoot}</Table.Tfoot>}
       </Table>
     </ScrollArea>
   </>

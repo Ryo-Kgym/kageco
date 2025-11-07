@@ -7,13 +7,8 @@ import type { TagInput } from "../../../components/ui/tag/TagInput";
 import { IocomeType } from "../../../domain/model/household/IocomeType";
 
 export const useSetDetailMaster = () => {
-  const {
-    setAccountData,
-    setGenreData,
-    setCategoryData,
-    setTagData,
-    setTemplateData,
-  } = useDetailMasterZustand();
+  const { setAccountData, setGenreData, setCategoryData, setTagData, setTemplateData } =
+    useDetailMasterZustand();
   return {
     setAccountData,
     setGenreData,
@@ -24,14 +19,8 @@ export const useSetDetailMaster = () => {
 };
 
 export const useGetDetailMaster = () => {
-  const {
-    getAccounts,
-    getGenres,
-    getCategories,
-    getAllCategories,
-    getTags,
-    getTemplates,
-  } = useDetailMasterZustand();
+  const { getAccounts, getGenres, getCategories, getAllCategories, getTags, getTemplates } =
+    useDetailMasterZustand();
   return {
     getAccounts,
     getGenres,
@@ -106,9 +95,7 @@ const useDetailMasterZustand = create<State & Actions>()(
       }),
     setTemplateData: (data) =>
       set((state) => {
-        state.templateData = Object.fromEntries(
-          data.map((template) => [template.id, template]),
-        );
+        state.templateData = Object.fromEntries(data.map((template) => [template.id, template]));
       }),
     getAccounts: () => get().accountData,
     getGenres: (type) => get().genreData[type],

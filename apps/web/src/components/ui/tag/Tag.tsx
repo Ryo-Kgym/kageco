@@ -8,11 +8,7 @@ type Props = {
 };
 
 export const Tag: FC<Props> = ({ label, colorCode }) => (
-  <span
-    data-testid={"tag"}
-    className={styles.module}
-    style={{ backgroundColor: colorCode }}
-  >
+  <span data-testid={"tag"} className={styles.module} style={{ backgroundColor: colorCode }}>
     {label}
   </span>
 );

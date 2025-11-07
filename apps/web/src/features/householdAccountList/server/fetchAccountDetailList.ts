@@ -21,15 +21,12 @@ export const fetchAccountDetailList = async (params: Params) => {
     fromDate: params.fromDate,
     toDate: params.toDate,
   });
-  const { data: creditData } = await execQuery(
-    GetCreditCardSummaryByAccountIdDocument,
-    {
-      groupId: group.id,
-      accountId: params.accountId,
-      fromDate: params.fromDate,
-      toDate: params.toDate,
-    },
-  );
+  const { data: creditData } = await execQuery(GetCreditCardSummaryByAccountIdDocument, {
+    groupId: group.id,
+    accountId: params.accountId,
+    fromDate: params.fromDate,
+    toDate: params.toDate,
+  });
 
   const dailies: AccountDetailRow[] =
     dailyData?.dailies.map((d) => ({

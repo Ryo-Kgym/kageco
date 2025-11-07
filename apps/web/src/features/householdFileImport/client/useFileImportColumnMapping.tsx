@@ -19,9 +19,7 @@ type State = {
 };
 
 type Actions = {
-  setFileImportColumnMapping: (
-    mapping: Record<ImportFileColumn, number | null>,
-  ) => void;
+  setFileImportColumnMapping: (mapping: Record<ImportFileColumn, number | null>) => void;
 };
 
 const useFileImportColumnMappingState = create<State & Actions>()(

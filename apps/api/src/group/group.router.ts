@@ -5,13 +5,11 @@ import { procedure, router } from "../trpc/trpc";
 @Injectable()
 export class GroupRouter {
   groupRouter = router({
-    hello: procedure
-      .input(z.object({ name: z.string() }))
-      .query(({ input }) => {
-        return {
-          greeting: `グループからこんにちは ${input.name}さん！`,
-        };
-      }),
+    hello: procedure.input(z.object({ name: z.string() })).query(({ input }) => {
+      return {
+        greeting: `グループからこんにちは ${input.name}さん！`,
+      };
+    }),
 
     getGroups: procedure.query(async () => {
       return [

@@ -1,15 +1,8 @@
-query getCreditCardSummaryByAccountId(
-  $fromDate: date!
-  $toDate: date!
-  $accountId: String!
-) {
+query getCreditCardSummaryByAccountId($fromDate: date!, $toDate: date!, $accountId: String!) {
   creditCardSummaries: householdCreditCardSummary(
     where: {
       withdrawalDate: { _gte: $fromDate }
-      _and: {
-        withdrawalDate: { _lte: $toDate }
-        _and: { accountId: { _eq: $accountId } }
-      }
+      _and: { withdrawalDate: { _lte: $toDate }, _and: { accountId: { _eq: $accountId } } }
     }
     orderBy: { withdrawalDate: ASC }
   ) {

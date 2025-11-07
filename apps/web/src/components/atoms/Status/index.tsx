@@ -7,7 +7,5 @@ type Props = {
   rule: Map<string | boolean, string>;
 };
 export const Status = ({ value, rule }: Props) => (
-  <div className={`font-bold border-2 rounded-2xl ${rule.get(value) ?? ""}`}>
-    {value}
-  </div>
+  <div className={`font-bold border-2 rounded-2xl ${rule.get(value) ?? ""}`}>{value}</div>
 );

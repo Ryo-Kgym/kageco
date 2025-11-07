@@ -26,9 +26,7 @@ export const DashboardFrame = ({
         }}
       >
         <Pressable>
-          <Link href={href as "/"}>
-            {label && <Text className={"text-lg"}>{label}</Text>}
-          </Link>
+          <Link href={href as "/"}>{label && <Text className={"text-lg"}>{label}</Text>}</Link>
         </Pressable>
         <ScrollView style={{ maxHeight: scroll }}>
           <Pressable>
@@ -42,9 +40,7 @@ export const DashboardFrame = ({
     <Pressable className={"px-1 py-0.5"} style={{ width: size }}>
       <Link href={href as "/"}>
         <View
-          className={
-            "min-w-full rounded-2xl border-2 bg-neutral-50 p-3 shadow-sm"
-          }
+          className={"min-w-full rounded-2xl border-2 bg-neutral-50 p-3 shadow-sm"}
           style={{
             borderColor: "rgba(0, 0, 0, 0.1)",
           }}

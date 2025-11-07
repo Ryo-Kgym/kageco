@@ -5,13 +5,8 @@ import {
 
 export type SortCategoriesByFrequencyInput = {
   getRecentDetails: () => Promise<{ categoryId: string | null }[]>;
-  getAllCategories: () => Promise<
-    { id: string; categoryName: string; displayOrder: number }[]
-  >;
-  updateCategoryDisplayOrder: (
-    categoryId: string,
-    displayOrder: number,
-  ) => Promise<void>;
+  getAllCategories: () => Promise<{ id: string; categoryName: string; displayOrder: number }[]>;
+  updateCategoryDisplayOrder: (categoryId: string, displayOrder: number) => Promise<void>;
   onProgress?: (progress: number, total: number) => void;
 };
 
@@ -35,16 +30,12 @@ export const sortCategoriesByFrequency = async (
   // 2. すべてのカテゴリを取得
   console.log("[sortCategoriesByFrequency] すべてのカテゴリを取得中...");
   const categories = await input.getAllCategories();
-  console.log(
-    `[sortCategoriesByFrequency] カテゴリ取得完了: ${categories.length}件`,
-  );
+  console.log(`[sortCategoriesByFrequency] カテゴリ取得完了: ${categories.length}件`);
 
   // 3. カテゴリの使用頻度を計算
   console.log("[sortCategoriesByFrequency] カテゴリの使用頻度を計算中...");
   const sortedCategories = calculateCategoryFrequency(details, categories);
-  console.log(
-    `[sortCategoriesByFrequency] 計算完了: ${sortedCategories.length}件`,
-  );
+  console.log(`[sortCategoriesByFrequency] 計算完了: ${sortedCategories.length}件`);
 
   // 4. カテゴリのdisplay_orderを更新
   console.log("[sortCategoriesByFrequency] カテゴリの表示順を更新中...");
@@ -58,9 +49,7 @@ export const sortCategoriesByFrequency = async (
       `[sortCategoriesByFrequency] カテゴリ更新中 (${i + 1}/${total}): ID=${category.id}, 名前=${category.categoryName}, 表示順=${displayOrder}`,
     );
     await input.updateCategoryDisplayOrder(category.id, displayOrder);
-    console.log(
-      `[sortCategoriesByFrequency] カテゴリ更新完了 (${i + 1}/${total})`,
-    );
+    console.log(`[sortCategoriesByFrequency] カテゴリ更新完了 (${i + 1}/${total})`);
 
     // 進捗を報告
     if (input.onProgress) {

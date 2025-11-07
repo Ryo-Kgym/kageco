@@ -8,10 +8,7 @@ import type { ComponentProps } from "react";
 
 import { paths } from "~/app/paths";
 import { useSaveGroupId } from "~/hooks/group/useSaveGroupId";
-import {
-  getCreditCardGenreName,
-  getCreditCardName,
-} from "~/hooks/household/credit_card/get-label";
+import { getCreditCardGenreName, getCreditCardName } from "~/hooks/household/credit_card/get-label";
 import type { CreditCard } from "~/types/credit-card";
 import type { IocomeType } from "~/types/iocome-type";
 import { Details } from "~/ui";
@@ -32,16 +29,14 @@ export const DetailListByAccountContainer = ({
       orderBy: OrderBy.Desc,
     },
   });
-  const [{ data: creditCardSummary }] = useGetCreditCardSummaryByAccountIdQuery(
-    {
-      variables: {
-        accountId,
-        fromDate: "2019-01-01",
-        toDate: "2099-12-31",
-      },
-      pause: !accountId,
+  const [{ data: creditCardSummary }] = useGetCreditCardSummaryByAccountIdQuery({
+    variables: {
+      accountId,
+      fromDate: "2019-01-01",
+      toDate: "2099-12-31",
     },
-  );
+    pause: !accountId,
+  });
 
   const details: ComponentProps<typeof Details>["details"] = [
     ...(dailyDetail?.dailies.map((d) => ({
@@ -63,9 +58,7 @@ export const DetailListByAccountContainer = ({
       genreName: getCreditCardGenreName(),
       iocomeType: "OUTCOME" as IocomeType,
       redirectHandler: () =>
-        push(
-          paths.household.detailListByCreditCardSummary({ summaryId: d.id }),
-        ),
+        push(paths.household.detailListByCreditCardSummary({ summaryId: d.id })),
       memo: null,
       type: "creditCardSummary" as const,
     })) ?? []),

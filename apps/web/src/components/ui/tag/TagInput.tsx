@@ -29,16 +29,9 @@ export const TagInput: FC<Props & { label?: string }> = ({
   );
 };
 
-export const TagInputCore: FC<Props> = ({
-  values: selected,
-  onChange: setSelected,
-  data,
-}) => {
+export const TagInputCore: FC<Props> = ({ values: selected, onChange: setSelected, data }) => {
   const dataObject = Object.fromEntries(
-    data.map((tag) => [
-      tag.value,
-      { label: tag.label, colorCode: tag.colorCode },
-    ]),
+    data.map((tag) => [tag.value, { label: tag.label, colorCode: tag.colorCode }]),
   );
 
   return (

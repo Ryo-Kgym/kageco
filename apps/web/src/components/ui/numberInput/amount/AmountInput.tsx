@@ -6,11 +6,7 @@ type AmountInputPresenterProps = {
   disabled?: boolean;
 };
 
-export const AmountInput = ({
-  value,
-  onChange,
-  disabled = false,
-}: AmountInputPresenterProps) => (
+export const AmountInput = ({ value, onChange, disabled = false }: AmountInputPresenterProps) => (
   <NumberInputContainer
     label={""}
     value={value}

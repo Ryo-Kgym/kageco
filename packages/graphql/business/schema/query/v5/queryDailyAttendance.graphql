@@ -25,10 +25,7 @@ query getAttendanceOfMonth(
     ...fragDailyAttendance
   }
   monthlyPlan: businessMonthlyPlan(
-    where: {
-      userId: { _eq: $userId }
-      _and: { yearMonth: { _eq: $yearMonth } }
-    }
+    where: { userId: { _eq: $userId }, _and: { yearMonth: { _eq: $yearMonth } } }
     , limit: 1
   ) {
     ...fragMonthlyPlan

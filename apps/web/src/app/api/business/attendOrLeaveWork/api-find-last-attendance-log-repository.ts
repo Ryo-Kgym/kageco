@@ -4,9 +4,7 @@ import type { AttendanceState } from "@/util/domain/business/timecard/attendance
 import { GetAttendanceDocument } from "@v3/graphql/business/schema/query/v5/queryDailyAttendance.generated";
 import { execQuery } from "../../../../persistence/database/server/execQuery";
 
-export class ApiFindLastAttendanceLogRepository
-  implements FindLastAttendanceLogGateway
-{
+export class ApiFindLastAttendanceLogRepository implements FindLastAttendanceLogGateway {
   constructor(
     private readonly userId: string,
     private readonly groupId: string,

@@ -7,13 +7,7 @@ import {
   View,
 } from "react-native";
 
-import {
-  EditableAccount,
-  EditableAmount,
-  EditableDate,
-  EditableMemo,
-  RegisterButton,
-} from "~/ui";
+import { EditableAccount, EditableAmount, EditableDate, EditableMemo, RegisterButton } from "~/ui";
 
 type FieldType<T> = {
   value: T;
@@ -48,24 +42,14 @@ export const RegisterTransferPresenter = ({
       <View className={"gap-3"}>
         <View>
           <Text>日付</Text>
-          <EditableDate
-            value={date.value}
-            setValue={date.setValue}
-            loadingValue={"-"}
-          />
+          <EditableDate value={date.value} setValue={date.setValue} loadingValue={"-"} />
         </View>
         <View>
           <Text>アカウント</Text>
           <Text className={"text-sm text-gray-500"}>送信元</Text>
-          <EditableAccount
-            value={fromAccount.value}
-            setValue={fromAccount.setValue}
-          />
+          <EditableAccount value={fromAccount.value} setValue={fromAccount.setValue} />
           <Text className={"text-sm text-gray-500"}>送信先</Text>
-          <EditableAccount
-            value={toAccount.value}
-            setValue={toAccount.setValue}
-          />
+          <EditableAccount value={toAccount.value} setValue={toAccount.setValue} />
         </View>
         <View>
           <Text>金額</Text>
@@ -77,10 +61,7 @@ export const RegisterTransferPresenter = ({
         </View>
         <View className={"h-16 flex-row justify-between"}>
           <View className={"w-1/2"}>
-            <RegisterButton
-              registerHandler={registerHandler}
-              disabled={registerDisabled}
-            />
+            <RegisterButton registerHandler={registerHandler} disabled={registerDisabled} />
           </View>
           <View className={"w-1/2"}>
             <Button title={"リセット"} onPress={resetHandler} />

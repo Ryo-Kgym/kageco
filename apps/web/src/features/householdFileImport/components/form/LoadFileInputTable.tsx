@@ -12,12 +12,7 @@ type Props = {
   body: string[][];
 };
 
-export const LoadFileInputTable: FC<Props> = ({
-  importFileType,
-  visible,
-  header,
-  body,
-}) => {
+export const LoadFileInputTable: FC<Props> = ({ importFileType, visible, header, body }) => {
   const { mapping } = useFileImportColumnMapping();
 
   return (

@@ -26,9 +26,7 @@ export const Details = ({ details }: { details: Detail[] }) => (
             </View>
             <View className={"flex-row items-center gap-2"}>
               <Text className={"text-gray-600"}>{detail.genreName}</Text>
-              {detail.accountName && (
-                <Text className={"text-gray-600"}>{detail.accountName}</Text>
-              )}
+              {detail.accountName && <Text className={"text-gray-600"}>{detail.accountName}</Text>}
               <Text className={"text-gray-600"}>
                 {detail.memo ? `${detail.memo.substring(0, 10)}...` : null}
               </Text>

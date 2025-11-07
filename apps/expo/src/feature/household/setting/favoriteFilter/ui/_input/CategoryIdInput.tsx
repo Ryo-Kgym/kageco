@@ -8,9 +8,7 @@ import type { FavoriteFilterArgValueInputComponent } from "../FavoriteFilterArgV
 export const CategoryIdInput: FavoriteFilterArgValueInputComponent<{
   genre: { id: string; iocomeType: IocomeType };
 }> = ({ value, setValue, option }) => {
-  const [iocomeType, setIocomeType] = useState<IocomeType>(
-    option?.genre.iocomeType ?? "INCOME",
-  );
+  const [iocomeType, setIocomeType] = useState<IocomeType>(option?.genre.iocomeType ?? "INCOME");
   const [genreId, setGenreId] = useState<string>(option?.genre.id ?? "");
 
   return (
@@ -21,11 +19,7 @@ export const CategoryIdInput: FavoriteFilterArgValueInputComponent<{
       </View>
       <View>
         <Text>ジャンル</Text>
-        <EditableGenre
-          value={genreId}
-          setValue={setGenreId}
-          iocomeType={iocomeType}
-        />
+        <EditableGenre value={genreId} setValue={setGenreId} iocomeType={iocomeType} />
       </View>
       <View>
         <Text>カテゴリ</Text>

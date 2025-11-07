@@ -68,10 +68,8 @@ export const calcWorkTimeInvoker = async (
 
         return new MonthlyPlan({
           businessDays: data.insertBusinessMonthlyPlanOne.businessDays,
-          workHoursLower:
-            data.insertBusinessMonthlyPlanOne.plannedWorkingHoursLower,
-          workHoursUpper:
-            data.insertBusinessMonthlyPlanOne.plannedWorkingHoursUpper,
+          workHoursLower: data.insertBusinessMonthlyPlanOne.plannedWorkingHoursLower,
+          workHoursUpper: data.insertBusinessMonthlyPlanOne.plannedWorkingHoursUpper,
         });
       },
     },

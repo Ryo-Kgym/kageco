@@ -45,13 +45,11 @@ export const SearchFormClient: FC<Props> = ({
   const { push } = useRouter();
 
   const getMonthlySummaryUrl = () => {
-    const fromDateQuery =
-      form.fromDate && `fromDate=${convertToYmd(form.fromDate)}`;
+    const fromDateQuery = form.fromDate && `fromDate=${convertToYmd(form.fromDate)}`;
     const toDateQuery = form.toDate && `toDate=${convertToYmd(form.toDate)}`;
 
     const queryParams = [fromDateQuery, toDateQuery].filter(Boolean);
-    const queryString =
-      queryParams.length > 0 ? `?${queryParams.join("&")}` : "";
+    const queryString = queryParams.length > 0 ? `?${queryParams.join("&")}` : "";
 
     return `${paths.household.monthlySummary.root()}${queryString}`;
   };
@@ -59,10 +57,7 @@ export const SearchFormClient: FC<Props> = ({
   return (
     <div className="flex items-center gap-2">
       <Button label={"絞り込み"} onClick={() => setIsOpen(true)} type={"add"} />
-      <Link
-        href={getMonthlySummaryUrl()}
-        className="text-blue-600 hover:underline"
-      >
+      <Link href={getMonthlySummaryUrl()} className="text-blue-600 hover:underline">
         月次サマリーに戻る
       </Link>
       <SearchFormModal

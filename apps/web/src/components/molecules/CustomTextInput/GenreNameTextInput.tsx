@@ -5,10 +5,7 @@ type GenreNameTextInputProps = {
   setGenreName: (_: string) => void;
 };
 
-export const GenreNameTextInput = ({
-  genreName,
-  setGenreName,
-}: GenreNameTextInputProps) => (
+export const GenreNameTextInput = ({ genreName, setGenreName }: GenreNameTextInputProps) => (
   <TextInput
     label={""}
     value={genreName}

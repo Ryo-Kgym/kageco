@@ -24,9 +24,7 @@ mutation UpdateDailyDetailById(
     __typename
     id
   }
-  deleteDetailTags: deleteHouseholdDetailTag(
-    where: { detailId: { _eq: $id } }
-  ) {
+  deleteDetailTags: deleteHouseholdDetailTag(where: { detailId: { _eq: $id } }) {
     affectedRows
   }
   insertDetailTags: insertHouseholdDetailTag(objects: $tagDetails) {

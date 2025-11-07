@@ -39,10 +39,7 @@ export const useRemoveColumn = () => {
    * @param columnIndex 削除する列のインデックス（0から始まる）
    * @returns 処理後のCSVテキスト
    */
-  const removeColumnFromCsv = (
-    csvText: string,
-    columnIndex: number,
-  ): string => {
+  const removeColumnFromCsv = (csvText: string, columnIndex: number): string => {
     setIsProcessing(true);
     try {
       const result = removeColumn(csvText, columnIndex);

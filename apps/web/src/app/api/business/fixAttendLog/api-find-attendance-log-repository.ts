@@ -6,9 +6,7 @@ import type { AttendanceState } from "@/util/domain/business/timecard/attendance
 import { GetAttendanceLogByIdDocument } from "@v3/graphql/business/schema/query/v5/queryDailyAttendance.generated";
 import { execQuery } from "../../../../persistence/database/server/execQuery";
 
-export class ApiFindAttendanceLogRepository
-  implements FindAttendanceLogGateway
-{
+export class ApiFindAttendanceLogRepository implements FindAttendanceLogGateway {
   async findByLogId(attendanceLogId: string) {
     const { data } = await execQuery(GetAttendanceLogByIdDocument, {
       id: attendanceLogId,
@@ -36,17 +34,12 @@ export class ApiFindAttendanceLogRepository
           datetime: new TZDateTime(l.datetime as YYYY_MM_DD_HH_MM_SS),
         }))
         // 念のため時系列に整列
-        .sort(
-          (a, b) =>
-            a.datetime.getTimeMilliSecond() - b.datetime.getTimeMilliSecond(),
-        ),
+        .sort((a, b) => a.datetime.getTimeMilliSecond() - b.datetime.getTimeMilliSecond()),
       attendance: {
         id: daily.id,
         date: new YYYYmmDD(daily.date as YYYY_MM_DD),
         breakSecond: daily.breakSecond,
-        startDatetime: new TZDateTime(
-          daily.startDatetime as YYYY_MM_DD_HH_MM_SS,
-        ),
+        startDatetime: new TZDateTime(daily.startDatetime as YYYY_MM_DD_HH_MM_SS),
         endDatetime: new TZDateTime(daily.endDatetime as YYYY_MM_DD_HH_MM_SS),
       },
     };

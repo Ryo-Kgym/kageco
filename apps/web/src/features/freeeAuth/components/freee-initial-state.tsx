@@ -9,16 +9,6 @@ interface FreeeInitialStateProps {
 /**
  * Freee連携の初期状態を表示するコンポーネント
  */
-export const FreeeInitialState: FC<FreeeInitialStateProps> = ({
-  handleAuthClick,
-  isLoading,
-}) => {
-  return (
-    <Button
-      label={"freee連携"}
-      onClick={handleAuthClick}
-      type={"add"}
-      disabled={isLoading}
-    />
-  );
+export const FreeeInitialState: FC<FreeeInitialStateProps> = ({ handleAuthClick, isLoading }) => {
+  return <Button label={"freee連携"} onClick={handleAuthClick} type={"add"} disabled={isLoading} />;
 };

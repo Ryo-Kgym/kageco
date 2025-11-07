@@ -34,9 +34,7 @@ export const CategoryRankingBox = ({
       scroll={120}
       footer={
         <View className={"pt-1"}>
-          <Text className={"text-right text-gray-500"}>
-            合計：{calcTotal().toLocaleString()}
-          </Text>
+          <Text className={"text-right text-gray-500"}>合計：{calcTotal().toLocaleString()}</Text>
         </View>
       }
     >
@@ -46,12 +44,8 @@ export const CategoryRankingBox = ({
           <View key={i.toString()} className={"flex-row items-center"}>
             <Text className={"w-1/12 text-xs"}>{i + 1}</Text>
             <View className={"w-11/12 flex-row items-center justify-between"}>
-              <Text className={"text-md text-gray-500"}>
-                {c.categoryName.slice(0, 7)}
-              </Text>
-              <Text className={"text-right text-lg"}>
-                {c.amount.toLocaleString()}
-              </Text>
+              <Text className={"text-md text-gray-500"}>{c.categoryName.slice(0, 7)}</Text>
+              <Text className={"text-right text-lg"}>{c.amount.toLocaleString()}</Text>
             </View>
           </View>
         ))}

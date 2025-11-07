@@ -55,18 +55,11 @@ export const RegisterDailyPresenter = ({
       <View className={"gap-3"}>
         <View>
           <Text>日付</Text>
-          <EditableDate
-            value={date.value}
-            setValue={date.setValue}
-            loadingValue={"-"}
-          />
+          <EditableDate value={date.value} setValue={date.setValue} loadingValue={"-"} />
         </View>
         <View>
           <Text>タイプ</Text>
-          <EditableIocomeType
-            value={iocomeType.value}
-            setValue={iocomeType.setValue}
-          />
+          <EditableIocomeType value={iocomeType.value} setValue={iocomeType.setValue} />
         </View>
         <View>
           <Text>ジャンル</Text>
@@ -98,11 +91,7 @@ export const RegisterDailyPresenter = ({
         </View>
         <View className={"h-16 flex-row justify-between"}>
           <View className={"w-1/2"}>
-            <Button
-              title={"登録"}
-              onPress={registerHandler}
-              disabled={disabled}
-            />
+            <Button title={"登録"} onPress={registerHandler} disabled={disabled} />
           </View>
           <View className={"w-1/2"}>
             <Button title={"リセット"} onPress={resetHandler} />

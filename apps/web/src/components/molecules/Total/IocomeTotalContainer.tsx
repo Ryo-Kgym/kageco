@@ -13,7 +13,5 @@ export const IocomeTotalContainer = ({
 }) => {
   const hidden = income === 0 && outcome === 0;
 
-  return (
-    <IocomeTotalPresenter income={income} outcome={outcome} hidden={hidden} />
-  );
+  return <IocomeTotalPresenter income={income} outcome={outcome} hidden={hidden} />;
 };

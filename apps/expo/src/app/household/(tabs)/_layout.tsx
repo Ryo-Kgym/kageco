@@ -10,9 +10,7 @@ const Layout = () => (
         name="calendar/[date]"
         options={{
           title: "カレンダー",
-          tabBarIcon: ({ color }) => (
-            <FontAwesome name="calendar" size={24} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <FontAwesome name="calendar" size={24} color={color} />,
           href: `/household/calendar/${new Date().toISOString().slice(0, 10)}`,
         }}
       />
@@ -20,18 +18,14 @@ const Layout = () => (
         name="account/index"
         options={{
           title: "アカウント",
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="bank" size={24} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="bank" size={24} color={color} />,
         }}
       />
       <Tabs.Screen
         name="register/index"
         options={{
           title: "登録",
-          tabBarIcon: ({ color }) => (
-            <Entypo name="pencil" size={30} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <Entypo name="pencil" size={30} color={color} />,
         }}
       />
     </Tabs>
