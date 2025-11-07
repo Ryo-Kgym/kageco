@@ -11,6 +11,9 @@ spring:
   jpa:
     database-platform: ${DB_DIALECT:org.hibernate.dialect.H2Dialect}
     show-sql: true
+    hibernate:
+      ddl-auto: validate
+
 
 springdoc:
   api-docs:
