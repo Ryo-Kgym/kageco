@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <!-- Lombokで生成されるコードを除外 -->
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+        <Or>
+            <Method name="~get.*"/>
+            <Method name="~set.*"/>
+        </Or>
+    </Match>
+
+    <!-- エンティティクラスのフィールド初期化を除外 -->
+    <Match>
+        <Class name="~.*\.entity\..*"/>
+        <Bug pattern="UWF_UNWRITTEN_FIELD"/>
+    </Match>
+
+    <!-- Spring Boot設定クラスを除外 -->
+    <Match>
+        <Class name="~.*Configuration"/>
+        <Bug pattern="SIC_INNER_SHOULD_BE_STATIC_ANON"/>
+    </Match>
+
+    <!-- テストクラスを除外 -->
+    <Match>
+        <Class name="~.*Test"/>
+        <Bug pattern="URF_UNREAD_FIELD"/>
+    </Match>
+</FindBugsFilter>
