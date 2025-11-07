@@ -8,7 +8,6 @@ plugins {
     // Code Quality Plugins（まずはSpotlessのみ）
     id 'com.diffplug.spotless' version '6.22.0'
     id 'jacoco'
-    id 'checkstyle'
 }
 
 group = 'kageco.api'
@@ -91,13 +90,6 @@ jacocoTestReport {
             ])
         }))
     }
-}
-
-checkstyle {
-    toolVersion = '10.12.4'
-    // 設定ファイルを使わず、デフォルト設定を使用
-    ignoreFailures = true
-    maxWarnings = 100
 }
 
 
