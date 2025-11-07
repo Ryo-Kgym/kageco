@@ -1,21 +1,12 @@
-import { Injectable } from "@nestjs/common";
-import { z } from "zod";
-import { procedure, router } from "../trpc/trpc";
+import { Query, Router } from "nestjs-trpc";
 
-@Injectable()
+@Router({ alias: "group" })
 export class GroupRouter {
-  groupRouter = router({
-    hello: procedure.input(z.object({ name: z.string() })).query(({ input }) => {
-      return {
-        greeting: `グループからこんにちは ${input.name}さん！`,
-      };
-    }),
-
-    getGroups: procedure.query(async () => {
-      return [
-        { id: 1, name: "開発チーム" },
-        { id: 2, name: "営業チーム" },
-      ];
-    }),
-  });
+  // 組織のメンバー一覧を取得
+  @Query()
+  async getGroupsMembers() {
+    return {
+      groups: [{ id: 1, name: "test" }],
+    };
+  }
 }

@@ -15,7 +15,8 @@
     "test": "pushd apps/web && pnpm test && popd && pushd apps/expo && pnpm test && popd && pushd packages/graphql && pnpm test && popd",
     "biome:check": "biome check",
     "biome:format": "biome format --write",
-    "biome:lint": "biome lint"
+    "biome:lint": "biome lint",
+    "db:generate": "pnpm --filter=database generate"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
