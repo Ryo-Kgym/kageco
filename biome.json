@@ -11,6 +11,7 @@
       "*/**/*-codegen.cjs",
       "*/**/*.config.*",
       ".turbo/",
+      "apps/api/dist",
       "apps/expo/.expo*",
       "apps/expo/dist",
       "apps/expo/ios",
@@ -37,7 +38,9 @@
     "enabled": true,
     "rules": {
       "recommended": true,
-      "style": {},
+      "style": {
+        "useImportType": "off"
+      },
       "correctness": {
         "noUnknownFunction": "off"
       },
