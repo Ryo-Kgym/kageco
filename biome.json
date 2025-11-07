@@ -24,7 +24,8 @@
       "packages/graphql/public/type.ts",
       "packages/graphql/**/*.generated.ts",
       "packages/type/date/date.ts",
-      "tooling/prettier/index.js"
+      "tooling/prettier/index.js",
+      "backend/"
     ]
   },
   "formatter": {
