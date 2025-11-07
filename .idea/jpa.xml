@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="JpaBuddyIdeaProjectConfig" migrateIndexesAndConstraints="true" reUseTableSchema="true">
-    <option name="migrateIndexesAndConstraints" value="true" />
-    <option name="reLastEntityCreationPackage" value="backend/api/src/main/java/kageco/api/entity" />
-    <option name="reverseEngineeringLastDbConnectionId" value="88218260-0a3d-4ca9-b78e-69fe925ea30d__home-helper-v2_db_1582292_business" />
-  </component>
-</project>
