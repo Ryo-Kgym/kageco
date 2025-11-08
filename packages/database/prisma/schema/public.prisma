@@ -1,0 +1,80 @@
+
+model affiliation {
+  id         String @id @db.VarChar(26)
+  user_id    String @db.VarChar(26)
+  group_id   String @db.VarChar(26)
+  group_role String @db.VarChar(16)
+  group      group  @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user       user   @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@schema("public")
+}
+
+model app {
+  id       String @id @db.VarChar
+  name     String @db.VarChar
+  group_id String @db.VarChar
+  group    group  @relation(fields: [group_id], references: [id], onUpdate: Restrict)
+
+  @@schema("public")
+}
+
+model application {
+  id                String              @id @db.VarChar(26)
+  name              String              @db.VarChar(50)
+  valid_flag        Boolean?            @default(true)
+  top_url           String              @db.VarChar(128)
+  group_application group_application[]
+
+  @@schema("public")
+}
+
+model group {
+  id                  String                @id @db.VarChar(26)
+  name                String                @db.VarChar(50)
+  daily_attendance    daily_attendance[]
+  account             account[]
+  category            category[]
+  condition_session   condition_session[]
+  credit_card_detail  credit_card_detail[]
+  credit_card_summary credit_card_summary[]
+  daily_detail        daily_detail[]
+  dashboard_setting   dashboard_setting[]
+  deposit_category    deposit_category[]
+  favorite_filter     favorite_filter[]
+  genre               genre[]
+  import_file_history import_file_history[]
+  tag                 tag[]
+  template            template[]
+  transfer_category   transfer_category?
+  affiliation         affiliation[]
+  app                 app[]
+  group_application   group_application[]
+
+  @@schema("public")
+}
+
+model group_application {
+  id             String      @id @db.VarChar(26)
+  group_id       String      @db.VarChar(26)
+  application_id String      @db.VarChar(26)
+  application    application @relation(fields: [application_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  group          group       @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@schema("public")
+}
+
+model user {
+  id                 String               @id @db.VarChar(26)
+  name               String?              @db.VarChar(32)
+  display_order      Int?
+  email              String               @unique @db.VarChar(64)
+  daily_attendance   daily_attendance[]
+  monthly_plan       monthly_plan[]
+  credit_card_detail credit_card_detail[]
+  daily_detail       daily_detail[]
+  dashboard_setting  dashboard_setting[]
+  affiliation        affiliation[]
+
+  @@schema("public")
+}

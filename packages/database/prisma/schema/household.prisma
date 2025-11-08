@@ -1,0 +1,233 @@
+
+model account {
+  id                  String                @id @db.VarChar(26)
+  name                String                @db.VarChar(50)
+  valid_flag          Boolean?              @default(true)
+  display_order       Int
+  group_id            String                @db.VarChar(26)
+  group               group                 @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  credit_card_summary credit_card_summary[]
+  daily_detail        daily_detail[]
+
+  @@schema("household")
+}
+
+model category {
+  id                                                                String               @id @db.VarChar(26)
+  name                                                              String               @db.VarChar(50)
+  genre_id                                                          String               @db.VarChar(26)
+  valid_flag                                                        Boolean?             @default(true)
+  display_order                                                     Int
+  group_id                                                          String               @db.VarChar(26)
+  genre                                                             genre                @relation(fields: [genre_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  group                                                             group                @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  credit_card_detail                                                credit_card_detail[]
+  daily_detail                                                      daily_detail[]
+  deposit_category                                                  deposit_category?
+  transfer_category_transfer_category_income_category_idTocategory  transfer_category[]  @relation("transfer_category_income_category_idTocategory")
+  transfer_category_transfer_category_outcome_category_idTocategory transfer_category[]  @relation("transfer_category_outcome_category_idTocategory")
+
+  @@schema("household")
+}
+
+model condition_session {
+  group_id  String @db.VarChar
+  key       String @id @db.VarChar
+  value     Json[] @db.Json
+  data_type String @db.VarChar
+  group     group  @relation(fields: [group_id], references: [id], onUpdate: Restrict)
+
+  @@schema("household")
+}
+
+model credit_card_detail {
+  id                  String              @id @db.VarChar(26)
+  date                DateTime            @db.Date
+  genre_id            String              @db.VarChar(26)
+  iocome_type         String              @db.VarChar(8)
+  category_id         String              @db.VarChar(26)
+  amount              Decimal             @db.Decimal(10, 0)
+  memo                String?             @db.VarChar(64)
+  summary_id          String              @db.VarChar(26)
+  user_id             String              @db.VarChar(26)
+  group_id            String              @db.VarChar(26)
+  category            category            @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  genre               genre               @relation(fields: [genre_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  group               group               @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  credit_card_summary credit_card_summary @relation(fields: [summary_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user                user                @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@schema("household")
+}
+
+model credit_card_summary {
+  id                 String               @id @db.VarChar(26)
+  credit_card        String               @db.VarChar(16)
+  withdrawal_date    DateTime             @db.Date
+  account_id         String               @db.VarChar(26)
+  total_amount       Decimal              @db.Decimal(10, 0)
+  count              Int
+  group_id           String               @db.VarChar(26)
+  credit_card_detail credit_card_detail[]
+  account            account              @relation(fields: [account_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  group              group                @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@schema("household")
+}
+
+model daily_detail {
+  id          String   @id @db.VarChar(26)
+  date        DateTime @db.Date
+  genre_id    String   @db.VarChar(26)
+  iocome_type String   @db.VarChar(8)
+  category_id String   @db.VarChar(26)
+  account_id  String   @db.VarChar(26)
+  user_id     String   @db.VarChar(26)
+  amount      Decimal  @db.Decimal(10, 0)
+  memo        String?  @db.VarChar(64)
+  group_id    String   @db.VarChar(26)
+  account     account  @relation(fields: [account_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  category    category @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  genre       genre    @relation(fields: [genre_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  group       group    @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user        user     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@schema("household")
+}
+
+model dashboard_setting {
+  id                     String                   @id @db.VarChar(26)
+  feature                String                   @db.VarChar(32)
+  order                  Int
+  user_id                String                   @db.VarChar(26)
+  group_id               String                   @db.VarChar(26)
+  group                  group                    @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user                   user                     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  dashboard_setting_args dashboard_setting_args[]
+
+  @@schema("household")
+}
+
+model dashboard_setting_args {
+  id                String            @id @db.VarChar(26)
+  setting_id        String            @db.VarChar(26)
+  type              String            @db.VarChar(32)
+  value             String            @db.VarChar(32)
+  dashboard_setting dashboard_setting @relation(fields: [setting_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@schema("household")
+}
+
+model deposit_category {
+  category_id String   @id @db.VarChar(26)
+  group_id    String   @db.VarChar(26)
+  category    category @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  group       group    @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@schema("household")
+}
+
+model detail_tag {
+  id        String @id @db.VarChar
+  detail_id String @db.VarChar
+  tag_id    String @db.VarChar
+  tag       tag    @relation(fields: [tag_id], references: [id], onDelete: Cascade)
+
+  @@schema("household")
+}
+
+model favorite_filter {
+  id                   String                 @id @db.VarChar(26)
+  name                 String                 @db.VarChar(64)
+  group_id             String                 @db.VarChar(26)
+  group                group                  @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  favorite_filter_args favorite_filter_args[]
+
+  @@schema("household")
+}
+
+model favorite_filter_args {
+  id              String          @id @db.VarChar(26)
+  filter_id       String          @db.VarChar(26)
+  key             String          @db.VarChar(32)
+  value           String          @db.VarChar(32)
+  favorite_filter favorite_filter @relation(fields: [filter_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@schema("household")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model freee_link_detail {
+  id              String   @id @db.VarChar
+  linked_datetime DateTime @default(now()) @db.Timestamptz(6)
+  detail_id       String   @db.VarChar
+
+  @@schema("household")
+}
+
+model genre {
+  id                 String               @id @db.VarChar(26)
+  name               String               @db.VarChar(50)
+  genre_type         String               @db.VarChar(16)
+  iocome_type        String               @db.VarChar(8)
+  valid_flag         Boolean?             @default(true)
+  display_order      Int
+  group_id           String               @db.VarChar(26)
+  category           category[]
+  credit_card_detail credit_card_detail[]
+  daily_detail       daily_detail[]
+  group              group                @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([iocome_type])
+  @@schema("household")
+}
+
+model import_file_history {
+  id              String   @id @db.VarChar(26)
+  file_name       String   @db.VarChar(128)
+  file_type       String   @db.VarChar(16)
+  import_datetime DateTime @db.Timestamp(6)
+  import_user_id  String   @db.VarChar(26)
+  group_id        String   @db.VarChar(26)
+  group           group    @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@schema("household")
+}
+
+model tag {
+  id            String       @id(map: "m_tag_pkey") @db.VarChar
+  name          String       @db.VarChar
+  color_code    String       @default("#FFFFFF") @db.VarChar(7)
+  group_id      String       @db.VarChar
+  display_order Int          @default(0)
+  detail_tag    detail_tag[]
+  group         group        @relation(fields: [group_id], references: [id], onUpdate: Restrict, map: "m_tag_group_id_fkey")
+
+  @@schema("household")
+}
+
+model template {
+  id          String  @id @db.VarChar(26)
+  name        String  @db.VarChar(50)
+  account_id  String  @db.VarChar(26)
+  genre_id    String  @db.VarChar(26)
+  iocome_type String  @db.VarChar(8)
+  category_id String  @db.VarChar(26)
+  amount      Int
+  memo        String? @db.VarChar(100)
+  group_id    String  @db.VarChar(26)
+  group       group   @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@schema("household")
+}
+
+model transfer_category {
+  group_id                                                 String   @id @db.VarChar(26)
+  income_category_id                                       String   @db.VarChar(26)
+  outcome_category_id                                      String   @db.VarChar(26)
+  group                                                    group    @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  category_transfer_category_income_category_idTocategory  category @relation("transfer_category_income_category_idTocategory", fields: [income_category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "transfer_category_income_category_id_fk")
+  category_transfer_category_outcome_category_idTocategory category @relation("transfer_category_outcome_category_idTocategory", fields: [outcome_category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "transfer_category_outcome_category_id_fk")
+
+  @@schema("household")
+}
