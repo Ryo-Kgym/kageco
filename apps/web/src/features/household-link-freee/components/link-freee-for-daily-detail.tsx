@@ -20,6 +20,7 @@ export const LinkFreeeForDailyDetail: FC<Props> = ({ id, onClose }) => {
     record,
     handleRecordChange,
     handleSubmit: handleSubmitFieldOnly,
+    isSubmitting,
   } = useStateFreeeRecord({
     form,
     onClose,
@@ -222,6 +223,7 @@ export const LinkFreeeForDailyDetail: FC<Props> = ({ id, onClose }) => {
                 label={"freeeに登録する"}
                 // @ts-expect-error
                 onClick={handleSubmit}
+                disabled={isSubmitting}
               />
             </div>
           </form>

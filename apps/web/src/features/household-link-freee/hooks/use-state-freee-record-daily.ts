@@ -12,6 +12,7 @@ export const useStateFreeeRecord = (params: {
 }) => {
   const { form, onClose } = params;
   const [record, setRecord] = useState<UnifiedRecord | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (!form) return;
@@ -76,6 +77,8 @@ export const useStateFreeeRecord = (params: {
       return;
     }
 
+    setIsSubmitting(true);
+
     try {
       await submitDealActions({ ...record, fromWalletableType });
       successPopup(successMessage);
@@ -83,6 +86,8 @@ export const useStateFreeeRecord = (params: {
     } catch (error) {
       console.error(error);
       errorPopup(error as string);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -90,5 +95,6 @@ export const useStateFreeeRecord = (params: {
     record,
     handleRecordChange,
     handleSubmit,
+    isSubmitting,
   };
 };

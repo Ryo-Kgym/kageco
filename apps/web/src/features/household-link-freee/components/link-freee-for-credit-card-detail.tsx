@@ -1,4 +1,4 @@
-import type { FC, FormEvent } from "react";
+import { type FC, type FormEvent, useState } from "react";
 
 import { ModalTableSelect } from "../../../components/ui";
 import { Button } from "../../../components/ui/button/v5";
@@ -20,6 +20,7 @@ export const LinkFreeeForCreditCardDetail: FC<Props> = ({ id, onClose }) => {
     record,
     handleRecordChange,
     handleSubmit: handleSubmitFieldOnly,
+    isSubmitting,
   } = useStateFreeeRecord({
     formData,
     display,
@@ -223,6 +224,7 @@ export const LinkFreeeForCreditCardDetail: FC<Props> = ({ id, onClose }) => {
                 label={"freeeに登録する"}
                 // @ts-expect-error
                 onClick={handleSubmit}
+                disabled={isSubmitting}
               />
             </div>
           </form>
