@@ -17,6 +17,7 @@ export const useStateFreeeRecord = (params: {
 }) => {
   const { formData, display, onClose } = params;
   const [record, setRecord] = useState<UnifiedRecord | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (!formData || !display) return;
@@ -81,6 +82,7 @@ export const useStateFreeeRecord = (params: {
       errorPopup("レコードが初期化されていません");
       return;
     }
+    setIsSubmitting(true);
 
     try {
       await submitDealActions({ ...record, fromWalletableType });
@@ -88,8 +90,10 @@ export const useStateFreeeRecord = (params: {
       refresh();
       onClose();
     } catch (error) {
-      console.error("Error submitting data:", error);
+      console.error(error);
       errorPopup(error as string);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -97,5 +101,6 @@ export const useStateFreeeRecord = (params: {
     record,
     handleRecordChange,
     handleSubmit,
+    isSubmitting,
   };
 };

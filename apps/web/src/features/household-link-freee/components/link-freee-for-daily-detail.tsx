@@ -20,6 +20,7 @@ export const LinkFreeeForDailyDetail: FC<Props> = ({ id, onClose }) => {
     record,
     handleRecordChange,
     handleSubmit: handleSubmitFieldOnly,
+    isSubmitting,
   } = useStateFreeeRecord({
     form,
     onClose,
@@ -77,7 +78,10 @@ export const LinkFreeeForDailyDetail: FC<Props> = ({ id, onClose }) => {
               </div>
 
               <div className={styles.formField}>
-                <label htmlFor="partnerId" className={styles.formLabel}>
+                <label
+                  htmlFor="partnerId"
+                  className={`${styles.formLabel} ${styles.required}`}
+                >
                   取引先ID
                 </label>
                 <ModalTableSelect
@@ -92,7 +96,10 @@ export const LinkFreeeForDailyDetail: FC<Props> = ({ id, onClose }) => {
 
               {/* 明細情報 */}
               <div className={styles.formField}>
-                <label htmlFor="taxCode" className={styles.formLabel}>
+                <label
+                  htmlFor="taxCode"
+                  className={`${styles.formLabel} ${styles.required}`}
+                >
                   税区分コード
                 </label>
                 <ModalTableSelect
@@ -106,7 +113,10 @@ export const LinkFreeeForDailyDetail: FC<Props> = ({ id, onClose }) => {
               </div>
 
               <div className={styles.formField}>
-                <label htmlFor="accountItemId" className={styles.formLabel}>
+                <label
+                  htmlFor="accountItemId"
+                  className={`${styles.formLabel} ${styles.required}`}
+                >
                   勘定科目ID
                 </label>
                 <ModalTableSelect
@@ -213,6 +223,7 @@ export const LinkFreeeForDailyDetail: FC<Props> = ({ id, onClose }) => {
                 label={"freeeに登録する"}
                 // @ts-expect-error
                 onClick={handleSubmit}
+                disabled={isSubmitting}
               />
             </div>
           </form>

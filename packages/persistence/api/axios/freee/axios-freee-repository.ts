@@ -1,4 +1,8 @@
 import axios from "axios";
+
+/**
+ * 参考: https://developer.freee.co.jp/reference/accounting/reference#/%E9%80%A3%E7%B5%A1%E5%85%88
+ */
 export class AxiosFreeeRepository {
   protected readonly baseUrl = "https://api.freee.co.jp/api/1";
   protected readonly companyId: number;
