@@ -81,7 +81,7 @@ export const useStateFreeeRecord = (params: {
       successPopup(successMessage);
       onClose();
     } catch (error) {
-      console.error("Error submitting data:", error);
+      console.error(error);
       errorPopup(error as string);
     }
   };
