@@ -8,7 +8,7 @@ import type { ImportFileType } from "../types/importFileType";
 import { registerCreditCard } from "./registerCreditCard";
 import { registerImportHistory } from "./registerImportHistory";
 
-export const registerImported = async ({
+export const registerImportedAction = async ({
   importFileType,
   fileName,
   withdrawalDate,

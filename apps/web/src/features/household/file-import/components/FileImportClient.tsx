@@ -4,7 +4,7 @@ import { type FC, useState } from "react";
 
 import type { ImportFileType } from "../types/importFileType";
 import { FileTypeInput } from "./FileTypeInput";
-import { FileImportForm } from "./form/FileImportForm";
+import { FileImportForm } from "./form/file-import-form";
 import { FileImportColumnMapping } from "./setting/FileImportColumnMapping";
 import { FileImportSetting } from "./setting/FileImportSetting";
 

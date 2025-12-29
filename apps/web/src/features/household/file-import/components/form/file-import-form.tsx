@@ -5,15 +5,14 @@ import type { FC } from "react";
 import { useEffect, useState } from "react";
 
 import { Button } from "../../../../../components/ui/button/v5";
+import { Checkbox } from "../../../../../components/ui/checkbox/v5/Checkbox";
 import { DatePicker } from "../../../../../components/ui/date";
 import { AccountSelect } from "../../../../../components/ui/select/AccountSelect";
+import { CategorySelect } from "../../../../../components/ui/select/CategorySelect";
+import { GenreSelect } from "../../../../../components/ui/select/GenreSelect";
 import { FileInput } from "../../../../../components/ui/v5/file/FileInput";
+import { IocomeType } from "../../../../../domain/model/household/IocomeType";
 import { errorPopup, successPopup } from "../../../../../function/successPopup";
-// import { Button } from "../../../../components/ui/button/v5";
-// import { DatePicker } from "../../../../components/ui/date";
-// import { AccountSelect } from "../../../../components/ui/select/AccountSelect";
-// import { FileInput } from "../../../../components/ui/v5/file/FileInput";
-// import { errorPopup, successPopup } from "../../../../function/successPopup";
 import { useBuildTable } from "../../client/useBuildTable";
 import { useImportFileRowAware } from "../../client/useImportFileRowAware";
 import { useLoadFile } from "../../client/useLoadFile";
@@ -21,7 +20,7 @@ import { useMessage } from "../../client/useMessage";
 import { useProcessQuotedCsv } from "../../client/useProcessQuotedCsv";
 import { useRemoveColumn } from "../../client/useRemoveColumn";
 import type { ImportFileType } from "../../types/importFileType";
-import { registerImported } from "../../useServer/registerImported";
+import { registerImportedAction } from "../../useServer/register-imported.action";
 import { LoadFileInputTable } from "./LoadFileInputTable";
 
 type Props = {
@@ -41,6 +40,12 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
   const [columnToRemove, setColumnToRemove] = useState<string>("");
   const { importFileRowAware, clearImportFileRowAware } =
     useImportFileRowAware();
+
+  // === デフォルトカテゴリ利用
+  const [availableDefaultCategory, setAvailableDefaultCategory] =
+    useState(false);
+  const [defaultGenreId, setDefaultGenreId] = useState("");
+  const [defaultCategoryId, setDefaultCategoryId] = useState("");
 
   const total =
     Object.values(importFileRowAware).reduce((acc, cur) => {
@@ -71,7 +76,7 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
       console.log(importFileRowAware);
       console.log(body);
 
-      const { count } = await registerImported({
+      const { count } = await registerImportedAction({
         importFileType,
         fileName: uploadFile.name,
         withdrawalDate: convertToYmd(withdrawalDate),
@@ -99,13 +104,34 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
 
   return (
     <div className={"space-y-5"}>
+      <div className={"flex flex-row"}>
+        <div>
+          <Checkbox
+            id={"availableDefaultCategory"}
+            label={"デフォルトカテゴリを利用する"}
+            checked={availableDefaultCategory}
+            onChange={setAvailableDefaultCategory}
+            nowrap
+          />
+        </div>
+      </div>
       <div className={"flex flex-row items-center space-x-5"}>
         <DatePicker value={withdrawalDate} onChange={setWithdrawalDate} />
-        <AccountSelect
-          accountId={accountId}
-          onChange={setAccountId}
-          withLabel
-        />
+        {availableDefaultCategory && (
+          <>
+            <GenreSelect
+              genreId={defaultGenreId}
+              onChange={setDefaultGenreId}
+              iocomeType={IocomeType.Outcome}
+            />
+            <CategorySelect
+              categoryId={defaultCategoryId}
+              onChange={setDefaultCategoryId}
+              genreId={defaultGenreId}
+            />
+          </>
+        )}
+        <AccountSelect accountId={accountId} onChange={setAccountId} />
         <FileInput onChange={onChange} />
       </div>
       <div className="space-y-2">
@@ -127,7 +153,7 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
                 placeholder="列番号"
                 value={columnToRemove}
                 onChange={(e) => setColumnToRemove(e.target.value)}
-                className="w-20 p-2 border border-gray-300 rounded"
+                className="w-20 rounded border border-gray-300 p-2"
               />
               <Button
                 label="列を削除"
