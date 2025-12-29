@@ -1,10 +1,11 @@
 mutation CreateImportFileHistory(
+  $id: String!
   $fileName: String!
   $fileType: String!
   $groupId: String!
-  $id: String!
   $importDatetime: timestamp!
   $importUserId: String!
+  $importContents: json
 ) {
   insertImportFileHistory: insertHouseholdImportFileHistory(
     objects: {
@@ -14,6 +15,7 @@ mutation CreateImportFileHistory(
       importUserId: $importUserId
       importDatetime: $importDatetime
       groupId: $groupId
+      importContents: $importContents
     }
   ) {
     returning {

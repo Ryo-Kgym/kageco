@@ -3589,6 +3589,7 @@ export type HouseholdImportFileHistoryBoolExp = {
   group: InputMaybe<GroupBoolExp>;
   groupId: InputMaybe<StringComparisonExp>;
   id: InputMaybe<StringComparisonExp>;
+  importContents: InputMaybe<JsonComparisonExp>;
   importDatetime: InputMaybe<TimestampComparisonExp>;
   importUserId: InputMaybe<StringComparisonExp>;
   user: InputMaybe<UserBoolExp>;
@@ -3605,6 +3606,7 @@ export type HouseholdImportFileHistoryInsertInput = {
   fileType: InputMaybe<Scalars["String"]>;
   groupId: InputMaybe<Scalars["String"]>;
   id: InputMaybe<Scalars["String"]>;
+  importContents: InputMaybe<Scalars["json"]>;
   importDatetime: InputMaybe<Scalars["timestamp"]>;
   importUserId: InputMaybe<Scalars["String"]>;
   user: InputMaybe<UserObjRelInsertInput>;
@@ -3651,6 +3653,7 @@ export type HouseholdImportFileHistoryOrderBy = {
   group: InputMaybe<GroupOrderBy>;
   groupId: InputMaybe<OrderBy>;
   id: InputMaybe<OrderBy>;
+  importContents: InputMaybe<OrderBy>;
   importDatetime: InputMaybe<OrderBy>;
   importUserId: InputMaybe<OrderBy>;
   user: InputMaybe<UserOrderBy>;
@@ -3666,6 +3669,8 @@ export type HouseholdImportFileHistorySelectColumn =
   | "groupId"
   /** column name */
   | "id"
+  /** column name */
+  | "importContents"
   /** column name */
   | "importDatetime"
   /** column name */
@@ -3685,6 +3690,7 @@ export type HouseholdImportFileHistoryStreamCursorValueInput = {
   fileType: InputMaybe<Scalars["String"]>;
   groupId: InputMaybe<Scalars["String"]>;
   id: InputMaybe<Scalars["String"]>;
+  importContents: InputMaybe<Scalars["json"]>;
   importDatetime: InputMaybe<Scalars["timestamp"]>;
   importUserId: InputMaybe<Scalars["String"]>;
 };
@@ -4342,6 +4348,19 @@ export type JsonArrayComparisonExp = {
   _nin: InputMaybe<Array<Array<Scalars["json"]>>>;
 };
 
+/** Boolean expression to compare columns of type "json". All fields are combined with logical 'AND'. */
+export type JsonComparisonExp = {
+  _eq: InputMaybe<Scalars["json"]>;
+  _gt: InputMaybe<Scalars["json"]>;
+  _gte: InputMaybe<Scalars["json"]>;
+  _in: InputMaybe<Array<Scalars["json"]>>;
+  _isNull: InputMaybe<Scalars["Boolean"]>;
+  _lt: InputMaybe<Scalars["json"]>;
+  _lte: InputMaybe<Scalars["json"]>;
+  _neq: InputMaybe<Scalars["json"]>;
+  _nin: InputMaybe<Array<Scalars["json"]>>;
+};
+
 /** Boolean expression to compare columns of type "numeric". All fields are combined with logical 'AND'. */
 export type NumericComparisonExp = {
   _eq: InputMaybe<Scalars["numeric"]>;
@@ -4651,6 +4670,7 @@ export type CreateImportFileHistoryMutationVariables = Types.Exact<{
   id: Types.Scalars["String"];
   importDatetime: Types.Scalars["timestamp"];
   importUserId: Types.Scalars["String"];
+  importContents: Types.InputMaybe<Types.Scalars["json"]>;
 }>;
 
 export type CreateImportFileHistoryMutation = {
@@ -4750,6 +4770,14 @@ export const CreateImportFileHistoryDocument = {
             },
           },
         },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "importContents" },
+          },
+          type: { kind: "NamedType", name: { kind: "Name", value: "json" } },
+        },
       ],
       selectionSet: {
         kind: "SelectionSet",
@@ -4811,6 +4839,14 @@ export const CreateImportFileHistoryDocument = {
                       value: {
                         kind: "Variable",
                         name: { kind: "Name", value: "groupId" },
+                      },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "importContents" },
+                      value: {
+                        kind: "Variable",
+                        name: { kind: "Name", value: "importContents" },
                       },
                     },
                   ],
