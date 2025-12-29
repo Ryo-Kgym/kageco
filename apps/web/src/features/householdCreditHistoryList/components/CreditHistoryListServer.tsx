@@ -2,7 +2,7 @@ import { GetCreditCardListDocument } from "@v3/graphql/household/schema/query/ge
 
 import { findUser } from "../../../persistence/browser/server/find-user";
 import { execQuery } from "../../../persistence/database/server/execQuery";
-import { CreditHistoryListContainer } from "./CreditHistoryListContainer";
+import { CreditHistoryTable } from "./credit-history-table";
 
 export const CreditHistoryListServer = async () => {
   const { group } = await findUser();
@@ -19,5 +19,5 @@ export const CreditHistoryListServer = async () => {
     totalAmount: d.totalAmount,
   }));
 
-  return <CreditHistoryListContainer creditHistoryList={creditHistoryList} />;
+  return <CreditHistoryTable creditHistoryList={creditHistoryList} />;
 };
