@@ -4,9 +4,10 @@ import { type FC, useState } from "react";
 
 type Props = {
   onChange: (_: File | null) => void;
+  disabled?: boolean;
 };
 
-export const FileInput: FC<Props> = ({ onChange }) => {
+export const FileInput: FC<Props> = ({ onChange, disabled }) => {
   const [file, setFile] = useState<File | null>(null);
 
   const clearFile = () => {
@@ -24,9 +25,9 @@ export const FileInput: FC<Props> = ({ onChange }) => {
         }}
         placeholder="ファイルを選択してください"
         leftSection={<IconUpload size={24} />}
-        size={"lg"}
         withAsterisk
         error={file === null ? "Required" : undefined}
+        disabled={disabled}
       />
       {file && (
         <button

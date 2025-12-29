@@ -10,7 +10,7 @@ import { DatePicker } from "../../../../../components/ui/date";
 import { AccountSelect } from "../../../../../components/ui/select/AccountSelect";
 import { CategorySelect } from "../../../../../components/ui/select/CategorySelect";
 import { GenreSelect } from "../../../../../components/ui/select/GenreSelect";
-import { FileInput } from "../../../../../components/ui/v5/file/FileInput";
+import { FileInput } from "../../../../../components/ui/v5/file/file-input";
 import { IocomeType } from "../../../../../domain/model/household/IocomeType";
 import { errorPopup, successPopup } from "../../../../../function/successPopup";
 import { useBuildTable } from "../../client/useBuildTable";
@@ -132,7 +132,10 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
           </>
         )}
         <AccountSelect accountId={accountId} onChange={setAccountId} />
-        <FileInput onChange={onChange} />
+        <FileInput
+          onChange={onChange}
+          disabled={!withdrawalDate || !accountId}
+        />
       </div>
       <div className="space-y-2">
         <div className="flex justify-between">
