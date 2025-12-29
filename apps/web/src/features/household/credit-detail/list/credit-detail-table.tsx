@@ -26,63 +26,67 @@ export const CreditDetailTable: FC<Props> = ({
   const backHandler = () => push(paths.household.creditCard);
 
   return (
-    <div className={"space-y-3"}>
-      <CreditSummaryForm {...summary} />
-      <DataTable
-        records={details}
-        columns={[
-          {
-            accessor: "date",
-            title: "発生日",
-            width: 120,
-          },
-          {
-            accessor: "genreName",
-            title: "ジャンル",
-            width: 180,
-          },
-          {
-            accessor: "categoryName",
-            title: "カテゴリ",
-            width: 180,
-          },
-          {
-            accessor: "amount",
-            title: "金額",
-            render: (v) => (
-              <FormatPrice iocomeType={v.iocomeType} price={v.amount} />
-            ),
-          },
-          {
-            accessor: "tags",
-            title: "メモ・タグ",
-            render: (v) => {
-              return (
-                <div className={"flex items-center"}>
-                  {v.tags.map((tag) => (
-                    <Tag
-                      key={tag.value}
-                      label={tag.label}
-                      colorCode={tag.colorCode}
-                    />
-                  ))}
-                  <span>{v.memo}</span>
-                </div>
-              );
+    <div className={"flex gap-3"}>
+      <div className={"w-[20%]"}>
+        <CreditSummaryForm {...summary} />
+      </div>
+      <div className={"flex-1"}>
+        <DataTable
+          records={details}
+          columns={[
+            {
+              accessor: "date",
+              title: "発生日",
+              width: 120,
             },
-          },
-        ]}
-        onRowClick={(v) =>
-          push(
-            paths.household.creditDetail.edit({
-              creditCardSummaryId,
-              creditDetailId: v.id,
-            }),
-          )
-        }
-      />
-      <div className={"flex"}>
-        <Button type={"back"} onClick={backHandler} label={"戻る"} />
+            {
+              accessor: "genreName",
+              title: "ジャンル",
+              width: 180,
+            },
+            {
+              accessor: "categoryName",
+              title: "カテゴリ",
+              width: 180,
+            },
+            {
+              accessor: "amount",
+              title: "金額",
+              render: (v) => (
+                <FormatPrice iocomeType={v.iocomeType} price={v.amount} />
+              ),
+            },
+            {
+              accessor: "tags",
+              title: "メモ・タグ",
+              render: (v) => {
+                return (
+                  <div className={"flex items-center"}>
+                    {v.tags.map((tag) => (
+                      <Tag
+                        key={tag.value}
+                        label={tag.label}
+                        colorCode={tag.colorCode}
+                      />
+                    ))}
+                    <span>{v.memo}</span>
+                  </div>
+                );
+              },
+            },
+          ]}
+          onRowClick={(v) =>
+            push(
+              paths.household.creditDetail.edit({
+                creditCardSummaryId,
+                creditDetailId: v.id,
+              }),
+            )
+          }
+        />
+        <div className={"flex"}>
+          <Button type={"back"} onClick={backHandler} label={"戻る"} />
+        </div>
       </div>
     </div>
   );
