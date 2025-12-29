@@ -117,7 +117,11 @@ export const LoadFileInputRow: FC<Props> = ({
 
   return (
     <>
-      {[<Table.BodyTd key={`${rowNumber}`}>{rowNumber + 1}</Table.BodyTd>]
+      {[
+        <Table.BodyTd key={`${rowNumber.toString()}-index`}>
+          {rowNumber + 1}
+        </Table.BodyTd>,
+      ]
         .concat(
           item.map((c, i) => (
             <Table.BodyTd key={i.toString()}>{c}</Table.BodyTd>
