@@ -1,6 +1,6 @@
-import type { IocomeType } from "../../../domain/model/household/IocomeType";
+import type { IocomeType } from "../../../../domain/model/household/IocomeType";
 
-export type CreditDetailRow = {
+export type CreditDetailType = {
   id: string;
   date: string;
   genreName: string;

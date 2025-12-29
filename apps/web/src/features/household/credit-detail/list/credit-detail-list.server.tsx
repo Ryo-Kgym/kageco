@@ -1,8 +1,8 @@
 import { GetCreditCardDetailBySummaryIdDocument } from "@v3/graphql/household/schema/query/v5/getCreditCardDetailBySummaryId.generated";
 
-import type { IocomeType } from "../../../domain/model/household/IocomeType";
-import { execQuery } from "../../../persistence/database/server/execQuery";
-import { CreditDetailListClient } from "./CreditDetailListClient";
+import type { IocomeType } from "../../../../domain/model/household/IocomeType";
+import { execQuery } from "../../../../persistence/database/server/execQuery";
+import { CreditDetailTable } from "./credit-detail-table";
 
 export const CreditDetailListServer = async ({
   creditCardSummaryId,
@@ -43,7 +43,7 @@ export const CreditDetailListServer = async ({
     })) ?? [];
 
   return (
-    <CreditDetailListClient
+    <CreditDetailTable
       creditCardSummaryId={creditCardSummaryId}
       summary={summary}
       details={details}

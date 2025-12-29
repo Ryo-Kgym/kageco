@@ -1,11 +1,10 @@
 "use server";
 
 import { UpdateCreditSummaryDocument } from "@v3/graphql/household/schema/mutation/v5/updateCreditSummary.generated";
+import { execMutation } from "../../../../persistence/database/server/execMutation";
+import type { SummaryFormState } from "./summary-form-state";
 
-import { execMutation } from "../../../persistence/database/server/execMutation";
-import type { SummaryFormState } from "../types/summaryProps";
-
-export const modifyCreditSummary = async (
+export const modifyCreditSummaryAction = async (
   params: {
     id: string;
   } & SummaryFormState,

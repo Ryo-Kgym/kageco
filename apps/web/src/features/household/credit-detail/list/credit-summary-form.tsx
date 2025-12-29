@@ -1,26 +1,26 @@
 import type { FC } from "react";
 
-import { Button } from "../../../components/ui/button/v5";
-import { AccountSelect } from "../../../components/ui/select/AccountSelect";
-import { TextInput } from "../../../components/ui/textInput/TextInput";
-import { DateInput } from "../../../components/ui/v4/dateInput/DateInput";
-import { errorPopup, successPopup } from "../../../function/successPopup";
-import { useStateCreditSummary } from "../hooks/useStateCreditSummary";
+import { Button } from "../../../../components/ui/button/v5";
+import { AccountSelect } from "../../../../components/ui/select/AccountSelect";
+import { TextInput } from "../../../../components/ui/textInput/TextInput";
+import { DateInput } from "../../../../components/ui/v4/dateInput/DateInput";
+import { errorPopup, successPopup } from "../../../../function/successPopup";
+import styles from "./credit-summary-form.module.scss";
+import { modifyCreditSummaryAction } from "./modify-credit-summary.action";
 import type {
   SummaryDisplayState,
   SummaryFormState,
-} from "../types/summaryProps";
-import { modifyCreditSummary } from "../useServer/modifyCreditSummary";
-import styles from "./CreditSummaryTable.module.scss";
+} from "./summary-form-state";
+import { useStateCreditSummary } from "./use-state-credit-summary";
 
 type Props = SummaryFormState & SummaryDisplayState;
 
-export const CreditSummaryTable: FC<Props> = (summary) => {
+export const CreditSummaryForm: FC<Props> = (summary) => {
   const { form, setForm } = useStateCreditSummary({ init: summary });
 
   const updateHandler = async () => {
     try {
-      await modifyCreditSummary({
+      await modifyCreditSummaryAction({
         id: summary.id,
         ...form,
       });
