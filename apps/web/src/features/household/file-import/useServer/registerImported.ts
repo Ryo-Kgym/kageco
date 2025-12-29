@@ -24,6 +24,7 @@ export const registerImported = async ({
   const { fileImportId } = await registerImportHistory({
     importFileType,
     fileName,
+    loadData,
   });
 
   let count = 0;
