@@ -5,7 +5,6 @@ import { AccountSelect } from "../../../../components/ui/select/AccountSelect";
 import { TextInput } from "../../../../components/ui/textInput/TextInput";
 import { DateInput } from "../../../../components/ui/v4/dateInput/DateInput";
 import { errorPopup, successPopup } from "../../../../function/successPopup";
-import styles from "./credit-summary-form.module.scss";
 import { modifyCreditSummaryAction } from "./modify-credit-summary.action";
 import type {
   SummaryDisplayState,
@@ -34,10 +33,10 @@ export const CreditSummaryForm: FC<Props> = (summary) => {
 
   return (
     <div>
-      <table className={styles.table}>
+      <table className="m-[10px]">
         <tbody>
           <tr>
-            <td>カード</td>
+            <td className="p-[10px]">カード</td>
             <td>
               <TextInput
                 label={""}
@@ -47,7 +46,7 @@ export const CreditSummaryForm: FC<Props> = (summary) => {
             </td>
           </tr>
           <tr>
-            <td>引落日</td>
+            <td className="p-[10px]">引落日</td>
             <td>
               <DateInput
                 label={""}
@@ -60,7 +59,7 @@ export const CreditSummaryForm: FC<Props> = (summary) => {
             </td>
           </tr>
           <tr>
-            <td>アカウント</td>
+            <td className="p-[10px]">アカウント</td>
             <td>
               <AccountSelect
                 accountId={form.accountId}
@@ -73,17 +72,17 @@ export const CreditSummaryForm: FC<Props> = (summary) => {
             </td>
           </tr>
           <tr>
-            <td>件数</td>
+            <td className="p-[10px]">件数</td>
             <td>{summary.count}件</td>
           </tr>
           <tr>
-            <td>引落金額</td>
+            <td className="p-[10px]">引落金額</td>
             <td>{summary.totalAmount.toLocaleString()}円</td>
           </tr>
         </tbody>
       </table>
       <div>
-        <Button type={"modify"} onClick={updateHandler} label={"更新"} />
+        <Button type="modify" onClick={updateHandler} label="更新" />
       </div>
     </div>
   );
