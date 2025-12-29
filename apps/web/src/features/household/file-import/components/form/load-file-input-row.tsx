@@ -31,7 +31,10 @@ export const LoadFileInputRow: FC<Props> = ({
   const [memo, setMemo] = useState<string>("");
   const [iocomeType, setIocomeType] = useState<IocomeType>(IocomeType.Outcome);
   const { mapping } = useFileImportColumnMapping();
-  const { setImportFileRowAware } = useImportFileRowAware();
+  const { importFileRowAware, setImportFileRowAware } = useImportFileRowAware();
+
+  const isActive = rowNumber in importFileRowAware;
+  const bgColor = isActive ? "bg-inherit" : "bg-red-100";
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
@@ -118,17 +121,19 @@ export const LoadFileInputRow: FC<Props> = ({
   return (
     <>
       {[
-        <Table.BodyTd key={`${rowNumber.toString()}-index`}>
+        <Table.BodyTd key={`${rowNumber.toString()}-index`} bgColor={bgColor}>
           {rowNumber + 1}
         </Table.BodyTd>,
       ]
         .concat(
           item.map((c, i) => (
-            <Table.BodyTd key={i.toString()}>{c}</Table.BodyTd>
+            <Table.BodyTd key={i.toString()} bgColor={bgColor}>
+              {c}
+            </Table.BodyTd>
           )),
         )
         .concat(
-          <Table.BodyTd key={`genre-${rowNumber}`}>
+          <Table.BodyTd key={`genre-${rowNumber}`} bgColor={bgColor}>
             <GenreSelect
               genreId={genreId}
               onChange={setGenreId}
@@ -138,7 +143,7 @@ export const LoadFileInputRow: FC<Props> = ({
           </Table.BodyTd>,
         )
         .concat(
-          <Table.BodyTd key={`category-${rowNumber}`}>
+          <Table.BodyTd key={`category-${rowNumber}`} bgColor={bgColor}>
             <CategorySelect
               categoryId={categoryId}
               onChange={setCategoryId}
@@ -148,7 +153,7 @@ export const LoadFileInputRow: FC<Props> = ({
           </Table.BodyTd>,
         )
         .concat(
-          <Table.BodyTd key={`memo-${rowNumber}`}>
+          <Table.BodyTd key={`memo-${rowNumber}`} bgColor={bgColor}>
             <MemoTextArea
               memo={memo}
               setMemo={setMemo}
