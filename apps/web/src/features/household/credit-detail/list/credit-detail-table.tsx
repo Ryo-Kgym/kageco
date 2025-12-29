@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import type { ComponentProps, FC } from "react";
 
 import { FormatPrice } from "../../../../components/molecules/FormatPrice";
-import { Button } from "../../../../components/ui/button/v5";
 import { Tag } from "../../../../components/ui/tag/Tag";
 import { DataTable } from "../../../../components/ui/v4/table";
 import { paths } from "../../../../routing/paths";
@@ -22,8 +21,6 @@ export const CreditDetailTable: FC<Props> = ({
   details,
 }) => {
   const { push } = useRouter();
-
-  const backHandler = () => push(paths.household.creditCard);
 
   return (
     <div className={"flex gap-3"}>
@@ -84,9 +81,6 @@ export const CreditDetailTable: FC<Props> = ({
             )
           }
         />
-        <div className={"flex"}>
-          <Button type={"back"} onClick={backHandler} label={"戻る"} />
-        </div>
       </div>
     </div>
   );

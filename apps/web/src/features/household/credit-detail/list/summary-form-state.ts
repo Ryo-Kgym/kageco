@@ -9,4 +9,5 @@ export type SummaryDisplayState = {
   creditCard: string;
   totalAmount: number;
   count: number;
+  error?: string;
 };

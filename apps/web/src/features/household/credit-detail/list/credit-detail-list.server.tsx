@@ -24,6 +24,14 @@ export const CreditDetailListServer = async ({
     accountId: data.creditCardSummary.account.id,
     totalAmount: data.creditCardSummary.totalAmount,
     count: data.creditCardSummary.creditCardDetails.length,
+    error: (() => {
+      if (
+        data.creditCardSummary.count !==
+        data.creditCardSummary.creditCardDetails.length
+      ) {
+        return `明細の件数と一致しません。明細の件数: ${data.creditCardSummary.creditCardDetails.length}`;
+      }
+    })(),
   };
 
   const details =

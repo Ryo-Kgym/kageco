@@ -5,6 +5,8 @@ import { AccountSelect } from "../../../../components/ui/select/AccountSelect";
 import { TextInput } from "../../../../components/ui/textInput/TextInput";
 import { DateInput } from "../../../../components/ui/v4/dateInput/DateInput";
 import { errorPopup, successPopup } from "../../../../function/successPopup";
+import { useRouter } from "../../../../routing/client/useRouter";
+import { paths } from "../../../../routing/paths";
 import { modifyCreditSummaryAction } from "./modify-credit-summary.action";
 import type {
   SummaryDisplayState,
@@ -16,6 +18,8 @@ type Props = SummaryFormState & SummaryDisplayState;
 
 export const CreditSummaryForm: FC<Props> = (summary) => {
   const { form, setForm } = useStateCreditSummary({ init: summary });
+  const { push } = useRouter();
+  const backHandler = () => push(paths.household.creditCard);
 
   const updateHandler = async () => {
     try {
@@ -79,10 +83,17 @@ export const CreditSummaryForm: FC<Props> = (summary) => {
             <td className="p-[10px]">引落金額</td>
             <td>{summary.totalAmount.toLocaleString()}円</td>
           </tr>
+          {summary.error && (
+            <tr className={"font-bold text-red-500"}>
+              <td className="p-[10px]">エラー</td>
+              <td>{summary.error}</td>
+            </tr>
+          )}
         </tbody>
       </table>
       <div>
         <Button type="modify" onClick={updateHandler} label="更新" />
+        <Button type={"back"} onClick={backHandler} label={"戻る"} />
       </div>
     </div>
   );
