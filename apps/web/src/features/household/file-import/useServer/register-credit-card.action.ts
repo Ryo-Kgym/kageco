@@ -9,7 +9,7 @@ import { findUser } from "../../../../persistence/browser/server/find-user";
 import { execMutation } from "../../../../persistence/database/server/execMutation";
 import type { LoadFileProps } from "../types";
 
-export const registerCreditCard = async ({
+export const registerCreditCardAction = async ({
   summaryId,
   withdrawalDate,
   accountId,
@@ -43,14 +43,13 @@ export const registerCreditCard = async ({
     groupId,
   }));
 
-  const results = await Promise.all(
-    detailVariableList.map(
-      async (detail) =>
-        await execMutation(CreateCreditCardDetailDocument, {
-          ...detail,
-        }),
-    ),
-  );
+  const results = [];
+  for (const detail of detailVariableList) {
+    const result = await execMutation(CreateCreditCardDetailDocument, {
+      ...detail,
+    });
+    results.push(result);
+  }
 
   return {
     count: results.length,

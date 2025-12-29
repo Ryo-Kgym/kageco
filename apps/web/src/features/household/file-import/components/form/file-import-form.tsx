@@ -41,6 +41,8 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
   const { importFileRowAware, clearImportFileRowAware } =
     useImportFileRowAware();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   // === デフォルトカテゴリ利用
   const [availableDefaultCategory, setAvailableDefaultCategory] =
     useState(false);
@@ -74,6 +76,7 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
       return;
     }
 
+    setIsLoading(true);
     try {
       console.log(importFileRowAware);
       console.log(body);
@@ -96,6 +99,8 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
       errorPopup(
         "登録に失敗しました。コンソールを開いて内容を確認してください。",
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -223,7 +228,12 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
         <span>合計</span>
         <span>{total.toLocaleString()}</span>
       </div>
-      <Button label={"登録"} onClick={registerHandler} type={"create"} />
+      <Button
+        label={isLoading ? "登録中..." : "登録"}
+        onClick={registerHandler}
+        type={"create"}
+        disabled={isLoading}
+      />
     </div>
   );
 };

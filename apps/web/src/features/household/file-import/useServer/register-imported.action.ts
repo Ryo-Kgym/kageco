@@ -5,7 +5,7 @@ import type { YYYY_MM_DD } from "@/util/date/date";
 import { registerDailyDetail } from "../../../../useServer/household/daily_detail/registerDailyDetail";
 import type { LoadFileProps } from "../types";
 import type { ImportFileType } from "../types/importFileType";
-import { registerCreditCard } from "./registerCreditCard";
+import { registerCreditCardAction } from "./register-credit-card.action";
 import { registerImportHistory } from "./registerImportHistory";
 
 export const registerImportedAction = async ({
@@ -32,7 +32,7 @@ export const registerImportedAction = async ({
   switch (importFileType) {
     case "creditCsv": {
       count = (
-        await registerCreditCard({
+        await registerCreditCardAction({
           summaryId: fileImportId,
           withdrawalDate,
           accountId,
@@ -42,16 +42,15 @@ export const registerImportedAction = async ({
       break;
     }
     case "bankCsv": {
-      const results = await Promise.all(
-        loadData.map(
-          async (data) =>
-            await registerDailyDetail({
-              ...data,
-              date: data.date,
-              accountId,
-            }),
-        ),
-      );
+      const results = [];
+      for (const data of loadData) {
+        const result = await registerDailyDetail({
+          ...data,
+          date: data.date,
+          accountId,
+        });
+        results.push(result);
+      }
 
       count = results.length;
       break;
