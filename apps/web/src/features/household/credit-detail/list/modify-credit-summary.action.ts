@@ -1,6 +1,6 @@
 "use server";
 
-import { UpdateCreditSummaryDocument } from "@v3/graphql/household";
+import { UpdateCreditSummaryDocument } from "@v3/graphql/household/schema/mutation/v5/mutateCreditSummary.generated";
 import { execMutation } from "../../../../persistence/database/server/execMutation";
 import type { SummaryFormState } from "./summary-form-state";
 
@@ -9,7 +9,7 @@ export const modifyCreditSummaryAction = async (
     id: string;
   } & SummaryFormState,
 ) => {
-  const { data } = await execMutation(UpdateCreditSummaryDocument, {
+  await execMutation(UpdateCreditSummaryDocument, {
     id: params.id,
     form: {
       creditCard: params.creditCard,
@@ -17,8 +17,4 @@ export const modifyCreditSummaryAction = async (
       accountId: params.accountId,
     },
   });
-
-  if (!data) {
-    throw new Error("Failed to update credit summary");
-  }
 };
