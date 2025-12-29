@@ -117,9 +117,12 @@ export const LoadFileInputRow: FC<Props> = ({
 
   return (
     <>
-      {item
-        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-        .map((c, i) => <Table.BodyTd key={i}>{c}</Table.BodyTd>)
+      {[<Table.BodyTd key={`${rowNumber}`}>{rowNumber + 1}</Table.BodyTd>]
+        .concat(
+          item.map((c, i) => (
+            <Table.BodyTd key={i.toString()}>{c}</Table.BodyTd>
+          )),
+        )
         .concat(
           <Table.BodyTd key={`genre-${rowNumber}`}>
             <GenreSelect
