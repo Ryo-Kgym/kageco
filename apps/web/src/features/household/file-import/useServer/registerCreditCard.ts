@@ -4,9 +4,9 @@ import type { YYYY_MM_DD } from "@/util/date/date";
 import { CreateCreditCardDetailDocument } from "@v3/graphql/household/schema/mutation/create/CreateCreditCardDetail.generated";
 import { CreateCreditCardSummaryDocument } from "@v3/graphql/household/schema/mutation/create/CreateCreditCardSummary.generated";
 
-import { generateId } from "../../../function/generateId";
-import { findUser } from "../../../persistence/browser/server/find-user";
-import { execMutation } from "../../../persistence/database/server/execMutation";
+import { generateId } from "@/util/generateId";
+import { findUser } from "../../../../persistence/browser/server/find-user";
+import { execMutation } from "../../../../persistence/database/server/execMutation";
 import type { LoadFileProps } from "../types";
 
 export const registerCreditCard = async ({

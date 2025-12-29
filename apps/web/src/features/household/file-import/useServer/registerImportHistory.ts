@@ -3,9 +3,9 @@
 import { TZDateTime } from "@/util/date/date";
 import { CreateImportFileHistoryDocument } from "@v3/graphql/household/schema/mutation/create/CreateImportFileHistory.generated";
 
-import { generateId } from "../../../function/generateId";
-import { findUser } from "../../../persistence/browser/server/find-user";
-import { execMutation } from "../../../persistence/database/server/execMutation";
+import { generateId } from "@/util/generateId";
+import { findUser } from "../../../../persistence/browser/server/find-user";
+import { execMutation } from "../../../../persistence/database/server/execMutation";
 import type { ImportFileType } from "../types/importFileType";
 
 export const registerImportHistory = async ({

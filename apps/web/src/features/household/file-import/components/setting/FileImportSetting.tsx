@@ -1,10 +1,9 @@
 import type { FC, ReactNode } from "react";
-
-import { useImportFileSettings } from "../../../appImportFileSetting/client/useImportSettingsState";
-import { EncodingSelect } from "../../../appImportFileSetting/components/EncodingSelect";
-import { EncodingTypeSelect } from "../../../appImportFileSetting/components/EncodingTypeSelect";
-import { LineBreakCodeSelect } from "../../../appImportFileSetting/components/LineBreakCodeSelect";
-import { SplitterSelect } from "../../../appImportFileSetting/components/SplitterSelect";
+import { useImportFileSettings } from "../../../../appImportFileSetting/client/useImportSettingsState";
+import { EncodingSelect } from "../../../../appImportFileSetting/components/EncodingSelect";
+import { EncodingTypeSelect } from "../../../../appImportFileSetting/components/EncodingTypeSelect";
+import { LineBreakCodeSelect } from "../../../../appImportFileSetting/components/LineBreakCodeSelect";
+import { SplitterSelect } from "../../../../appImportFileSetting/components/SplitterSelect";
 
 export const FileImportSetting: FC = () => {
   const { importFileSettings, setImportFileSettings } = useImportFileSettings();

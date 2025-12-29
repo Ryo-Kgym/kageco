@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-
-import { decodeCsv } from "../../../provider/file/loader/csv/loadCsvFile";
-import { useImportFileSettings } from "../../appImportFileSetting/client/useImportSettingsState";
+import { decodeCsv } from "../../../../provider/file/loader/csv/loadCsvFile";
+import { useImportFileSettings } from "../../../appImportFileSetting/client/useImportSettingsState";
 
 export const useLoadFile = () => {
   const { importFileSettings } = useImportFileSettings();
