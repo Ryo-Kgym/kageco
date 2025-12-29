@@ -21,7 +21,7 @@ import { useProcessQuotedCsv } from "../../client/useProcessQuotedCsv";
 import { useRemoveColumn } from "../../client/useRemoveColumn";
 import type { ImportFileType } from "../../types/importFileType";
 import { registerImportedAction } from "../../useServer/register-imported.action";
-import { LoadFileInputTable } from "./LoadFileInputTable";
+import { LoadFileInputTable } from "./load-file-input-table";
 
 type Props = {
   importFileType: ImportFileType;
@@ -44,8 +44,10 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
   // === デフォルトカテゴリ利用
   const [availableDefaultCategory, setAvailableDefaultCategory] =
     useState(false);
-  const [defaultGenreId, setDefaultGenreId] = useState("");
-  const [defaultCategoryId, setDefaultCategoryId] = useState("");
+  const [defaultGenreId, setDefaultGenreId] = useState<string | null>(null);
+  const [defaultCategoryId, setDefaultCategoryId] = useState<string | null>(
+    null,
+  );
 
   const total =
     Object.values(importFileRowAware).reduce((acc, cur) => {
@@ -212,6 +214,10 @@ export const FileImportForm: FC<Props> = ({ importFileType }) => {
         visible={!message.length && buildable}
         header={header}
         body={body}
+        default={{
+          genreId: defaultGenreId,
+          categoryId: defaultCategoryId,
+        }}
       />
       <div className={"space-x-5 text-lg"}>
         <span>合計</span>

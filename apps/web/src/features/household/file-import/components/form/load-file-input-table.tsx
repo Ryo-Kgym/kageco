@@ -1,15 +1,16 @@
-import type { FC } from "react";
+import type { ComponentProps, FC } from "react";
 
 import { Table } from "../../../../../components/ui/v4/table";
 import { useFileImportColumnMapping } from "../../client/useFileImportColumnMapping";
 import type { ImportFileType } from "../../types/importFileType";
-import { LoadFileInputRow } from "./LoadFileInputRow";
+import { LoadFileInputRow } from "./load-file-input-row";
 
 type Props = {
   importFileType: ImportFileType;
   visible: boolean;
   header: string[];
   body: string[][];
+  default: ComponentProps<typeof LoadFileInputRow>["default"];
 };
 
 export const LoadFileInputTable: FC<Props> = ({
@@ -17,6 +18,7 @@ export const LoadFileInputTable: FC<Props> = ({
   visible,
   header,
   body,
+  default: defaultProps,
 }) => {
   const { mapping } = useFileImportColumnMapping();
 
@@ -46,6 +48,7 @@ export const LoadFileInputTable: FC<Props> = ({
             importFileType={importFileType}
             item={item}
             rowNumber={rowNumber}
+            default={defaultProps}
           />
         )}
       />

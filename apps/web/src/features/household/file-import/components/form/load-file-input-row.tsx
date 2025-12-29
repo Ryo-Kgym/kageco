@@ -14,14 +14,19 @@ type Props = {
   importFileType: ImportFileType;
   item: string[];
   rowNumber: number;
+  default: {
+    genreId: string | null;
+    categoryId: string | null;
+  };
 };
 
 export const LoadFileInputRow: FC<Props> = ({
   importFileType,
   item,
   rowNumber,
+  default: defaultProps,
 }) => {
-  const [genreId, setGenreId] = useState<string | null>(null);
+  const [genreId, setGenreId] = useState<string | null>(defaultProps.genreId);
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const [memo, setMemo] = useState<string>("");
   const [iocomeType, setIocomeType] = useState<IocomeType>(IocomeType.Outcome);
@@ -30,7 +35,7 @@ export const LoadFileInputRow: FC<Props> = ({
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    setCategoryId(null);
+    setCategoryId(defaultProps.categoryId);
   }, [genreId]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
