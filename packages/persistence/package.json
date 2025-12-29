@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@/core": "workspace:^",
-    "axios": "^1.12.2"
+    "axios": "^1.13.2"
   },
   "devDependencies": {
     "@acme/tsconfig": "workspace:^",
