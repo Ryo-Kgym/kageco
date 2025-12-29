@@ -110,9 +110,7 @@ export const CreditSummaryForm: FC<Props> = (summary) => {
       </table>
       <div>
         <Button type="modify" onClick={updateHandler} label="更新" />
-        {summary.error && (
-          <Button type="dangerous" onClick={deleteHandler} label="削除" />
-        )}
+        <Button type="dangerous" onClick={deleteHandler} label="削除" />
         <Button type={"back"} onClick={backHandler} label={"戻る"} />
       </div>
     </div>
