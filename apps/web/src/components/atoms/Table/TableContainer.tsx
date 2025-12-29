@@ -20,6 +20,7 @@ type Props = {
   toBottom?: boolean;
   defaultBottom?: boolean;
 };
+/** @deprecated {@link DataTable} を使用してください。 */
 export const TableContainer = ({
   header,
   tablePropsList,

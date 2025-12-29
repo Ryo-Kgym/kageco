@@ -3,4 +3,8 @@ export type CheckboxProps = {
   label: string;
   checked: boolean;
   onChange: (_: boolean) => void;
+  /**
+   * ラベルを折り返さないかどうか
+   */
+  nowrap?: boolean;
 };

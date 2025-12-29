@@ -435,6 +435,11 @@ export type BusinessDailyAttendanceLogOrderBy = {
   state: InputMaybe<OrderBy>;
 };
 
+/** primary key columns input for table: business.daily_attendance_log */
+export type BusinessDailyAttendanceLogPkColumnsInput = {
+  id: Scalars["String"];
+};
+
 /** select columns of table "business.daily_attendance_log" */
 export type BusinessDailyAttendanceLogSelectColumn =
   /** column name */
@@ -447,6 +452,12 @@ export type BusinessDailyAttendanceLogSelectColumn =
   | "memo"
   /** column name */
   | "state";
+
+/** input type for updating data in table "business.daily_attendance_log" */
+export type BusinessDailyAttendanceLogSetInput = {
+  datetime: InputMaybe<Scalars["timestamptz"]>;
+  memo: InputMaybe<Scalars["String"]>;
+};
 
 /** Streaming cursor of the table "business_daily_attendance_log" */
 export type BusinessDailyAttendanceLogStreamCursorInput = {
@@ -465,10 +476,19 @@ export type BusinessDailyAttendanceLogStreamCursorValueInput = {
   state: InputMaybe<Scalars["String"]>;
 };
 
-/** placeholder for update columns of table "business.daily_attendance_log" (current role has no relevant permissions) */
+/** update columns of table "business.daily_attendance_log" */
 export type BusinessDailyAttendanceLogUpdateColumn =
-  /** placeholder (do not use) */
-  "_PLACEHOLDER";
+  /** column name */
+  | "datetime"
+  /** column name */
+  | "memo";
+
+export type BusinessDailyAttendanceLogUpdates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set: InputMaybe<BusinessDailyAttendanceLogSetInput>;
+  /** filter the rows which have to be updated */
+  where: BusinessDailyAttendanceLogBoolExp;
+};
 
 /** order by max() on columns of table "business.daily_attendance" */
 export type BusinessDailyAttendanceMaxOrderBy = {
@@ -849,6 +869,7 @@ export type GroupBoolExp = {
   apps: InputMaybe<AppBoolExp>;
   categories: InputMaybe<HouseholdCategoryBoolExp>;
   conditionSessions: InputMaybe<HouseholdConditionSessionBoolExp>;
+  conditionSessionsAggregate: InputMaybe<HouseholdConditionSessionAggregateBoolExp>;
   creditCardDetails: InputMaybe<HouseholdCreditCardDetailBoolExp>;
   creditCardSummaries: InputMaybe<HouseholdCreditCardSummaryBoolExp>;
   creditCardSummariesAggregate: InputMaybe<HouseholdCreditCardSummaryAggregateBoolExp>;
@@ -1536,6 +1557,10 @@ export type HouseholdCategoryVarianceOrderBy = {
   displayOrder: InputMaybe<OrderBy>;
 };
 
+export type HouseholdConditionSessionAggregateBoolExp = {
+  count: InputMaybe<HouseholdConditionSessionAggregateBoolExpCount>;
+};
+
 /** order by aggregate values of table "household.condition_session" */
 export type HouseholdConditionSessionAggregateOrderBy = {
   count: InputMaybe<OrderBy>;
@@ -1951,6 +1976,7 @@ export type HouseholdCreditCardSummaryBoolExp = {
   count: InputMaybe<IntComparisonExp>;
   creditCard: InputMaybe<StringComparisonExp>;
   creditCardDetails: InputMaybe<HouseholdCreditCardDetailBoolExp>;
+  fileImportHistory: InputMaybe<HouseholdImportFileHistoryBoolExp>;
   group: InputMaybe<GroupBoolExp>;
   groupId: InputMaybe<StringComparisonExp>;
   id: InputMaybe<StringComparisonExp>;
@@ -1976,6 +2002,7 @@ export type HouseholdCreditCardSummaryInsertInput = {
   count: InputMaybe<Scalars["Int"]>;
   creditCard: InputMaybe<Scalars["String"]>;
   creditCardDetails: InputMaybe<HouseholdCreditCardDetailArrRelInsertInput>;
+  fileImportHistory: InputMaybe<HouseholdImportFileHistoryObjRelInsertInput>;
   groupId: InputMaybe<Scalars["String"]>;
   id: InputMaybe<Scalars["String"]>;
   totalAmount: InputMaybe<Scalars["numeric"]>;
@@ -2025,6 +2052,7 @@ export type HouseholdCreditCardSummaryOrderBy = {
   count: InputMaybe<OrderBy>;
   creditCard: InputMaybe<OrderBy>;
   creditCardDetailsAggregate: InputMaybe<HouseholdCreditCardDetailAggregateOrderBy>;
+  fileImportHistory: InputMaybe<HouseholdImportFileHistoryOrderBy>;
   group: InputMaybe<GroupOrderBy>;
   groupId: InputMaybe<OrderBy>;
   id: InputMaybe<OrderBy>;
@@ -3561,8 +3589,10 @@ export type HouseholdImportFileHistoryBoolExp = {
   group: InputMaybe<GroupBoolExp>;
   groupId: InputMaybe<StringComparisonExp>;
   id: InputMaybe<StringComparisonExp>;
+  importContents: InputMaybe<JsonComparisonExp>;
   importDatetime: InputMaybe<TimestampComparisonExp>;
   importUserId: InputMaybe<StringComparisonExp>;
+  user: InputMaybe<UserBoolExp>;
 };
 
 /** unique or primary key constraints on table "household.import_file_history" */
@@ -3576,8 +3606,10 @@ export type HouseholdImportFileHistoryInsertInput = {
   fileType: InputMaybe<Scalars["String"]>;
   groupId: InputMaybe<Scalars["String"]>;
   id: InputMaybe<Scalars["String"]>;
+  importContents: InputMaybe<Scalars["json"]>;
   importDatetime: InputMaybe<Scalars["timestamp"]>;
   importUserId: InputMaybe<Scalars["String"]>;
+  user: InputMaybe<UserObjRelInsertInput>;
 };
 
 /** order by max() on columns of table "household.import_file_history" */
@@ -3600,6 +3632,13 @@ export type HouseholdImportFileHistoryMinOrderBy = {
   importUserId: InputMaybe<OrderBy>;
 };
 
+/** input type for inserting object relation for remote table "household.import_file_history" */
+export type HouseholdImportFileHistoryObjRelInsertInput = {
+  data: HouseholdImportFileHistoryInsertInput;
+  /** upsert condition */
+  onConflict: InputMaybe<HouseholdImportFileHistoryOnConflict>;
+};
+
 /** on_conflict condition type for table "household.import_file_history" */
 export type HouseholdImportFileHistoryOnConflict = {
   constraint: HouseholdImportFileHistoryConstraint;
@@ -3614,8 +3653,10 @@ export type HouseholdImportFileHistoryOrderBy = {
   group: InputMaybe<GroupOrderBy>;
   groupId: InputMaybe<OrderBy>;
   id: InputMaybe<OrderBy>;
+  importContents: InputMaybe<OrderBy>;
   importDatetime: InputMaybe<OrderBy>;
   importUserId: InputMaybe<OrderBy>;
+  user: InputMaybe<UserOrderBy>;
 };
 
 /** select columns of table "household.import_file_history" */
@@ -3628,6 +3669,8 @@ export type HouseholdImportFileHistorySelectColumn =
   | "groupId"
   /** column name */
   | "id"
+  /** column name */
+  | "importContents"
   /** column name */
   | "importDatetime"
   /** column name */
@@ -3647,6 +3690,7 @@ export type HouseholdImportFileHistoryStreamCursorValueInput = {
   fileType: InputMaybe<Scalars["String"]>;
   groupId: InputMaybe<Scalars["String"]>;
   id: InputMaybe<Scalars["String"]>;
+  importContents: InputMaybe<Scalars["json"]>;
   importDatetime: InputMaybe<Scalars["timestamp"]>;
   importUserId: InputMaybe<Scalars["String"]>;
 };
@@ -4304,6 +4348,19 @@ export type JsonArrayComparisonExp = {
   _nin: InputMaybe<Array<Array<Scalars["json"]>>>;
 };
 
+/** Boolean expression to compare columns of type "json". All fields are combined with logical 'AND'. */
+export type JsonComparisonExp = {
+  _eq: InputMaybe<Scalars["json"]>;
+  _gt: InputMaybe<Scalars["json"]>;
+  _gte: InputMaybe<Scalars["json"]>;
+  _in: InputMaybe<Array<Scalars["json"]>>;
+  _isNull: InputMaybe<Scalars["Boolean"]>;
+  _lt: InputMaybe<Scalars["json"]>;
+  _lte: InputMaybe<Scalars["json"]>;
+  _neq: InputMaybe<Scalars["json"]>;
+  _nin: InputMaybe<Array<Scalars["json"]>>;
+};
+
 /** Boolean expression to compare columns of type "numeric". All fields are combined with logical 'AND'. */
 export type NumericComparisonExp = {
   _eq: InputMaybe<Scalars["numeric"]>;
@@ -4526,6 +4583,13 @@ export type HouseholdAllDetailViewAggregateBoolExpCount = {
   arguments: InputMaybe<Array<HouseholdAllDetailViewSelectColumn>>;
   distinct: InputMaybe<Scalars["Boolean"]>;
   filter: InputMaybe<HouseholdAllDetailViewBoolExp>;
+  predicate: IntComparisonExp;
+};
+
+export type HouseholdConditionSessionAggregateBoolExpCount = {
+  arguments: InputMaybe<Array<HouseholdConditionSessionSelectColumn>>;
+  distinct: InputMaybe<Scalars["Boolean"]>;
+  filter: InputMaybe<HouseholdConditionSessionBoolExp>;
   predicate: IntComparisonExp;
 };
 

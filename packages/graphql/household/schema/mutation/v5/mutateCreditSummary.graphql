@@ -1,0 +1,18 @@
+mutation updateCreditSummary(
+  $id: String!
+  $form: HouseholdCreditCardSummarySetInput!
+) {
+  updateCreditCardSummary: updateHouseholdCreditCardSummaryByPk(
+    pkColumns: { id: $id }
+    _set: $form
+  ) {
+    id
+  }
+}
+
+mutation deleteCreditSummary($id: String!) {
+  deleteHouseholdCreditCardSummaryByPk(id: $id) {
+    __typename
+    id
+  }
+}

@@ -1,3 +1,10 @@
-import { CreditHistoryListServer } from "../../../../features/householdCreditHistoryList/components/CreditHistoryListServer";
+import { CreditHistoryListServer } from "../../../../features/household/credit-history/list/credit-history-list.server";
+import { findUser } from "../../../../persistence/browser/server/find-user";
 
-export default CreditHistoryListServer;
+const Page = async () => {
+  const { group } = await findUser();
+
+  return <CreditHistoryListServer groupId={group.id} />;
+};
+
+export default Page;
