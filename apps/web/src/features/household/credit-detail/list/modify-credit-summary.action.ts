@@ -1,6 +1,6 @@
 "use server";
 
-import { UpdateCreditSummaryDocument } from "@v3/graphql/household/schema/mutation/v5/updateCreditSummary.generated";
+import { UpdateCreditSummaryDocument } from "@v3/graphql/household";
 import { execMutation } from "../../../../persistence/database/server/execMutation";
 import type { SummaryFormState } from "./summary-form-state";
 

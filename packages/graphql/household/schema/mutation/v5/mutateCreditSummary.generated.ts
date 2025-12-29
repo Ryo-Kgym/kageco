@@ -4657,6 +4657,18 @@ export type UpdateCreditSummaryMutation = {
   } | null;
 };
 
+export type DeleteCreditSummaryMutationVariables = Types.Exact<{
+  id: Types.Scalars["String"];
+}>;
+
+export type DeleteCreditSummaryMutation = {
+  __typename?: "mutation_root";
+  deleteHouseholdCreditCardSummaryByPk: {
+    __typename: "HouseholdCreditCardSummary";
+    id: string;
+  } | null;
+};
+
 export const UpdateCreditSummaryDocument = {
   kind: "Document",
   definitions: [
@@ -4742,4 +4754,59 @@ export const UpdateCreditSummaryDocument = {
 } as unknown as DocumentNode<
   UpdateCreditSummaryMutation,
   UpdateCreditSummaryMutationVariables
+>;
+export const DeleteCreditSummaryDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "deleteCreditSummary" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: {
+              kind: "Name",
+              value: "deleteHouseholdCreditCardSummaryByPk",
+            },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "__typename" } },
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  DeleteCreditSummaryMutation,
+  DeleteCreditSummaryMutationVariables
 >;

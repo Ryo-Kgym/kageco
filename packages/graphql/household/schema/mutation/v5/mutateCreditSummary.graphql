@@ -9,3 +9,10 @@ mutation updateCreditSummary(
     id
   }
 }
+
+mutation deleteCreditSummary($id: String!) {
+  deleteHouseholdCreditCardSummaryByPk(id: $id) {
+    __typename
+    id
+  }
+}

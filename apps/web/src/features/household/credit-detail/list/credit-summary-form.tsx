@@ -7,6 +7,7 @@ import { DateInput } from "../../../../components/ui/v4/dateInput/DateInput";
 import { errorPopup, successPopup } from "../../../../function/successPopup";
 import { useRouter } from "../../../../routing/client/useRouter";
 import { paths } from "../../../../routing/paths";
+import { deleteCreditSummaryAction } from "./delete-credit-summary.action";
 import { modifyCreditSummaryAction } from "./modify-credit-summary.action";
 import type {
   SummaryDisplayState,
@@ -32,6 +33,22 @@ export const CreditSummaryForm: FC<Props> = (summary) => {
     } catch (e) {
       console.error(e);
       errorPopup("更新に失敗しました");
+    }
+  };
+
+  const deleteHandler = async () => {
+    if (!window.confirm("本当に削除しますか。この操作は取り消せません")) return;
+
+    try {
+      await deleteCreditSummaryAction({
+        id: summary.id,
+      });
+
+      successPopup("削除しました");
+      push(paths.household.creditCard);
+    } catch (e) {
+      console.error(e);
+      errorPopup("削除に失敗しました");
     }
   };
 
@@ -93,6 +110,9 @@ export const CreditSummaryForm: FC<Props> = (summary) => {
       </table>
       <div>
         <Button type="modify" onClick={updateHandler} label="更新" />
+        {summary.error && (
+          <Button type="dangerous" onClick={deleteHandler} label="削除" />
+        )}
         <Button type={"back"} onClick={backHandler} label={"戻る"} />
       </div>
     </div>
