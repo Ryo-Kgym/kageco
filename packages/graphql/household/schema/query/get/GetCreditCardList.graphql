@@ -12,5 +12,21 @@ query GetCreditCardList($groupId: String!) {
     count
     withdrawalDate
     totalAmount
+    details: creditCardDetails {
+      __typename
+      id
+      amount
+    }
+    fileImportHistory {
+      __typename
+      id
+      importDatetime
+      fileName
+      user {
+        __typename
+        id
+        name
+      }
+    }
   }
 }
